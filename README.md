@@ -1,2 +1,3 @@
-# phlogopite
-Logging with less allocations
+# Phlogopite
+
+Logging with less allocations.
