@@ -67,5 +67,35 @@ namespace Phlogopite
         public double AsDouble => _value.ScalarValue.AsDouble;
 
         public DateTime AsDateTime => _value.ScalarValue.AsDateTime;
+
+        public static implicit operator Property((string name, object value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, string value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, bool value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, byte value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, sbyte value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, char value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, short value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, ushort value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, int value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, uint value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, long value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, ulong value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, float value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, double value) t) => new Property(t.name, t.value);
+
+        public static implicit operator Property((string name, DateTime value) t) => new Property(t.name, t.value);
     }
 }
