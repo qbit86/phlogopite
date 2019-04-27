@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
@@ -33,6 +34,24 @@ namespace Phlogopite
             {
                 RenderLevel(level, output);
                 output.Write(" ");
+                if (!mediatorProperties.IsEmpty && string.Equals(mediatorProperties[0].Name, "timestamp")
+                    && mediatorProperties[0].TryGetDateTime(out DateTime timestamp))
+                {
+                    RenderTime(timestamp, output);
+                }
+                else
+                {
+                    output.Write("            ");
+                }
+
+                output.Write(" ");
+                if (!writerProperties.IsEmpty && string.Equals(writerProperties[0].Name, "tag")
+                    && writerProperties[0].TryGetString(out string tag))
+                {
+                    output.Write("[");
+                    output.Write(tag);
+                    output.Write("] ");
+                }
             }
             finally
             {
@@ -74,6 +93,36 @@ namespace Phlogopite
                     output.Write("-");
                     break;
             }
+        }
+
+        private static void RenderTime(DateTime timestamp, TextWriter output)
+        {
+            if (output is null || output == TextWriter.Null)
+                return;
+
+            // timestamp.TryFormat() is not available in netstandard2.0.
+
+            if (timestamp.Hour < 10)
+                output.Write("0");
+
+            output.Write(timestamp.Hour);
+            output.Write(":");
+            if (timestamp.Minute < 10)
+                output.Write("0");
+
+            output.Write(timestamp.Minute);
+            output.Write(":");
+            if (timestamp.Second < 10)
+                output.Write("0");
+
+            output.Write(timestamp.Second);
+            output.Write(".");
+            if (timestamp.Second < 10)
+                output.Write("00");
+            else if (timestamp.Second < 100)
+                output.Write("0");
+
+            output.Write(timestamp.Millisecond);
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
