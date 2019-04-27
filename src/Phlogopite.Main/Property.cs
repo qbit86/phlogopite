@@ -250,6 +250,7 @@ namespace Phlogopite
             return true;
         }
 
+#pragma warning disable CA2225 // Operator overloads have named alternates
         public static implicit operator Property((string name, object value) t) => new Property(t.name, t.value);
 
         public static implicit operator Property((string name, string value) t) => new Property(t.name, t.value);
@@ -279,5 +280,6 @@ namespace Phlogopite
         public static implicit operator Property((string name, double value) t) => new Property(t.name, t.value);
 
         public static implicit operator Property((string name, DateTime value) t) => new Property(t.name, t.value);
+#pragma warning restore CA2225 // Operator overloads have named alternates
     }
 }

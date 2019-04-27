@@ -50,5 +50,16 @@ namespace Phlogopite
         internal Scalar ScalarValue => _scalar;
 
         internal TypeCode TypeCode => _typeCode;
+
+        internal bool Equals(PropertyValue other)
+        {
+            if (_typeCode != other._typeCode || _scalar.AsInt64 != other._scalar.AsInt64)
+                return false;
+
+            if (_reference is null)
+                return other._reference is null;
+
+            return _reference.Equals(other._reference);
+        }
     }
 }
