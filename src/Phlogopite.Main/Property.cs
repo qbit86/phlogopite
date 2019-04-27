@@ -94,6 +94,150 @@ namespace Phlogopite
             return true;
         }
 
+        public bool TryGetBoolean(out bool value)
+        {
+            if (TypeCode != TypeCode.Boolean)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsBoolean;
+            return true;
+        }
+
+        public bool TryGetByte(out byte value)
+        {
+            if (TypeCode != TypeCode.Byte)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsByte;
+            return true;
+        }
+
+        public bool TryGetSByte(out sbyte value)
+        {
+            if (TypeCode != TypeCode.SByte)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsSByte;
+            return true;
+        }
+
+        public bool TryGetChar(out char value)
+        {
+            if (TypeCode != TypeCode.Char)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsChar;
+            return true;
+        }
+
+        public bool TryGetInt16(out short value)
+        {
+            if (TypeCode != TypeCode.Int16)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsInt16;
+            return true;
+        }
+
+        public bool TryGetUInt16(out ushort value)
+        {
+            if (TypeCode != TypeCode.UInt16)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsUInt16;
+            return true;
+        }
+
+        public bool TryGetInt32(out int value)
+        {
+            if (TypeCode != TypeCode.Int32)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsInt32;
+            return true;
+        }
+
+        public bool TryGetUInt32(out uint value)
+        {
+            if (TypeCode != TypeCode.UInt32)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsUInt32;
+            return true;
+        }
+
+        public bool TryGetInt64(out long value)
+        {
+            if (TypeCode != TypeCode.Int64)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsInt64;
+            return true;
+        }
+
+        public bool TryGetUInt64(out ulong value)
+        {
+            if (TypeCode != TypeCode.UInt64)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsUInt64;
+            return true;
+        }
+
+        public bool TryGetSingle(out float value)
+        {
+            if (TypeCode != TypeCode.Single)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsSingle;
+            return true;
+        }
+
+        public bool TryGetDouble(out double value)
+        {
+            if (TypeCode != TypeCode.Double)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsDouble;
+            return true;
+        }
+
         public bool TryGetDateTime(out DateTime value)
         {
             if (TypeCode != TypeCode.DateTime)
