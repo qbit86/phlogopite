@@ -52,13 +52,60 @@ namespace Phlogopite
                     output.Write(tag);
                     output.Write("] ");
                 }
+
+                output.Write(text);
+
+                for (int i = 0; i != userProperties.Length; ++i)
+                {
+                    if (i == 0 && !string.IsNullOrEmpty(text))
+                    {
+                        bool endsWithPunctuation = char.IsPunctuation(text, text.Length - 1);
+                        if (endsWithPunctuation)
+                        {
+                            output.Write(" ");
+                            if (!string.IsNullOrEmpty(userProperties[i].Name))
+                            {
+                                output.Write(userProperties[i].Name);
+                                output.Write(": ");
+                            }
+
+                            RenderValue(userProperties[i], output);
+                        }
+                        else if (string.IsNullOrEmpty(userProperties[i].Name))
+                        {
+                            output.Write(": ");
+                            RenderValue(userProperties[i], output);
+                        }
+                        else
+                        {
+                            output.Write(". ");
+                            output.Write(userProperties[i].Name);
+                            output.Write(": ");
+                            RenderValue(userProperties[i], output);
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(userProperties[i].Name))
+                        {
+                            output.Write(userProperties[i].Name);
+                            output.Write(": ");
+                        }
+
+                        RenderValue(userProperties[i], output);
+                    }
+
+                    if (i + 1 < userProperties.Length)
+                    {
+                        output.Write(", ");
+                    }
+                }
             }
             finally
             {
                 Console.ForegroundColor = oldColor;
+                output.WriteLine();
             }
-
-            output.WriteLine();
         }
 
         private static void RenderLevel(Level level, TextWriter output)
@@ -123,6 +170,14 @@ namespace Phlogopite
                 output.Write("0");
 
             output.Write(timestamp.Millisecond);
+        }
+
+        private static void RenderValue(in Property p, TextWriter output)
+        {
+            if (output is null || output == TextWriter.Null)
+                return;
+
+            throw new NotImplementedException();
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
