@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
@@ -11,11 +8,18 @@ namespace Phlogopite
         private readonly string _name;
         private readonly PropertyValue _value;
 
-        internal Property(string name, PropertyValue value)
+        private Property(string name, PropertyValue value)
         {
+#if DEBUG
+            if (value.TypeCode == TypeCode.Object || value.TypeCode == TypeCode.String)
+                Assert(value.ReferenceValue != null, "[Property.ctor] value.ReferenceValue != null");
+#endif
             _name = name;
             _value = value;
         }
+
+        public Property(string name, object value) : this(name, value is null ? default : new PropertyValue(value)) { }
+        public Property(string name, string value) : this(name, value is null ? default : new PropertyValue(value)) { }
 
         public string Name => _name;
     }
