@@ -37,5 +37,35 @@ namespace Phlogopite
         public string Name => _name;
 
         public TypeCode TypeCode => _value.TypeCode;
+
+        public object AsObject => _value.ReferenceValue;
+
+        public string AsString => _value.ReferenceValue as string;
+
+        public bool AsBoolean => _value.ScalarValue.AsBoolean;
+
+        public byte AsByte => _value.ScalarValue.AsByte;
+
+        public sbyte AsSByte => _value.ScalarValue.AsSByte;
+
+        public char AsChar => _value.ScalarValue.AsChar;
+
+        public short AsInt16 => _value.ScalarValue.AsInt16;
+
+        public ushort AsUInt16 => _value.ScalarValue.AsUInt16;
+
+        public int AsInt32 => _value.ScalarValue.AsInt32;
+
+        public uint AsUInt32 => _value.ScalarValue.AsUInt32;
+
+        public long AsInt64 => _value.ScalarValue.AsInt64;
+
+        public ulong AsUInt64 => _value.ScalarValue.AsUInt64;
+
+        public float AsSingle => _value.ScalarValue.AsSingle;
+
+        public double AsDouble => _value.ScalarValue.AsDouble;
+
+        public DateTime AsDateTime => _value.ScalarValue.AsDateTime;
     }
 }
