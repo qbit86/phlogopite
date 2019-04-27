@@ -68,6 +68,44 @@ namespace Phlogopite
 
         public DateTime AsDateTime => _value.ScalarValue.AsDateTime;
 
+        public bool TryGetObject(out object value)
+        {
+            if (TypeCode != TypeCode.Object)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsObject;
+            Assert(value != null, "[Property.TryGetObject] value != null");
+            return true;
+        }
+
+        public bool TryGetString(out string value)
+        {
+            if (TypeCode != TypeCode.String)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsString;
+            Assert(value != null, "[Property.TryGetString] value != null");
+            return true;
+        }
+
+        public bool TryGetDateTime(out DateTime value)
+        {
+            if (TypeCode != TypeCode.DateTime)
+            {
+                value = default;
+                return false;
+            }
+
+            value = AsDateTime;
+            return true;
+        }
+
         public static implicit operator Property((string name, object value) t) => new Property(t.name, t.value);
 
         public static implicit operator Property((string name, string value) t) => new Property(t.name, t.value);
