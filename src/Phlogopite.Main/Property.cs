@@ -20,7 +20,22 @@ namespace Phlogopite
 
         public Property(string name, object value) : this(name, value is null ? default : new PropertyValue(value)) { }
         public Property(string name, string value) : this(name, value is null ? default : new PropertyValue(value)) { }
+        public Property(string name, bool value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, byte value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, sbyte value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, char value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, short value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, ushort value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, int value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, uint value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, long value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, ulong value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, float value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, double value) : this(name, new PropertyValue(value)) { }
+        public Property(string name, DateTime value) : this(name, new PropertyValue(value)) { }
 
         public string Name => _name;
+
+        public TypeCode TypeCode => _value.TypeCode;
     }
 }
