@@ -1,6 +1,6 @@
 using System;
+using System.Globalization;
 using System.IO;
-using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
@@ -11,10 +11,12 @@ namespace Phlogopite
             ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan };
 
         private readonly Level _minimumLevel;
+        private readonly IFormatProvider _formatProvider;
 
         public ConsoleSink(Level minimumLevel)
         {
             _minimumLevel = minimumLevel;
+            _formatProvider = CultureInfo.InvariantCulture;
         }
 
         public bool IsEnabled(Level level)
@@ -172,12 +174,64 @@ namespace Phlogopite
             output.Write(timestamp.Millisecond);
         }
 
-        private static void RenderValue(in Property p, TextWriter output)
+        private void RenderValue(in Property p, TextWriter output)
         {
             if (output is null || output == TextWriter.Null)
                 return;
 
-            throw new NotImplementedException();
+            switch (p.TypeCode)
+            {
+                case TypeCode.Empty:
+                    return;
+                case TypeCode.Object:
+                    output.Write(p.AsObject);
+                    return;
+                case TypeCode.Boolean:
+                    output.Write(p.AsBoolean);
+                    return;
+                case TypeCode.Char:
+                    output.Write(p.AsChar);
+                    return;
+                case TypeCode.SByte:
+                    output.Write(p.AsSByte);
+                    return;
+                case TypeCode.Byte:
+                    output.Write(p.AsByte);
+                    return;
+                case TypeCode.Int16:
+                    output.Write(p.AsInt16);
+                    return;
+                case TypeCode.UInt16:
+                    output.Write(p.AsUInt16);
+                    return;
+                case TypeCode.Int32:
+                    output.Write(p.AsInt32);
+                    return;
+                case TypeCode.UInt32:
+                    output.Write(p.AsUInt32);
+                    return;
+                case TypeCode.Int64:
+                    output.Write(p.AsInt64);
+                    return;
+                case TypeCode.UInt64:
+                    output.Write(p.AsUInt64);
+                    return;
+                case TypeCode.Single:
+                    output.Write(p.AsSingle);
+                    return;
+                case TypeCode.Double:
+                    output.Write(p.AsDouble);
+                    return;
+                case TypeCode.DateTime:
+                    output.Write(p.AsDateTime.ToString(_formatProvider));
+                    return;
+                case TypeCode.String:
+                    output.Write(p.AsString);
+                    return;
+                default:
+                    output.Write(p.AsObject);
+                    return;
+            }
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
