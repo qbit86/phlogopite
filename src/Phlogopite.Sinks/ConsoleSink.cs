@@ -36,7 +36,7 @@ namespace Phlogopite
             {
                 RenderLevel(level, output);
                 output.Write(" ");
-                if (!mediatorProperties.IsEmpty && string.Equals(mediatorProperties[0].Name, "timestamp")
+                if (!mediatorProperties.IsEmpty && string.Equals(mediatorProperties[0].Name, "timestamp", StringComparison.Ordinal)
                     && mediatorProperties[0].TryGetDateTime(out DateTime timestamp))
                 {
                     RenderTime(timestamp, output);
@@ -47,7 +47,7 @@ namespace Phlogopite
                 }
 
                 output.Write(" ");
-                if (!writerProperties.IsEmpty && string.Equals(writerProperties[0].Name, "tag")
+                if (!writerProperties.IsEmpty && string.Equals(writerProperties[0].Name, "tag", StringComparison.Ordinal)
                     && writerProperties[0].TryGetString(out string tag))
                 {
                     output.Write("[");
