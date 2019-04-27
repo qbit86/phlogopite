@@ -24,6 +24,13 @@ namespace Phlogopite
             _typeCode = typeCode;
         }
 
+        internal PropertyValue(string value)
+        {
+            _reference = value;
+            _scalar = default;
+            _typeCode = TypeCode.String;
+        }
+
         private PropertyValue(bool value) : this(new Scalar { AsBoolean = value }, TypeCode.Boolean) { }
         private PropertyValue(byte value) : this(new Scalar { AsByte = value }, TypeCode.Byte) { }
         private PropertyValue(sbyte value) : this(new Scalar { AsSByte = value }, TypeCode.SByte) { }
