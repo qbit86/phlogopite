@@ -3,36 +3,36 @@ using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
-    public readonly struct Property
+    public readonly struct NamedProperty
     {
         private readonly string _name;
         private readonly PropertyValue _value;
 
-        private Property(string name, PropertyValue value)
+        private NamedProperty(string name, PropertyValue value)
         {
 #if DEBUG
             if (value.TypeCode == TypeCode.Object || value.TypeCode == TypeCode.String)
-                Assert(value.ReferenceValue != null, "[Property.ctor] value.ReferenceValue != null");
+                Assert(value.ReferenceValue != null, "[NamedProperty.ctor] value.ReferenceValue != null");
 #endif
             _name = name;
             _value = value;
         }
 
-        public Property(string name, object value) : this(name, value is null ? default : new PropertyValue(value)) { }
-        public Property(string name, string value) : this(name, value is null ? default : new PropertyValue(value)) { }
-        public Property(string name, bool value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, byte value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, sbyte value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, char value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, short value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, ushort value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, int value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, uint value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, long value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, ulong value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, float value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, double value) : this(name, new PropertyValue(value)) { }
-        public Property(string name, DateTime value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, object value) : this(name, value is null ? default : new PropertyValue(value)) { }
+        public NamedProperty(string name, string value) : this(name, value is null ? default : new PropertyValue(value)) { }
+        public NamedProperty(string name, bool value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, byte value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, sbyte value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, char value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, short value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, ushort value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, int value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, uint value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, long value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, ulong value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, float value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, double value) : this(name, new PropertyValue(value)) { }
+        public NamedProperty(string name, DateTime value) : this(name, new PropertyValue(value)) { }
 
         public string Name => _name;
 
@@ -77,7 +77,7 @@ namespace Phlogopite
             }
 
             value = AsObject;
-            Assert(value != null, "[Property.TryGetObject] value != null");
+            Assert(value != null, "[NamedProperty.TryGetObject] value != null");
             return true;
         }
 
@@ -90,7 +90,7 @@ namespace Phlogopite
             }
 
             value = AsString;
-            Assert(value != null, "[Property.TryGetString] value != null");
+            Assert(value != null, "[NamedProperty.TryGetString] value != null");
             return true;
         }
 
@@ -251,35 +251,35 @@ namespace Phlogopite
         }
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator Property((string name, object value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, object value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, string value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, string value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, bool value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, bool value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, byte value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, byte value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, sbyte value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, sbyte value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, char value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, char value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, short value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, short value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, ushort value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, ushort value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, int value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, int value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, uint value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, uint value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, long value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, long value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, ulong value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, ulong value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, float value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, float value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, double value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, double value) t) => new NamedProperty(t.name, t.value);
 
-        public static implicit operator Property((string name, DateTime value) t) => new Property(t.name, t.value);
+        public static implicit operator NamedProperty((string name, DateTime value) t) => new NamedProperty(t.name, t.value);
 #pragma warning restore CA2225 // Operator overloads have named alternates
     }
 }

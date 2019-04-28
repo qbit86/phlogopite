@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Phlogopite
 {
-    public sealed class ConsoleSink : ISink<Property>
+    public sealed class ConsoleSink : ISink<NamedProperty>
     {
         private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[] {
             ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.Yellow,
@@ -24,8 +24,8 @@ namespace Phlogopite
             return _minimumLevel <= level;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<Property> userProperties,
-            ReadOnlySpan<Property> writerProperties, ReadOnlySpan<Property> mediatorProperties)
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
             if (!IsEnabled(level))
                 return;
@@ -174,7 +174,7 @@ namespace Phlogopite
             output.Write(timestamp.Millisecond);
         }
 
-        private void RenderValue(in Property p, TextWriter output)
+        private void RenderValue(in NamedProperty p, TextWriter output)
         {
             if (output is null || output == TextWriter.Null)
                 return;
