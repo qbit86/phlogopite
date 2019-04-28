@@ -9,6 +9,8 @@ namespace Phlogopite
         private readonly string _tag;
         private readonly Level _minimumLevel;
 
+        public Writer(IMediator<NamedProperty> mediator, string tag) : this(mediator, tag, Level.Verbose) { }
+
         public Writer(IMediator<NamedProperty> mediator, string tag, Level minimumLevel)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));

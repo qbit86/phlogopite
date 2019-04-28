@@ -13,6 +13,8 @@ namespace Phlogopite
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
 
+        public ConsoleSink() : this(Level.Verbose) { }
+
         public ConsoleSink(Level minimumLevel)
         {
             _minimumLevel = minimumLevel;

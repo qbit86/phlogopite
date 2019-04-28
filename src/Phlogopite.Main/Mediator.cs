@@ -10,6 +10,8 @@ namespace Phlogopite
         private readonly List<ISink<NamedProperty>> _sinks = new List<ISink<NamedProperty>>();
         private readonly ISink<NamedProperty> _errorSink = SilentSink.Default;
 
+        public Mediator() : this(Level.Verbose) { }
+
         public Mediator(Level minimumLevel)
         {
             _minimumLevel = minimumLevel;

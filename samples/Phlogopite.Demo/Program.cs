@@ -1,4 +1,5 @@
 using System;
+using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
@@ -6,10 +7,18 @@ namespace Phlogopite
     {
         private static void Main()
         {
-            ISink<NamedProperty> sink = new ConsoleSink(Level.Verbose);
-            var mediator = new Mediator(Level.Verbose);
+            var sink = new ConsoleSink();
+            var mediator = new Mediator();
             mediator.Add(sink);
-            var log = new Writer(mediator, nameof(Program) + "." + nameof(Main), Level.Verbose);
+            Foo(mediator);
+        }
+
+        private static void Foo(Mediator mediator)
+        {
+            const string tag = nameof(Program) + "." + nameof(Foo);
+            Assert(mediator != null, $"[{tag}] mediator != null");
+
+            var log = new Writer(mediator, tag);
             log.V("Hello verbose", ("userProperty", DateTime.Now));
         }
     }
