@@ -16,6 +16,5 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" PrivateAssets="all" />
-    <PackageReference Include="Text.Analyzers" Version="2.6.3" PrivateAssets="all" />
   </ItemGroup>
 </Project>
