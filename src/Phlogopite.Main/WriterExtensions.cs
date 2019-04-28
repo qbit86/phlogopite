@@ -61,9 +61,11 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Fatal, text, p0);
         }
 
-        private static void WriteUnchecked(in Writer writer, Level level, string text, in NamedProperty p0)
+        private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,
+            in TProperty p0)
+            where TWriter : IWriter<TProperty>
         {
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(1);
+            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(1);
             try
             {
                 properties[0] = p0;
@@ -71,7 +73,7 @@ namespace Phlogopite
             }
             finally
             {
-                ArrayPool<NamedProperty>.Shared.Return(properties);
+                ArrayPool<TProperty>.Shared.Return(properties);
             }
         }
     }
