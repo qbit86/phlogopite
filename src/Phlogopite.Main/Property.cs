@@ -3,7 +3,7 @@ using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
-    public readonly struct NamedProperty
+    public readonly struct NamedProperty : IEquatable<NamedProperty>
     {
         private readonly string _name;
         private readonly PropertyValue _value;
@@ -249,6 +249,29 @@ namespace Phlogopite
             value = AsDateTime;
             return true;
         }
+
+        public bool Equals(NamedProperty other)
+        {
+            if (!_value.Equals(other._value))
+                return false;
+
+            return string.Equals(_name, other._name, StringComparison.Ordinal);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is NamedProperty other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            int nameHashCode = _name is null ? 0 : StringComparer.Ordinal.GetHashCode(_name);
+            return HashHelpers.Combine(_value.GetHashCode(), nameHashCode);
+        }
+
+        public static bool operator ==(NamedProperty left, NamedProperty right) => left.Equals(right);
+
+        public static bool operator !=(NamedProperty left, NamedProperty right) => !left.Equals(right);
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
         public static implicit operator NamedProperty((string name, object value) t) => new NamedProperty(t.name, t.value);
