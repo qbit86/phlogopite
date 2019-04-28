@@ -51,6 +51,17 @@ namespace Phlogopite
 
         internal TypeCode TypeCode => _typeCode;
 
+        public override int GetHashCode()
+        {
+            int hash = 5381;
+            hash = HashHelpers.Combine(hash, (int)_typeCode);
+            hash = HashHelpers.Combine(hash, _scalar.AsInt32);
+            if (_reference != null)
+                hash = HashHelpers.Combine(hash, _reference.GetHashCode());
+
+            return hash;
+        }
+
         internal bool Equals(PropertyValue other)
         {
             if (_typeCode != other._typeCode || _scalar.AsInt64 != other._scalar.AsInt64)
