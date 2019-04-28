@@ -1,5 +1,4 @@
 using System;
-using static System.Diagnostics.Debug;
 
 namespace Phlogopite
 {
@@ -16,10 +15,10 @@ namespace Phlogopite
         private static void Foo(Mediator mediator)
         {
             const string tag = nameof(Program) + "." + nameof(Foo);
-            Assert(mediator != null, $"[{tag}] mediator != null");
-
             var log = new Writer(mediator, tag);
-            log.V("Hello verbose", ("userProperty", DateTime.Now));
+            log.V("Hello verbose", ("dateTime", DateTime.Now));
+            log.D("Anonymous property", (null, Environment.CurrentDirectory));
+            log.I("Here is float!", ("float", 1.618f));
         }
     }
 }
