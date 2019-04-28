@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 
 namespace Phlogopite
@@ -32,26 +33,29 @@ namespace Phlogopite
             if (!IsEnabled(level))
                 return;
 
-            Span<NamedProperty> mediatorProperties = new NamedProperty[]
+            NamedProperty[] mediatorProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
+            try
             {
-                new NamedProperty("timestamp", DateTime.Now),
-                default
-            };
-
-            foreach (ISink<NamedProperty> sink in _sinks)
-            {
-                try
+                mediatorProperties[0] = new NamedProperty("timestamp", DateTime.Now);
+                foreach (ISink<NamedProperty> sink in _sinks)
                 {
-                    sink.Write(level, text, userProperties, writerProperties, mediatorProperties.Slice(0, 1));
-                }
+                    try
+                    {
+                        sink.Write(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
+                    }
 #pragma warning disable CA1031 // Do not catch general exception types
-                catch (Exception ex)
-                {
-                    mediatorProperties[1] = new NamedProperty("exception", ex);
-                    _errorSink.Write(Level.Error, ex.Message, ReadOnlySpan<NamedProperty>.Empty,
-                        ReadOnlySpan<NamedProperty>.Empty, mediatorProperties);
-                }
+                    catch (Exception ex)
+                    {
+                        mediatorProperties[1] = new NamedProperty("exception", ex);
+                        _errorSink.Write(Level.Error, ex.Message, ReadOnlySpan<NamedProperty>.Empty,
+                            ReadOnlySpan<NamedProperty>.Empty, mediatorProperties.AsSpan(0, 2));
+                    }
 #pragma warning restore CA1031 // Do not catch general exception types
+                }
+            }
+            finally
+            {
+                ArrayPool<NamedProperty>.Shared.Return(mediatorProperties, true);
             }
         }
     }
