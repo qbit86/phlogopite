@@ -37,6 +37,30 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Info, text, p0);
         }
 
+        public static void W(this Writer writer, string text, in NamedProperty p0)
+        {
+            if (!writer.IsEnabled(Level.Warning))
+                return;
+
+            WriteUnchecked(writer, Level.Warning, text, p0);
+        }
+
+        public static void E(this Writer writer, string text, in NamedProperty p0)
+        {
+            if (!writer.IsEnabled(Level.Error))
+                return;
+
+            WriteUnchecked(writer, Level.Error, text, p0);
+        }
+
+        public static void F(this Writer writer, string text, in NamedProperty p0)
+        {
+            if (!writer.IsEnabled(Level.Fatal))
+                return;
+
+            WriteUnchecked(writer, Level.Fatal, text, p0);
+        }
+
         private static void WriteUnchecked(in Writer writer, Level level, string text, in NamedProperty p0)
         {
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(1);
