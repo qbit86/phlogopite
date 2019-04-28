@@ -166,9 +166,9 @@ namespace Phlogopite
 
             output.Write(timestamp.Second);
             output.Write(".");
-            if (timestamp.Second < 10)
+            if (timestamp.Millisecond < 10)
                 output.Write("00");
-            else if (timestamp.Second < 100)
+            else if (timestamp.Millisecond < 100)
                 output.Write("0");
 
             output.Write(timestamp.Millisecond);
