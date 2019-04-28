@@ -5,7 +5,8 @@ namespace Phlogopite
 {
     public static class WriterExtensions
     {
-        public static void Write(this Writer writer, Level level, string text, in NamedProperty p0)
+        public static void Write<TWriter>(this TWriter writer, Level level, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(level))
                 return;
@@ -13,7 +14,8 @@ namespace Phlogopite
             WriteUnchecked(writer, level, text, p0);
         }
 
-        public static void V(this Writer writer, string text, in NamedProperty p0)
+        public static void V<TWriter>(this TWriter writer, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Verbose))
                 return;
@@ -21,7 +23,8 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Verbose, text, p0);
         }
 
-        public static void D(this Writer writer, string text, in NamedProperty p0)
+        public static void D<TWriter>(this TWriter writer, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Debug))
                 return;
@@ -29,7 +32,8 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Debug, text, p0);
         }
 
-        public static void I(this Writer writer, string text, NamedProperty p0)
+        public static void I<TWriter>(this TWriter writer, string text, NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Info))
                 return;
@@ -37,7 +41,8 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Info, text, p0);
         }
 
-        public static void W(this Writer writer, string text, in NamedProperty p0)
+        public static void W<TWriter>(this TWriter writer, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Warning))
                 return;
@@ -45,7 +50,8 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Warning, text, p0);
         }
 
-        public static void E(this Writer writer, string text, in NamedProperty p0)
+        public static void E<TWriter>(this TWriter writer, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Error))
                 return;
@@ -53,7 +59,8 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Error, text, p0);
         }
 
-        public static void F(this Writer writer, string text, in NamedProperty p0)
+        public static void F<TWriter>(this TWriter writer, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Fatal))
                 return;
