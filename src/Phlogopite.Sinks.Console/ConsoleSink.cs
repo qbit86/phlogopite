@@ -11,6 +11,7 @@ namespace Phlogopite
 
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
+        private readonly Renderer _renderer;
 
         public ConsoleSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
 
@@ -20,6 +21,7 @@ namespace Phlogopite
         {
             _minimumLevel = minimumLevel;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
+            _renderer = new Renderer(Console.Out, _formatProvider);
         }
 
         public bool IsEnabled(Level level)
@@ -220,7 +222,7 @@ namespace Phlogopite
                     output.Write(p.AsUInt64);
                     return;
                 case TypeCode.Single:
-                    output.Write(p.AsSingle);
+                    _renderer.Render(p.AsSingle);
                     return;
                 case TypeCode.Double:
                     output.Write(p.AsDouble);
