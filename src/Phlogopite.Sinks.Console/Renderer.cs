@@ -19,11 +19,38 @@ namespace Phlogopite
 
         internal void Render(float value)
         {
-            Span<char> stackBuffer = stackalloc char[128];
-
-            if (value.TryFormat(stackBuffer, out int formattedLength, default, _formatProvider))
+            Span<char> buffer = stackalloc char[128];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
             {
-                ReadOnlySpan<char> utf16Text = stackBuffer.Slice(0, formattedLength);
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(double value)
+        {
+            Span<char> buffer = stackalloc char[128];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(DateTime value)
+        {
+            Span<char> buffer = stackalloc char[128];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
                 _output.Write(utf16Text);
             }
             else

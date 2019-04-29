@@ -205,10 +205,10 @@ namespace Phlogopite
                     _renderer.Render(p.AsSingle);
                     return;
                 case TypeCode.Double:
-                    _output.Write(p.AsDouble);
+                    _renderer.Render(p.AsDouble);
                     return;
                 case TypeCode.DateTime:
-                    _output.Write(p.AsDateTime.ToString(_formatProvider));
+                    _renderer.Render(p.AsDateTime);
                     return;
                 case TypeCode.String:
                     _output.Write(p.AsString);
