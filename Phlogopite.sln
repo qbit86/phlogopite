@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Abstractions", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Main", "src\Phlogopite.Main\Phlogopite.Main.csproj", "{3AE95D24-D4FC-46F5-9C12-BF480FCE6533}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Console", "src\Phlogopite.Sinks\Phlogopite.Sinks.Console.csproj", "{701C5D0C-FDEB-40ED-8F1E-A57999B16EA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Console", "src\Phlogopite.Sinks.Console\Phlogopite.Sinks.Console.csproj", "{701C5D0C-FDEB-40ED-8F1E-A57999B16EA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{20684C57-524B-49AD-A950-562ECAEE2922}"
 EndProject
