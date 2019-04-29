@@ -11,6 +11,7 @@ namespace Phlogopite
 
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
+        private readonly TextWriter _output;
         private readonly Renderer _renderer;
 
         public ConsoleSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
@@ -21,7 +22,8 @@ namespace Phlogopite
         {
             _minimumLevel = minimumLevel;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
-            _renderer = new Renderer(Console.Out, _formatProvider);
+            _output = Console.Out ?? TextWriter.Null;
+            _renderer = new Renderer(_output, _formatProvider);
         }
 
         public bool IsEnabled(Level level)
@@ -35,32 +37,31 @@ namespace Phlogopite
             if (!IsEnabled(level))
                 return;
 
-            TextWriter output = Console.Out;
             ConsoleColor oldColor = SetForegroundColor(level);
             try
             {
-                RenderLevel(level, output);
-                output.Write(" ");
+                RenderLevel(level);
+                _output.Write(" ");
                 if (!mediatorProperties.IsEmpty && string.Equals(mediatorProperties[0].Name, "timestamp", StringComparison.Ordinal)
                     && mediatorProperties[0].TryGetDateTime(out DateTime timestamp))
                 {
-                    RenderTime(timestamp, output);
+                    RenderTime(timestamp);
                 }
                 else
                 {
-                    output.Write("            ");
+                    _output.Write("            ");
                 }
 
-                output.Write(" ");
+                _output.Write(" ");
                 if (!writerProperties.IsEmpty && string.Equals(writerProperties[0].Name, "tag", StringComparison.Ordinal)
                     && writerProperties[0].TryGetString(out string tag))
                 {
-                    output.Write("[");
-                    output.Write(tag);
-                    output.Write("] ");
+                    _output.Write("[");
+                    _output.Write(tag);
+                    _output.Write("] ");
                 }
 
-                output.Write(text);
+                _output.Write(text);
 
                 for (int i = 0; i != userProperties.Length; ++i)
                 {
@@ -69,160 +70,151 @@ namespace Phlogopite
                         bool endsWithPunctuation = char.IsPunctuation(text, text.Length - 1);
                         if (endsWithPunctuation)
                         {
-                            output.Write(" ");
+                            _output.Write(" ");
                             if (!string.IsNullOrEmpty(userProperties[i].Name))
                             {
-                                output.Write(userProperties[i].Name);
-                                output.Write(": ");
+                                _output.Write(userProperties[i].Name);
+                                _output.Write(": ");
                             }
 
-                            RenderValue(userProperties[i], output);
+                            RenderValue(userProperties[i]);
                         }
                         else if (string.IsNullOrEmpty(userProperties[i].Name))
                         {
-                            output.Write(": ");
-                            RenderValue(userProperties[i], output);
+                            _output.Write(": ");
+                            RenderValue(userProperties[i]);
                         }
                         else
                         {
-                            output.Write(". ");
-                            output.Write(userProperties[i].Name);
-                            output.Write(": ");
-                            RenderValue(userProperties[i], output);
+                            _output.Write(". ");
+                            _output.Write(userProperties[i].Name);
+                            _output.Write(": ");
+                            RenderValue(userProperties[i]);
                         }
                     }
                     else
                     {
                         if (!string.IsNullOrEmpty(userProperties[i].Name))
                         {
-                            output.Write(userProperties[i].Name);
-                            output.Write(": ");
+                            _output.Write(userProperties[i].Name);
+                            _output.Write(": ");
                         }
 
-                        RenderValue(userProperties[i], output);
+                        RenderValue(userProperties[i]);
                     }
 
                     if (i + 1 < userProperties.Length)
                     {
-                        output.Write(", ");
+                        _output.Write(", ");
                     }
                 }
             }
             finally
             {
                 Console.ForegroundColor = oldColor;
-                output.WriteLine();
+                _output.WriteLine();
             }
         }
 
-        private static void RenderLevel(Level level, TextWriter output)
+        private void RenderLevel(Level level)
         {
-            if (output is null || output == TextWriter.Null)
-                return;
-
             switch (level)
             {
                 case Level.Verbose:
-                    output.Write("V");
+                    _output.Write("V");
                     break;
                 case Level.Debug:
-                    output.Write("D");
+                    _output.Write("D");
                     break;
                 case Level.Info:
-                    output.Write("I");
+                    _output.Write("I");
                     break;
                 case Level.Warning:
-                    output.Write("W");
+                    _output.Write("W");
                     break;
                 case Level.Error:
-                    output.Write("E");
+                    _output.Write("E");
                     break;
                 case Level.Fatal:
-                    output.Write("F");
+                    _output.Write("F");
                     break;
                 case Level.Silent:
-                    output.Write("S");
+                    _output.Write("S");
                     break;
                 default:
-                    output.Write("-");
+                    _output.Write("-");
                     break;
             }
         }
 
-        private void RenderTime(DateTime timestamp, TextWriter output)
+        private void RenderTime(DateTime timestamp)
         {
-            if (output is null || output == TextWriter.Null)
-                return;
-
             Span<char> stackBuffer = stackalloc char[12];
             const string format = "HH:mm:ss.fff";
             if (timestamp.TryFormat(stackBuffer, out int formattedLength, format, _formatProvider))
             {
                 ReadOnlySpan<char> utf16Text = stackBuffer.Slice(0, formattedLength);
-                output.Write(utf16Text);
+                _output.Write(utf16Text);
             }
             else
             {
-                output.Write(timestamp.ToString(format, _formatProvider));
+                _output.Write(timestamp.ToString(format, _formatProvider));
             }
         }
 
-        private void RenderValue(in NamedProperty p, TextWriter output)
+        private void RenderValue(in NamedProperty p)
         {
-            if (output is null || output == TextWriter.Null)
-                return;
-
             switch (p.TypeCode)
             {
                 case TypeCode.Empty:
                     return;
                 case TypeCode.Object:
-                    output.Write(p.AsObject);
+                    _output.Write(p.AsObject);
                     return;
                 case TypeCode.Boolean:
-                    output.Write(p.AsBoolean);
+                    _output.Write(p.AsBoolean);
                     return;
                 case TypeCode.Char:
-                    output.Write(p.AsChar);
+                    _output.Write(p.AsChar);
                     return;
                 case TypeCode.SByte:
-                    output.Write(p.AsSByte);
+                    _output.Write(p.AsSByte);
                     return;
                 case TypeCode.Byte:
-                    output.Write(p.AsByte);
+                    _output.Write(p.AsByte);
                     return;
                 case TypeCode.Int16:
-                    output.Write(p.AsInt16);
+                    _output.Write(p.AsInt16);
                     return;
                 case TypeCode.UInt16:
-                    output.Write(p.AsUInt16);
+                    _output.Write(p.AsUInt16);
                     return;
                 case TypeCode.Int32:
-                    output.Write(p.AsInt32);
+                    _output.Write(p.AsInt32);
                     return;
                 case TypeCode.UInt32:
-                    output.Write(p.AsUInt32);
+                    _output.Write(p.AsUInt32);
                     return;
                 case TypeCode.Int64:
-                    output.Write(p.AsInt64);
+                    _output.Write(p.AsInt64);
                     return;
                 case TypeCode.UInt64:
-                    output.Write(p.AsUInt64);
+                    _output.Write(p.AsUInt64);
                     return;
                 case TypeCode.Single:
                     _renderer.Render(p.AsSingle);
                     return;
                 case TypeCode.Double:
-                    output.Write(p.AsDouble);
+                    _output.Write(p.AsDouble);
                     return;
                 case TypeCode.DateTime:
-                    output.Write(p.AsDateTime.ToString(_formatProvider));
+                    _output.Write(p.AsDateTime.ToString(_formatProvider));
                     return;
                 case TypeCode.String:
-                    output.Write(p.AsString);
+                    _output.Write(p.AsString);
                     return;
                 default:
-                    output.Write(p.AsObject);
+                    _output.Write(p.AsObject);
                     return;
             }
         }
