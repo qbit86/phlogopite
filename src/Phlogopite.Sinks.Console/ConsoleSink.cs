@@ -172,7 +172,7 @@ namespace Phlogopite
                     _output.Write(p.AsObject);
                     return;
                 case TypeCode.Boolean:
-                    _output.Write(p.AsBoolean);
+                    _renderer.Render(p.AsBoolean);
                     return;
                 case TypeCode.Char:
                     _output.Write(p.AsChar);

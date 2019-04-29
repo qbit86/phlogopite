@@ -17,6 +17,20 @@ namespace Phlogopite
             _formatProvider = formatProvider;
         }
 
+        internal void Render(bool value)
+        {
+            Span<char> buffer = stackalloc char[8];
+            if (value.TryFormat(buffer, out int formattedLength))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
         internal void Render(float value)
         {
             Span<char> buffer = stackalloc char[128];
@@ -47,7 +61,7 @@ namespace Phlogopite
 
         internal void Render(DateTime value)
         {
-            Span<char> buffer = stackalloc char[128];
+            Span<char> buffer = stackalloc char[64];
             if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
             {
                 ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
