@@ -31,9 +31,37 @@ namespace Phlogopite
             }
         }
 
+        internal void Render(sbyte value)
+        {
+            Span<char> buffer = stackalloc char[4];
+            if (value.TryFormat(buffer, out int formattedLength, "X2", _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(byte value)
+        {
+            Span<char> buffer = stackalloc char[4];
+            if (value.TryFormat(buffer, out int formattedLength, "X2", _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
         internal void Render(float value)
         {
-            Span<char> buffer = stackalloc char[128];
+            Span<char> buffer = stackalloc char[64];
             if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
             {
                 ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
