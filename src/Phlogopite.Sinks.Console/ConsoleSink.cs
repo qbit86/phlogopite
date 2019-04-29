@@ -149,34 +149,22 @@ namespace Phlogopite
             }
         }
 
-        private static void RenderTime(DateTime timestamp, TextWriter output)
+        private void RenderTime(DateTime timestamp, TextWriter output)
         {
             if (output is null || output == TextWriter.Null)
                 return;
 
-            // timestamp.TryFormat() is not available in netstandard2.0.
-
-            if (timestamp.Hour < 10)
-                output.Write("0");
-
-            output.Write(timestamp.Hour);
-            output.Write(":");
-            if (timestamp.Minute < 10)
-                output.Write("0");
-
-            output.Write(timestamp.Minute);
-            output.Write(":");
-            if (timestamp.Second < 10)
-                output.Write("0");
-
-            output.Write(timestamp.Second);
-            output.Write(".");
-            if (timestamp.Millisecond < 10)
-                output.Write("00");
-            else if (timestamp.Millisecond < 100)
-                output.Write("0");
-
-            output.Write(timestamp.Millisecond);
+            Span<char> stackBuffer = stackalloc char[12];
+            const string format = "HH:mm:ss.fff";
+            if (timestamp.TryFormat(stackBuffer, out int formattedLength, format, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = stackBuffer.Slice(0, formattedLength);
+                output.Write(utf16Text);
+            }
+            else
+            {
+                output.Write(timestamp.ToString(format, _formatProvider));
+            }
         }
 
         private void RenderValue(in NamedProperty p, TextWriter output)
