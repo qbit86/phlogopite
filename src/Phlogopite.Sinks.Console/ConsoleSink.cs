@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.IO;
 
 namespace Phlogopite
@@ -13,12 +12,14 @@ namespace Phlogopite
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
 
-        public ConsoleSink() : this(Level.Verbose) { }
+        public ConsoleSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel)
+        public ConsoleSink(Level minimumLevel) : this(minimumLevel, CultureConstants.FixedCulture) { }
+
+        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider)
         {
             _minimumLevel = minimumLevel;
-            _formatProvider = CultureInfo.InvariantCulture;
+            _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
         }
 
         public bool IsEnabled(Level level)
