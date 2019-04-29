@@ -184,22 +184,22 @@ namespace Phlogopite
                     _renderer.Render(p.AsByte);
                     return;
                 case TypeCode.Int16:
-                    _output.Write(p.AsInt16);
+                    _renderer.Render(p.AsInt16);
                     return;
                 case TypeCode.UInt16:
-                    _output.Write(p.AsUInt16);
+                    _renderer.Render(p.AsUInt16);
                     return;
                 case TypeCode.Int32:
-                    _output.Write(p.AsInt32);
+                    _renderer.Render(p.AsInt32);
                     return;
                 case TypeCode.UInt32:
-                    _output.Write(p.AsUInt32);
+                    _renderer.Render(p.AsUInt32);
                     return;
                 case TypeCode.Int64:
-                    _output.Write(p.AsInt64);
+                    _renderer.Render(p.AsInt64);
                     return;
                 case TypeCode.UInt64:
-                    _output.Write(p.AsUInt64);
+                    _renderer.Render(p.AsUInt64);
                     return;
                 case TypeCode.Single:
                     _renderer.Render(p.AsSingle);

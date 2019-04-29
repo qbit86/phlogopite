@@ -59,6 +59,90 @@ namespace Phlogopite
             }
         }
 
+        internal void Render(short value)
+        {
+            Span<char> buffer = stackalloc char[16];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(ushort value)
+        {
+            Span<char> buffer = stackalloc char[16];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(int value)
+        {
+            Span<char> buffer = stackalloc char[32];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(uint value)
+        {
+            Span<char> buffer = stackalloc char[32];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(long value)
+        {
+            Span<char> buffer = stackalloc char[64];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
+        internal void Render(ulong value)
+        {
+            Span<char> buffer = stackalloc char[64];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+        }
+
         internal void Render(float value)
         {
             Span<char> buffer = stackalloc char[64];
