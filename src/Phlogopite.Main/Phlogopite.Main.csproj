@@ -39,6 +39,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WriterExtensions.4.cs</LastGenOutput>
     </None>
+    <None Update="WriterExtensions.WriteUnchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WriterExtensions.WriteUnchecked.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
@@ -68,6 +72,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WriterExtensions.4.tt</DependentUpon>
+    </Compile>
+    <Compile Update="WriterExtensions.WriteUnchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.WriteUnchecked.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
