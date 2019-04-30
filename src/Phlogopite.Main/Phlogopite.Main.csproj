@@ -31,6 +31,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WriterExtensions.2.cs</LastGenOutput>
     </None>
+    <None Update="WriterExtensions.3.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WriterExtensions.3.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
@@ -50,6 +54,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WriterExtensions.2.tt</DependentUpon>
+    </Compile>
+    <Compile Update="WriterExtensions.3.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.3.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
