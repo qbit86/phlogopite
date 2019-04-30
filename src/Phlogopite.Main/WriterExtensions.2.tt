@@ -1,5 +1,4 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
-<#@ import namespace="System.Text" #>
 <#@ output extension=".cs" #>
 using System;
 using System.Buffers;
