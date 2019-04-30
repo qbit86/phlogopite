@@ -26,7 +26,7 @@ namespace Phlogopite
             log.I("Here is float!", ("float", 1.618f));
             log.W("Empty property", (null, null));
             log.E("Error!", (null, new InvalidOperationException("Just test")));
-            log.F("This is fine.", new NamedProperty("ambiguous", 1729));
+            log.F("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
         }
     }
 }
