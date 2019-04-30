@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
@@ -23,6 +23,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WriterExtensions.0.cs</LastGenOutput>
     </None>
+    <None Update="WriterExtensions.1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WriterExtensions.1.cs</LastGenOutput>
+    </None>
     <None Update="WriterExtensions.2.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WriterExtensions.2.cs</LastGenOutput>
@@ -36,6 +40,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WriterExtensions.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="WriterExtensions.1.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.1.tt</DependentUpon>
     </Compile>
     <Compile Update="WriterExtensions.2.cs">
       <DesignTime>True</DesignTime>

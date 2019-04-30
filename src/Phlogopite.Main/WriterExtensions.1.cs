@@ -32,7 +32,7 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Debug, text, p0);
         }
 
-        public static void I<TWriter>(this TWriter writer, string text, NamedProperty p0)
+        public static void I<TWriter>(this TWriter writer, string text, in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
         {
             if (!writer.IsEnabled(Level.Info))

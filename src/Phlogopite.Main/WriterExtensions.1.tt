@@ -1,0 +1,54 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Buffers;
+
+namespace Phlogopite
+{
+    public static partial class WriterExtensions
+    {
+        public static void Write<TWriter>(this TWriter writer, Level level, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
+        {
+            if (!writer.IsEnabled(level))
+                return;
+
+            WriteUnchecked(writer, level, text, p0);
+        }
+
+<#
+var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Fatal" };
+for (int i = 0; i != levels.Length; ++i)
+{
+    string level = levels[i];
+    string methodName = level.Substring(0, 1);
+#>
+        public static void <#=methodName#><TWriter>(this TWriter writer, string text, in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
+        {
+            if (!writer.IsEnabled(Level.<#=level#>))
+                return;
+
+            WriteUnchecked(writer, Level.<#=level#>, text, p0);
+        }
+<#
+    Write(Environment.NewLine);
+}
+#>
+        private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,
+            in TProperty p0)
+            where TWriter : IWriter<TProperty>
+        {
+            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(1);
+            try
+            {
+                properties[0] = p0;
+                writer.Write(level, text, properties.AsSpan(0, 1));
+            }
+            finally
+            {
+                ArrayPool<TProperty>.Shared.Return(properties);
+            }
+        }
+    }
+}
