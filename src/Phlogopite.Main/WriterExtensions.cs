@@ -3,7 +3,7 @@ using System.Buffers;
 
 namespace Phlogopite
 {
-    public static class WriterExtensions
+    public static partial class WriterExtensions
     {
         public static void Write<TWriter>(this TWriter writer, Level level, string text, in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
