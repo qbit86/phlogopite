@@ -8,11 +8,10 @@ namespace Phlogopite
     public static partial class WriterExtensions
     {
 <#
-const int startPropertyCount = 5;
 const int maxPropertyCount = 8;
 #>
 <#
-for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+for (int propertyCount = 1; propertyCount <= maxPropertyCount; ++propertyCount)
 {
     PushIndent("        ");
     WriteLine("private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,");

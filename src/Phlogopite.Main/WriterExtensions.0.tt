@@ -23,7 +23,7 @@ for (int i = 0; i != levels.Length; ++i)
             writer.Write(Level.<#=level#>, text, default);
         }
 <#
-    if (i + 1 != levels.Length)
+    if (i != levels.Length - 1)
     {
         Write(Environment.NewLine);
     }
