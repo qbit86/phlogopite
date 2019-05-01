@@ -23,7 +23,7 @@ namespace Phlogopite
             var log = new Writer(mediator, tag);
             log.V("DateTime formatting", ("dateTime", DateTime.Now));
             log.D("Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
-            log.I("Here is float!", ("float", 1.618f));
+            log.I("Plain text, no dynamic formatting", ("tau", 2.0 * Math.PI), ("today", DateTime.Today));
             log.W("Empty property", (null, null));
             log.E("Error!", (null, new InvalidOperationException("Just test")));
             log.F("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
