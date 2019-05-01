@@ -5,7 +5,7 @@ namespace Phlogopite
     public static partial class WriterExtensions
     {
 <#
-const int startPropertyCount = 5;
+const int startPropertyCount = 1;
 const int maxPropertyCount = 8;
 var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Fatal" };
 for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
