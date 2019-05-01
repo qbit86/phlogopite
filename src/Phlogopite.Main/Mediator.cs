@@ -7,6 +7,7 @@ namespace Phlogopite
     public sealed class Mediator : IMediator<NamedProperty>
     {
         private readonly Level _minimumLevel;
+        private readonly Func<Level> _minimumLevelProvider;
         private readonly List<ISink<NamedProperty>> _sinks = new List<ISink<NamedProperty>>();
         private readonly ISink<NamedProperty> _errorSink = SilentSink.Default;
 
@@ -15,6 +16,11 @@ namespace Phlogopite
         public Mediator(Level minimumLevel)
         {
             _minimumLevel = minimumLevel;
+        }
+
+        public Mediator(Func<Level> minimumLevelProvider)
+        {
+            _minimumLevelProvider = minimumLevelProvider;
         }
 
         public void Add(ISink<NamedProperty> sink)
@@ -27,7 +33,8 @@ namespace Phlogopite
 
         public bool IsEnabled(Level level)
         {
-            return _minimumLevel <= level;
+            Level minimumLevel = _minimumLevelProvider is null ? _minimumLevel : _minimumLevelProvider();
+            return minimumLevel <= level;
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> writerProperties)
