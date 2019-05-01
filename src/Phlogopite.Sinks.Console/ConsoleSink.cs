@@ -1,3 +1,11 @@
+#if NET35 || NET40 || NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47 || NET471 || NET472 || NET48
+#define PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+#elif NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6 || NETSTANDARD2_0
+#define PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+#elif NETCOREAPP1_0 || NETCOREAPP1_1 || NETCOREAPP2_0
+#define PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+#endif
+
 using System;
 using System.IO;
 
@@ -149,8 +157,11 @@ namespace Phlogopite
 
         private void RenderTime(DateTime timestamp)
         {
-            Span<char> stackBuffer = stackalloc char[12];
             const string format = "HH:mm:ss.fff";
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _output.Write(timestamp.ToString(format, _formatProvider));
+#else
+            Span<char> stackBuffer = stackalloc char[12];
             if (timestamp.TryFormat(stackBuffer, out int formattedLength, format, _formatProvider))
             {
                 ReadOnlySpan<char> utf16Text = stackBuffer.Slice(0, formattedLength);
@@ -160,6 +171,7 @@ namespace Phlogopite
             {
                 _output.Write(timestamp.ToString(format, _formatProvider));
             }
+#endif
         }
 
         private void RenderValue(in NamedProperty p)
