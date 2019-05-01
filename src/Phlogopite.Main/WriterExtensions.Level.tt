@@ -33,6 +33,8 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("where TWriter : IWriter<NamedProperty>");
         PopIndent();
         WriteLine("{");
+        WriteLine($"    if (!writer.IsEnabled(Level.{level}))");
+        WriteLine("        return;");
         WriteLine("}");
         ClearIndent();
 
