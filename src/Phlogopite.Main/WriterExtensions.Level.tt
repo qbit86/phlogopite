@@ -4,7 +4,6 @@ namespace Phlogopite
 {
     public static partial class WriterExtensions
     {
-#if false
 <#
 const int startPropertyCount = 5;
 const int maxPropertyCount = 8;
@@ -20,7 +19,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         PushIndent("    ");
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
         {
-            Write("in TProperty p" + propertyIndex);
+            Write("in NamedProperty p" + propertyIndex);
             if (propertyIndex == propertyCount - 1)
                 Write(")");
             else if ((propertyIndex + 1) % 4 == 0)
@@ -35,6 +34,20 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("{");
         WriteLine($"    if (!writer.IsEnabled(Level.{level}))");
         WriteLine("        return;");
+        ClearIndent();
+        Write(Environment.NewLine);
+        PushIndent("        ");
+        PushIndent("    ");
+        Write($"WriteUnchecked(writer, Level.{level}, text, ");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        {
+            Write("p" + propertyIndex);
+            if (propertyIndex == propertyCount - 1)
+                WriteLine(");");
+            else
+                Write(", ");
+        }
+        PopIndent();
         WriteLine("}");
         ClearIndent();
 
@@ -43,6 +56,5 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
     }
 }
 #>
-#endif
     }
 }
