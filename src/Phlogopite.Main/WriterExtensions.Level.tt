@@ -4,5 +4,43 @@ namespace Phlogopite
 {
     public static partial class WriterExtensions
     {
+#if false
+<#
+const int startPropertyCount = 5;
+const int maxPropertyCount = 8;
+var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Fatal" };
+for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
+{
+    string level = levels[levelIndex];
+    string methodName = level.Substring(0, 1);
+    for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+    {
+        PushIndent("        ");
+        WriteLine($"public static void {methodName}<TWriter>(this TWriter writer, string text,");
+        PushIndent("    ");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        {
+            Write("in TProperty p" + propertyIndex);
+            if (propertyIndex == propertyCount - 1)
+                Write(")");
+            else if ((propertyIndex + 1) % 4 == 0)
+                WriteLine(",");
+            else
+                Write(", ");
+        }
+
+        Write(Environment.NewLine);
+        WriteLine("where TWriter : IWriter<NamedProperty>");
+        PopIndent();
+        WriteLine("{");
+        WriteLine("}");
+        ClearIndent();
+
+        if (levelIndex < levels.Length - 1 || propertyCount < maxPropertyCount)
+            Write(Environment.NewLine);
+    }
+}
+#>
+#endif
     }
 }
