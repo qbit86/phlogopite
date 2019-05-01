@@ -5,16 +5,6 @@ namespace Phlogopite
 {
     public static partial class WriterExtensions
     {
-        public static void Write<TWriter>(this TWriter writer, Level level, string text,
-            in NamedProperty p0, in NamedProperty p1)
-            where TWriter : IWriter<NamedProperty>
-        {
-            if (!writer.IsEnabled(level))
-                return;
-
-            WriteUnchecked(writer, level, text, p0, p1);
-        }
-
         public static void V<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>

@@ -8,10 +8,54 @@ namespace Phlogopite
     public static partial class WriterExtensions
     {
 <#
+const int startPropertyCount = 1;
 const int maxPropertyCount = 8;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    PushIndent("        ");
+    WriteLine("public static void Write<TWriter>(this TWriter writer, Level level, string text,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        Write("in NamedProperty p" + propertyIndex);
+        if (propertyIndex == propertyCount - 1)
+            Write(")");
+        else if ((propertyIndex + 1) % 4 == 0)
+            WriteLine(",");
+        else
+            Write(", ");
+    }
+    Write(Environment.NewLine);
+    ClearIndent();
 #>
+            where TWriter : IWriter<NamedProperty>
+        {
+            if (!writer.IsEnabled(level))
+                return;
+
 <#
-for (int propertyCount = 1; propertyCount <= maxPropertyCount; ++propertyCount)
+    PushIndent("            ");
+    Write("WriteUnchecked(writer, level, text, ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        Write("p" + propertyIndex);
+        if (propertyIndex == propertyCount - 1)
+            Write(");");
+        else
+            Write(", ");
+    }
+
+    Write(Environment.NewLine);
+
+    ClearIndent();
+#>
+        }
+
+<#
+}
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
 {
     PushIndent("        ");
     WriteLine("private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,");
@@ -51,9 +95,7 @@ for (int propertyCount = 1; propertyCount <= maxPropertyCount; ++propertyCount)
         }
 <#
     if (propertyCount < maxPropertyCount)
-    {
         Write(Environment.NewLine);
-    }
 }
 #>
     }
