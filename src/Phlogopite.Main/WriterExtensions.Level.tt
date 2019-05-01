@@ -1,0 +1,8 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+namespace Phlogopite
+{
+    public static partial class WriterExtensions
+    {
+    }
+}

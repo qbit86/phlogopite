@@ -47,7 +47,6 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     }
 
     Write(Environment.NewLine);
-
     ClearIndent();
 #>
         }
