@@ -183,7 +183,7 @@ namespace Phlogopite
                 case TypeCode.Empty:
                     return;
                 case TypeCode.Object:
-                    _output.Write(p.AsObject);
+                    _output.Write(Convert.ToString(p.AsObject, _formatProvider));
                     return;
                 case TypeCode.Boolean:
                     _renderer.Render(p.AsBoolean);
@@ -228,7 +228,7 @@ namespace Phlogopite
                     _output.Write(p.AsString);
                     return;
                 default:
-                    _output.Write(p.AsObject);
+                    _output.Write(Convert.ToString(p.AsObject, _formatProvider));
                     return;
             }
         }
