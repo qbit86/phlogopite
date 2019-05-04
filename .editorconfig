@@ -13,7 +13,6 @@ indent_size = 2
 
 [*.{sln,sln.DotSettings}]
 indent_style = tab
-tab_width = 4
 
 [*.md]
 trim_trailing_whitespace = false
