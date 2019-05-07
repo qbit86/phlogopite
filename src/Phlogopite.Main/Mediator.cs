@@ -1,10 +1,13 @@
 using System;
 using System.Buffers;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Phlogopite
 {
-    public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>
+#pragma warning disable CA1710 // Identifiers should have correct suffix
+    public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>, IEnumerable<ISink<NamedProperty>>
+#pragma warning restore CA1710 // Identifiers should have correct suffix
     {
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
@@ -80,6 +83,18 @@ namespace Phlogopite
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default);
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers#collection-initializers
+
+        IEnumerator<ISink<NamedProperty>> IEnumerable<ISink<NamedProperty>>.GetEnumerator()
+        {
+            throw new NotSupportedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotSupportedException();
         }
     }
 }

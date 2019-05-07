@@ -12,8 +12,7 @@ namespace Phlogopite
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
 
             var sink = new ConsoleSink();
-            var mediator = new Mediator();
-            mediator.Add(sink);
+            var mediator = new Mediator { sink };
             Foo(mediator);
         }
 
