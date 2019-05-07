@@ -22,7 +22,7 @@ namespace Phlogopite
             _minimumLevelProvider = minimumLevelProvider;
         }
 
-        public Func<Exception, bool> SinkExceptionHandler { get; set; }
+        public Func<Exception, bool> ExceptionHandler { get; set; }
 
         public void Add(ISink<NamedProperty> sink)
         {
@@ -57,7 +57,7 @@ namespace Phlogopite
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
                 {
-                    if (exceptions == null)
+                    if (exceptions is null)
                         exceptions = new List<Exception>(1);
 
                     exceptions.Add(ex);
@@ -67,14 +67,14 @@ namespace Phlogopite
 
             ArrayPool<NamedProperty>.Shared.Return(mediatorProperties, false);
 
-            if (exceptions != null)
-            {
-                var ex = new AggregateException(exceptions);
-                if (SinkExceptionHandler is null)
-                    throw ex;
+            if (exceptions is null)
+                return;
 
-                ex.Handle(SinkExceptionHandler);
-            }
+            var aggregateException = new AggregateException(exceptions);
+            if (ExceptionHandler is null)
+                throw aggregateException;
+
+            aggregateException.Handle(ExceptionHandler);
         }
     }
 }
