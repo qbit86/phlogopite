@@ -26,7 +26,7 @@ namespace Phlogopite
             log.I("Plain text, no dynamic formatting", ("tau", 2.0 * Math.PI), ("today", DateTime.Today));
             log.W("Empty property", (null, null));
             log.E("Error!", (null, new InvalidOperationException("Just test")));
-            log.F("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
+            log.A("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
         }
     }
 }

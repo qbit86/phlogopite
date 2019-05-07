@@ -422,88 +422,88 @@ namespace Phlogopite
             WriteUnchecked(writer, Level.Error, text, p0, p1, p2, p3, p4, p5, p6, p7);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0);
+            WriteUnchecked(writer, Level.Assert, text, p0);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1, p2);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1, p2);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1, p2, p3);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1, p2, p3);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             in NamedProperty p4)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1, p2, p3, p4);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1, p2, p3, p4);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             in NamedProperty p4, in NamedProperty p5)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1, p2, p3, p4, p5);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1, p2, p3, p4, p5);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             in NamedProperty p4, in NamedProperty p5, in NamedProperty p6)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1, p2, p3, p4, p5, p6);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1, p2, p3, p4, p5, p6);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text,
+        public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             in NamedProperty p4, in NamedProperty p5, in NamedProperty p6, in NamedProperty p7)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Fatal))
+            if (!writer.IsEnabled(Level.Assert))
                 return;
 
-            WriteUnchecked(writer, Level.Fatal, text, p0, p1, p2, p3, p4, p5, p6, p7);
+            WriteUnchecked(writer, Level.Assert, text, p0, p1, p2, p3, p4, p5, p6, p7);
         }
     }
 }

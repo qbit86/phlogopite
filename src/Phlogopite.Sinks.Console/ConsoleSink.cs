@@ -145,8 +145,8 @@ namespace Phlogopite
                 case Level.Error:
                     _output.Write("E");
                     break;
-                case Level.Fatal:
-                    _output.Write("F");
+                case Level.Assert:
+                    _output.Write("A");
                     break;
                 case Level.Silent:
                     _output.Write("S");

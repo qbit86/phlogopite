@@ -38,10 +38,10 @@ namespace Phlogopite
             writer.Write(Level.Error, text, default);
         }
 
-        public static void F<TWriter>(this TWriter writer, string text)
+        public static void A<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Fatal, text, default);
+            writer.Write(Level.Assert, text, default);
         }
     }
 }

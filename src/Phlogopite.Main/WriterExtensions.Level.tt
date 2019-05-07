@@ -7,7 +7,7 @@ namespace Phlogopite
 <#
 const int startPropertyCount = 1;
 const int maxPropertyCount = 8;
-var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Fatal" };
+var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
 for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 {
     string level = levels[levelIndex];

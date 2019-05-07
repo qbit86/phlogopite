@@ -11,7 +11,7 @@ namespace Phlogopite
         }
 
 <#
-var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Fatal" };
+var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
 for (int i = 0; i != levels.Length; ++i)
 {
     string level = levels[i];

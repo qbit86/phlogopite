@@ -1,5 +1,7 @@
 namespace Phlogopite
 {
+    // https://developer.android.com/reference/android/util/Log.html#constants_2
+
     public enum Level
     {
         Verbose = 0,
@@ -7,7 +9,7 @@ namespace Phlogopite
         Info,
         Warning,
         Error,
-        Fatal,
+        Assert,
         Silent
     }
 }
