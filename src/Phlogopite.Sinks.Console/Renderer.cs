@@ -240,5 +240,23 @@ namespace Phlogopite
             }
 #endif
         }
+
+        internal void Render(DateTime value, string format)
+        {
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _output.Write(value.ToString(format, _formatProvider));
+#else
+            Span<char> buffer = stackalloc char[64];
+            if (value.TryFormat(buffer, out int formattedLength, format, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+#endif
+        }
     }
 }
