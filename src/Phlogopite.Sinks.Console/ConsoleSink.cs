@@ -43,7 +43,7 @@ namespace Phlogopite
                 RenderLevel(level);
                 _output.Write(" ");
                 if (!mediatorProperties.IsEmpty
-                    && string.Equals(mediatorProperties[0].Name, "timestamp", StringComparison.Ordinal)
+                    && string.Equals(mediatorProperties[0].Name, "time", StringComparison.Ordinal)
                     && mediatorProperties[0].TryGetDateTime(out DateTime time))
                 {
                     RenderTime(time);

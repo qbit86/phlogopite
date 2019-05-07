@@ -45,7 +45,7 @@ namespace Phlogopite
                 return;
 
             NamedProperty[] mediatorProperties = ArrayPool<NamedProperty>.Shared.Rent(1);
-            mediatorProperties[0] = new NamedProperty("timestamp", DateTime.Now);
+            mediatorProperties[0] = new NamedProperty("time", DateTime.Now);
 
             List<Exception> exceptions = null;
             foreach (ISink<NamedProperty> sink in _sinks)
