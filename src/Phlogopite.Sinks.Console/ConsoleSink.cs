@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Phlogopite
 {
-    public sealed class ConsoleSink : ISink<NamedProperty>
+    public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
         private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[] {
             ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.Yellow,
@@ -225,6 +225,17 @@ namespace Phlogopite
                 return Console.ForegroundColor;
 
             return SetForegroundColor(s_levelColorMap[(int)level]);
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties)
+        {
+            Write(level, text, userProperties, writerProperties, default);
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        {
+            Write(level, text, properties, default, default);
         }
     }
 }
