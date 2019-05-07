@@ -1,21 +1,26 @@
 using System;
 using System.Buffers;
+using System.Runtime.CompilerServices;
 
 namespace Phlogopite
 {
     public readonly struct Writer : IWriter<NamedProperty>, IEquatable<Writer>
     {
         private readonly IMediator<NamedProperty> _mediator;
-        private readonly string _tag;
         private readonly Level _minimumLevel;
+        private readonly string _tag;
+        private readonly string _source;
 
-        public Writer(IMediator<NamedProperty> mediator, string tag) : this(mediator, tag, Level.Verbose) { }
+        public Writer(IMediator<NamedProperty> mediator, string tag, [CallerMemberName] string source = null)
+            : this(mediator, Level.Verbose, tag, source) { }
 
-        public Writer(IMediator<NamedProperty> mediator, string tag, Level minimumLevel)
+        public Writer(IMediator<NamedProperty> mediator, Level minimumLevel, string tag,
+            [CallerMemberName] string source = null)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-            _tag = tag;
             _minimumLevel = minimumLevel;
+            _tag = tag;
+            _source = source;
         }
 
         public bool IsEnabled(Level level)
@@ -28,11 +33,12 @@ namespace Phlogopite
             if (_mediator is null)
                 return;
 
-            NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(1);
+            NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
             try
             {
                 writerProperties[0] = new NamedProperty("tag", _tag);
-                _mediator.Write(level, text, properties, writerProperties.AsSpan(0, 1));
+                writerProperties[1] = new NamedProperty("source", _source);
+                _mediator.Write(level, text, properties, writerProperties.AsSpan(0, 2));
             }
             finally
             {
@@ -43,6 +49,12 @@ namespace Phlogopite
         public bool Equals(Writer other)
         {
             if (_minimumLevel != other._minimumLevel)
+                return false;
+
+            if (!string.Equals(_tag, other._tag, StringComparison.Ordinal))
+                return false;
+
+            if (!string.Equals(_source, other._source, StringComparison.Ordinal))
                 return false;
 
             if (_mediator is null)

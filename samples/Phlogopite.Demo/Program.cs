@@ -6,6 +6,8 @@ namespace Phlogopite
 {
     internal static class Program
     {
+        private const string Tag = nameof(Program);
+
         private static void Main()
         {
             // Messing with culture.
@@ -13,13 +15,13 @@ namespace Phlogopite
 
             var sink = new ConsoleSink();
             var mediator = new Mediator { sink };
-            Foo(mediator);
+            Mediator.Shared = mediator;
+            Foo();
         }
 
-        private static void Foo(Mediator mediator)
+        private static void Foo()
         {
-            const string tag = nameof(Program) + "." + nameof(Foo);
-            var log = new Writer(mediator, tag);
+            var log = new Writer(Mediator.Shared, Tag);
             log.V("DateTime formatting", ("dateTime", DateTime.Now));
             log.D("Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
             log.I("Plain text, no dynamic formatting", ("tau", 2.0 * Math.PI), ("today", DateTime.Today));

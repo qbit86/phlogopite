@@ -54,12 +54,20 @@ namespace Phlogopite
                 }
 
                 _output.Write(" ");
-                if (!writerProperties.IsEmpty
-                    && string.Equals(writerProperties[0].Name, "tag", StringComparison.Ordinal)
-                    && writerProperties[0].TryGetString(out string tag))
+                TryGetString(writerProperties, "tag", out string tag);
+                TryGetString(writerProperties, "source", out string source);
+                if (tag != null || source != null)
                 {
                     _output.Write("[");
-                    _output.Write(tag);
+                    if (!string.IsNullOrEmpty(tag))
+                        _output.Write(tag);
+
+                    if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
+                        _output.Write(".");
+
+                    if (!string.IsNullOrEmpty(source))
+                        _output.Write(source);
+
                     _output.Write("] ");
                 }
 
@@ -116,6 +124,32 @@ namespace Phlogopite
                 Console.ForegroundColor = oldColor;
                 _output.WriteLine();
             }
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties)
+        {
+            Write(level, text, userProperties, writerProperties, default);
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        {
+            Write(level, text, properties, default, default);
+        }
+
+        private bool TryGetString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
+        {
+            foreach (NamedProperty p in properties)
+            {
+                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
+                    continue;
+
+                if (p.TryGetString(out value))
+                    return true;
+            }
+
+            value = default;
+            return false;
         }
 
         private void RenderLevel(Level level)
@@ -225,17 +259,6 @@ namespace Phlogopite
                 return Console.ForegroundColor;
 
             return SetForegroundColor(s_levelColorMap[(int)level]);
-        }
-
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties)
-        {
-            Write(level, text, userProperties, writerProperties, default);
-        }
-
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
-        {
-            Write(level, text, properties, default, default);
         }
     }
 }
