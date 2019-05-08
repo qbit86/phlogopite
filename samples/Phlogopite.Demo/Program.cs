@@ -15,7 +15,7 @@ namespace Phlogopite
 
             var sink = new ConsoleSink();
             var mediator = new Mediator { sink };
-            Mediator.Shared = mediator;
+            Mediator.TrySetShared(mediator);
             Foo();
         }
 

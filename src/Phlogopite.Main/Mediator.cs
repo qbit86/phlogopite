@@ -9,7 +9,7 @@ namespace Phlogopite
     public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>, IEnumerable<ISink<NamedProperty>>
 #pragma warning restore CA1710 // Identifiers should have correct suffix
     {
-        private static IMediator<NamedProperty> s_shared = SilentSink.Default;
+        private static IMediator<NamedProperty> s_shared;
 
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
@@ -27,13 +27,18 @@ namespace Phlogopite
             _minimumLevelProvider = minimumLevelProvider;
         }
 
-        public static IMediator<NamedProperty> Shared
-        {
-            get => s_shared;
-            set => s_shared = value ?? SilentSink.Default;
-        }
+        public static IMediator<NamedProperty> Shared => s_shared ?? SilentSink.Default;
 
         public Func<Exception, bool> ExceptionHandler { get; set; }
+
+        public static bool TrySetShared(IMediator<NamedProperty> shared)
+        {
+            if (s_shared != null)
+                return false;
+
+            s_shared = shared ?? throw new ArgumentNullException(nameof(shared));
+            return true;
+        }
 
         public void Add(ISink<NamedProperty> sink)
         {
