@@ -30,6 +30,9 @@ namespace Phlogopite
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
+            if (!IsEnabled(level))
+                return;
+
             if (_mediator is null)
                 return;
 

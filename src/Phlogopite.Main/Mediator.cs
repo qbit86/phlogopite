@@ -72,7 +72,7 @@ namespace Phlogopite
                 catch (Exception ex)
                 {
                     if (exceptions is null)
-                        exceptions = new List<Exception>(1);
+                        exceptions = new List<Exception>();
 
                     exceptions.Add(ex);
                 }
