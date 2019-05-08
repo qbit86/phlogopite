@@ -13,9 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Console", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{20684C57-524B-49AD-A950-562ECAEE2922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Demo", "samples\Phlogopite.Demo\Phlogopite.Demo.csproj", "{85880720-5E92-48F7-B5E8-D3C79E81F6F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo", "samples\Phlogopite.Demo\Phlogopite.Demo.csproj", "{85880720-5E92-48F7-B5E8-D3C79E81F6F9}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Phlogopite.Shared", "src\Phlogopite.Shared\Phlogopite.Shared.shproj", "{DF3D20E7-950B-42A3-A9A3-CF1FFEC7E118}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Phlogopite.Shared\Phlogopite.Shared.projitems*{df3d20e7-950b-42a3-a9a3-cf1ffec7e118}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -46,6 +51,7 @@ Global
 		{3AE95D24-D4FC-46F5-9C12-BF480FCE6533} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 		{701C5D0C-FDEB-40ED-8F1E-A57999B16EA8} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 		{85880720-5E92-48F7-B5E8-D3C79E81F6F9} = {20684C57-524B-49AD-A950-562ECAEE2922}
+		{DF3D20E7-950B-42A3-A9A3-CF1FFEC7E118} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {310D1603-9B93-448D-89D9-2E3D8F1F9FBA}
