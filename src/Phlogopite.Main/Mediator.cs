@@ -1,30 +1,32 @@
 using System;
 using System.Buffers;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Phlogopite
 {
-#pragma warning disable CA1710 // Identifiers should have correct suffix
-    public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>, IEnumerable<ISink<NamedProperty>>
-#pragma warning restore CA1710 // Identifiers should have correct suffix
+    public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>
     {
-        private static readonly Mediator s_silent = new Mediator(Level.Silent);
+        private static readonly Mediator s_silent = new Mediator(Array.Empty<ISink<NamedProperty>>(), Level.Silent);
         private static Mediator s_shared;
 
+        private readonly IReadOnlyList<ISink<NamedProperty>> _sinks;
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
-        private readonly List<ISink<NamedProperty>> _sinks = new List<ISink<NamedProperty>>();
 
-        public Mediator() : this(Level.Verbose) { }
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks)
+            : this(sinks, Level.Verbose) { }
 
-        public Mediator(Level minimumLevel)
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel)
+            : this(sinks, minimumLevel, default) { }
+
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider)
+            : this(sinks, Level.Verbose, minimumLevelProvider) { }
+
+        private Mediator(IReadOnlyList<ISink<NamedProperty>> sinks,
+            Level minimumLevel, Func<Level> minimumLevelProvider)
         {
+            _sinks = sinks ?? Array.Empty<ISink<NamedProperty>>();
             _minimumLevel = minimumLevel;
-        }
-
-        public Mediator(Func<Level> minimumLevelProvider)
-        {
             _minimumLevelProvider = minimumLevelProvider;
         }
 
@@ -39,14 +41,6 @@ namespace Phlogopite
 
             s_shared = shared ?? throw new ArgumentNullException(nameof(shared));
             return true;
-        }
-
-        public void Add(ISink<NamedProperty> sink)
-        {
-            if (sink is null)
-                throw new ArgumentNullException(nameof(sink));
-
-            _sinks.Add(sink);
         }
 
         public bool IsEnabled(Level level)
@@ -97,18 +91,6 @@ namespace Phlogopite
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default);
-        }
-
-        // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/object-and-collection-initializers#collection-initializers
-
-        IEnumerator<ISink<NamedProperty>> IEnumerable<ISink<NamedProperty>>.GetEnumerator()
-        {
-            throw new NotSupportedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotSupportedException();
         }
     }
 }
