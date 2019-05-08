@@ -59,10 +59,11 @@ namespace Phlogopite
             mediatorProperties[0] = new NamedProperty("time", DateTime.Now);
 
             List<Exception> exceptions = null;
-            foreach (ISink<NamedProperty> sink in _sinks)
+            for (int i = 0; i < _sinks.Count; ++i)
             {
                 try
                 {
+                    ISink<NamedProperty> sink = _sinks[i];
                     sink.Write(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
