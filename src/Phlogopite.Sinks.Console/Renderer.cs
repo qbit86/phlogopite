@@ -48,8 +48,26 @@ namespace Phlogopite
 #if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
             _output.Write(value.ToString(_formatProvider));
 #else
-            Span<char> buffer = stackalloc char[4];
-            if (value.TryFormat(buffer, out int formattedLength, "X2", _formatProvider))
+            Span<char> buffer = stackalloc char[8];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+#endif
+        }
+
+        internal void Render(sbyte value, string format)
+        {
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _output.Write(value.ToString(format, _formatProvider));
+#else
+            Span<char> buffer = stackalloc char[8];
+            if (value.TryFormat(buffer, out int formattedLength, format, _formatProvider))
             {
                 ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
                 _output.Write(utf16Text);
@@ -66,8 +84,26 @@ namespace Phlogopite
 #if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
             _output.Write(value.ToString(_formatProvider));
 #else
-            Span<char> buffer = stackalloc char[4];
-            if (value.TryFormat(buffer, out int formattedLength, "X2", _formatProvider))
+            Span<char> buffer = stackalloc char[8];
+            if (value.TryFormat(buffer, out int formattedLength, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
+                _output.Write(utf16Text);
+            }
+            else
+            {
+                _output.Write(value.ToString(_formatProvider));
+            }
+#endif
+        }
+
+        internal void Render(byte value, string format)
+        {
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _output.Write(value.ToString(format, _formatProvider));
+#else
+            Span<char> buffer = stackalloc char[8];
+            if (value.TryFormat(buffer, out int formattedLength, format, _formatProvider))
             {
                 ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
                 _output.Write(utf16Text);

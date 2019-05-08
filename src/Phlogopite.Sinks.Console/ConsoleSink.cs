@@ -205,10 +205,10 @@ namespace Phlogopite
                     _output.Write(p.AsChar);
                     return;
                 case TypeCode.SByte:
-                    _renderer.Render(p.AsSByte);
+                    _renderer.Render(p.AsSByte, "x2");
                     return;
                 case TypeCode.Byte:
-                    _renderer.Render(p.AsByte);
+                    _renderer.Render(p.AsByte, "x2");
                     return;
                 case TypeCode.Int16:
                     _renderer.Render(p.AsInt16);
