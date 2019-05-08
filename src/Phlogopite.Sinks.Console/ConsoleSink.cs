@@ -42,18 +42,14 @@ namespace Phlogopite
             {
                 RenderLevel(level);
                 _output.Write(" ");
-                if (!mediatorProperties.IsEmpty
-                    && string.Equals(mediatorProperties[0].Name, "time", StringComparison.Ordinal)
-                    && mediatorProperties[0].TryGetDateTime(out DateTime time))
-                {
+
+                if (TryGetDateTime(mediatorProperties, "time", out DateTime time))
                     RenderTime(time);
-                }
                 else
-                {
                     _output.Write("            ");
-                }
 
                 _output.Write(" ");
+
                 TryGetString(writerProperties, "tag", out string tag);
                 TryGetString(writerProperties, "source", out string source);
                 if (tag != null || source != null)
@@ -135,6 +131,21 @@ namespace Phlogopite
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default, default);
+        }
+
+        private bool TryGetDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)
+        {
+            foreach (NamedProperty p in properties)
+            {
+                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
+                    continue;
+
+                if (p.TryGetDateTime(out value))
+                    return true;
+            }
+
+            value = default;
+            return false;
         }
 
         private bool TryGetString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
