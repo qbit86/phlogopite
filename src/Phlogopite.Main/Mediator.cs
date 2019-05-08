@@ -30,6 +30,8 @@ namespace Phlogopite
             _minimumLevelProvider = minimumLevelProvider;
         }
 
+        public static Mediator Silent => s_silent;
+
         public static Mediator Shared => s_shared ?? s_silent;
 
         public Func<Exception, bool> ExceptionHandler { get; set; }
