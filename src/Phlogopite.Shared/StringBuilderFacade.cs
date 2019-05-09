@@ -211,5 +211,61 @@ namespace Phlogopite
 
             _sb.Append(value.ToString(format, _formatProvider));
         }
+
+        internal void Append(long value)
+        {
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            Span<char> buffer = stackalloc char[CharStackBufferSize];
+            if (value.TryFormat(buffer, out int charsWritten, default, _formatProvider))
+            {
+                _sb.Append(buffer.Slice(0, charsWritten));
+                return;
+            }
+#endif
+
+            _sb.Append(value.ToString(_formatProvider));
+        }
+
+        internal void Append(long value, string format)
+        {
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            Span<char> buffer = stackalloc char[CharStackBufferSize];
+            if (value.TryFormat(buffer, out int charsWritten, format, _formatProvider))
+            {
+                _sb.Append(buffer.Slice(0, charsWritten));
+                return;
+            }
+#endif
+
+            _sb.Append(value.ToString(format, _formatProvider));
+        }
+
+        internal void Append(ulong value)
+        {
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            Span<char> buffer = stackalloc char[CharStackBufferSize];
+            if (value.TryFormat(buffer, out int charsWritten, default, _formatProvider))
+            {
+                _sb.Append(buffer.Slice(0, charsWritten));
+                return;
+            }
+#endif
+
+            _sb.Append(value.ToString(_formatProvider));
+        }
+
+        internal void Append(ulong value, string format)
+        {
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            Span<char> buffer = stackalloc char[CharStackBufferSize];
+            if (value.TryFormat(buffer, out int charsWritten, format, _formatProvider))
+            {
+                _sb.Append(buffer.Slice(0, charsWritten));
+                return;
+            }
+#endif
+
+            _sb.Append(value.ToString(format, _formatProvider));
+        }
     }
 }
