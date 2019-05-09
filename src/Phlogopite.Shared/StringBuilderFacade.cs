@@ -14,6 +14,10 @@ namespace Phlogopite
 {
     internal readonly struct StringBuilderFacade
     {
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+        private const int CharStackBufferSize = 32;
+#endif
+
         private readonly StringBuilder _sb;
         private readonly IFormatProvider _formatProvider;
 
@@ -40,6 +44,42 @@ namespace Phlogopite
             else
             {
                 _sb.Append(value);
+            }
+#endif
+        }
+
+        internal void Append(sbyte value)
+        {
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _sb.Append(value.ToString(_formatProvider));
+#else
+            Span<char> buffer = stackalloc char[CharStackBufferSize];
+            if (value.TryFormat(buffer, out int charsWritten, default, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, charsWritten);
+                _sb.Append(utf16Text);
+            }
+            else
+            {
+                _sb.Append(value.ToString(_formatProvider));
+            }
+#endif
+        }
+
+        internal void Append(sbyte value, string format)
+        {
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _sb.Append(value.ToString(format, _formatProvider));
+#else
+            Span<char> buffer = stackalloc char[CharStackBufferSize];
+            if (value.TryFormat(buffer, out int charsWritten, format, _formatProvider))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, charsWritten);
+                _sb.Append(utf16Text);
+            }
+            else
+            {
+                _sb.Append(value.ToString(format, _formatProvider));
             }
 #endif
         }
