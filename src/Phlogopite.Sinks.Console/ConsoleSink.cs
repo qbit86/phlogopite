@@ -52,8 +52,8 @@ namespace Phlogopite
 
                 _output.Write(" ");
 
-                TryGetString(writerProperties, "tag", out string tag);
-                TryGetString(writerProperties, "source", out string source);
+                string tag = GetStringOrDefault(writerProperties, "tag");
+                string source = GetStringOrDefault(writerProperties, "source");
                 if (tag != null || source != null)
                 {
                     _output.Write("[");
@@ -150,19 +150,18 @@ namespace Phlogopite
             return false;
         }
 
-        private bool TryGetString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
+        private string GetStringOrDefault(ReadOnlySpan<NamedProperty> properties, string name)
         {
             foreach (NamedProperty p in properties)
             {
                 if (!string.Equals(p.Name, name, StringComparison.Ordinal))
                     continue;
 
-                if (p.TryGetString(out value))
-                    return true;
+                if (p.TryGetString(out string result))
+                    return result;
             }
 
-            value = default;
-            return false;
+            return null;
         }
 
         private void RenderLevel(Level level)
