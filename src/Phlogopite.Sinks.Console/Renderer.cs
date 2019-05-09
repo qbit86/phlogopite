@@ -22,6 +22,7 @@ namespace Phlogopite
             Assert(output != null);
             _output = output;
 
+            Assert(formatProvider != null);
             _formatProvider = formatProvider;
         }
 
