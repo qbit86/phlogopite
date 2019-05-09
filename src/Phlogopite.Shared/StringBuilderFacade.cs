@@ -46,38 +46,30 @@ namespace Phlogopite
 
         internal void Append(sbyte value)
         {
-#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
-            _sb.Append(value.ToString(_formatProvider));
-#else
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
             Span<char> buffer = stackalloc char[CharStackBufferSize];
             if (value.TryFormat(buffer, out int charsWritten, default, _formatProvider))
             {
-                ReadOnlySpan<char> utf16Text = buffer.Slice(0, charsWritten);
-                _sb.Append(utf16Text);
-            }
-            else
-            {
-                _sb.Append(value.ToString(_formatProvider));
+                _sb.Append(buffer.Slice(0, charsWritten));
+                return;
             }
 #endif
+
+            _sb.Append(value.ToString(_formatProvider));
         }
 
         internal void Append(sbyte value, string format)
         {
-#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
-            _sb.Append(value.ToString(format, _formatProvider));
-#else
+#if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
             Span<char> buffer = stackalloc char[CharStackBufferSize];
             if (value.TryFormat(buffer, out int charsWritten, format, _formatProvider))
             {
-                ReadOnlySpan<char> utf16Text = buffer.Slice(0, charsWritten);
-                _sb.Append(utf16Text);
-            }
-            else
-            {
-                _sb.Append(value.ToString(format, _formatProvider));
+                _sb.Append(buffer.Slice(0, charsWritten));
+                return;
             }
 #endif
+
+            _sb.Append(value.ToString(format, _formatProvider));
         }
     }
 }
