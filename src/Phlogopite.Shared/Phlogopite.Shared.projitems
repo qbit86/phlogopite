@@ -11,6 +11,7 @@
     <Import_RootNamespace>Phlogopite</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CultureConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringBuilderCache.cs" />
   </ItemGroup>
 </Project>

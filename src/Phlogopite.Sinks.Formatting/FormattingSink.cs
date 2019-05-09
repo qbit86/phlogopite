@@ -4,9 +4,18 @@ namespace Phlogopite
 {
     public sealed class FormattingSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
+        private readonly Level _minimumLevel;
+        private readonly IFormatProvider _formatProvider;
+
+        public FormattingSink(Level minimumLevel, IFormatProvider formatProvider)
+        {
+            _minimumLevel = minimumLevel;
+            _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
+        }
+
         public bool IsEnabled(Level level)
         {
-            throw new NotImplementedException();
+            return _minimumLevel <= level;
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
