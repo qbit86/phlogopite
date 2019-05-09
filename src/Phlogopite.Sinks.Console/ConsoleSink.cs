@@ -24,7 +24,7 @@ namespace Phlogopite
         {
             _minimumLevel = minimumLevel;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
-            _output = Console.Out ?? TextWriter.Null;
+            _output = Console.Out;
             _renderer = new Renderer(_output, _formatProvider);
         }
 

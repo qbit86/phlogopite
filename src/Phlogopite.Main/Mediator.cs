@@ -79,7 +79,7 @@ namespace Phlogopite
 #pragma warning restore CA1031 // Do not catch general exception types
             }
 
-            ArrayPool<NamedProperty>.Shared.Return(mediatorProperties, false);
+            ArrayPool<NamedProperty>.Shared.Return(mediatorProperties);
 
             if (exceptions is null)
                 return;
