@@ -13,5 +13,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CultureConstants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringBuilderCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringBuilderFacade.cs" />
   </ItemGroup>
 </Project>
