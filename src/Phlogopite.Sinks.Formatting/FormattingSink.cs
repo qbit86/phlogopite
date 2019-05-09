@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Phlogopite
 {
@@ -21,7 +22,18 @@ namespace Phlogopite
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
-            throw new NotImplementedException();
+            if (!IsEnabled(level))
+                return;
+
+            StringBuilder sb = StringBuilderCache.Acquire();
+            try
+            {
+                throw new NotImplementedException();
+            }
+            finally
+            {
+                StringBuilderCache.Release(sb);
+            }
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
