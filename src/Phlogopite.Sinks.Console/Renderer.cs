@@ -31,7 +31,7 @@ namespace Phlogopite
 #if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
             _output.Write(value);
 #else
-            Span<char> buffer = stackalloc char[8];
+            Span<char> buffer = stackalloc char[5];
             if (value.TryFormat(buffer, out int formattedLength))
             {
                 ReadOnlySpan<char> utf16Text = buffer.Slice(0, formattedLength);
@@ -39,7 +39,7 @@ namespace Phlogopite
             }
             else
             {
-                _output.Write(value.ToString(_formatProvider));
+                _output.Write(value);
             }
 #endif
         }

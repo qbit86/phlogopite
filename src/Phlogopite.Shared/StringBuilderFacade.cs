@@ -25,5 +25,23 @@ namespace Phlogopite
             Assert(formatProvider != null);
             _formatProvider = formatProvider;
         }
+
+        internal void Append(bool value)
+        {
+#if PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
+            _sb.Append(value);
+#else
+            Span<char> buffer = stackalloc char[5];
+            if (value.TryFormat(buffer, out int charsWritten))
+            {
+                ReadOnlySpan<char> utf16Text = buffer.Slice(0, charsWritten);
+                _sb.Append(utf16Text);
+            }
+            else
+            {
+                _sb.Append(value);
+            }
+#endif
+        }
     }
 }
