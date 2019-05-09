@@ -2,4 +2,5 @@
 	<s:Boolean x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/SPACE_WITHIN_SINGLE_LINE_ARRAY_INITIALIZER_BRACES/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=3AE95D24_002DD4FC_002D46F5_002D9C12_002DBF480FCE6533_002Ff_003AScalar_002Ecs/@EntryIndexedValue">3AE95D24-D4FC-46F5-9C12-BF480FCE6533/f:Scalar.cs</s:String>
 	<s:String x:Key="/Default/CodeInspection/GeneratedCode/GeneratedFileMasks/=StringBuilderCache_002Ecs/@EntryIndexedValue">StringBuilderCache.cs</s:String>
+	<s:String x:Key="/Default/CodeStyle/CodeFormatting/CSharpFormat/EMPTY_BLOCK_STYLE/@EntryValue">TOGETHER_SAME_LINE</s:String>
 </wpf:ResourceDictionary>

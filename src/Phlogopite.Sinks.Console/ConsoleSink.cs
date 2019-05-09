@@ -5,9 +5,11 @@ namespace Phlogopite
 {
     public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
-        private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[] {
+        private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[]
+        {
             ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.Yellow,
-            ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan };
+            ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan
+        };
 
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
