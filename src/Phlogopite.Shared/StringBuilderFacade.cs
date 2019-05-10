@@ -30,6 +30,22 @@ namespace Phlogopite
             _formatProvider = formatProvider;
         }
 
+        internal void Append(object value)
+        {
+            string s = Convert.ToString(value, _formatProvider);
+            _sb.Append(s);
+        }
+
+        internal void Append(string value)
+        {
+            _sb.Append(value);
+        }
+
+        internal void Append(char value)
+        {
+            _sb.Append(value);
+        }
+
         internal void Append(bool value)
         {
 #if !PHLOGOPITE_TRY_FORMAT_NOT_SUPPORTED
