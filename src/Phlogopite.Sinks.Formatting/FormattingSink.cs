@@ -7,7 +7,7 @@ namespace Phlogopite
     {
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
-        private readonly Formatter _formatter = Formatter.Default;
+        private readonly IFormatter<NamedProperty> _formatter = Formatter.Default;
 
         public FormattingSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
 
