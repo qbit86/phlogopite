@@ -30,7 +30,7 @@ namespace Phlogopite
             {
                 int timeOffset = output.Length;
                 RenderTime(time, sbf);
-                mediatorSegments[timeIndex] = new Segment(timeOffset, output.Length - timeOffset);
+                TrySetSegment(timeIndex, timeOffset, output, mediatorSegments);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Phlogopite
                 {
                     int tagOffset = output.Length;
                     output.Append(tag);
-                    writerSegments[tagIndex] = new Segment(tagOffset, output.Length - tagOffset);
+                    TrySetSegment(tagIndex, tagOffset, output, writerSegments);
                 }
 
                 if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
@@ -58,7 +58,7 @@ namespace Phlogopite
                 {
                     int sourceOffset = output.Length;
                     output.Append(source);
-                    writerSegments[sourceIndex] = new Segment(sourceOffset, output.Length - sourceOffset);
+                    TrySetSegment(sourceIndex, sourceOffset, output, writerSegments);
                 }
 
                 output.Append("] ");
@@ -80,14 +80,14 @@ namespace Phlogopite
 
                         int propertyOffset = output.Length;
                         RenderValue(userProperties[i], sbf);
-                        userSegments[i] = new Segment(propertyOffset, output.Length - propertyOffset);
+                        TrySetSegment(i, propertyOffset, output, userSegments);
                     }
                     else if (string.IsNullOrEmpty(userProperties[i].Name))
                     {
                         output.Append(": ");
                         int propertyOffset = output.Length;
                         RenderValue(userProperties[i], sbf);
-                        userSegments[i] = new Segment(propertyOffset, output.Length - propertyOffset);
+                        TrySetSegment(i, propertyOffset, output, userSegments);
                     }
                     else
                     {
@@ -96,7 +96,7 @@ namespace Phlogopite
                         output.Append(": ");
                         int propertyOffset = output.Length;
                         RenderValue(userProperties[i], sbf);
-                        userSegments[i] = new Segment(propertyOffset, output.Length - propertyOffset);
+                        TrySetSegment(i, propertyOffset, output, userSegments);
                     }
                 }
                 else
@@ -109,7 +109,7 @@ namespace Phlogopite
 
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    userSegments[i] = new Segment(propertyOffset, output.Length - propertyOffset);
+                    TrySetSegment(i, propertyOffset, output, userSegments);
                 }
 
                 if (i + 1 < userProperties.Length)
@@ -119,7 +119,16 @@ namespace Phlogopite
             }
         }
 
-        private int FindDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)
+        private static void TrySetSegment(int segmentIndex, int propertyOffset, StringBuilder sb,
+            Span<Segment> segments)
+        {
+            if ((uint)segmentIndex >= (uint)segments.Length)
+                return;
+
+            segments[segmentIndex] = new Segment(propertyOffset, sb.Length - propertyOffset);
+        }
+
+        private static int FindDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)
         {
             for (int i = 0; i != properties.Length; ++i)
             {
@@ -136,7 +145,7 @@ namespace Phlogopite
             return -1;
         }
 
-        private int FindString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
+        private static int FindString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
         {
             for (int i = 0; i != properties.Length; ++i)
             {
