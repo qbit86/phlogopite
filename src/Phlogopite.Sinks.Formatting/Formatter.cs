@@ -64,6 +64,8 @@ namespace Phlogopite
                 output.Append("] ");
             }
 
+            output.Append(text);
+
             for (int i = 0; i != userProperties.Length; ++i)
             {
                 if (i == 0 && !string.IsNullOrEmpty(text))
@@ -196,7 +198,7 @@ namespace Phlogopite
             sbf.Append(time, format);
         }
 
-        private void RenderValue(in NamedProperty p, StringBuilderFacade sbf)
+        private static void RenderValue(in NamedProperty p, StringBuilderFacade sbf)
         {
             switch (p.TypeCode)
             {
