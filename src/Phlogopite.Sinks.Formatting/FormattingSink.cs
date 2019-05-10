@@ -7,6 +7,11 @@ namespace Phlogopite
     {
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
+        private readonly Formatter _formatter = Formatter.Default;
+
+        public FormattingSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
+
+        public FormattingSink(Level minimumLevel) : this(minimumLevel, CultureConstants.FixedCulture) { }
 
         public FormattingSink(Level minimumLevel, IFormatProvider formatProvider)
         {
@@ -28,7 +33,13 @@ namespace Phlogopite
             StringBuilder sb = StringBuilderCache.Acquire();
             try
             {
-                throw new NotImplementedException();
+                _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
+                    sb, default, default, default);
+
+#if DEBUG
+                string test = sb.ToString();
+                Console.WriteLine(test);
+#endif
             }
             finally
             {
