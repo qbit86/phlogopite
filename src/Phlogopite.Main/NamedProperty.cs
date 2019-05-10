@@ -38,6 +38,7 @@ namespace Phlogopite
 
         public TypeCode TypeCode => _value.TypeCode;
 
+        // ReSharper disable InconsistentNaming
         public object AsObject => _value.ReferenceValue;
 
         public string AsString => _value.ReferenceValue as string;
@@ -67,6 +68,7 @@ namespace Phlogopite
         public double AsDouble => _value.ScalarValue.AsDouble;
 
         public DateTime AsDateTime => _value.ScalarValue.AsDateTime;
+        // ReSharper restore InconsistentNaming
 
         public bool TryGetObject(out object value)
         {

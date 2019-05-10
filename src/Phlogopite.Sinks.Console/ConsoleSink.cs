@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+// ReSharper disable ImpureMethodCallOnReadonlyValueField
+
 namespace Phlogopite
 {
     public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
