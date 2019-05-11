@@ -3,6 +3,27 @@
 Logging with lower memory footprint.
 
 ```cs
+internal static class Program
+{
+    private const string Tag = nameof(Program);
+
+    private static void Main()
+    {
+        var sinks = new[] { new ConsoleSink() };
+        var mediator = new Mediator(sinks);
+        var log = new Writer(mediator, Tag);
+        log.V("Hello, world!");
+        log.I("Logged in", ("username", Environment.UserName), ("ipaddress", IPAddress.Loopback));
+    }
+}
+```
+
+```
+V 11:58:16.732 [Program.Main] Hello, world!
+I 11:58:16.742 [Program.Main] Logged in. username: Viktor, ipaddress: 127.0.0.1
+```
+
+```cs
 public interface IWriter<TProperty>
 {
     void Write(Level level, string text, ReadOnlySpan<TProperty> properties);
@@ -19,16 +40,4 @@ public interface ISink<TProperty>
     void Write(Level level, string text, ReadOnlySpan<TProperty> userProperties,
         ReadOnlySpan<TProperty> writerProperties, ReadOnlySpan<TProperty> mediatorProperties);
 }
-```
-
-```cs
-var sinks = new ISink<NamedProperty>[] { new ConsoleSink() };
-var mediator = new Mediator(sinks);
-...
-var log = new Writer(mediator, tag: "SomeClass");
-log.I("Plain text, no string formatting", ("tau", 2.0 * Math.PI), ("today", DateTime.Today));
-```
-
-```
-I 03:42:22.642 [SomeClass.SomeMethod] Plain text, no string formatting. tau: 6.28318530717959, today: 2019-05-08 00:00:00
 ```
