@@ -35,7 +35,7 @@ namespace Phlogopite
             }
             catch (InvalidOperationException ex)
             {
-                log.E(null, (null, ex));
+                log.Exception(ex);
             }
 
             log.A("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
