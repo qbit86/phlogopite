@@ -71,11 +71,15 @@ namespace Phlogopite
             Write(level, text, properties, default, default);
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> writerProperties,
-            ReadOnlySpan<NamedProperty> mediatorProperties, ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
+            ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
             ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)
         {
             if (!IsEnabled(level))
+                return;
+
+            if (formattedMessage.Array is null)
                 return;
 
             ConsoleColor oldColor = SetForegroundColor(level);
