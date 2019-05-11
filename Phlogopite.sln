@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Console", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{20684C57-524B-49AD-A950-562ECAEE2922}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo", "samples\Phlogopite.Demo\Phlogopite.Demo.csproj", "{85880720-5E92-48F7-B5E8-D3C79E81F6F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.PrivatePlayground", "samples\Phlogopite.PrivatePlayground\Phlogopite.PrivatePlayground.csproj", "{85880720-5E92-48F7-B5E8-D3C79E81F6F9}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Phlogopite.Shared", "src\Phlogopite.Shared\Phlogopite.Shared.shproj", "{DF3D20E7-950B-42A3-A9A3-CF1FFEC7E118}"
 EndProject
