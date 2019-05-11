@@ -8,7 +8,7 @@ namespace Phlogopite.Sinks
     public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>,
         IFormattedSink<NamedProperty>
     {
-        private static readonly ConsoleColor[] s_levelColorMap = new[]
+        private static readonly ConsoleColor[] s_levelColorMap =
         {
             ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.Yellow,
             ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan
