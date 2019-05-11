@@ -1,6 +1,6 @@
 using System;
 
-namespace Phlogopite
+namespace Phlogopite.Sinks
 {
     public interface IFormattedSink<TProperty>
     {

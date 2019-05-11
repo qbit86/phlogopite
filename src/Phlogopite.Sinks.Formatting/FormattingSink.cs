@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Phlogopite
+namespace Phlogopite.Sinks
 {
     public sealed class FormattingSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
