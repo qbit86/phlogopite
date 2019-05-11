@@ -8,20 +8,25 @@ namespace Phlogopite.Sinks
     public sealed class FormattingSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
         private readonly IReadOnlyList<IFormattedSink<NamedProperty>> _sinks;
+        private readonly IFormatter<NamedProperty> _formatter;
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
-        private readonly IFormatter<NamedProperty> _formatter = Formatter.Default;
 
         public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks)
-            : this(sinks, Level.Verbose, CultureConstants.FixedCulture) { }
+            : this(sinks, Formatter.Default, Level.Verbose, CultureConstants.FixedCulture) { }
 
-        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, Level minimumLevel)
-            : this(sinks, minimumLevel, CultureConstants.FixedCulture) { }
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, IFormatter<NamedProperty> formatter)
+            : this(sinks, formatter, Level.Verbose, CultureConstants.FixedCulture) { }
 
-        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, Level minimumLevel,
-            IFormatProvider formatProvider)
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, IFormatter<NamedProperty> formatter,
+            Level minimumLevel)
+            : this(sinks, formatter, minimumLevel, CultureConstants.FixedCulture) { }
+
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, IFormatter<NamedProperty> formatter,
+            Level minimumLevel, IFormatProvider formatProvider)
         {
             _sinks = sinks ?? Array.Empty<IFormattedSink<NamedProperty>>();
+            _formatter = formatter ?? Formatter.Default;
             _minimumLevel = minimumLevel;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
         }
