@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Phlogopite
 {
@@ -12,6 +13,7 @@ namespace Phlogopite
             var mediator = new Mediator(sinks);
             var log = new Writer(mediator, Tag);
             log.V("Hello, world!");
+            log.I("Logged in", ("username", Environment.UserName), ("ipaddress", IPAddress.Loopback));
         }
     }
 }
