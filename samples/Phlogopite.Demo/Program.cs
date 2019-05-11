@@ -13,9 +13,11 @@ namespace Phlogopite
             // Messing with culture.
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
 
-            var sinks = new ISink<NamedProperty>[] { new ConsoleSink() };
+            var formattedSinks = new IFormattedSink<NamedProperty>[] { new ConsoleSink() };
+            var sinks = new ISink<NamedProperty>[] { new FormattingSink(formattedSinks) };
             var mediator = new Mediator(sinks);
             Mediator.TrySetShared(mediator);
+
             Foo();
         }
 

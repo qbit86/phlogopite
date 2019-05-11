@@ -1,11 +1,12 @@
 using System;
+using System.Buffers;
 using System.IO;
-
-// ReSharper disable ImpureMethodCallOnReadonlyValueField
+using System.Text;
 
 namespace Phlogopite
 {
-    public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
+    public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>,
+        IFormattedSink<NamedProperty>
     {
         private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[]
         {
@@ -16,7 +17,7 @@ namespace Phlogopite
         private readonly Level _minimumLevel;
         private readonly IFormatProvider _formatProvider;
         private readonly TextWriter _output;
-        private readonly Renderer _renderer;
+        private readonly IFormatter<NamedProperty> _formatter = Formatter.Default;
 
         public ConsoleSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
 
@@ -27,7 +28,6 @@ namespace Phlogopite
             _minimumLevel = minimumLevel;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
             _output = Console.Out;
-            _renderer = new Renderer(_output, _formatProvider);
         }
 
         public bool IsEnabled(Level level)
@@ -44,85 +44,19 @@ namespace Phlogopite
             ConsoleColor oldColor = SetForegroundColor(level);
             try
             {
-                RenderLevel(level);
-                _output.Write(" ");
-
-                if (TryGetDateTime(mediatorProperties, "time", out DateTime time))
-                    RenderTime(time);
-                else
-                    _output.Write("            ");
-
-                _output.Write(" ");
-
-                string tag = GetStringOrDefault(writerProperties, "tag");
-                string source = GetStringOrDefault(writerProperties, "source");
-                if (tag != null || source != null)
-                {
-                    _output.Write("[");
-                    if (!string.IsNullOrEmpty(tag))
-                        _output.Write(tag);
-
-                    if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
-                        _output.Write(".");
-
-                    if (!string.IsNullOrEmpty(source))
-                        _output.Write(source);
-
-                    _output.Write("] ");
-                }
-
-                _output.Write(text);
-
-                for (int i = 0; i != userProperties.Length; ++i)
-                {
-                    if (i == 0 && !string.IsNullOrEmpty(text))
-                    {
-                        bool endsWithPunctuation = char.IsPunctuation(text, text.Length - 1);
-                        if (endsWithPunctuation)
-                        {
-                            _output.Write(" ");
-                            if (!string.IsNullOrEmpty(userProperties[i].Name))
-                            {
-                                _output.Write(userProperties[i].Name);
-                                _output.Write(": ");
-                            }
-
-                            RenderValue(userProperties[i]);
-                        }
-                        else if (string.IsNullOrEmpty(userProperties[i].Name))
-                        {
-                            _output.Write(": ");
-                            RenderValue(userProperties[i]);
-                        }
-                        else
-                        {
-                            _output.Write(". ");
-                            _output.Write(userProperties[i].Name);
-                            _output.Write(": ");
-                            RenderValue(userProperties[i]);
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(userProperties[i].Name))
-                        {
-                            _output.Write(userProperties[i].Name);
-                            _output.Write(": ");
-                        }
-
-                        RenderValue(userProperties[i]);
-                    }
-
-                    if (i + 1 < userProperties.Length)
-                    {
-                        _output.Write(", ");
-                    }
-                }
+                StringBuilder sb = StringBuilderCache.Acquire();
+                _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
+                    sb, default, default, default);
+                int length = sb.Length;
+                char[] buffer = ArrayPool<char>.Shared.Rent(length);
+                sb.CopyTo(0, buffer, 0, length);
+                StringBuilderCache.Release(sb);
+                _output.WriteLine(buffer, 0, length);
+                ArrayPool<char>.Shared.Return(buffer);
             }
             finally
             {
                 Console.ForegroundColor = oldColor;
-                _output.WriteLine();
             }
         }
 
@@ -137,126 +71,21 @@ namespace Phlogopite
             Write(level, text, properties, default, default);
         }
 
-        private bool TryGetDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> writerProperties,
+            ReadOnlySpan<NamedProperty> mediatorProperties, ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
+            ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)
         {
-            foreach (NamedProperty p in properties)
-            {
-                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
-                    continue;
+            if (!IsEnabled(level))
+                return;
 
-                if (p.TryGetDateTime(out value))
-                    return true;
+            ConsoleColor oldColor = SetForegroundColor(level);
+            try
+            {
+                _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
             }
-
-            value = default;
-            return false;
-        }
-
-        private string GetStringOrDefault(ReadOnlySpan<NamedProperty> properties, string name)
-        {
-            foreach (NamedProperty p in properties)
+            finally
             {
-                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
-                    continue;
-
-                if (p.TryGetString(out string result))
-                    return result;
-            }
-
-            return null;
-        }
-
-        private void RenderLevel(Level level)
-        {
-            switch (level)
-            {
-                case Level.Verbose:
-                    _output.Write("V");
-                    break;
-                case Level.Debug:
-                    _output.Write("D");
-                    break;
-                case Level.Info:
-                    _output.Write("I");
-                    break;
-                case Level.Warning:
-                    _output.Write("W");
-                    break;
-                case Level.Error:
-                    _output.Write("E");
-                    break;
-                case Level.Assert:
-                    _output.Write("A");
-                    break;
-                case Level.Silent:
-                    _output.Write("S");
-                    break;
-                default:
-                    _output.Write("-");
-                    break;
-            }
-        }
-
-        private void RenderTime(DateTime time)
-        {
-            const string format = "HH:mm:ss.fff";
-            _renderer.Render(time, format);
-        }
-
-        private void RenderValue(in NamedProperty p)
-        {
-            switch (p.TypeCode)
-            {
-                case TypeCode.Empty:
-                    return;
-                case TypeCode.Object:
-                    _output.Write(Convert.ToString(p.AsObject, _formatProvider));
-                    return;
-                case TypeCode.Boolean:
-                    _renderer.Render(p.AsBoolean);
-                    return;
-                case TypeCode.Char:
-                    _output.Write(p.AsChar);
-                    return;
-                case TypeCode.SByte:
-                    _renderer.Render(p.AsSByte, "x2");
-                    return;
-                case TypeCode.Byte:
-                    _renderer.Render(p.AsByte, "x2");
-                    return;
-                case TypeCode.Int16:
-                    _renderer.Render(p.AsInt16);
-                    return;
-                case TypeCode.UInt16:
-                    _renderer.Render(p.AsUInt16);
-                    return;
-                case TypeCode.Int32:
-                    _renderer.Render(p.AsInt32);
-                    return;
-                case TypeCode.UInt32:
-                    _renderer.Render(p.AsUInt32);
-                    return;
-                case TypeCode.Int64:
-                    _renderer.Render(p.AsInt64);
-                    return;
-                case TypeCode.UInt64:
-                    _renderer.Render(p.AsUInt64);
-                    return;
-                case TypeCode.Single:
-                    _renderer.Render(p.AsSingle);
-                    return;
-                case TypeCode.Double:
-                    _renderer.Render(p.AsDouble);
-                    return;
-                case TypeCode.DateTime:
-                    _renderer.Render(p.AsDateTime);
-                    return;
-                case TypeCode.String:
-                    _output.Write(p.AsString);
-                    return;
-                default:
-                    _output.Write(Convert.ToString(p.AsObject, _formatProvider));
-                    return;
+                Console.ForegroundColor = oldColor;
             }
         }
 
