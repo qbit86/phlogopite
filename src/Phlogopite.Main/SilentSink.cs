@@ -1,6 +1,7 @@
 using System;
 
-namespace Phlogopite
+// ReSharper disable once CheckNamespace
+namespace Phlogopite.Sinks
 {
     public sealed class SilentSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
