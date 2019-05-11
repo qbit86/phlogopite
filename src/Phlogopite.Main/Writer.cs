@@ -76,8 +76,14 @@ namespace Phlogopite
             return unchecked((int)_minimumLevel * 397) ^ (_mediator?.GetHashCode() ?? 0);
         }
 
-        public static bool operator ==(Writer left, Writer right) => left.Equals(right);
+        public static bool operator ==(Writer left, Writer right)
+        {
+            return left.Equals(right);
+        }
 
-        public static bool operator !=(Writer left, Writer right) => !left.Equals(right);
+        public static bool operator !=(Writer left, Writer right)
+        {
+            return !left.Equals(right);
+        }
     }
 }

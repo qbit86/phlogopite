@@ -79,7 +79,8 @@ csharp_style_expression_bodied_indexers = when_on_single_line:suggestion
 csharp_style_expression_bodied_lambdas = true:suggestion
 csharp_style_expression_bodied_local_functions = when_on_single_line:suggestion
 csharp_style_expression_bodied_methods = false:suggestion
-csharp_style_expression_bodied_operators = when_on_single_line:suggestion
+# Does not work in Rider 2019.1: https://youtrack.jetbrains.com/issue/RIDER-27765
+# csharp_style_expression_bodied_operators = when_on_single_line:suggestion
 csharp_style_expression_bodied_properties = when_on_single_line:suggestion
 
 # Pattern matching preferences
@@ -93,6 +94,7 @@ csharp_style_conditional_delegate_call = true:suggestion
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
 
 # Code-block preferences
+# Does not work in Rider 2019.1: https://youtrack.jetbrains.com/issue/RSRP-474621
 # csharp_prefer_braces = false:none
 
 # Expression-level preferences

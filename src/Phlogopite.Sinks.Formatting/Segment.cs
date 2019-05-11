@@ -30,8 +30,14 @@ namespace Phlogopite
             return unchecked(Offset * 397) ^ Count;
         }
 
-        public static bool operator ==(Segment left, Segment right) => left.Equals(right);
+        public static bool operator ==(Segment left, Segment right)
+        {
+            return left.Equals(right);
+        }
 
-        public static bool operator !=(Segment left, Segment right) => !left.Equals(right);
+        public static bool operator !=(Segment left, Segment right)
+        {
+            return !left.Equals(right);
+        }
     }
 }

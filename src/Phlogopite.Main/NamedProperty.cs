@@ -275,54 +275,91 @@ namespace Phlogopite
             return HashHelpers.Combine(_value.GetHashCode(), nameHashCode);
         }
 
-        public static bool operator ==(NamedProperty left, NamedProperty right) => left.Equals(right);
+        public static bool operator ==(NamedProperty left, NamedProperty right)
+        {
+            return left.Equals(right);
+        }
 
-        public static bool operator !=(NamedProperty left, NamedProperty right) => !left.Equals(right);
+        public static bool operator !=(NamedProperty left, NamedProperty right)
+        {
+            return !left.Equals(right);
+        }
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
-        public static implicit operator NamedProperty((string name, object value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, object value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, string value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, string value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, bool value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, bool value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, byte value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, byte value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, sbyte value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, sbyte value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, char value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, char value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, short value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, short value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, ushort value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, ushort value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, int value) t) => new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, int value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, uint value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, uint value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, long value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, long value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, ulong value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, ulong value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, float value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, float value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, double value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, double value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 
-        public static implicit operator NamedProperty((string name, DateTime value) t) =>
-            new NamedProperty(t.name, t.value);
+        public static implicit operator NamedProperty((string name, DateTime value) t)
+        {
+            return new NamedProperty(t.name, t.value);
+        }
 #pragma warning restore CA2225 // Operator overloads have named alternates
     }
 }
