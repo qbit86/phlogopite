@@ -14,9 +14,9 @@ namespace Phlogopite
 
     public sealed class Formatter : IFormatter<NamedProperty>
     {
-        public static Formatter Default { get; } = new Formatter();
-
         private Formatter() { }
+
+        public static Formatter Default { get; } = new Formatter();
 
         public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
