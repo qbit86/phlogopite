@@ -8,24 +8,29 @@ namespace Phlogopite.Sinks
     public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>,
         IFormattedSink<NamedProperty>
     {
-        private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[]
+        private static readonly ConsoleColor[] s_levelColorMap = new[]
         {
             ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.Yellow,
             ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan
         };
 
         private readonly Level _minimumLevel;
+        private readonly IFormatter<NamedProperty> _formatter;
         private readonly IFormatProvider _formatProvider;
         private readonly TextWriter _output;
-        private readonly IFormatter<NamedProperty> _formatter = Formatter.Default;
 
-        public ConsoleSink() : this(Level.Verbose, CultureConstants.FixedCulture) { }
+        public ConsoleSink() : this(Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel) : this(minimumLevel, CultureConstants.FixedCulture) { }
+        public ConsoleSink(Level minimumLevel)
+            : this(minimumLevel, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider)
+        public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter)
+            : this(minimumLevel, formatter, CultureConstants.FixedCulture) { }
+
+        public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
             _minimumLevel = minimumLevel;
+            _formatter = formatter ?? Formatter.Default;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
             _output = Console.Out;
         }

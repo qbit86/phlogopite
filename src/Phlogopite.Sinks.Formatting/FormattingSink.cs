@@ -8,26 +8,29 @@ namespace Phlogopite.Sinks
     public sealed class FormattingSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
         private readonly IReadOnlyList<IFormattedSink<NamedProperty>> _sinks;
-        private readonly IFormatter<NamedProperty> _formatter;
         private readonly Level _minimumLevel;
+        private readonly IFormatter<NamedProperty> _formatter;
         private readonly IFormatProvider _formatProvider;
 
         public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks)
-            : this(sinks, Formatter.Default, Level.Verbose, CultureConstants.FixedCulture) { }
+            : this(sinks, Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }
 
         public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, IFormatter<NamedProperty> formatter)
-            : this(sinks, formatter, Level.Verbose, CultureConstants.FixedCulture) { }
+            : this(sinks, Level.Verbose, formatter, CultureConstants.FixedCulture) { }
 
-        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, IFormatter<NamedProperty> formatter,
-            Level minimumLevel)
-            : this(sinks, formatter, minimumLevel, CultureConstants.FixedCulture) { }
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, Level minimumLevel)
+            : this(sinks, minimumLevel, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, IFormatter<NamedProperty> formatter,
-            Level minimumLevel, IFormatProvider formatProvider)
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks,
+            Level minimumLevel, IFormatter<NamedProperty> formatter)
+            : this(sinks, minimumLevel, formatter, CultureConstants.FixedCulture) { }
+
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks,
+            Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
             _sinks = sinks ?? Array.Empty<IFormattedSink<NamedProperty>>();
-            _formatter = formatter ?? Formatter.Default;
             _minimumLevel = minimumLevel;
+            _formatter = formatter ?? Formatter.Default;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
         }
 
