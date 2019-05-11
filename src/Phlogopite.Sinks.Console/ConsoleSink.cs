@@ -21,11 +21,11 @@ namespace Phlogopite.Sinks
 
         public ConsoleSink() : this(Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel)
-            : this(minimumLevel, Formatter.Default, CultureConstants.FixedCulture) { }
+        public ConsoleSink(Level minimumLevel) :
+            this(minimumLevel, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter)
-            : this(minimumLevel, formatter, CultureConstants.FixedCulture) { }
+        public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter) :
+            this(minimumLevel, formatter, CultureConstants.FixedCulture) { }
 
         public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {

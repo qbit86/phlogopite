@@ -13,14 +13,14 @@ namespace Phlogopite
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
 
-        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks)
-            : this(sinks, Level.Verbose) { }
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks) :
+            this(sinks, Level.Verbose) { }
 
-        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel)
-            : this(sinks, minimumLevel, default) { }
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel) :
+            this(sinks, minimumLevel, default) { }
 
-        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider)
-            : this(sinks, Level.Verbose, minimumLevelProvider) { }
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider) :
+            this(sinks, Level.Verbose, minimumLevelProvider) { }
 
         private Mediator(IReadOnlyList<ISink<NamedProperty>> sinks,
             Level minimumLevel, Func<Level> minimumLevelProvider)

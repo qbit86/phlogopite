@@ -11,8 +11,8 @@ namespace Phlogopite
         private readonly string _tag;
         private readonly string _source;
 
-        public Writer(IMediator<NamedProperty> mediator, string tag, [CallerMemberName] string source = null)
-            : this(mediator, Level.Verbose, tag, source) { }
+        public Writer(IMediator<NamedProperty> mediator, string tag, [CallerMemberName] string source = null) :
+            this(mediator, Level.Verbose, tag, source) { }
 
         public Writer(IMediator<NamedProperty> mediator, Level minimumLevel, string tag,
             [CallerMemberName] string source = null)
