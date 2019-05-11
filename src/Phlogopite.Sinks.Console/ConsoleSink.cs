@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Phlogopite
 {
-    public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
+    public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>,
+        IFormattedSink<NamedProperty>
     {
         private static readonly ConsoleColor[] s_levelColorMap = new ConsoleColor[]
         {
@@ -68,6 +69,24 @@ namespace Phlogopite
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default, default);
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> writerProperties,
+            ReadOnlySpan<NamedProperty> mediatorProperties, ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
+            ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)
+        {
+            if (!IsEnabled(level))
+                return;
+
+            ConsoleColor oldColor = SetForegroundColor(level);
+            try
+            {
+                _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+            }
+            finally
+            {
+                Console.ForegroundColor = oldColor;
+            }
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)

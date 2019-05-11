@@ -57,10 +57,6 @@ namespace Phlogopite
                         sink.Write(level, text, userProperties, writerProperties, mediatorProperties,
                             formattedMessage, userSegments, writerSegments, mediatorSegments);
                     }
-
-#if DEBUG
-                    Console.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
-#endif
                 }
                 finally
                 {
