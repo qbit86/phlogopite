@@ -2,6 +2,8 @@
 
 Logging with lower memory footprint.
 
+## Usage
+
 ```cs
 internal static class Program
 {
@@ -22,6 +24,8 @@ internal static class Program
 V 11:58:16.732 [Program.Main] Hello, world!
 I 11:58:16.742 [Program.Main] Logged in. username: Viktor, ipaddress: 127.0.0.1
 ```
+
+## API
 
 ```cs
 public interface IWriter<TProperty>
