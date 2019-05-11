@@ -124,9 +124,7 @@ namespace Phlogopite
                 }
 
                 if (i + 1 < userProperties.Length)
-                {
                     output.Append(", ");
-                }
             }
         }
 
