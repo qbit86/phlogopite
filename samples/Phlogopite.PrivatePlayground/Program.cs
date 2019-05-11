@@ -25,11 +25,19 @@ namespace Phlogopite
         private static void Foo()
         {
             var log = new Writer(Mediator.Shared, Tag);
-            log.V("DateTime formatting", ("dateTime", DateTime.Now));
+            log.V("Hello, World!", ("username", Environment.UserName));
             log.D("Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
-            log.I("Plain text, no dynamic formatting", ("tau", 2.0 * Math.PI), ("today", DateTime.Today));
+            log.I("Plain text, no dynamic formatting", (nameof(Math.E), Math.E), ("today", DateTime.Today));
             log.W("Empty property", (null, null));
-            log.E("Error!", (null, new InvalidOperationException("Just test")));
+            try
+            {
+                throw new InvalidOperationException("Just test");
+            }
+            catch (InvalidOperationException ex)
+            {
+                log.E(null, (null, ex));
+            }
+
             log.A("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
         }
     }
