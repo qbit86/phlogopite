@@ -3,7 +3,7 @@ using System.Buffers;
 using System.IO;
 using System.Text;
 
-namespace Phlogopite
+namespace Phlogopite.Sinks
 {
     public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>,
         IFormattedSink<NamedProperty>

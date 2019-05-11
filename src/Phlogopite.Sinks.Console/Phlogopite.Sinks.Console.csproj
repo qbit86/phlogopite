@@ -2,6 +2,7 @@
   <PropertyGroup>
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <RootNamespace>Phlogopite.Sinks</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.2" />
