@@ -1,5 +1,6 @@
 using System;
 
+// ReSharper disable once CheckNamespace
 namespace Phlogopite
 {
     public readonly struct Segment : IEquatable<Segment>
