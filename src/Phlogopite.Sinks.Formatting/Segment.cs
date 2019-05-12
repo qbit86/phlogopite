@@ -7,6 +7,12 @@ namespace Phlogopite
     {
         public Segment(int offset, int count)
         {
+            if (offset < 0)
+                ThrowSegmentCtorValidationFailedException(nameof(offset));
+
+            if (count < 0)
+                ThrowSegmentCtorValidationFailedException(nameof(count));
+
             Offset = offset;
             Count = count;
         }
@@ -14,6 +20,8 @@ namespace Phlogopite
         public int Offset { get; }
 
         public int Count { get; }
+
+        public bool IsEmpty => Count == 0;
 
         public bool Equals(Segment other)
         {
@@ -38,6 +46,11 @@ namespace Phlogopite
         public static bool operator !=(Segment left, Segment right)
         {
             return !left.Equals(right);
+        }
+
+        private static void ThrowSegmentCtorValidationFailedException(string paramName)
+        {
+            throw new ArgumentOutOfRangeException(paramName, "Non-negative number required.");
         }
     }
 }
