@@ -35,6 +35,12 @@ namespace Phlogopite.Sinks
             _output = Console.Out;
         }
 
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties)
+        {
+            Write(level, text, userProperties, writerProperties, default);
+        }
+
         public bool IsEnabled(Level level)
         {
             return _minimumLevel <= level;
@@ -63,12 +69,6 @@ namespace Phlogopite.Sinks
             {
                 Console.ForegroundColor = oldColor;
             }
-        }
-
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties)
-        {
-            Write(level, text, userProperties, writerProperties, default);
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
