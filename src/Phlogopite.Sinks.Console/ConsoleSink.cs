@@ -14,6 +14,8 @@ namespace Phlogopite.Sinks
             ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan
         };
 
+        private static readonly object s_syncRoot = new object();
+
         private readonly IFormatProvider _formatProvider;
         private readonly IFormatter<NamedProperty> _formatter;
         private readonly Level _minimumLevel;
@@ -49,8 +51,11 @@ namespace Phlogopite.Sinks
             ConsoleColor oldColor = SetForegroundColor(level);
             try
             {
-                _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
-                _output.Flush();
+                lock (s_syncRoot)
+                {
+                    _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+                    _output.Flush();
+                }
             }
             finally
             {
@@ -85,8 +90,12 @@ namespace Phlogopite.Sinks
                 char[] buffer = ArrayPool<char>.Shared.Rent(length);
                 sb.CopyTo(0, buffer, 0, length);
                 StringBuilderCache.Release(sb);
-                _output.WriteLine(buffer, 0, length);
-                _output.Flush();
+                lock (s_syncRoot)
+                {
+                    _output.WriteLine(buffer, 0, length);
+                    _output.Flush();
+                }
+
                 ArrayPool<char>.Shared.Return(buffer);
             }
             finally
