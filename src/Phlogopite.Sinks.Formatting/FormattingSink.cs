@@ -21,12 +21,12 @@ namespace Phlogopite.Sinks
         public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, Level minimumLevel) :
             this(sinks, minimumLevel, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks,
-            Level minimumLevel, IFormatter<NamedProperty> formatter) :
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, Level minimumLevel,
+            IFormatter<NamedProperty> formatter) :
             this(sinks, minimumLevel, formatter, CultureConstants.FixedCulture) { }
 
-        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks,
-            Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
+        public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks, Level minimumLevel,
+            IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
             _sinks = sinks ?? Array.Empty<IFormattedSink<NamedProperty>>();
             _minimumLevel = minimumLevel;

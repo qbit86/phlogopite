@@ -2,6 +2,8 @@ using System;
 using System.Buffers;
 using System.IO;
 using System.Text;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Sinks
 {
@@ -18,23 +20,34 @@ namespace Phlogopite.Sinks
 
         private readonly IFormatProvider _formatProvider;
         private readonly IFormatter<NamedProperty> _formatter;
+        private readonly bool _isSynchronized;
         private readonly Level _minimumLevel;
         private readonly Level? _standardErrorMinimumLevel;
 
-        public ConsoleSink() : this(Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }
+        public ConsoleSink() : this(Level.Verbose, null, false, Formatter.Default, CultureConstants.FixedCulture) { }
 
         public ConsoleSink(Level minimumLevel) :
-            this(minimumLevel, Formatter.Default, CultureConstants.FixedCulture) { }
+            this(minimumLevel, null, false, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter) :
-            this(minimumLevel, formatter, CultureConstants.FixedCulture) { }
+        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel) :
+            this(minimumLevel, standardErrorMinimumLevel, false, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
+        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized) :
+            this(minimumLevel, standardErrorMinimumLevel, isSynchronized,
+                Formatter.Default, CultureConstants.FixedCulture) { }
+
+        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
+            IFormatter<NamedProperty> formatter) :
+            this(minimumLevel, standardErrorMinimumLevel, isSynchronized, formatter, CultureConstants.FixedCulture) { }
+
+        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
+            IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
             _minimumLevel = minimumLevel;
+            _standardErrorMinimumLevel = standardErrorMinimumLevel;
+            _isSynchronized = isSynchronized;
             _formatter = formatter ?? Formatter.Default;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
-            _standardErrorMinimumLevel = null;
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
@@ -48,20 +61,7 @@ namespace Phlogopite.Sinks
             if (formattedMessage.Array is null)
                 return;
 
-            ConsoleColor oldColor = SetForegroundColor(level);
-            try
-            {
-                TextWriter output = SelectOutputStream(level);
-                lock (s_syncRoot)
-                {
-                    output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
-                    output.Flush();
-                }
-            }
-            finally
-            {
-                Console.ForegroundColor = oldColor;
-            }
+            WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
@@ -81,29 +81,15 @@ namespace Phlogopite.Sinks
             if (!IsEnabled(level))
                 return;
 
-            ConsoleColor oldColor = SetForegroundColor(level);
-            try
-            {
-                StringBuilder sb = StringBuilderCache.Acquire();
-                _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
-                    sb, default, default, default);
-                int length = sb.Length;
-                char[] buffer = ArrayPool<char>.Shared.Rent(length);
-                sb.CopyTo(0, buffer, 0, length);
-                StringBuilderCache.Release(sb);
-                TextWriter output = SelectOutputStream(level);
-                lock (s_syncRoot)
-                {
-                    output.WriteLine(buffer, 0, length);
-                    output.Flush();
-                }
-
-                ArrayPool<char>.Shared.Return(buffer);
-            }
-            finally
-            {
-                Console.ForegroundColor = oldColor;
-            }
+            StringBuilder sb = StringBuilderCache.Acquire();
+            _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
+                sb, default, default, default);
+            int length = sb.Length;
+            char[] buffer = ArrayPool<char>.Shared.Rent(length);
+            sb.CopyTo(0, buffer, 0, length);
+            StringBuilderCache.Release(sb);
+            WriteLineThenFlush(level, buffer, 0, length);
+            ArrayPool<char>.Shared.Return(buffer);
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
@@ -132,6 +118,35 @@ namespace Phlogopite.Sinks
                 return Console.Out;
 
             return level < _standardErrorMinimumLevel.Value ? Console.Out : Console.Error;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void WriteLineThenFlush(Level level, char[] buffer, int index, int count)
+        {
+            Debug.Assert(buffer != null);
+
+            ConsoleColor oldColor = SetForegroundColor(level);
+            try
+            {
+                TextWriter output = SelectOutputStream(level);
+
+                if (!_isSynchronized)
+                {
+                    output.WriteLine(buffer, index, count);
+                    output.Flush();
+                    return;
+                }
+
+                lock (s_syncRoot)
+                {
+                    output.WriteLine(buffer, index, count);
+                    output.Flush();
+                }
+            }
+            finally
+            {
+                Console.ForegroundColor = oldColor;
+            }
         }
     }
 }
