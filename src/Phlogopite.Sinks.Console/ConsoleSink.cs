@@ -36,6 +36,28 @@ namespace Phlogopite.Sinks
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
+            ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
+            ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)
+        {
+            if (!IsEnabled(level))
+                return;
+
+            if (formattedMessage.Array is null)
+                return;
+
+            ConsoleColor oldColor = SetForegroundColor(level);
+            try
+            {
+                _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+            }
+            finally
+            {
+                Console.ForegroundColor = oldColor;
+            }
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties)
         {
             Write(level, text, userProperties, writerProperties, default);
@@ -74,28 +96,6 @@ namespace Phlogopite.Sinks
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default, default);
-        }
-
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
-            ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
-            ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)
-        {
-            if (!IsEnabled(level))
-                return;
-
-            if (formattedMessage.Array is null)
-                return;
-
-            ConsoleColor oldColor = SetForegroundColor(level);
-            try
-            {
-                _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
-            }
-            finally
-            {
-                Console.ForegroundColor = oldColor;
-            }
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
