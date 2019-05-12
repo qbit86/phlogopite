@@ -19,7 +19,7 @@ namespace Phlogopite.Sinks
         private readonly IFormatProvider _formatProvider;
         private readonly IFormatter<NamedProperty> _formatter;
         private readonly Level _minimumLevel;
-        private readonly TextWriter _output;
+        private readonly Level? _standardErrorMinimumLevel;
 
         public ConsoleSink() : this(Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }
 
@@ -34,7 +34,7 @@ namespace Phlogopite.Sinks
             _minimumLevel = minimumLevel;
             _formatter = formatter ?? Formatter.Default;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
-            _output = Console.Out;
+            _standardErrorMinimumLevel = null;
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
@@ -51,10 +51,11 @@ namespace Phlogopite.Sinks
             ConsoleColor oldColor = SetForegroundColor(level);
             try
             {
+                TextWriter output = SelectOutputStream(level);
                 lock (s_syncRoot)
                 {
-                    _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
-                    _output.Flush();
+                    output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+                    output.Flush();
                 }
             }
             finally
@@ -90,10 +91,11 @@ namespace Phlogopite.Sinks
                 char[] buffer = ArrayPool<char>.Shared.Rent(length);
                 sb.CopyTo(0, buffer, 0, length);
                 StringBuilderCache.Release(sb);
+                TextWriter output = SelectOutputStream(level);
                 lock (s_syncRoot)
                 {
-                    _output.WriteLine(buffer, 0, length);
-                    _output.Flush();
+                    output.WriteLine(buffer, 0, length);
+                    output.Flush();
                 }
 
                 ArrayPool<char>.Shared.Return(buffer);
@@ -122,6 +124,14 @@ namespace Phlogopite.Sinks
                 return Console.ForegroundColor;
 
             return SetForegroundColor(s_levelColorMap[(int)level]);
+        }
+
+        private TextWriter SelectOutputStream(Level level)
+        {
+            if (!_standardErrorMinimumLevel.HasValue)
+                return Console.Out;
+
+            return level < _standardErrorMinimumLevel.Value ? Console.Out : Console.Error;
         }
     }
 }
