@@ -14,9 +14,9 @@ namespace Phlogopite.Sinks
             ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.Cyan
         };
 
-        private readonly Level _minimumLevel;
-        private readonly IFormatter<NamedProperty> _formatter;
         private readonly IFormatProvider _formatProvider;
+        private readonly IFormatter<NamedProperty> _formatter;
+        private readonly Level _minimumLevel;
         private readonly TextWriter _output;
 
         public ConsoleSink() : this(Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }

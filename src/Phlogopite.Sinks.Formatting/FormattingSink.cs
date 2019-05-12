@@ -7,10 +7,10 @@ namespace Phlogopite.Sinks
 {
     public sealed class FormattingSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
     {
-        private readonly IReadOnlyList<IFormattedSink<NamedProperty>> _sinks;
-        private readonly Level _minimumLevel;
-        private readonly IFormatter<NamedProperty> _formatter;
         private readonly IFormatProvider _formatProvider;
+        private readonly IFormatter<NamedProperty> _formatter;
+        private readonly Level _minimumLevel;
+        private readonly IReadOnlyList<IFormattedSink<NamedProperty>> _sinks;
 
         public FormattingSink(IReadOnlyList<IFormattedSink<NamedProperty>> sinks) :
             this(sinks, Level.Verbose, Formatter.Default, CultureConstants.FixedCulture) { }
@@ -32,6 +32,12 @@ namespace Phlogopite.Sinks
             _minimumLevel = minimumLevel;
             _formatter = formatter ?? Formatter.Default;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
+        }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties)
+        {
+            Write(level, text, userProperties, writerProperties, default);
         }
 
         public bool IsEnabled(Level level)
@@ -75,12 +81,6 @@ namespace Phlogopite.Sinks
             {
                 StringBuilderCache.Release(sb);
             }
-        }
-
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties)
-        {
-            Write(level, text, userProperties, writerProperties, default);
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
