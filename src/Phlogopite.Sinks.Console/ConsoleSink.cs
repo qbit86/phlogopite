@@ -50,6 +50,7 @@ namespace Phlogopite.Sinks
             try
             {
                 _output.WriteLine(formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+                _output.Flush();
             }
             finally
             {
@@ -85,6 +86,7 @@ namespace Phlogopite.Sinks
                 sb.CopyTo(0, buffer, 0, length);
                 StringBuilderCache.Release(sb);
                 _output.WriteLine(buffer, 0, length);
+                _output.Flush();
                 ArrayPool<char>.Shared.Return(buffer);
             }
             finally
