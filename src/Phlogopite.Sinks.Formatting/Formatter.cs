@@ -199,6 +199,12 @@ namespace Phlogopite
             }
         }
 
+        private static void RenderObject(object o, StringBuilderFacade sbf)
+        {
+            // TODO: Add analysing type for applying array formatting.
+            sbf.Append(o);
+        }
+
         private static void RenderTime(DateTime time, StringBuilderFacade sbf)
         {
             const string format = "HH:mm:ss.fff";
@@ -252,6 +258,9 @@ namespace Phlogopite
                     return;
                 case TypeCode.String:
                     sbf.Append(p.AsString);
+                    return;
+                case TypeCode.Object:
+                    RenderObject(p.AsObject, sbf);
                     return;
                 default:
                     sbf.Append(p.AsObject);
