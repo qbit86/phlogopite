@@ -40,7 +40,8 @@ namespace Phlogopite
                 log.Exception(ex);
             }
 
-            log.I(null, ("array", new[] { Math.E, Math.PI }));
+            log.I(null, ("doubles", new[] { Math.E, Math.PI }));
+            log.I(null, ("strings", new[] { "apple", "orange" }));
         }
     }
 }

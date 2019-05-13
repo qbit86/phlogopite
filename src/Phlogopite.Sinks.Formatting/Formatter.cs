@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Diagnostics;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
@@ -201,8 +203,18 @@ namespace Phlogopite
 
         private static void RenderObject(object o, StringBuilderFacade sbf)
         {
+            if (o is IEnumerable enumerable)
+                RenderEnumerable(enumerable, sbf);
+            else
+                sbf.Append(o);
+        }
+
+        private static void RenderEnumerable(IEnumerable enumerable, StringBuilderFacade sbf)
+        {
+            Debug.Assert(enumerable != null, "enumerable != null");
+
             // TODO: Add analysing type for applying array formatting.
-            sbf.Append(o);
+            sbf.Append(enumerable);
         }
 
         private static void RenderTime(DateTime time, StringBuilderFacade sbf)
