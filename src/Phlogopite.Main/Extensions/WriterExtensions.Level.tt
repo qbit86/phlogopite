@@ -11,14 +11,14 @@ var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Ass
 for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 {
     if (levelIndex != 0)
-        Write(Environment.NewLine);
+        WriteLine(string.Empty);
 
     string level = levels[levelIndex];
     string methodName = level.Substring(0, 1);
     for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
     {
         if (propertyCount != startPropertyCount)
-            Write(Environment.NewLine);
+            WriteLine(string.Empty);
 
         PushIndent("        ");
         WriteLine($"public static void {methodName}<TWriter>(this TWriter writer, string text,");
@@ -43,7 +43,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine($"    if (!writer.IsEnabled(Level.{level}))");
         WriteLine("        return;");
         ClearIndent();
-        Write(Environment.NewLine);
+        WriteLine(string.Empty);
         PushIndent("        ");
         PushIndent("    ");
         Write($"WriteUnchecked(writer, Level.{level}, text, ");
