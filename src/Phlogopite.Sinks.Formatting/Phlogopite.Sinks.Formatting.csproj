@@ -15,5 +15,21 @@
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
     <ProjectReference Include="..\Phlogopite.Main\Phlogopite.Main.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Formatter.RenderCollection.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Formatter.RenderCollection.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Formatter.RenderCollection.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Formatter.RenderCollection.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
 </Project>
