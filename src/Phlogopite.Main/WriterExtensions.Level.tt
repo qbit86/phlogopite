@@ -10,10 +10,16 @@ const int maxPropertyCount = 8;
 var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
 for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 {
+    if (levelIndex != 0)
+        Write(Environment.NewLine);
+
     string level = levels[levelIndex];
     string methodName = level.Substring(0, 1);
     for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
     {
+        if (propertyCount != startPropertyCount)
+            Write(Environment.NewLine);
+
         PushIndent("        ");
         WriteLine($"public static void {methodName}<TWriter>(this TWriter writer, string text,");
         PushIndent("    ");
@@ -53,9 +59,6 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         PopIndent();
         WriteLine("}");
         ClearIndent();
-
-        if (levelIndex < levels.Length - 1 || propertyCount < maxPropertyCount)
-            Write(Environment.NewLine);
     }
 }
 #>
