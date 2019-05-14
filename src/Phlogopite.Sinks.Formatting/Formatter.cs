@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
+
 namespace Phlogopite
 {
     public sealed class Formatter : IFormatter<NamedProperty>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Phlogopite.Sinks;
+using Phlogopite.Extensions;
 
 namespace Phlogopite
 {
