@@ -42,7 +42,8 @@ namespace Phlogopite
             }
 
             log.I(null, ("strings", new[] { "apple", "orange" }), ("doubles", new[] { Math.E, Math.PI }),
-                ("decimals", new[] { 3.5m, 5.8m, 8.13m }));
+                ("decimals", new[] { 3.5m, 5.8m, 8.13m }),
+                ("decimalsAsObjects", new[] { (object)3.5m, (object)5.8m, (object)8.13m }));
         }
     }
 }
