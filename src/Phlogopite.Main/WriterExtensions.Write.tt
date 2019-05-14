@@ -18,15 +18,18 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
+        if (propertyIndex != 0)
+        {
+            if (propertyIndex % 4 == 0)
+                WriteLine(",");
+            else
+                Write(", ");
+        }
+
         Write("in NamedProperty p" + propertyIndex);
-        if (propertyIndex == propertyCount - 1)
-            Write(")");
-        else if ((propertyIndex + 1) % 4 == 0)
-            WriteLine(",");
-        else
-            Write(", ");
     }
-    Write(Environment.NewLine);
+
+    WriteLine(")");
     ClearIndent();
 #>
             where TWriter : IWriter<NamedProperty>
@@ -39,14 +42,13 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     Write("WriteUnchecked(writer, level, text, ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
-        Write("p" + propertyIndex);
-        if (propertyIndex == propertyCount - 1)
-            Write(");");
-        else
+        if (propertyIndex != 0)
             Write(", ");
+
+        Write("p" + propertyIndex);
     }
 
-    Write(Environment.NewLine);
+    WriteLine(");");
     ClearIndent();
 #>
         }
@@ -61,15 +63,18 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
+        if (propertyIndex != 0)
+        {
+            if (propertyIndex % 4 == 0)
+                WriteLine(",");
+            else
+                Write(", ");
+        }
+
         Write("in TProperty p" + propertyIndex);
-        if (propertyIndex == propertyCount - 1)
-            Write(")");
-        else if ((propertyIndex + 1) % 4 == 0)
-            WriteLine(",");
-        else
-            Write(", ");
     }
-    Write(Environment.NewLine);
+
+    WriteLine(")");
     ClearIndent();
 #>
             where TWriter : IWriter<TProperty>
