@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
@@ -201,22 +202,6 @@ namespace Phlogopite
             }
         }
 
-        private static void RenderObject(object o, StringBuilderFacade sbf)
-        {
-            if (o is IEnumerable enumerable)
-                RenderEnumerable(enumerable, sbf);
-            else
-                sbf.Append(o);
-        }
-
-        private static void RenderEnumerable(IEnumerable enumerable, StringBuilderFacade sbf)
-        {
-            Debug.Assert(enumerable != null, "enumerable != null");
-
-            // TODO: Add analysing type for applying array formatting.
-            sbf.Append(enumerable);
-        }
-
         private static void RenderTime(DateTime time, StringBuilderFacade sbf)
         {
             const string format = "HH:mm:ss.fff";
@@ -278,6 +263,40 @@ namespace Phlogopite
                     sbf.Append(p.AsObject);
                     return;
             }
+        }
+
+        private static void RenderObject(object o, StringBuilderFacade sbf)
+        {
+            if (o is IEnumerable enumerable)
+                RenderEnumerable(enumerable, sbf);
+            else
+                sbf.Append(o);
+        }
+
+        private static void RenderEnumerable(IEnumerable enumerable, StringBuilderFacade sbf)
+        {
+            Debug.Assert(enumerable != null, "enumerable != null");
+
+            if (enumerable is IReadOnlyList<string> strings)
+                RenderReadOnlyList(strings, sbf);
+            else
+                sbf.Append(enumerable);
+        }
+
+        private static void RenderReadOnlyList(IReadOnlyList<string> values, StringBuilderFacade sbf)
+        {
+            Debug.Assert(values != null, "values != null");
+
+            sbf.Append("[");
+            for (int i = 0; i < values.Count; ++i)
+            {
+                if (i != 0)
+                    sbf.Append(", ");
+
+                sbf.Append(values[i]);
+            }
+
+            sbf.Append("]");
         }
     }
 }
