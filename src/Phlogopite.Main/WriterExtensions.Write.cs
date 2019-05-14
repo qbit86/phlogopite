@@ -1,7 +1,7 @@
 using System;
 using System.Buffers;
 
-namespace Phlogopite
+namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {

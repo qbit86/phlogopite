@@ -1,4 +1,4 @@
-namespace Phlogopite
+namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
