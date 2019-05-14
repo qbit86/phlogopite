@@ -19,37 +19,37 @@
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="WriterExtensions.0.tt">
+    <None Update="Extensions/WriterExtensions.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WriterExtensions.0.cs</LastGenOutput>
+      <LastGenOutput>Extensions/WriterExtensions.0.cs</LastGenOutput>
     </None>
-    <None Update="WriterExtensions.Level.tt">
+    <None Update="Extensions/WriterExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WriterExtensions.Level.cs</LastGenOutput>
+      <LastGenOutput>Extensions/WriterExtensions.Level.cs</LastGenOutput>
     </None>
-    <None Update="WriterExtensions.Write.tt">
+    <None Update="Extensions/WriterExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WriterExtensions.Write.cs</LastGenOutput>
+      <LastGenOutput>Extensions/WriterExtensions.Write.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="WriterExtensions.0.cs">
+    <Compile Update="Extensions/WriterExtensions.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.0.tt</DependentUpon>
+      <DependentUpon>Extensions/WriterExtensions.0.tt</DependentUpon>
     </Compile>
-    <Compile Update="WriterExtensions.Level.cs">
+    <Compile Update="Extensions/WriterExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.Level.tt</DependentUpon>
+      <DependentUpon>Extensions/WriterExtensions.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="WriterExtensions.Write.cs">
+    <Compile Update="Extensions/WriterExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.Write.tt</DependentUpon>
+      <DependentUpon>Extensions/WriterExtensions.Write.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
