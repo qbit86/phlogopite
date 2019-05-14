@@ -30,7 +30,7 @@ namespace Phlogopite
             log.D("Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
             log.I("Plain text, no dynamic formatting", (nameof(Math.E), Math.E), ("today", DateTime.Today));
             log.W("Empty property", (null, null));
-            log.E(null, ("byte", (byte)0xfa), ("decimal", 1.618m));
+            log.E(("byte", (byte)0xfa), ("decimal", 1.618m));
             log.A("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
             try
             {
