@@ -260,20 +260,25 @@ namespace Phlogopite
 
         private static void RenderObject(object o, StringBuilderFacade sbf)
         {
-            if (o is IEnumerable enumerable)
-                RenderEnumerable(enumerable, sbf);
+            if (o is ICollection collection)
+                RenderCollection(collection, sbf);
             else
                 sbf.Append(o);
         }
 
-        private static void RenderEnumerable(IEnumerable enumerable, StringBuilderFacade sbf)
+        private static void RenderCollection(ICollection collection, StringBuilderFacade sbf)
         {
-            Debug.Assert(enumerable != null, "enumerable != null");
+            Debug.Assert(collection != null, "collection != null");
+            if (collection.Count == 0)
+            {
+                sbf.Append("[]");
+                return;
+            }
 
-            if (enumerable is IReadOnlyList<string> strings)
-                RenderReadOnlyList(strings, sbf);
+            if (collection is IReadOnlyList<string> list)
+                RenderReadOnlyList(list, sbf);
             else
-                sbf.Append(enumerable);
+                sbf.Append(collection);
         }
 
         private static void RenderReadOnlyList(IReadOnlyList<string> values, StringBuilderFacade sbf)
