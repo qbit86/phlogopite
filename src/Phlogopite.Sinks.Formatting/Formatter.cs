@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
 // ReSharper disable once CheckNamespace
@@ -264,22 +262,6 @@ namespace Phlogopite
                 RenderCollection(collection, sbf);
             else
                 sbf.Append(o);
-        }
-
-        private static void RenderReadOnlyList(IReadOnlyList<string> values, StringBuilderFacade sbf)
-        {
-            Debug.Assert(values != null, "values != null");
-
-            sbf.Append("[");
-            for (int i = 0; i < values.Count; ++i)
-            {
-                if (i != 0)
-                    sbf.Append(", ");
-
-                sbf.Append(values[i]);
-            }
-
-            sbf.Append("]");
         }
     }
 }
