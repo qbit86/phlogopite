@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Phlogopite
 {
-    public sealed class Formatter : IFormatter<NamedProperty>
+    public sealed partial class Formatter : IFormatter<NamedProperty>
     {
         private Formatter() { }
 
@@ -264,21 +264,6 @@ namespace Phlogopite
                 RenderCollection(collection, sbf);
             else
                 sbf.Append(o);
-        }
-
-        private static void RenderCollection(ICollection collection, StringBuilderFacade sbf)
-        {
-            Debug.Assert(collection != null, "collection != null");
-            if (collection.Count == 0)
-            {
-                sbf.Append("[]");
-                return;
-            }
-
-            if (collection is IReadOnlyList<string> list)
-                RenderReadOnlyList(list, sbf);
-            else
-                sbf.Append(collection);
         }
 
         private static void RenderReadOnlyList(IReadOnlyList<string> values, StringBuilderFacade sbf)
