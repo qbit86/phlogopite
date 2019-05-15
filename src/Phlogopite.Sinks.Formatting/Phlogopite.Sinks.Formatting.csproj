@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
-    <ProjectReference Include="..\Phlogopite.Main\Phlogopite.Main.csproj" />
+    <ProjectReference Include="..\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Formatter.RenderCollection.tt">
