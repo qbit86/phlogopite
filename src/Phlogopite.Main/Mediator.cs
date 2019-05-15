@@ -14,7 +14,7 @@ namespace Phlogopite
         private readonly IReadOnlyList<ISink<NamedProperty>> _sinks;
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks) :
-            this(sinks, Level.Verbose) { }
+            this(sinks, Level.Verbose, default) { }
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel) :
             this(sinks, minimumLevel, default) { }
@@ -38,7 +38,7 @@ namespace Phlogopite
 
         public bool IsEnabled(Level level)
         {
-            Level minimumLevel = _minimumLevelProvider is null ? _minimumLevel : _minimumLevelProvider();
+            Level minimumLevel = _minimumLevelProvider?.Invoke() ?? _minimumLevel;
             return minimumLevel <= level;
         }
 

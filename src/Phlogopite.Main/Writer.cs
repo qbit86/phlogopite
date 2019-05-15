@@ -25,15 +25,18 @@ namespace Phlogopite
 
         public bool IsEnabled(Level level)
         {
-            return _minimumLevel <= level;
+            if (_mediator is null)
+                return false;
+
+            return _minimumLevel <= level && _mediator.IsEnabled(level);
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            if (!IsEnabled(level))
+            if (_mediator is null)
                 return;
 
-            if (_mediator is null)
+            if (!IsEnabled(level))
                 return;
 
             NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
