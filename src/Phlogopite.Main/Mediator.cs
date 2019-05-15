@@ -6,35 +6,42 @@ namespace Phlogopite
 {
     public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>
     {
-        private static readonly Mediator s_silent = new Mediator(Array.Empty<ISink<NamedProperty>>(), Level.Silent);
         private static Mediator s_shared;
 
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
         private readonly IReadOnlyList<ISink<NamedProperty>> _sinks;
+        private readonly Func<Exception, bool> _exceptionHandler;
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks) :
-            this(sinks, Level.Verbose, default) { }
+            this(sinks, Level.Verbose, default, default) { }
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel) :
-            this(sinks, minimumLevel, default) { }
+            this(sinks, minimumLevel, default, default) { }
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider) :
-            this(sinks, Level.Verbose, minimumLevelProvider) { }
+            this(sinks, Level.Verbose, minimumLevelProvider, default) { }
+
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel,
+            Func<Exception, bool> exceptionHandler) :
+            this(sinks, minimumLevel, default, exceptionHandler) { }
+
+        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider,
+            Func<Exception, bool> exceptionHandler) :
+            this(sinks, Level.Verbose, minimumLevelProvider, exceptionHandler) { }
 
         private Mediator(IReadOnlyList<ISink<NamedProperty>> sinks,
-            Level minimumLevel, Func<Level> minimumLevelProvider)
+            Level minimumLevel, Func<Level> minimumLevelProvider, Func<Exception, bool> exceptionHandler)
         {
             _sinks = sinks ?? Array.Empty<ISink<NamedProperty>>();
             _minimumLevel = minimumLevel;
             _minimumLevelProvider = minimumLevelProvider;
+            _exceptionHandler = exceptionHandler;
         }
 
-        public static Mediator Silent => s_silent;
+        public static Mediator Silent { get; } = new Mediator(Array.Empty<ISink<NamedProperty>>(), Level.Silent);
 
-        public static Mediator Shared => s_shared ?? s_silent;
-
-        public Func<Exception, bool> ExceptionHandler { get; set; }
+        public static Mediator Shared => s_shared ?? Silent;
 
         public bool IsEnabled(Level level)
         {
@@ -76,10 +83,10 @@ namespace Phlogopite
                 return;
 
             var aggregateException = new AggregateException(exceptions);
-            if (ExceptionHandler is null)
+            if (_exceptionHandler is null)
                 throw aggregateException;
 
-            aggregateException.Handle(ExceptionHandler);
+            aggregateException.Handle(_exceptionHandler);
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
