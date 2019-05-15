@@ -8,10 +8,10 @@ namespace Phlogopite
     {
         private static Mediator s_shared;
 
+        private readonly Func<Exception, bool> _exceptionHandler;
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
         private readonly IReadOnlyList<ISink<NamedProperty>> _sinks;
-        private readonly Func<Exception, bool> _exceptionHandler;
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks) :
             this(sinks, Level.Verbose, default, default) { }

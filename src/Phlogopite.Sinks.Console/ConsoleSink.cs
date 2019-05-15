@@ -12,8 +12,8 @@ namespace Phlogopite.Sinks
     {
         private static readonly ConsoleColor[] s_levelColorMap =
         {
-            ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White,
-            ConsoleColor.DarkYellow, ConsoleColor.Red, ConsoleColor.DarkRed, ConsoleColor.Cyan
+            ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.DarkYellow, ConsoleColor.Red,
+            ConsoleColor.DarkRed, ConsoleColor.Cyan
         };
 
         private static readonly object s_syncRoot = new object();
