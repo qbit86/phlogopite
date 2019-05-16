@@ -39,17 +39,17 @@
     <Compile Update="Extensions/WriterExtensions.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Extensions/WriterExtensions.0.tt</DependentUpon>
+      <DependentUpon>WriterExtensions.0.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions/WriterExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Extensions/WriterExtensions.Level.tt</DependentUpon>
+      <DependentUpon>WriterExtensions.Level.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions/WriterExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Extensions/WriterExtensions.Write.tt</DependentUpon>
+      <DependentUpon>WriterExtensions.Write.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
