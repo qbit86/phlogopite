@@ -6,8 +6,6 @@ namespace Phlogopite
 {
     public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>
     {
-        private static Mediator s_shared;
-
         private readonly Func<Exception, bool> _exceptionHandler;
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
@@ -40,8 +38,6 @@ namespace Phlogopite
         }
 
         public static Mediator Silent { get; } = new Mediator(Array.Empty<ISink<NamedProperty>>(), Level.Silent);
-
-        public static Mediator Shared => s_shared ?? Silent;
 
         public bool IsEnabled(Level level)
         {
@@ -95,15 +91,6 @@ namespace Phlogopite
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default);
-        }
-
-        public static bool TrySetShared(Mediator shared)
-        {
-            if (s_shared != null)
-                return false;
-
-            s_shared = shared ?? throw new ArgumentNullException(nameof(shared));
-            return true;
         }
     }
 }

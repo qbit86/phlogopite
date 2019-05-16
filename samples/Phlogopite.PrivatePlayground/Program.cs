@@ -18,14 +18,14 @@ namespace Phlogopite
             var formattedSinks = new IFormattedSink<NamedProperty>[] { new ConsoleSink() };
             var sinks = new ISink<NamedProperty>[] { new FormattingSink(formattedSinks) };
             var mediator = new Mediator(sinks);
-            Mediator.TrySetShared(mediator);
+            Log.TrySetMediator(mediator);
 
             Foo();
         }
 
         private static void Foo()
         {
-            var log = new Writer(Mediator.Shared, Tag);
+            var log = new Writer(Log.Mediator, Tag);
             log.V("Hello, World!", ("username", Environment.UserName));
             log.D("Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
             log.I("Plain text, no dynamic formatting", (nameof(Math.E), Math.E), ("today", DateTime.Today));
