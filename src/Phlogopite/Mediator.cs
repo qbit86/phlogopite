@@ -45,6 +45,9 @@ namespace Phlogopite
 
         public bool IsEnabled(Level level)
         {
+            if (_sinks.Count == 0)
+                return false;
+
             Level minimumLevel = _minimumLevelProvider?.Invoke() ?? _minimumLevel;
             return minimumLevel <= level;
         }
