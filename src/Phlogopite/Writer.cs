@@ -1,5 +1,6 @@
 using System;
 using System.Buffers;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Phlogopite
@@ -33,12 +34,10 @@ namespace Phlogopite
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            if (_mediator is null)
-                return;
-
             if (!IsEnabled(level))
                 return;
 
+            Debug.Assert(_mediator != null, "_mediator != null");
             NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
             try
             {
