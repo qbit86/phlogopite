@@ -117,7 +117,7 @@ namespace Phlogopite.Sinks
             if (!_standardErrorMinimumLevel.HasValue)
                 return Console.Out;
 
-            return level < _standardErrorMinimumLevel.Value ? Console.Out : Console.Error;
+            return level < _standardErrorMinimumLevel.GetValueOrDefault() ? Console.Out : Console.Error;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
