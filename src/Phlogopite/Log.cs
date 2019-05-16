@@ -2,7 +2,7 @@ using System;
 
 namespace Phlogopite
 {
-    public static class Log
+    public static partial class Log
     {
         private static IMediator<NamedProperty> s_mediator;
 
