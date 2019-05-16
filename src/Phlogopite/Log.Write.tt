@@ -1,8 +1,60 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
+using System.Buffers;
+using System.Runtime.CompilerServices;
+
 namespace Phlogopite
 {
     public static partial class Log
     {
+<#
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+
+    if (propertyCount > startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine("public static void Write(Level level, string tag, string text,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+        {
+            if (propertyIndex % 4 == 0)
+                WriteLine(",");
+            else
+                Write(", ");
+        }
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("[CallerMemberName] string source = null)");
+    ClearIndent();
+    PushIndent("        ");
+    WriteLine("{");
+    WriteLine("    if (!Mediator.IsEnabled(level))");
+    WriteLine("        return;");
+    WriteLine(string.Empty);
+    WriteLine($"    NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent({propertyCount + 2});");
+    WriteLine("    try");
+    WriteLine("    {");
+    WriteLine("        throw new System.NotImplementedException();");
+    WriteLine("    }");
+    WriteLine("    finally");
+    WriteLine("    {");
+    WriteLine("        ArrayPool<NamedProperty>.Shared.Return(properties, true);");
+    WriteLine("    }");
+    WriteLine("}");
+}
+
+ClearIndent();
+#>
     }
 }
