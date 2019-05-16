@@ -99,7 +99,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         }
 <#
     if (propertyCount < maxPropertyCount)
-        Write(Environment.NewLine);
+        WriteLine(string.Empty);
 }
 #>
     }
