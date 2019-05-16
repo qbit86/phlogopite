@@ -1,5 +1,6 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
+using System;
 using System.Buffers;
 using System.Runtime.CompilerServices;
 
@@ -45,7 +46,17 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine($"    NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent({propertyCount + 2});");
     WriteLine("    try");
     WriteLine("    {");
-    WriteLine("        throw new System.NotImplementedException();");
+
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        WriteLine($"        properties[{propertyIndex}] = p{propertyIndex};");
+    }
+
+    WriteLine($"        properties[{propertyCount}] = new NamedProperty(\"tag\", tag);");
+    WriteLine($"        properties[{propertyCount + 1}] = new NamedProperty(\"source\", source);");
+    WriteLine($"        var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, {propertyCount});");
+    WriteLine($"        var writerProperties = new ReadOnlySpan<NamedProperty>(properties, {propertyCount}, 2);");
+    WriteLine($"        Mediator.Write(level, text, userProperties, writerProperties);");
     WriteLine("    }");
     WriteLine("    finally");
     WriteLine("    {");
