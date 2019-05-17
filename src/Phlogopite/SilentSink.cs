@@ -15,7 +15,7 @@ namespace Phlogopite.Sinks
             return false;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties) { }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties) { }

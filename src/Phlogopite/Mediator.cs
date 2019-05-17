@@ -63,7 +63,7 @@ namespace Phlogopite
                 try
                 {
                     ISink<NamedProperty> sink = _sinks[i];
-                    sink?.Write(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
+                    sink?.UncheckedWrite(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)

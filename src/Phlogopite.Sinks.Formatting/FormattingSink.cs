@@ -37,7 +37,7 @@ namespace Phlogopite.Sinks
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties)
         {
-            Write(level, text, userProperties, writerProperties, default);
+            UncheckedWrite(level, text, userProperties, writerProperties, default);
         }
 
         public bool IsEnabled(Level level)
@@ -45,7 +45,7 @@ namespace Phlogopite.Sinks
             return _minimumLevel <= level;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
             if (!IsEnabled(level))
@@ -85,7 +85,7 @@ namespace Phlogopite.Sinks
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            Write(level, text, properties, default, default);
+            UncheckedWrite(level, text, properties, default, default);
         }
     }
 }
