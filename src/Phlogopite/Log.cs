@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Runtime.CompilerServices;
+using Phlogopite.Extensions;
 
 namespace Phlogopite
 {
@@ -25,18 +26,7 @@ namespace Phlogopite
             if (s_mediator is null || !s_mediator.IsEnabled(level))
                 return;
 
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2);
-            try
-            {
-                properties[0] = new NamedProperty("tag", tag);
-                properties[1] = new NamedProperty("source", source);
-                var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 2);
-                s_mediator.UncheckedWrite(level, text, default, writerProperties);
-            }
-            finally
-            {
-                ArrayPool<NamedProperty>.Shared.Return(properties, true);
-            }
+            MediatorExtensions.WriteUnchecked(s_mediator, level, tag, text, source);
         }
     }
 }
