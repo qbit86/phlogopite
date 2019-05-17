@@ -32,7 +32,7 @@ namespace Phlogopite
             return _minimumLevel <= level && _mediator.IsEnabled(level);
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             if (!IsEnabled(level))
                 return;

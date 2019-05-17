@@ -83,7 +83,7 @@ namespace Phlogopite.Sinks
             }
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
             Write(level, text, properties, default, default);
         }

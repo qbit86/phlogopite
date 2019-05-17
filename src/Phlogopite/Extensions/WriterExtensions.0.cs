@@ -8,42 +8,42 @@ namespace Phlogopite.Extensions
         public static void V<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Verbose, text, default);
+            writer.UncheckedWrite(Level.Verbose, text, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Debug, text, default);
+            writer.UncheckedWrite(Level.Debug, text, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Info, text, default);
+            writer.UncheckedWrite(Level.Info, text, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Warning, text, default);
+            writer.UncheckedWrite(Level.Warning, text, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Error, text, default);
+            writer.UncheckedWrite(Level.Error, text, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.Assert, text, default);
+            writer.UncheckedWrite(Level.Assert, text, default);
         }
     }
 }
