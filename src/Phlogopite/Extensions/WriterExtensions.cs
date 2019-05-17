@@ -9,6 +9,9 @@ namespace Phlogopite.Extensions
         public static void Write<TWriter>(this TWriter writer, Level level, string text)
             where TWriter : IWriter<NamedProperty>
         {
+            if (!writer.IsEnabled(Level.Error))
+                return;
+
             writer.UncheckedWrite(level, text, default);
         }
 
