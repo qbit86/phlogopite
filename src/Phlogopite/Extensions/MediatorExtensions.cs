@@ -11,7 +11,6 @@ namespace Phlogopite.Extensions
             [CallerMemberName] string source = null)
         {
             Debug.Assert(mediator != null, "mediator != null");
-
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2);
             try
             {
