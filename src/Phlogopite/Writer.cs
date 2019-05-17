@@ -43,7 +43,7 @@ namespace Phlogopite
             {
                 writerProperties[0] = new NamedProperty("tag", _tag);
                 writerProperties[1] = new NamedProperty("source", _source);
-                _mediator.Write(level, text, properties, writerProperties.AsSpan(0, 2));
+                _mediator.UncheckedWrite(level, text, properties, writerProperties.AsSpan(0, 2));
             }
             finally
             {

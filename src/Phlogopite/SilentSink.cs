@@ -7,7 +7,7 @@ namespace Phlogopite.Sinks
     {
         public static SilentSink Default { get; } = new SilentSink();
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties) { }
 
         public bool IsEnabled(Level level)

@@ -29,7 +29,7 @@ namespace Phlogopite
                 properties[2] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 1);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 1, 2);
-                Mediator.Write(level, text, userProperties, writerProperties);
+                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
@@ -61,7 +61,7 @@ namespace Phlogopite
                 properties[3] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 2);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 2, 2);
-                Mediator.Write(level, text, userProperties, writerProperties);
+                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
@@ -94,7 +94,7 @@ namespace Phlogopite
                 properties[4] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 3);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 3, 2);
-                Mediator.Write(level, text, userProperties, writerProperties);
+                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
@@ -128,7 +128,7 @@ namespace Phlogopite
                 properties[5] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 4);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 4, 2);
-                Mediator.Write(level, text, userProperties, writerProperties);
+                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {

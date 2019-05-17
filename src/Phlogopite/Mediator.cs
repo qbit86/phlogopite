@@ -48,7 +48,7 @@ namespace Phlogopite
             return minimumLevel <= level;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties)
         {
             if (!IsEnabled(level))
@@ -90,7 +90,7 @@ namespace Phlogopite
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            Write(level, text, properties, default);
+            UncheckedWrite(level, text, properties, default);
         }
     }
 }

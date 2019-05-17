@@ -77,7 +77,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine($"        properties[{propertyCount + 1}] = new NamedProperty(\"source\", source);");
     WriteLine($"        var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, {propertyCount});");
     WriteLine($"        var writerProperties = new ReadOnlySpan<NamedProperty>(properties, {propertyCount}, 2);");
-    WriteLine($"        Mediator.Write(level, text, userProperties, writerProperties);");
+    WriteLine($"        Mediator.UncheckedWrite(level, text, userProperties, writerProperties);");
     WriteLine("    }");
     WriteLine("    finally");
     WriteLine("    {");
