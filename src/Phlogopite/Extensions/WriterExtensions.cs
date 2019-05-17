@@ -3,9 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static partial class WriterExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TWriter>(this TWriter writer, Level level, string text)
             where TWriter : IWriter<NamedProperty>
         {
