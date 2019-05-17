@@ -18,7 +18,7 @@ namespace Phlogopite
             in NamedProperty p0,
             [CallerMemberName] string source = null)
         {
-            if (!Mediator.IsEnabled(level))
+            if (s_mediator is null || !s_mediator.IsEnabled(level))
                 return;
 
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(3);
@@ -29,7 +29,7 @@ namespace Phlogopite
                 properties[2] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 1);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 1, 2);
-                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                s_mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
@@ -49,7 +49,7 @@ namespace Phlogopite
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
         {
-            if (!Mediator.IsEnabled(level))
+            if (s_mediator is null || !s_mediator.IsEnabled(level))
                 return;
 
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(4);
@@ -61,7 +61,7 @@ namespace Phlogopite
                 properties[3] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 2);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 2, 2);
-                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                s_mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
@@ -81,7 +81,7 @@ namespace Phlogopite
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
         {
-            if (!Mediator.IsEnabled(level))
+            if (s_mediator is null || !s_mediator.IsEnabled(level))
                 return;
 
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(5);
@@ -94,7 +94,7 @@ namespace Phlogopite
                 properties[4] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 3);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 3, 2);
-                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                s_mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
@@ -114,7 +114,7 @@ namespace Phlogopite
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
         {
-            if (!Mediator.IsEnabled(level))
+            if (s_mediator is null || !s_mediator.IsEnabled(level))
                 return;
 
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(6);
@@ -128,7 +128,7 @@ namespace Phlogopite
                 properties[5] = new NamedProperty("source", source);
                 var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 4);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 4, 2);
-                Mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                s_mediator.UncheckedWrite(level, text, userProperties, writerProperties);
             }
             finally
             {
