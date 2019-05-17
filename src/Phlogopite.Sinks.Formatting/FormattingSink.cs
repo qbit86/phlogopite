@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Phlogopite.Sinks
 {
-    public sealed class FormattingSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>
+    public sealed class FormattingSink : ISink<NamedProperty>
     {
         private readonly IFormatProvider _formatProvider;
         private readonly IFormatter<NamedProperty> _formatter;
@@ -32,12 +32,6 @@ namespace Phlogopite.Sinks
             _minimumLevel = minimumLevel;
             _formatter = formatter ?? Formatter.Default;
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
-        }
-
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties)
-        {
-            UncheckedWrite(level, text, userProperties, writerProperties, default);
         }
 
         public bool IsEnabled(Level level)
@@ -78,11 +72,6 @@ namespace Phlogopite.Sinks
             {
                 StringBuilderCache.Release(sb);
             }
-        }
-
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
-        {
-            UncheckedWrite(level, text, properties, default, default);
         }
     }
 }

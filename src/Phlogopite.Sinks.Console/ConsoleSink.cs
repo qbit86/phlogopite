@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Phlogopite.Sinks
 {
-    public sealed class ConsoleSink : ISink<NamedProperty>, IMediator<NamedProperty>, IWriter<NamedProperty>,
+    public sealed class ConsoleSink : ISink<NamedProperty>,
         IFormattedSink<NamedProperty>
     {
         private static readonly ConsoleColor[] s_levelColorMap =
@@ -64,12 +64,6 @@ namespace Phlogopite.Sinks
             WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
         }
 
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties)
-        {
-            UncheckedWrite(level, text, userProperties, writerProperties, default);
-        }
-
         public bool IsEnabled(Level level)
         {
             return _minimumLevel <= level;
@@ -87,11 +81,6 @@ namespace Phlogopite.Sinks
             StringBuilderCache.Release(sb);
             WriteLineThenFlush(level, buffer, 0, length);
             ArrayPool<char>.Shared.Return(buffer);
-        }
-
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
-        {
-            UncheckedWrite(level, text, properties, default, default);
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
