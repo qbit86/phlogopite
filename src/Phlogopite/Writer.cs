@@ -34,16 +34,15 @@ namespace Phlogopite
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            if (!IsEnabled(level))
-                return;
-
             Debug.Assert(_mediator != null, "_mediator != null");
             NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
             try
             {
                 writerProperties[0] = new NamedProperty("tag", _tag);
                 writerProperties[1] = new NamedProperty("source", _source);
-                _mediator.UncheckedWrite(level, text, properties, writerProperties.AsSpan(0, 2));
+
+                if (_mediator.IsEnabled(level))
+                    _mediator.UncheckedWrite(level, text, properties, writerProperties.AsSpan(0, 2));
             }
             finally
             {
