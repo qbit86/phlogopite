@@ -43,6 +43,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Log.0.cs</LastGenOutput>
     </None>
+    <None Update="Log.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Log.Level.cs</LastGenOutput>
+    </None>
     <None Update="Log.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Log.Write.cs</LastGenOutput>
@@ -81,6 +85,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Log.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Log.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Log.Level.tt</DependentUpon>
     </Compile>
     <Compile Update="Log.Write.cs">
       <DesignTime>True</DesignTime>
