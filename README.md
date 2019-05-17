@@ -30,18 +30,21 @@ I 11:58:16.742 [Program.Main] Logged in. username: Viktor, ipaddress: 127.0.0.1
 ```cs
 public interface IWriter<TProperty>
 {
-    void Write(Level level, string text, ReadOnlySpan<TProperty> properties);
+    bool IsEnabled(Level level);
+    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> properties);
 }
 
 public interface IMediator<TProperty>
 {
-    void Write(Level level, string text, ReadOnlySpan<TProperty> userProperties,
+    bool IsEnabled(Level level);
+    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
         ReadOnlySpan<TProperty> writerProperties);
 }
 
 public interface ISink<TProperty>
 {
-    void Write(Level level, string text, ReadOnlySpan<TProperty> userProperties,
+    bool IsEnabled(Level level);
+    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
         ReadOnlySpan<TProperty> writerProperties, ReadOnlySpan<TProperty> mediatorProperties);
 }
 ```
