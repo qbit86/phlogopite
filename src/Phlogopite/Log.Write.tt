@@ -26,12 +26,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
         if (propertyIndex != 0)
-        {
-            if (propertyIndex % 4 == 0)
-                WriteLine(",");
-            else
-                Write(", ");
-        }
+            Write(", ");
 
         Write("in NamedProperty p" + propertyIndex);
     }
