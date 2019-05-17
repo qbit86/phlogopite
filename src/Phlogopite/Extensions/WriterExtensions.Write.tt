@@ -9,7 +9,7 @@ namespace Phlogopite.Extensions
     {
 <#
 const int startPropertyCount = 1;
-const int maxPropertyCount = 8;
+const int maxPropertyCount = 4;
 
 for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
 {
