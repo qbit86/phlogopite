@@ -46,9 +46,7 @@ namespace Phlogopite
         internal PropertyValue(DateTime value) : this(new Scalar { AsDateTime = value }, TypeCode.DateTime) { }
 
         internal object ReferenceValue => _reference;
-
         internal Scalar ScalarValue => _scalar;
-
         internal TypeCode TypeCode => _typeCode;
 
         public override int GetHashCode()
