@@ -64,10 +64,10 @@ namespace Phlogopite.Sinks
             WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties)
         {
-            Write(level, text, userProperties, writerProperties, default);
+            UncheckedWrite(level, text, userProperties, writerProperties, default);
         }
 
         public bool IsEnabled(Level level)
@@ -75,12 +75,9 @@ namespace Phlogopite.Sinks
             return _minimumLevel <= level;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
-            if (!IsEnabled(level))
-                return;
-
             StringBuilder sb = StringBuilderCache.Acquire();
             _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
                 sb, default, default, default);
@@ -92,9 +89,9 @@ namespace Phlogopite.Sinks
             ArrayPool<char>.Shared.Return(buffer);
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            Write(level, text, properties, default, default);
+            UncheckedWrite(level, text, properties, default, default);
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)

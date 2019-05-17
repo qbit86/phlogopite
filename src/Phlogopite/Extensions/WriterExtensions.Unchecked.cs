@@ -13,7 +13,7 @@ namespace Phlogopite.Extensions
             try
             {
                 properties[0] = p0;
-                writer.Write(level, text, properties.AsSpan(0, 1));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 1));
             }
             finally
             {
@@ -30,7 +30,7 @@ namespace Phlogopite.Extensions
             {
                 properties[0] = p0;
                 properties[1] = p1;
-                writer.Write(level, text, properties.AsSpan(0, 2));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 2));
             }
             finally
             {
@@ -48,7 +48,7 @@ namespace Phlogopite.Extensions
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
-                writer.Write(level, text, properties.AsSpan(0, 3));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 3));
             }
             finally
             {
@@ -67,7 +67,7 @@ namespace Phlogopite.Extensions
                 properties[1] = p1;
                 properties[2] = p2;
                 properties[3] = p3;
-                writer.Write(level, text, properties.AsSpan(0, 4));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 4));
             }
             finally
             {

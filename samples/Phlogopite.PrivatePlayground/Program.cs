@@ -17,7 +17,7 @@ namespace Phlogopite
 
             var formattedSinks = new IFormattedSink<NamedProperty>[] { new ConsoleSink() };
             var sinks = new ISink<NamedProperty>[] { new FormattingSink(formattedSinks) };
-            var mediator = new Mediator(sinks);
+            var mediator = new Mediator(sinks, Level.Info);
             Log.TrySetMediator(mediator);
 
             Foo();

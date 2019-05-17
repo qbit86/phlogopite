@@ -20,7 +20,8 @@ for (int i = 0; i != levels.Length; ++i)
         public static void <#=methodName#><TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            writer.Write(Level.<#=level#>, text, default);
+            if (writer.IsEnabled(Level.<#=level#>))
+                writer.UncheckedWrite(Level.<#=level#>, text, default);
         }
 <#
 }

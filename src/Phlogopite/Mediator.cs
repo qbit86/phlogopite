@@ -48,12 +48,9 @@ namespace Phlogopite
             return minimumLevel <= level;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties)
         {
-            if (!IsEnabled(level))
-                return;
-
             NamedProperty[] mediatorProperties = ArrayPool<NamedProperty>.Shared.Rent(1);
             mediatorProperties[0] = new NamedProperty("time", DateTime.Now);
 
@@ -63,7 +60,10 @@ namespace Phlogopite
                 try
                 {
                     ISink<NamedProperty> sink = _sinks[i];
-                    sink?.Write(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
+                    if (sink is null || !sink.IsEnabled(level))
+                        continue;
+
+                    sink.UncheckedWrite(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
@@ -88,9 +88,9 @@ namespace Phlogopite
             aggregateException.Handle(_exceptionHandler);
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            Write(level, text, properties, default);
+            UncheckedWrite(level, text, properties, default);
         }
     }
 }
