@@ -14,15 +14,5 @@ namespace Phlogopite.Extensions
 
             writer.UncheckedWrite(level, text, default);
         }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Exception<TWriter>(this TWriter writer, Exception ex)
-            where TWriter : IWriter<NamedProperty>
-        {
-            if (writer is null || !writer.IsEnabled(Level.Error))
-                return;
-
-            WriteUnchecked(writer, Level.Error, null, new NamedProperty(null, ex));
-        }
     }
 }

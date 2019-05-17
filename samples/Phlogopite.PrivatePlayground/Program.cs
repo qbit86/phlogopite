@@ -38,7 +38,7 @@ namespace Phlogopite
             }
             catch (InvalidOperationException ex)
             {
-                log.Exception(ex);
+                log.E((null, ex));
             }
 
             log.I(null, ("strings", new[] { "apple", "orange" }), ("doubles", new[] { Math.E, Math.PI }),
