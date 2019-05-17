@@ -9,7 +9,7 @@ var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Ass
 for (int i = 0; i != levels.Length; ++i)
 {
     if (i != 0)
-        Write(Environment.NewLine);
+        WriteLine(string.Empty);
 
     string level = levels[i];
     string methodName = level.Substring(0, 1);
