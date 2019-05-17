@@ -19,6 +19,10 @@
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Extensions/MediatorExtensions.Unchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MediatorExtensions.Unchecked.cs</LastGenOutput>
+    </None>
     <None Update="Extensions/WriterExtensions.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Extensions/WriterExtensions.0.cs</LastGenOutput>
@@ -48,6 +52,11 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Extensions/MediatorExtensions.Unchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MediatorExtensions.Unchecked.tt</DependentUpon>
+    </Compile>
     <Compile Update="Extensions/WriterExtensions.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

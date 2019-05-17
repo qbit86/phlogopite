@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions
 {
-    public static class MediatorExtensions
+    public static partial class MediatorExtensions
     {
         internal static void WriteUnchecked(IMediator<NamedProperty> mediator, Level level, string tag, string text,
             [CallerMemberName] string source = null)
