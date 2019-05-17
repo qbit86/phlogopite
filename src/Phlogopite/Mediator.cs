@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Phlogopite
 {
-    public sealed class Mediator : IMediator<NamedProperty>, IWriter<NamedProperty>
+    public sealed class Mediator : IMediator<NamedProperty>
     {
         private readonly Func<Exception, bool> _exceptionHandler;
         private readonly Level _minimumLevel;
@@ -86,11 +86,6 @@ namespace Phlogopite
                 throw aggregateException;
 
             aggregateException.Handle(_exceptionHandler);
-        }
-
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
-        {
-            UncheckedWrite(level, text, properties, default);
         }
     }
 }
