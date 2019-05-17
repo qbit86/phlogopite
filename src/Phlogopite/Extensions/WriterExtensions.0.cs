@@ -2,12 +2,6 @@ namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
-        public static void Write<TWriter>(this TWriter writer, Level level, string text)
-            where TWriter : IWriter<NamedProperty>
-        {
-            writer.Write(level, text, default);
-        }
-
         public static void V<TWriter>(this TWriter writer, string text)
             where TWriter : IWriter<NamedProperty>
         {

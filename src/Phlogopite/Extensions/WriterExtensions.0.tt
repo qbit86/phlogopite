@@ -4,12 +4,6 @@ namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
-        public static void Write<TWriter>(this TWriter writer, Level level, string text)
-            where TWriter : IWriter<NamedProperty>
-        {
-            writer.Write(level, text, default);
-        }
-
 <#
 var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
 for (int i = 0; i != levels.Length; ++i)

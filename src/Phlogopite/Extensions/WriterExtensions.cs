@@ -1,9 +1,17 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static partial class WriterExtensions
     {
+        public static void Write<TWriter>(this TWriter writer, Level level, string text)
+            where TWriter : IWriter<NamedProperty>
+        {
+            writer.Write(level, text, default);
+        }
+
         public static void Exception<TWriter>(this TWriter writer, Exception ex)
             where TWriter : IWriter<NamedProperty>
         {
