@@ -15,6 +15,48 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine(string.Empty);
 
     PushIndent("        ");
+    WriteLine("public static void Write<TWriter>(this TWriter writer, Level level,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(")");
+    WriteLine("where TWriter : IWriter<NamedProperty>");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("if (writer is null || !writer.IsEnabled(level))");
+    WriteLine("    return;");
+    ClearIndent();
+    WriteLine(string.Empty);
+    PushIndent("        ");
+    Write("    WriteUnchecked(writer, level, null, ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("p" + propertyIndex);
+    }
+
+    WriteLine(");");
+    WriteLine("}");
+    ClearIndent();
+}
+
+WriteLine(string.Empty);
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
     WriteLine("public static void Write<TWriter>(this TWriter writer, Level level, string text,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
