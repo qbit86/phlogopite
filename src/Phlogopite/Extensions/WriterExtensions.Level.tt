@@ -26,12 +26,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
         {
             if (propertyIndex != 0)
-            {
-                if (propertyIndex % 4 == 0)
-                    WriteLine(",");
-                else
-                    Write(", ");
-            }
+                Write(", ");
 
             Write("in NamedProperty p" + propertyIndex);
         }
@@ -71,12 +66,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
         {
             if (propertyIndex != 0)
-            {
-                if (propertyIndex % 4 == 0)
-                    WriteLine(",");
-                else
-                    Write(", ");
-            }
+                Write(", ");
 
             Write("in NamedProperty p" + propertyIndex);
         }
