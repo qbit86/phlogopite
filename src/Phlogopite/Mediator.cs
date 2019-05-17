@@ -51,9 +51,6 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties)
         {
-            if (!IsEnabled(level))
-                return;
-
             NamedProperty[] mediatorProperties = ArrayPool<NamedProperty>.Shared.Rent(1);
             mediatorProperties[0] = new NamedProperty("time", DateTime.Now);
 
