@@ -1,8 +1,5 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
-using System;
-using System.Buffers;
-
 namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
@@ -13,6 +10,10 @@ const int maxPropertyCount = 4;
 
 for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
 {
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
     PushIndent("        ");
     WriteLine("public static void Write<TWriter>(this TWriter writer, Level level, string text,");
     PushIndent("    ");
@@ -47,49 +48,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     ClearIndent();
 #>
         }
-
 <#
-}
-
-for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
-{
-    PushIndent("        ");
-    WriteLine("private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,");
-    PushIndent("    ");
-    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-    {
-        if (propertyIndex != 0)
-            Write(", ");
-
-        Write("in TProperty p" + propertyIndex);
-    }
-
-    WriteLine(")");
-    ClearIndent();
-#>
-            where TWriter : IWriter<TProperty>
-        {
-            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(<#=propertyCount#>);
-            try
-            {
-<#
-    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-    {
-#>
-                properties[<#=propertyIndex#>] = p<#=propertyIndex#>;
-<#
-    }
-#>
-                writer.Write(level, text, properties.AsSpan(0, <#=propertyCount#>));
-            }
-            finally
-            {
-                ArrayPool<TProperty>.Shared.Return(properties);
-            }
-        }
-<#
-    if (propertyCount < maxPropertyCount)
-        WriteLine(string.Empty);
 }
 #>
     }

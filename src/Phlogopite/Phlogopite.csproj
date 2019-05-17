@@ -27,6 +27,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Extensions/WriterExtensions.Level.cs</LastGenOutput>
     </None>
+    <None Update="Extensions/WriterExtensions.Unchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WriterExtensions.Unchecked.cs</LastGenOutput>
+    </None>
     <None Update="Extensions/WriterExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Extensions/WriterExtensions.Write.cs</LastGenOutput>
@@ -53,6 +57,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WriterExtensions.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterExtensions.Unchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.Unchecked.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions/WriterExtensions.Write.cs">
       <DesignTime>True</DesignTime>
