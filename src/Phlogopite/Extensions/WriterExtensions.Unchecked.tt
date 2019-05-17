@@ -2,6 +2,7 @@
 <#@ output extension=".cs" #>
 using System;
 using System.Buffers;
+using System.Diagnostics;
 
 namespace Phlogopite.Extensions
 {
@@ -33,6 +34,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     PopIndent();
     WriteLine("{");
     PushIndent("    ");
+    WriteLine("Debug.Assert(writer != null, \"writer != null\");");
     WriteLine($"TProperty[] properties = ArrayPool<TProperty>.Shared.Rent({propertyCount});");
     WriteLine("try");
     WriteLine("{");

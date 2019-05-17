@@ -30,7 +30,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
 #>
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(level))
+            if (writer is null || !writer.IsEnabled(level))
                 return;
 
 <#

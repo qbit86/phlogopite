@@ -6,7 +6,7 @@ namespace Phlogopite.Extensions
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(level))
+            if (writer is null || !writer.IsEnabled(level))
                 return;
 
             WriteUnchecked(writer, level, text, p0);
@@ -16,7 +16,7 @@ namespace Phlogopite.Extensions
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(level))
+            if (writer is null || !writer.IsEnabled(level))
                 return;
 
             WriteUnchecked(writer, level, text, p0, p1);
@@ -26,7 +26,7 @@ namespace Phlogopite.Extensions
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(level))
+            if (writer is null || !writer.IsEnabled(level))
                 return;
 
             WriteUnchecked(writer, level, text, p0, p1, p2);
@@ -36,7 +36,7 @@ namespace Phlogopite.Extensions
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(level))
+            if (writer is null || !writer.IsEnabled(level))
                 return;
 
             WriteUnchecked(writer, level, text, p0, p1, p2, p3);

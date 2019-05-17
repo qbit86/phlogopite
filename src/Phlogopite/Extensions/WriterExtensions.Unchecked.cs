@@ -1,5 +1,6 @@
 using System;
 using System.Buffers;
+using System.Diagnostics;
 
 namespace Phlogopite.Extensions
 {
@@ -9,6 +10,7 @@ namespace Phlogopite.Extensions
             in TProperty p0)
             where TWriter : IWriter<TProperty>
         {
+            Debug.Assert(writer != null, "writer != null");
             TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(1);
             try
             {
@@ -25,6 +27,7 @@ namespace Phlogopite.Extensions
             in TProperty p0, in TProperty p1)
             where TWriter : IWriter<TProperty>
         {
+            Debug.Assert(writer != null, "writer != null");
             TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(2);
             try
             {
@@ -42,6 +45,7 @@ namespace Phlogopite.Extensions
             in TProperty p0, in TProperty p1, in TProperty p2)
             where TWriter : IWriter<TProperty>
         {
+            Debug.Assert(writer != null, "writer != null");
             TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(3);
             try
             {
@@ -60,6 +64,7 @@ namespace Phlogopite.Extensions
             in TProperty p0, in TProperty p1, in TProperty p2, in TProperty p3)
             where TWriter : IWriter<TProperty>
         {
+            Debug.Assert(writer != null, "writer != null");
             TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(4);
             try
             {

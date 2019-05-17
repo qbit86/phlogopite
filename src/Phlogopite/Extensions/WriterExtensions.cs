@@ -9,7 +9,7 @@ namespace Phlogopite.Extensions
         public static void Write<TWriter>(this TWriter writer, Level level, string text)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Error))
+            if (writer is null || !writer.IsEnabled(Level.Error))
                 return;
 
             writer.UncheckedWrite(level, text, default);
@@ -18,7 +18,7 @@ namespace Phlogopite.Extensions
         public static void Exception<TWriter>(this TWriter writer, Exception ex)
             where TWriter : IWriter<NamedProperty>
         {
-            if (!writer.IsEnabled(Level.Error))
+            if (writer is null || !writer.IsEnabled(Level.Error))
                 return;
 
             WriteUnchecked(writer, Level.Error, null, new NamedProperty(null, ex));
