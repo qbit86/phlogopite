@@ -1,6 +1,5 @@
 using System;
 using System.Buffers;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Phlogopite
@@ -34,15 +33,16 @@ namespace Phlogopite
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
         {
-            Debug.Assert(_mediator != null, "_mediator != null");
+            if (_mediator is null || !_mediator.IsEnabled(level))
+                return;
+
             NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
             try
             {
                 writerProperties[0] = new NamedProperty("tag", _tag);
                 writerProperties[1] = new NamedProperty("source", _source);
 
-                if (_mediator.IsEnabled(level))
-                    _mediator.UncheckedWrite(level, text, properties, writerProperties.AsSpan(0, 2));
+                _mediator.UncheckedWrite(level, text, properties, writerProperties.AsSpan(0, 2));
             }
             finally
             {
