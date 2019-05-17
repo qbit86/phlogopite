@@ -43,7 +43,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine("}");
     WriteLine("finally");
     WriteLine("{");
-    WriteLine("    ArrayPool<TProperty>.Shared.Return(properties);");
+    WriteLine("    ArrayPool<TProperty>.Shared.Return(properties, true);");
     WriteLine("}");
     PopIndent();
     WriteLine("}");

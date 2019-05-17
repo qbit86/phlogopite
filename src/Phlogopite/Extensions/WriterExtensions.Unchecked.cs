@@ -17,7 +17,7 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties);
+                ArrayPool<TProperty>.Shared.Return(properties, true);
             }
         }
 
@@ -34,7 +34,7 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties);
+                ArrayPool<TProperty>.Shared.Return(properties, true);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties);
+                ArrayPool<TProperty>.Shared.Return(properties, true);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties);
+                ArrayPool<TProperty>.Shared.Return(properties, true);
             }
         }
     }
