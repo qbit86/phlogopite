@@ -20,6 +20,37 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine(string.Empty);
 
     PushIndent("        ");
+    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+    WriteLine("public static void Write(Level level, string tag,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+        {
+            if (propertyIndex % 4 == 0)
+                WriteLine(",");
+            else
+                Write(", ");
+        }
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("[CallerMemberName] string source = null)");
+    ClearIndent();
+    PushIndent("        ");
+    WriteLine("{");
+    Write("    Write(level, tag, null");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        Write(", p" + propertyIndex);
+
+    WriteLine(", source);");
+    WriteLine("}");
+
+    ClearIndent();
+    WriteLine(string.Empty);
+    PushIndent("        ");
     WriteLine("public static void Write(Level level, string tag, string text,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)

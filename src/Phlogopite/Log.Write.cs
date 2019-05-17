@@ -6,6 +6,14 @@ namespace Phlogopite
 {
     public static partial class Log
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write(Level level, string tag,
+            in NamedProperty p0,
+            [CallerMemberName] string source = null)
+        {
+            Write(level, tag, null, p0, source);
+        }
+
         public static void Write(Level level, string tag, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
@@ -27,6 +35,14 @@ namespace Phlogopite
             {
                 ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write(Level level, string tag,
+            in NamedProperty p0, in NamedProperty p1,
+            [CallerMemberName] string source = null)
+        {
+            Write(level, tag, null, p0, p1, source);
         }
 
         public static void Write(Level level, string tag, string text,
@@ -53,6 +69,14 @@ namespace Phlogopite
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write(Level level, string tag,
+            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
+            [CallerMemberName] string source = null)
+        {
+            Write(level, tag, null, p0, p1, p2, source);
+        }
+
         public static void Write(Level level, string tag, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
@@ -76,6 +100,14 @@ namespace Phlogopite
             {
                 ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write(Level level, string tag,
+            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
+            [CallerMemberName] string source = null)
+        {
+            Write(level, tag, null, p0, p1, p2, p3, source);
         }
 
         public static void Write(Level level, string tag, string text,
