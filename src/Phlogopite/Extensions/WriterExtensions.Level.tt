@@ -17,6 +17,13 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 
     string level = levels[levelIndex];
     string methodName = level.Substring(0, 1);
+
+    PushIndent("        ");
+    WriteLine($"#region {level}");
+    ClearIndent();
+    WriteLine(string.Empty);
+
+    // Overloads without text parameter.
     for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
     {
         if (propertyCount != startPropertyCount)
@@ -59,6 +66,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         ClearIndent();
     }
 
+    // Overloads with text parameter.
     for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
     {
         WriteLine(string.Empty);
@@ -99,6 +107,11 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("}");
         ClearIndent();
     }
+
+    WriteLine(string.Empty);
+    PushIndent("        ");
+    WriteLine($"#endregion // {level}");
+    ClearIndent();
 }
 #>
     }

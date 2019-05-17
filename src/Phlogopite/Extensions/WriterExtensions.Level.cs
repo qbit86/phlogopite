@@ -4,6 +4,8 @@ namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
+        #region Verbose
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer,
             in NamedProperty p0)
@@ -91,6 +93,10 @@ namespace Phlogopite.Extensions
 
             WriteUnchecked(writer, Level.Verbose, text, p0, p1, p2, p3);
         }
+
+        #endregion // Verbose
+
+        #region Debug
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer,
@@ -180,6 +186,10 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, text, p0, p1, p2, p3);
         }
 
+        #endregion // Debug
+
+        #region Info
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer,
             in NamedProperty p0)
@@ -267,6 +277,10 @@ namespace Phlogopite.Extensions
 
             WriteUnchecked(writer, Level.Info, text, p0, p1, p2, p3);
         }
+
+        #endregion // Info
+
+        #region Warning
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer,
@@ -356,6 +370,10 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, text, p0, p1, p2, p3);
         }
 
+        #endregion // Warning
+
+        #region Error
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer,
             in NamedProperty p0)
@@ -444,6 +462,10 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, text, p0, p1, p2, p3);
         }
 
+        #endregion // Error
+
+        #region Assert
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer,
             in NamedProperty p0)
@@ -531,5 +553,7 @@ namespace Phlogopite.Extensions
 
             WriteUnchecked(writer, Level.Assert, text, p0, p1, p2, p3);
         }
+
+        #endregion // Assert
     }
 }
