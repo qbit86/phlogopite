@@ -106,7 +106,6 @@ namespace Phlogopite.Sinks
             return level < _standardErrorMinimumLevel.GetValueOrDefault() ? Console.Out : Console.Error;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void WriteLineThenFlush(Level level, char[] buffer, int index, int count)
         {
             Debug.Assert(buffer != null);
