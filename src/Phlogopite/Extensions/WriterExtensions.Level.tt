@@ -12,6 +12,7 @@ const int maxPropertyCount = 4;
 var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
 for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 {
+    ClearIndent();
     if (levelIndex != 0)
         WriteLine(string.Empty);
 
@@ -20,7 +21,6 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 
     PushIndent("        ");
     WriteLine($"#region {level}");
-    ClearIndent();
     WriteLine(string.Empty);
 
     // Overloads without text parameter.
@@ -29,7 +29,6 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         if (propertyCount != startPropertyCount)
             WriteLine(string.Empty);
 
-        PushIndent("        ");
         WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
         WriteLine($"public static void {methodName}<TWriter>(this TWriter writer,");
         PushIndent("    ");
@@ -47,23 +46,13 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("{");
         WriteLine($"    if (writer is null || !writer.IsEnabled(Level.{level}))");
         WriteLine("        return;");
-        ClearIndent();
         WriteLine(string.Empty);
-        PushIndent("        ");
-        PushIndent("    ");
-        Write($"WriteUnchecked(writer, Level.{level}, null, ");
+        Write($"    WriteUnchecked(writer, Level.{level}, null");
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-        {
-            if (propertyIndex != 0)
-                Write(", ");
-
-            Write("p" + propertyIndex);
-        }
+            Write(", p" + propertyIndex);
 
         WriteLine(");");
-        PopIndent();
         WriteLine("}");
-        ClearIndent();
     }
 
     // Overloads with text parameter.
@@ -71,7 +60,6 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
     {
         WriteLine(string.Empty);
 
-        PushIndent("        ");
         WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
         WriteLine($"public static void {methodName}<TWriter>(this TWriter writer, string text,");
         PushIndent("    ");
@@ -89,30 +77,20 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("{");
         WriteLine($"    if (!writer.IsEnabled(Level.{level}))");
         WriteLine("        return;");
-        ClearIndent();
         WriteLine(string.Empty);
-        PushIndent("        ");
-        PushIndent("    ");
-        Write($"WriteUnchecked(writer, Level.{level}, text, ");
+        Write($"    WriteUnchecked(writer, Level.{level}, text");
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-        {
-            if (propertyIndex != 0)
-                Write(", ");
-
-            Write("p" + propertyIndex);
-        }
+            Write(", p" + propertyIndex);
 
         WriteLine(");");
-        PopIndent();
         WriteLine("}");
-        ClearIndent();
     }
 
     WriteLine(string.Empty);
-    PushIndent("        ");
     WriteLine($"#endregion // {level}");
-    ClearIndent();
 }
+
+ClearIndent();
 #>
     }
 }
