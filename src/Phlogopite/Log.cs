@@ -19,6 +19,7 @@ namespace Phlogopite
             return true;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write(Level level, string tag, string text,
             [CallerMemberName] string source = null)
         {
