@@ -78,9 +78,6 @@ namespace Phlogopite.Sinks
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
-            if (!IsEnabled(level))
-                return;
-
             StringBuilder sb = StringBuilderCache.Acquire();
             _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
                 sb, default, default, default);
