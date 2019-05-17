@@ -1,5 +1,7 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
+using System.Runtime.CompilerServices;
+
 namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
@@ -15,6 +17,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine(string.Empty);
 
     PushIndent("        ");
+    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
     WriteLine("public static void Write<TWriter>(this TWriter writer, Level level,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
@@ -57,6 +60,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine(string.Empty);
 
     PushIndent("        ");
+    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
     WriteLine("public static void Write<TWriter>(this TWriter writer, Level level, string text,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)

@@ -1,7 +1,10 @@
+using System.Runtime.CompilerServices;
+
 namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -12,6 +15,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, null, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -22,6 +26,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, null, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -32,6 +37,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, null, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -42,6 +48,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, null, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -52,6 +59,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, text, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -62,6 +70,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, text, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -72,6 +81,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, text, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -82,6 +92,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Verbose, text, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -92,6 +103,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, null, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -102,6 +114,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, null, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -112,6 +125,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, null, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -122,6 +136,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, null, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -132,6 +147,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, text, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -142,6 +158,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, text, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -152,6 +169,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, text, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -162,6 +180,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Debug, text, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -172,6 +191,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, null, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -182,6 +202,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, null, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -192,6 +213,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, null, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -202,6 +224,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, null, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -212,6 +235,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, text, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -222,6 +246,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, text, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -232,6 +257,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, text, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -242,6 +268,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Info, text, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -252,6 +279,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, null, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -262,6 +290,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, null, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -272,6 +301,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, null, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -282,6 +312,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, null, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -292,6 +323,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, text, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -302,6 +334,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, text, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -312,6 +345,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, text, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -322,6 +356,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Warning, text, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -332,6 +367,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, null, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -342,6 +378,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, null, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -352,6 +389,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, null, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -362,6 +400,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, null, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -372,6 +411,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, text, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -382,6 +422,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, text, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -392,6 +433,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, text, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -402,6 +444,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Error, text, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -412,6 +455,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, null, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -422,6 +466,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, null, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -432,6 +477,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, null, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
@@ -442,6 +488,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, null, p0, p1, p2, p3);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0)
             where TWriter : IWriter<NamedProperty>
@@ -452,6 +499,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, text, p0);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1)
             where TWriter : IWriter<NamedProperty>
@@ -462,6 +510,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, text, p0, p1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TWriter : IWriter<NamedProperty>
@@ -472,6 +521,7 @@ namespace Phlogopite.Extensions
             WriteUnchecked(writer, Level.Assert, text, p0, p1, p2);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TWriter>(this TWriter writer, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TWriter : IWriter<NamedProperty>
