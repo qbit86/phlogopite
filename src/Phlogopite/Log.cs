@@ -22,7 +22,7 @@ namespace Phlogopite
         public static void Write(Level level, string tag, string text,
             [CallerMemberName] string source = null)
         {
-            if (!Mediator.IsEnabled(level))
+            if (s_mediator is null || !s_mediator.IsEnabled(level))
                 return;
 
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2);
@@ -31,7 +31,7 @@ namespace Phlogopite
                 properties[0] = new NamedProperty("tag", tag);
                 properties[1] = new NamedProperty("source", source);
                 var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 2);
-                Mediator.UncheckedWrite(level, text, default, writerProperties);
+                s_mediator.UncheckedWrite(level, text, default, writerProperties);
             }
             finally
             {
