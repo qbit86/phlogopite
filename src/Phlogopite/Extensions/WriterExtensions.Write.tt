@@ -26,16 +26,16 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     }
 
     WriteLine(")");
+    WriteLine("where TWriter : IWriter<NamedProperty>");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("if (writer is null || !writer.IsEnabled(level))");
+    WriteLine("    return;");
     ClearIndent();
-#>
-            where TWriter : IWriter<NamedProperty>
-        {
-            if (writer is null || !writer.IsEnabled(level))
-                return;
-
-<#
-    PushIndent("            ");
-    Write("WriteUnchecked(writer, level, text, ");
+    WriteLine(string.Empty);
+    PushIndent("        ");
+    Write("    WriteUnchecked(writer, level, text, ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
         if (propertyIndex != 0)
@@ -45,10 +45,8 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     }
 
     WriteLine(");");
+    WriteLine("}");
     ClearIndent();
-#>
-        }
-<#
 }
 #>
     }
