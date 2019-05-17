@@ -1,6 +1,7 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
 using System.Runtime.CompilerServices;
+using Phlogopite.Extensions;
 
 namespace Phlogopite
 {
@@ -44,7 +45,14 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("[CallerMemberName] string source = null)");
         PopIndent();
         WriteLine("{");
-        WriteLine("    throw new System.NotImplementedException();");
+        WriteLine($"    if (s_mediator is null || !s_mediator.IsEnabled(Level.{level}))");
+        WriteLine("        return;");
+        WriteLine(string.Empty);
+        Write($"    MediatorExtensions.WriteUnchecked(s_mediator, Level.{level}, tag, null");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+            Write(", p" + propertyIndex);
+
+        WriteLine(", source);");
         WriteLine("}");
     }
 
@@ -68,7 +76,14 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine("[CallerMemberName] string source = null)");
         PopIndent();
         WriteLine("{");
-        WriteLine("    throw new System.NotImplementedException();");
+        WriteLine($"    if (s_mediator is null || !s_mediator.IsEnabled(Level.{level}))");
+        WriteLine("        return;");
+        WriteLine(string.Empty);
+        Write($"    MediatorExtensions.WriteUnchecked(s_mediator, Level.{level}, tag, text");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+            Write(", p" + propertyIndex);
+
+        WriteLine(", source);");
         WriteLine("}");
     }
 
