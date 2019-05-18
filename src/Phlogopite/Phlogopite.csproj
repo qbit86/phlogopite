@@ -19,6 +19,14 @@
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Extensions/MediatorExtensions.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MediatorExtensions.0.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/MediatorExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MediatorExtensions.Level.cs</LastGenOutput>
+    </None>
     <None Update="Extensions/MediatorExtensions.Unchecked.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MediatorExtensions.Unchecked.cs</LastGenOutput>
@@ -56,6 +64,16 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Extensions/MediatorExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MediatorExtensions.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/MediatorExtensions.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MediatorExtensions.0.tt</DependentUpon>
+    </Compile>
     <Compile Update="Extensions/MediatorExtensions.Unchecked.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
