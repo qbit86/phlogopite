@@ -28,9 +28,9 @@ namespace Phlogopite
             var log = new Writer(Log.Mediator, Tag);
             log.V("Hello, World!", ("username", Environment.UserName));
             log.D("Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
-            Log.Mediator.I(Tag, "Plain text, no dynamic formatting", (nameof(Math.E), Math.E), ("today", DateTime.Today));
+            Log.Mediator.I(Tag, "Plain text", (nameof(Math.E), Math.E), ("today", DateTime.Today));
             log.W("Empty property", (null, null));
-            log.E(("byte", (byte)0xfa), ("decimal", 1.618m));
+            Log.Mediator.E(Tag, ("byte", (byte)0xfa), ("decimal", 1.618m));
             log.A("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
             log.I(null, ("strings", new[] { "apple", "orange" }), ("doubles", new[] { Math.E, Math.PI }),
                 ("decimals", new[] { 3.5m, 5.8m, 8.13m }),
