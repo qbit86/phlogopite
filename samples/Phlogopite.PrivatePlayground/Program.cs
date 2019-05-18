@@ -32,6 +32,13 @@ namespace Phlogopite
             log.W("Empty property", (null, null));
             log.E(("byte", (byte)0xfa), ("decimal", 1.618m));
             log.A("This is fine.", new NamedProperty("ambiguous", 1729), ("unambiguous", DateTime.Now.Year));
+            log.I(null, ("strings", new[] { "apple", "orange" }), ("doubles", new[] { Math.E, Math.PI }),
+                ("decimals", new[] { 3.5m, 5.8m, 8.13m }),
+                ("decimalsAsObjects", new[] { (object)3.5m, (object)5.8m, (object)8.13m }));
+            log.Write(Level.Error, "Testing checked Write()", default);
+            Log.Write(Level.Info, Tag, "Testing Log.Write()");
+            log.I((nameof(GC.GetAllocatedBytesForCurrentThread), GC.GetAllocatedBytesForCurrentThread()),
+                (nameof(GC.GetTotalMemory), GC.GetTotalMemory(false)));
             try
             {
                 throw new InvalidOperationException("Just test");
@@ -40,17 +47,6 @@ namespace Phlogopite
             {
                 log.E((null, ex));
             }
-
-            log.I(null, ("strings", new[] { "apple", "orange" }), ("doubles", new[] { Math.E, Math.PI }),
-                ("decimals", new[] { 3.5m, 5.8m, 8.13m }),
-                ("decimalsAsObjects", new[] { (object)3.5m, (object)5.8m, (object)8.13m }));
-
-            log.Write(Level.Error, "Testing checked Write()", default);
-
-            Log.Write(Level.Info, Tag, "Testing Log.Write()");
-
-            log.I((nameof(GC.GetAllocatedBytesForCurrentThread), GC.GetAllocatedBytesForCurrentThread()),
-                (nameof(GC.GetTotalMemory), GC.GetTotalMemory(false)));
         }
     }
 }
