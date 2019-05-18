@@ -48,6 +48,9 @@ namespace Phlogopite
             log.Write(Level.Error, "Testing checked Write()", default);
 
             Log.Write(Level.Info, Tag, "Testing Log.Write()");
+
+            log.I((nameof(GC.GetAllocatedBytesForCurrentThread), GC.GetAllocatedBytesForCurrentThread()),
+                (nameof(GC.GetTotalMemory), GC.GetTotalMemory(false)));
         }
     }
 }
