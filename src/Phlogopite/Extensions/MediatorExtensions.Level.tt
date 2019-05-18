@@ -1,8 +1,99 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
+using System.Runtime.CompilerServices;
+
 namespace Phlogopite.Extensions
 {
     public static partial class MediatorExtensions
     {
+<#
+// WriteLine($"#if false");
+
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
+for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
+{
+    ClearIndent();
+    if (levelIndex != 0)
+        WriteLine(string.Empty);
+
+    string level = levels[levelIndex];
+    string methodName = level.Substring(0, 1);
+
+    PushIndent("        ");
+    WriteLine($"#region {level}");
+    WriteLine(string.Empty);
+
+    // Overloads without text parameter.
+    for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+    {
+        if (propertyCount != startPropertyCount)
+            WriteLine(string.Empty);
+
+        WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+        WriteLine($"public static void {methodName}(this IMediator<NamedProperty> mediator, string tag,");
+        PushIndent("    ");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        {
+            if (propertyIndex != 0)
+                Write(", ");
+
+            Write("in NamedProperty p" + propertyIndex);
+        }
+
+        WriteLine(",");
+        WriteLine("[CallerMemberName] string source = null)");
+        PopIndent();
+        WriteLine("{");
+        WriteLine($"    if (mediator is null || !mediator.IsEnabled(Level.{level}))");
+        WriteLine("        return;");
+        WriteLine(string.Empty);
+        Write($"    WriteUnchecked(mediator, Level.{level}, tag, null");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+            Write(", p" + propertyIndex);
+
+        WriteLine(", source);");
+        WriteLine("}");
+    }
+
+    // Overloads with text parameter.
+    for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+    {
+        WriteLine(string.Empty);
+
+        WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+        WriteLine($"public static void {methodName}(this IMediator<NamedProperty> mediator, string tag, string text,");
+        PushIndent("    ");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        {
+            if (propertyIndex != 0)
+                Write(", ");
+
+            Write("in NamedProperty p" + propertyIndex);
+        }
+
+        WriteLine(",");
+        WriteLine("[CallerMemberName] string source = null)");
+        PopIndent();
+        WriteLine("{");
+        WriteLine($"    if (mediator is null || !mediator.IsEnabled(Level.{level}))");
+        WriteLine("        return;");
+        WriteLine(string.Empty);
+        Write($"    WriteUnchecked(mediator, Level.{level}, tag, text");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+            Write(", p" + propertyIndex);
+
+        WriteLine(", source);");
+        WriteLine("}");
+    }
+
+    WriteLine(string.Empty);
+    WriteLine($"#endregion // {level}");
+}
+
+ClearIndent();
+// WriteLine("#endif");
+#>
     }
 }
