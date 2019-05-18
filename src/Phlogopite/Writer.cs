@@ -50,6 +50,14 @@ namespace Phlogopite
             }
         }
 
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        {
+            if (!IsEnabled(level))
+                return;
+
+            UncheckedWrite(level, text, properties);
+        }
+
         public bool Equals(Writer other)
         {
             if (_minimumLevel != other._minimumLevel)

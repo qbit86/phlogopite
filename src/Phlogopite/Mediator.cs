@@ -87,5 +87,14 @@ namespace Phlogopite
 
             aggregateException.Handle(_exceptionHandler);
         }
+
+        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> writerProperties)
+        {
+            if (!IsEnabled(level))
+                return;
+
+            UncheckedWrite(level, text, userProperties, writerProperties);
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Phlogopite
 
             var formattedSinks = new IFormattedSink<NamedProperty>[] { new ConsoleSink() };
             var sinks = new ISink<NamedProperty>[] { new FormattingSink(formattedSinks) };
-            var mediator = new Mediator(sinks, Level.Info);
+            var mediator = new Mediator(sinks, Level.Debug);
             Log.TrySetMediator(mediator);
 
             Foo();
@@ -44,6 +44,8 @@ namespace Phlogopite
             log.I(null, ("strings", new[] { "apple", "orange" }), ("doubles", new[] { Math.E, Math.PI }),
                 ("decimals", new[] { 3.5m, 5.8m, 8.13m }),
                 ("decimalsAsObjects", new[] { (object)3.5m, (object)5.8m, (object)8.13m }));
+
+            log.Write(Level.Error, "Testing checked Write()", default);
 
             Log.Write(Level.Info, Tag, "Testing Log.Write()");
         }
