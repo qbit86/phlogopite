@@ -19,23 +19,23 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine(string.Empty);
 
     PushIndent("        ");
-    WriteLine("private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,");
+    WriteLine("private static void WriteUnchecked<TWriter>(in TWriter writer, Level level, string text,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
         if (propertyIndex != 0)
             Write(", ");
 
-        Write("in TProperty p" + propertyIndex);
+        Write("in NamedProperty p" + propertyIndex);
     }
 
     WriteLine(")");
-    WriteLine("where TWriter : IWriter<TProperty>");
+    WriteLine("where TWriter : IWriter<NamedProperty>");
     PopIndent();
     WriteLine("{");
     PushIndent("    ");
     WriteLine("Debug.Assert(writer != null, \"writer != null\");");
-    WriteLine($"TProperty[] properties = ArrayPool<TProperty>.Shared.Rent({propertyCount});");
+    WriteLine($"NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent({propertyCount});");
     WriteLine("try");
     WriteLine("{");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
@@ -45,7 +45,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine("}");
     WriteLine("finally");
     WriteLine("{");
-    WriteLine("    ArrayPool<TProperty>.Shared.Return(properties, true);");
+    WriteLine("    ArrayPool<NamedProperty>.Shared.Return(properties, true);");
     WriteLine("}");
     PopIndent();
     WriteLine("}");

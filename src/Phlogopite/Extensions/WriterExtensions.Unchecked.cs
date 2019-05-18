@@ -6,12 +6,12 @@ namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
-        private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,
-            in TProperty p0)
-            where TWriter : IWriter<TProperty>
+        private static void WriteUnchecked<TWriter>(in TWriter writer, Level level, string text,
+            in NamedProperty p0)
+            where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(1);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(1);
             try
             {
                 properties[0] = p0;
@@ -19,16 +19,16 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties, true);
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
         }
 
-        private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,
-            in TProperty p0, in TProperty p1)
-            where TWriter : IWriter<TProperty>
+        private static void WriteUnchecked<TWriter>(in TWriter writer, Level level, string text,
+            in NamedProperty p0, in NamedProperty p1)
+            where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(2);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2);
             try
             {
                 properties[0] = p0;
@@ -37,16 +37,16 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties, true);
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
         }
 
-        private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,
-            in TProperty p0, in TProperty p1, in TProperty p2)
-            where TWriter : IWriter<TProperty>
+        private static void WriteUnchecked<TWriter>(in TWriter writer, Level level, string text,
+            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
+            where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(3);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(3);
             try
             {
                 properties[0] = p0;
@@ -56,16 +56,16 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties, true);
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
         }
 
-        private static void WriteUnchecked<TWriter, TProperty>(in TWriter writer, Level level, string text,
-            in TProperty p0, in TProperty p1, in TProperty p2, in TProperty p3)
-            where TWriter : IWriter<TProperty>
+        private static void WriteUnchecked<TWriter>(in TWriter writer, Level level, string text,
+            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
+            where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            TProperty[] properties = ArrayPool<TProperty>.Shared.Rent(4);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(4);
             try
             {
                 properties[0] = p0;
@@ -76,7 +76,7 @@ namespace Phlogopite.Extensions
             }
             finally
             {
-                ArrayPool<TProperty>.Shared.Return(properties, true);
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
         }
     }
