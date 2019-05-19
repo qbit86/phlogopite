@@ -45,7 +45,8 @@ namespace Phlogopite.Sinks
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
-            StringBuilder sb = StringBuilderCache.Acquire();
+            int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, writerProperties);
+            StringBuilder sb = StringBuilderCache.Acquire(capacity);
             try
             {
                 Span<Segment> userSegments = stackalloc Segment[userProperties.Length];
