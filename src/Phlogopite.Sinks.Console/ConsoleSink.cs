@@ -15,6 +15,8 @@ namespace Phlogopite.Sinks
             ConsoleColor.DarkRed, ConsoleColor.Cyan
         };
 
+        private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "- " };
+
         private static readonly object s_syncRoot = new object();
 
         private readonly IFormatProvider _formatProvider;
@@ -58,7 +60,43 @@ namespace Phlogopite.Sinks
             if (formattedMessage.Array is null)
                 return;
 
-            WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+            if (!_omitLevel && !_omitTime)
+            {
+                WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+                return;
+            }
+
+            if (!_omitTime)
+            {
+                Debug.Assert(_omitLevel, nameof(_omitLevel));
+                WriteLineThenFlush(level, formattedMessage.Array,
+                    formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                return;
+            }
+
+            Debug.Assert(_omitTime, nameof(_omitTime));
+            int timeIndex = FindByName(mediatorProperties, "time");
+            if ((uint)timeIndex >= (uint)mediatorSegments.Length)
+            {
+                if (!_omitLevel)
+                {
+                    WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
+                    return;
+                }
+
+                Debug.Assert(_omitLevel, nameof(_omitLevel));
+                WriteLineThenFlush(level, formattedMessage.Array,
+                    formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                return;
+            }
+
+            Debug.Assert((uint)timeIndex < (uint)mediatorSegments.Length);
+            Segment segment = mediatorSegments[timeIndex];
+            int startIndex = segment.Offset + segment.Count + 1;
+            ArraySegment<char> buffer = new ArraySegment<char>(formattedMessage.Array,
+                formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
+
+            WriteLineThenFlush(level, buffer.Array, buffer.Offset, buffer.Count, !_omitLevel);
         }
 
         public bool IsEnabled(Level level)
@@ -107,6 +145,11 @@ namespace Phlogopite.Sinks
             return -1;
         }
 
+        private static string GetLevelPrefix(Level level)
+        {
+            return (uint)level < (uint)s_levelPrefixMap.Length ? s_levelPrefixMap[(int)level] : "- ";
+        }
+
         private TextWriter SelectOutputStream(Level level)
         {
             if (!_standardErrorMinimumLevel.HasValue)
@@ -115,7 +158,7 @@ namespace Phlogopite.Sinks
             return level < _standardErrorMinimumLevel.GetValueOrDefault() ? Console.Out : Console.Error;
         }
 
-        private void WriteLineThenFlush(Level level, char[] buffer, int index, int count)
+        private void WriteLineThenFlush(Level level, char[] buffer, int index, int count, bool prependLevel = false)
         {
             Debug.Assert(buffer != null);
 
@@ -126,6 +169,9 @@ namespace Phlogopite.Sinks
 
                 if (!_isSynchronized)
                 {
+                    if (prependLevel)
+                        output.Write(GetLevelPrefix(level));
+
                     output.WriteLine(buffer, index, count);
                     output.Flush();
                     return;
@@ -133,6 +179,9 @@ namespace Phlogopite.Sinks
 
                 lock (s_syncRoot)
                 {
+                    if (prependLevel)
+                        output.Write(GetLevelPrefix(level));
+
                     output.WriteLine(buffer, index, count);
                     output.Flush();
                 }
