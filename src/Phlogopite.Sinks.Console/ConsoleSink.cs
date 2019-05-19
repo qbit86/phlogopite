@@ -96,6 +96,17 @@ namespace Phlogopite.Sinks
             return SetForegroundColor(s_levelColorMap[(int)level]);
         }
 
+        private static int FindByName(ReadOnlySpan<NamedProperty> properties, string name)
+        {
+            for (int i = 0; i != properties.Length; ++i)
+            {
+                if (string.Equals(properties[i].Name, name, StringComparison.Ordinal))
+                    return i;
+            }
+
+            return -1;
+        }
+
         private TextWriter SelectOutputStream(Level level)
         {
             if (!_standardErrorMinimumLevel.HasValue)
