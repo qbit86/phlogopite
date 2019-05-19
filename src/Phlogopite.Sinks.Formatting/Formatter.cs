@@ -36,12 +36,11 @@ namespace Phlogopite
                 TrySetSegment(timeIndex, timeOffset, output, mediatorSegments);
             }
 
-            output.Append(" ");
             int tagIndex = FindString(writerProperties, "tag", out string tag);
             int sourceIndex = FindString(writerProperties, "source", out string source);
             if (tag != null || source != null)
             {
-                output.Append("[");
+                output.Append(" [");
                 if (!string.IsNullOrEmpty(tag))
                 {
                     int tagOffset = output.Length;
@@ -59,48 +58,20 @@ namespace Phlogopite
                     TrySetSegment(sourceIndex, sourceOffset, output, writerSegments);
                 }
 
-                output.Append("] ");
+                output.Append("]");
             }
 
-            output.Append(text);
+            if (!string.IsNullOrEmpty(text))
+            {
+                output.Append(" ");
+                output.Append(text);
+            }
 
             for (int i = 0; i != userProperties.Length; ++i)
             {
-                if (i == 0 && !string.IsNullOrEmpty(text))
+                if (i != 0)
                 {
-                    bool endsWithPunctuation = char.IsPunctuation(text, text.Length - 1);
-                    if (endsWithPunctuation)
-                    {
-                        output.Append(" ");
-                        if (!string.IsNullOrEmpty(userProperties[i].Name))
-                        {
-                            output.Append(userProperties[i].Name);
-                            output.Append(": ");
-                        }
-
-                        int propertyOffset = output.Length;
-                        RenderValue(userProperties[i], sbf);
-                        TrySetSegment(i, propertyOffset, output, userSegments);
-                    }
-                    else if (string.IsNullOrEmpty(userProperties[i].Name))
-                    {
-                        output.Append(": ");
-                        int propertyOffset = output.Length;
-                        RenderValue(userProperties[i], sbf);
-                        TrySetSegment(i, propertyOffset, output, userSegments);
-                    }
-                    else
-                    {
-                        output.Append(". ");
-                        output.Append(userProperties[i].Name);
-                        output.Append(": ");
-                        int propertyOffset = output.Length;
-                        RenderValue(userProperties[i], sbf);
-                        TrySetSegment(i, propertyOffset, output, userSegments);
-                    }
-                }
-                else
-                {
+                    output.Append(", ");
                     if (!string.IsNullOrEmpty(userProperties[i].Name))
                     {
                         output.Append(userProperties[i].Name);
@@ -110,10 +81,36 @@ namespace Phlogopite
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
                     TrySetSegment(i, propertyOffset, output, userSegments);
+                    continue;
                 }
 
-                if (i + 1 < userProperties.Length)
-                    output.Append(", ");
+                if (string.IsNullOrEmpty(text) || char.IsPunctuation(text, text.Length - 1))
+                {
+                    output.Append(" ");
+                    if (!string.IsNullOrEmpty(userProperties[i].Name))
+                    {
+                        output.Append(userProperties[i].Name);
+                        output.Append(": ");
+                    }
+
+                    int propertyOffset = output.Length;
+                    RenderValue(userProperties[i], sbf);
+                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(userProperties[i].Name))
+                {
+                    output.Append(". ");
+                    output.Append(userProperties[i].Name);
+                }
+
+                {
+                    output.Append(": ");
+                    int propertyOffset = output.Length;
+                    RenderValue(userProperties[i], sbf);
+                    TrySetSegment(i, propertyOffset, output, userSegments);
+                }
             }
         }
 
