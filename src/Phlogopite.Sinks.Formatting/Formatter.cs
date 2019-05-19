@@ -24,7 +24,6 @@ namespace Phlogopite
                 throw new ArgumentNullException(nameof(output));
 
             RenderLevel(level, output);
-            output.Append(" ");
 
             var sbf = new StringBuilderFacade(output, formatProvider);
 
@@ -32,16 +31,12 @@ namespace Phlogopite
             if (timeIndex >= 0)
             {
                 int timeOffset = output.Length;
+                output.Append(" ");
                 RenderTime(time, sbf);
                 TrySetSegment(timeIndex, timeOffset, output, mediatorSegments);
             }
-            else
-            {
-                output.Append("            ");
-            }
 
             output.Append(" ");
-
             int tagIndex = FindString(writerProperties, "tag", out string tag);
             int sourceIndex = FindString(writerProperties, "source", out string source);
             if (tag != null || source != null)
