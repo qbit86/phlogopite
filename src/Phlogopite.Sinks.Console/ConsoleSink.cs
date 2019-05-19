@@ -49,7 +49,7 @@ namespace Phlogopite.Sinks
             _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
         }
 
-        public void Write(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
             ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
             ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)

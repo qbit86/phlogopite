@@ -59,7 +59,7 @@ namespace Phlogopite.Sinks
                     for (int i = 0; i < _sinks.Count; ++i)
                     {
                         IFormattedSink<NamedProperty> sink = _sinks[i];
-                        sink.Write(level, text, userProperties, writerProperties, mediatorProperties,
+                        sink.UncheckedWrite(level, text, userProperties, writerProperties, mediatorProperties,
                             formattedMessage, userSegments, writerSegments, mediatorSegments);
                     }
                 }
