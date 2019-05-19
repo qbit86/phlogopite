@@ -28,18 +28,10 @@ namespace Phlogopite.Sinks
         public ConsoleSink(Level minimumLevel) :
             this(minimumLevel, null, false, Formatter.Default, CultureConstants.FixedCulture) { }
 
-        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel) :
-            this(minimumLevel, standardErrorMinimumLevel, false, Formatter.Default, CultureConstants.FixedCulture) { }
+        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider) :
+            this(minimumLevel, null, false, Formatter.Default, formatProvider) { }
 
-        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized) :
-            this(minimumLevel, standardErrorMinimumLevel, isSynchronized,
-                Formatter.Default, CultureConstants.FixedCulture) { }
-
-        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
-            IFormatter<NamedProperty> formatter) :
-            this(minimumLevel, standardErrorMinimumLevel, isSynchronized, formatter, CultureConstants.FixedCulture) { }
-
-        public ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
+        internal ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
             IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
             _minimumLevel = minimumLevel;
