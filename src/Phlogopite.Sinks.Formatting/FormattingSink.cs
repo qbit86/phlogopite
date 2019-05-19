@@ -36,7 +36,10 @@ namespace Phlogopite.Sinks
 
         public bool IsEnabled(Level level)
         {
-            return _minimumLevel <= level;
+            if (_minimumLevel > level)
+                return false;
+
+            return _sinks.Count != 0;
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,

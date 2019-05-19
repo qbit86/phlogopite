@@ -41,11 +41,11 @@ namespace Phlogopite
 
         public bool IsEnabled(Level level)
         {
-            if (_sinks.Count == 0)
+            Level minimumLevel = _minimumLevelProvider?.Invoke() ?? _minimumLevel;
+            if (minimumLevel > level)
                 return false;
 
-            Level minimumLevel = _minimumLevelProvider?.Invoke() ?? _minimumLevel;
-            return minimumLevel <= level;
+            return _sinks.Count != 0;
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
