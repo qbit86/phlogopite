@@ -8,6 +8,8 @@ namespace Phlogopite.Sinks
         private IFormatter<NamedProperty> _formatter;
         private bool? _isSynchronized;
         private Level? _minimumLevel;
+        private bool? _omitLevel;
+        private bool? _omitTime;
 
         public IFormatProvider FormatProvider
         {
@@ -33,11 +35,24 @@ namespace Phlogopite.Sinks
             set => _minimumLevel = value;
         }
 
+        public bool OmitLevel
+        {
+            get => _omitLevel.GetValueOrDefault();
+            set => _omitLevel = value;
+        }
+
+        public bool OmitTime
+        {
+            get => _omitTime.GetValueOrDefault();
+            set => _omitTime = value;
+        }
+
         public Level? StandardErrorMinimumLevel { get; set; }
 
         public ConsoleSink Build()
         {
-            return new ConsoleSink(MinimumLevel, StandardErrorMinimumLevel, IsSynchronized, Formatter, FormatProvider);
+            return new ConsoleSink(MinimumLevel, StandardErrorMinimumLevel, IsSynchronized, OmitLevel, OmitTime,
+                Formatter, FormatProvider);
         }
     }
 }
