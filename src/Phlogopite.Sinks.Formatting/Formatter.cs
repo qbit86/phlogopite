@@ -33,7 +33,7 @@ namespace Phlogopite
                 int timeOffset = output.Length;
                 output.Append(" ");
                 RenderTime(time, sbf);
-                TrySetSegment(timeIndex, timeOffset, output, mediatorSegments);
+                SetRange(timeIndex, timeOffset, output, mediatorSegments);
             }
 
             int tagIndex = FindString(writerProperties, "tag", out string tag);
@@ -45,7 +45,7 @@ namespace Phlogopite
                 {
                     int tagOffset = output.Length;
                     output.Append(tag);
-                    TrySetSegment(tagIndex, tagOffset, output, writerSegments);
+                    SetRange(tagIndex, tagOffset, output, writerSegments);
                 }
 
                 if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
@@ -55,7 +55,7 @@ namespace Phlogopite
                 {
                     int sourceOffset = output.Length;
                     output.Append(source);
-                    TrySetSegment(sourceIndex, sourceOffset, output, writerSegments);
+                    SetRange(sourceIndex, sourceOffset, output, writerSegments);
                 }
 
                 output.Append("]");
@@ -80,7 +80,7 @@ namespace Phlogopite
 
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    SetRange(i, propertyOffset, output, userSegments);
                     continue;
                 }
 
@@ -95,7 +95,7 @@ namespace Phlogopite
 
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    SetRange(i, propertyOffset, output, userSegments);
                     continue;
                 }
 
@@ -109,12 +109,12 @@ namespace Phlogopite
                     output.Append(": ");
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    SetRange(i, propertyOffset, output, userSegments);
                 }
             }
         }
 
-        private static void TrySetSegment(int segmentIndex, int propertyOffset, StringBuilder sb,
+        private static void SetRange(int segmentIndex, int propertyOffset, StringBuilder sb,
             Span<Segment> segments)
         {
             if ((uint)segmentIndex >= (uint)segments.Length)
