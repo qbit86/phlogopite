@@ -109,14 +109,73 @@ namespace Phlogopite.Sinks
         {
             int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, writerProperties);
             StringBuilder sb = StringBuilderCache.Acquire(capacity);
-            _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
-                sb, default, default, default);
-            int length = sb.Length;
-            char[] buffer = ArrayPool<char>.Shared.Rent(length);
-            sb.CopyTo(0, buffer, 0, length);
-            StringBuilderCache.Release(sb);
-            WriteLineThenFlush(level, buffer, 0, length);
-            ArrayPool<char>.Shared.Return(buffer);
+            char[] buffer = null;
+            try
+            {
+                Span<Range> mediatorRanges = stackalloc Range[mediatorProperties.Length];
+                _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
+                    sb, default, default, mediatorRanges);
+
+                if (!_omitLevel && !_omitTime)
+                {
+                    int length = sb.Length;
+                    buffer = ArrayPool<char>.Shared.Rent(length);
+                    sb.CopyTo(0, buffer, 0, length);
+                    WriteLineThenFlush(level, buffer, 0, length);
+                    return;
+                }
+
+                if (!_omitTime)
+                {
+                    Debug.Assert(_omitLevel, nameof(_omitLevel));
+                    int length = sb.Length - 2;
+                    buffer = ArrayPool<char>.Shared.Rent(length);
+                    sb.CopyTo(2, buffer, 0, length);
+                    WriteLineThenFlush(level, buffer, 0, length);
+                    return;
+                }
+
+                Debug.Assert(_omitTime, nameof(_omitTime));
+                int timeIndex = FindByName(mediatorProperties, "time");
+                if ((uint)timeIndex >= (uint)mediatorRanges.Length)
+                {
+                    if (!_omitLevel)
+                    {
+                        int length = sb.Length;
+                        buffer = ArrayPool<char>.Shared.Rent(length);
+                        sb.CopyTo(0, buffer, 0, length);
+                        WriteLineThenFlush(level, buffer, 0, length);
+                        return;
+                    }
+
+                    Debug.Assert(_omitLevel, nameof(_omitLevel));
+                    {
+                        int length = sb.Length - 2;
+                        buffer = ArrayPool<char>.Shared.Rent(length);
+                        sb.CopyTo(2, buffer, 0, length);
+                        WriteLineThenFlush(level, buffer, 0, length);
+                        return;
+                    }
+                }
+
+                Debug.Assert((uint)timeIndex < (uint)mediatorRanges.Length);
+                {
+                    Range range = mediatorRanges[timeIndex];
+                    int startIndex = range.End + 1;
+                    int length = sb.Length - startIndex;
+                    buffer = ArrayPool<char>.Shared.Rent(length);
+                    sb.CopyTo(startIndex, buffer, 0, length);
+
+                    WriteLineThenFlush(level, buffer, 0, length, !_omitLevel);
+                }
+            }
+            finally
+            {
+                if (buffer != null)
+                    ArrayPool<char>.Shared.Return(buffer);
+
+                StringBuilderCache.Release(sb);
+            }
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
