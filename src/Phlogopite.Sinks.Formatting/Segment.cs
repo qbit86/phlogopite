@@ -6,16 +6,16 @@ namespace Phlogopite
 {
     public readonly struct Segment : IEquatable<Segment>
     {
-        public Segment(int start, int count)
+        public Segment(int start, int end)
         {
             if (start < 0)
                 ThrowSegmentCtorValidationFailedException(nameof(start));
 
-            if (count < 0)
-                ThrowSegmentCtorValidationFailedException(nameof(count));
+            if (end < start)
+                ThrowSegmentCtorValidationFailedException(nameof(end));
 
             Start = start;
-            End = start + count;
+            End = end;
         }
 
         public int Start { get; }

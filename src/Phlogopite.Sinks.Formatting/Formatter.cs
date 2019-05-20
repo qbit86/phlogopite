@@ -120,7 +120,7 @@ namespace Phlogopite
             if ((uint)segmentIndex >= (uint)segments.Length)
                 return;
 
-            segments[segmentIndex] = new Segment(propertyOffset, sb.Length - propertyOffset);
+            segments[segmentIndex] = new Segment(propertyOffset, sb.Length);
         }
 
         private static int FindDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)
