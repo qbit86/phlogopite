@@ -6,19 +6,19 @@ namespace Phlogopite
 {
     public readonly struct Segment : IEquatable<Segment>
     {
-        public Segment(int offset, int count)
+        public Segment(int start, int count)
         {
-            if (offset < 0)
-                ThrowSegmentCtorValidationFailedException(nameof(offset));
+            if (start < 0)
+                ThrowSegmentCtorValidationFailedException(nameof(start));
 
             if (count < 0)
                 ThrowSegmentCtorValidationFailedException(nameof(count));
 
-            Offset = offset;
+            Start = start;
             Count = count;
         }
 
-        public int Offset { get; }
+        public int Start { get; }
 
         public int Count { get; }
 
@@ -26,7 +26,7 @@ namespace Phlogopite
 
         public bool Equals(Segment other)
         {
-            return Offset == other.Offset && Count == other.Count;
+            return Start == other.Start && Count == other.Count;
         }
 
         public override bool Equals(object obj)
@@ -36,7 +36,7 @@ namespace Phlogopite
 
         public override int GetHashCode()
         {
-            return unchecked(Offset * 397) ^ Count;
+            return unchecked(Start * 397) ^ Count;
         }
 
         public static bool operator ==(Segment left, Segment right)

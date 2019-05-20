@@ -92,7 +92,7 @@ namespace Phlogopite.Sinks
 
             Debug.Assert((uint)timeIndex < (uint)mediatorSegments.Length);
             Segment segment = mediatorSegments[timeIndex];
-            int startIndex = segment.Offset + segment.Count + 1;
+            int startIndex = segment.Start + segment.Count + 1;
             ArraySegment<char> buffer = new ArraySegment<char>(formattedMessage.Array,
                 formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
 
