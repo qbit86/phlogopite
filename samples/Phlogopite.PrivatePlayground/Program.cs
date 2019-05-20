@@ -17,12 +17,11 @@ namespace Phlogopite
 
             ConsoleSink consoleSink = new ConsoleSinkBuilder { OmitLevel = true, OmitTime = true }.Build();
             var otherConsoleSink = new ConsoleSink();
-            var formattedSinks = new IFormattedSink<NamedProperty>[] { consoleSink, otherConsoleSink };
-            var sinks = new ISink<NamedProperty>[]
-            {
-                consoleSink, otherConsoleSink, new FormattingSink(formattedSinks)
-            };
-            var mediator = new Mediator(sinks, Level.Debug);
+            IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, otherConsoleSink };
+            Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
+                .AddSinks(consoleSink, otherConsoleSink)
+                .AddSink(new FormattingSink(formattedSinks))
+                .Build();
             Log.TrySetMediator(mediator);
 
             Foo();

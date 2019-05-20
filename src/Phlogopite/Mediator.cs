@@ -28,7 +28,7 @@ namespace Phlogopite
             Func<Exception, bool> exceptionHandler) :
             this(sinks, Level.Verbose, minimumLevelProvider, exceptionHandler) { }
 
-        private Mediator(IReadOnlyList<ISink<NamedProperty>> sinks,
+        internal Mediator(IReadOnlyList<ISink<NamedProperty>> sinks,
             Level minimumLevel, Func<Level> minimumLevelProvider, Func<Exception, bool> exceptionHandler)
         {
             _sinks = sinks ?? Array.Empty<ISink<NamedProperty>>();
