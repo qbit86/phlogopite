@@ -92,8 +92,8 @@ namespace Phlogopite.Sinks
 
             Debug.Assert((uint)timeIndex < (uint)mediatorSegments.Length);
             Segment segment = mediatorSegments[timeIndex];
-            int startIndex = segment.Start + segment.Count + 1;
-            ArraySegment<char> buffer = new ArraySegment<char>(formattedMessage.Array,
+            int startIndex = segment.End + 1;
+            var buffer = new ArraySegment<char>(formattedMessage.Array,
                 formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
 
             WriteLineThenFlush(level, buffer.Array, buffer.Offset, buffer.Count, !_omitLevel);

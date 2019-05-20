@@ -22,6 +22,8 @@ namespace Phlogopite
 
         public int Count { get; }
 
+        public int End => Start + Count;
+
         public bool IsEmpty => Count == 0;
 
         public bool Equals(Segment other)
