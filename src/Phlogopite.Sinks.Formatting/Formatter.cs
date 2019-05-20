@@ -14,8 +14,8 @@ namespace Phlogopite
 
         public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
-            IFormatProvider formatProvider, StringBuilder output, Span<Segment> userSegments,
-            Span<Segment> writerSegments, Span<Segment> mediatorSegments)
+            IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
+            Span<Range> writerRanges, Span<Range> mediatorRanges)
         {
             if (formatProvider == null)
                 throw new ArgumentNullException(nameof(formatProvider));
@@ -33,7 +33,7 @@ namespace Phlogopite
                 int timeOffset = output.Length;
                 output.Append(" ");
                 RenderTime(time, sbf);
-                TrySetSegment(timeIndex, timeOffset, output, mediatorSegments);
+                SetRange(timeIndex, timeOffset, output, mediatorRanges);
             }
 
             int tagIndex = FindString(writerProperties, "tag", out string tag);
@@ -45,7 +45,7 @@ namespace Phlogopite
                 {
                     int tagOffset = output.Length;
                     output.Append(tag);
-                    TrySetSegment(tagIndex, tagOffset, output, writerSegments);
+                    SetRange(tagIndex, tagOffset, output, writerRanges);
                 }
 
                 if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
@@ -55,7 +55,7 @@ namespace Phlogopite
                 {
                     int sourceOffset = output.Length;
                     output.Append(source);
-                    TrySetSegment(sourceIndex, sourceOffset, output, writerSegments);
+                    SetRange(sourceIndex, sourceOffset, output, writerRanges);
                 }
 
                 output.Append("]");
@@ -80,7 +80,7 @@ namespace Phlogopite
 
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    SetRange(i, propertyOffset, output, userRanges);
                     continue;
                 }
 
@@ -95,7 +95,7 @@ namespace Phlogopite
 
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    SetRange(i, propertyOffset, output, userRanges);
                     continue;
                 }
 
@@ -109,18 +109,17 @@ namespace Phlogopite
                     output.Append(": ");
                     int propertyOffset = output.Length;
                     RenderValue(userProperties[i], sbf);
-                    TrySetSegment(i, propertyOffset, output, userSegments);
+                    SetRange(i, propertyOffset, output, userRanges);
                 }
             }
         }
 
-        private static void TrySetSegment(int segmentIndex, int propertyOffset, StringBuilder sb,
-            Span<Segment> segments)
+        private static void SetRange(int rangeIndex, int propertyOffset, StringBuilder sb, Span<Range> ranges)
         {
-            if ((uint)segmentIndex >= (uint)segments.Length)
+            if ((uint)rangeIndex >= (uint)ranges.Length)
                 return;
 
-            segments[segmentIndex] = new Segment(propertyOffset, sb.Length - propertyOffset);
+            ranges[rangeIndex] = new Range(propertyOffset, sb.Length);
         }
 
         private static int FindDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)

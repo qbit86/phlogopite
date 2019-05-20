@@ -6,7 +6,7 @@ namespace Phlogopite.Sinks
     {
         void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
             ReadOnlySpan<TProperty> writerProperties, ReadOnlySpan<TProperty> mediatorProperties,
-            ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
-            ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments);
+            ArraySegment<char> formattedMessage, ReadOnlySpan<Range> userRanges,
+            ReadOnlySpan<Range> writerRanges, ReadOnlySpan<Range> mediatorRanges);
     }
 }
