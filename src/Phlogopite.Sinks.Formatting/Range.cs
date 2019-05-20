@@ -9,10 +9,10 @@ namespace Phlogopite
         public Range(int start, int end)
         {
             if (start < 0)
-                ThrowSegmentCtorValidationFailedException(nameof(start));
+                ThrowRangeCtorValidationFailedException(nameof(start));
 
             if (end < start)
-                ThrowSegmentCtorValidationFailedException(nameof(end));
+                ThrowRangeCtorValidationFailedException(nameof(end));
 
             Start = start;
             End = end;
@@ -49,7 +49,7 @@ namespace Phlogopite
             return !left.Equals(right);
         }
 
-        private static void ThrowSegmentCtorValidationFailedException(string paramName)
+        private static void ThrowRangeCtorValidationFailedException(string paramName)
         {
             throw new ArgumentOutOfRangeException(paramName, "Non-negative number required.");
         }

@@ -9,7 +9,7 @@ namespace Phlogopite
     {
         void Format(Level level, string text, ReadOnlySpan<TProperty> userProperties,
             ReadOnlySpan<TProperty> writerProperties, ReadOnlySpan<TProperty> mediatorProperties,
-            IFormatProvider formatProvider, StringBuilder output, Span<Range> userSegments,
-            Span<Range> writerSegments, Span<Range> mediatorSegments);
+            IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
+            Span<Range> writerRanges, Span<Range> mediatorRanges);
     }
 }
