@@ -14,8 +14,8 @@ namespace Phlogopite
 
         public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
-            IFormatProvider formatProvider, StringBuilder output, Span<Segment> userSegments,
-            Span<Segment> writerSegments, Span<Segment> mediatorSegments)
+            IFormatProvider formatProvider, StringBuilder output, Span<Range> userSegments,
+            Span<Range> writerSegments, Span<Range> mediatorSegments)
         {
             if (formatProvider == null)
                 throw new ArgumentNullException(nameof(formatProvider));
@@ -115,12 +115,12 @@ namespace Phlogopite
         }
 
         private static void SetRange(int segmentIndex, int propertyOffset, StringBuilder sb,
-            Span<Segment> segments)
+            Span<Range> segments)
         {
             if ((uint)segmentIndex >= (uint)segments.Length)
                 return;
 
-            segments[segmentIndex] = new Segment(propertyOffset, sb.Length);
+            segments[segmentIndex] = new Range(propertyOffset, sb.Length);
         }
 
         private static int FindDateTime(ReadOnlySpan<NamedProperty> properties, string name, out DateTime value)

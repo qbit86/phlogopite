@@ -49,9 +49,9 @@ namespace Phlogopite.Sinks
             StringBuilder sb = StringBuilderCache.Acquire(capacity);
             try
             {
-                Span<Segment> userSegments = stackalloc Segment[userProperties.Length];
-                Span<Segment> writerSegments = stackalloc Segment[writerProperties.Length];
-                Span<Segment> mediatorSegments = stackalloc Segment[mediatorProperties.Length];
+                Span<Range> userSegments = stackalloc Range[userProperties.Length];
+                Span<Range> writerSegments = stackalloc Range[writerProperties.Length];
+                Span<Range> mediatorSegments = stackalloc Range[mediatorProperties.Length];
                 _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
                     sb, userSegments, writerSegments, mediatorSegments);
 

@@ -4,9 +4,9 @@ using System;
 
 namespace Phlogopite
 {
-    public readonly struct Segment : IEquatable<Segment>
+    public readonly struct Range : IEquatable<Range>
     {
-        public Segment(int start, int end)
+        public Range(int start, int end)
         {
             if (start < 0)
                 ThrowSegmentCtorValidationFailedException(nameof(start));
@@ -24,14 +24,14 @@ namespace Phlogopite
 
         public bool IsEmpty => Start == End;
 
-        public bool Equals(Segment other)
+        public bool Equals(Range other)
         {
             return Start == other.Start && End == other.End;
         }
 
         public override bool Equals(object obj)
         {
-            return obj is Segment other && Equals(other);
+            return obj is Range other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -39,12 +39,12 @@ namespace Phlogopite
             return unchecked(Start * 397) ^ End;
         }
 
-        public static bool operator ==(Segment left, Segment right)
+        public static bool operator ==(Range left, Range right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(Segment left, Segment right)
+        public static bool operator !=(Range left, Range right)
         {
             return !left.Equals(right);
         }

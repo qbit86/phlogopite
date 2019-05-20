@@ -51,8 +51,8 @@ namespace Phlogopite.Sinks
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
-            ArraySegment<char> formattedMessage, ReadOnlySpan<Segment> userSegments,
-            ReadOnlySpan<Segment> writerSegments, ReadOnlySpan<Segment> mediatorSegments)
+            ArraySegment<char> formattedMessage, ReadOnlySpan<Range> userSegments,
+            ReadOnlySpan<Range> writerSegments, ReadOnlySpan<Range> mediatorSegments)
         {
             if (!IsEnabled(level))
                 return;
@@ -91,8 +91,8 @@ namespace Phlogopite.Sinks
             }
 
             Debug.Assert((uint)timeIndex < (uint)mediatorSegments.Length);
-            Segment segment = mediatorSegments[timeIndex];
-            int startIndex = segment.End + 1;
+            Range range = mediatorSegments[timeIndex];
+            int startIndex = range.End + 1;
             var buffer = new ArraySegment<char>(formattedMessage.Array,
                 formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
 
