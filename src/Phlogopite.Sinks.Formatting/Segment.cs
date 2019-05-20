@@ -15,20 +15,18 @@ namespace Phlogopite
                 ThrowSegmentCtorValidationFailedException(nameof(count));
 
             Start = start;
-            Count = count;
+            End = start + count;
         }
 
         public int Start { get; }
 
-        public int Count { get; }
+        public int End { get; }
 
-        public int End => Start + Count;
-
-        public bool IsEmpty => Count == 0;
+        public bool IsEmpty => Start == End;
 
         public bool Equals(Segment other)
         {
-            return Start == other.Start && Count == other.Count;
+            return Start == other.Start && End == other.End;
         }
 
         public override bool Equals(object obj)
@@ -38,7 +36,7 @@ namespace Phlogopite
 
         public override int GetHashCode()
         {
-            return unchecked(Start * 397) ^ Count;
+            return unchecked(Start * 397) ^ End;
         }
 
         public static bool operator ==(Segment left, Segment right)
