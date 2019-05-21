@@ -69,8 +69,12 @@ namespace Phlogopite.Sinks
             if (!_omitTime)
             {
                 Debug.Assert(_omitLevel, nameof(_omitLevel));
-                WriteLineThenFlush(level, formattedMessage.Array,
-                    formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                if (formattedMessage.Count > 2)
+                {
+                    WriteLineThenFlush(level, formattedMessage.Array,
+                        formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                }
+
                 return;
             }
 
@@ -85,18 +89,25 @@ namespace Phlogopite.Sinks
                 }
 
                 Debug.Assert(_omitLevel, nameof(_omitLevel));
-                WriteLineThenFlush(level, formattedMessage.Array,
-                    formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                if (formattedMessage.Count > 2)
+                {
+                    WriteLineThenFlush(level, formattedMessage.Array,
+                        formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                }
+
                 return;
             }
 
             Debug.Assert((uint)timeIndex < (uint)mediatorRanges.Length);
             Range range = mediatorRanges[timeIndex];
             int startIndex = range.End + 1;
-            var buffer = new ArraySegment<char>(formattedMessage.Array,
-                formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
+            if (startIndex < (uint)formattedMessage.Count)
+            {
+                var buffer = new ArraySegment<char>(formattedMessage.Array,
+                    formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
 
-            WriteLineThenFlush(level, buffer.Array, buffer.Offset, buffer.Count, !_omitLevel);
+                WriteLineThenFlush(level, buffer.Array, buffer.Offset, buffer.Count, !_omitLevel);
+            }
         }
 
         public bool IsEnabled(Level level)
@@ -129,9 +140,9 @@ namespace Phlogopite.Sinks
                 {
                     Debug.Assert(_omitLevel, nameof(_omitLevel));
                     const int startIndex = 2;
-                    int length = sb.Length - startIndex;
-                    if (startIndex < (uint)sb.Length && length > 0)
+                    if (startIndex < (uint)sb.Length)
                     {
+                        int length = sb.Length - startIndex;
                         buffer = ArrayPool<char>.Shared.Rent(length);
                         sb.CopyTo(startIndex, buffer, 0, length);
                         WriteLineThenFlush(level, buffer, 0, length);
@@ -156,9 +167,9 @@ namespace Phlogopite.Sinks
                     Debug.Assert(_omitLevel, nameof(_omitLevel));
                     {
                         const int startIndex = 2;
-                        int length = sb.Length - startIndex;
-                        if (startIndex < (uint)sb.Length && length > 0)
+                        if (startIndex < (uint)sb.Length)
                         {
+                            int length = sb.Length - startIndex;
                             buffer = ArrayPool<char>.Shared.Rent(length);
                             sb.CopyTo(startIndex, buffer, 0, length);
                             WriteLineThenFlush(level, buffer, 0, length);
@@ -172,9 +183,9 @@ namespace Phlogopite.Sinks
                 {
                     Range range = mediatorRanges[timeIndex];
                     int startIndex = range.End + 1;
-                    int length = sb.Length - startIndex;
-                    if ((uint)startIndex < (uint)sb.Length && length > 0)
+                    if ((uint)startIndex < (uint)sb.Length)
                     {
+                        int length = sb.Length - startIndex;
                         buffer = ArrayPool<char>.Shared.Rent(length);
                         sb.CopyTo(startIndex, buffer, 0, length);
                         WriteLineThenFlush(level, buffer, 0, length, !_omitLevel);
