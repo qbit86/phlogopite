@@ -128,10 +128,15 @@ namespace Phlogopite.Sinks
                 if (!_omitTime)
                 {
                     Debug.Assert(_omitLevel, nameof(_omitLevel));
-                    int length = sb.Length - 2;
-                    buffer = ArrayPool<char>.Shared.Rent(length);
-                    sb.CopyTo(2, buffer, 0, length);
-                    WriteLineThenFlush(level, buffer, 0, length);
+                    const int startIndex = 2;
+                    int length = sb.Length - startIndex;
+                    if (startIndex < (uint)sb.Length && length > 0)
+                    {
+                        buffer = ArrayPool<char>.Shared.Rent(length);
+                        sb.CopyTo(startIndex, buffer, 0, length);
+                        WriteLineThenFlush(level, buffer, 0, length);
+                    }
+
                     return;
                 }
 
@@ -150,10 +155,15 @@ namespace Phlogopite.Sinks
 
                     Debug.Assert(_omitLevel, nameof(_omitLevel));
                     {
-                        int length = sb.Length - 2;
-                        buffer = ArrayPool<char>.Shared.Rent(length);
-                        sb.CopyTo(2, buffer, 0, length);
-                        WriteLineThenFlush(level, buffer, 0, length);
+                        const int startIndex = 2;
+                        int length = sb.Length - startIndex;
+                        if (startIndex < (uint)sb.Length && length > 0)
+                        {
+                            buffer = ArrayPool<char>.Shared.Rent(length);
+                            sb.CopyTo(startIndex, buffer, 0, length);
+                            WriteLineThenFlush(level, buffer, 0, length);
+                        }
+
                         return;
                     }
                 }
@@ -163,10 +173,12 @@ namespace Phlogopite.Sinks
                     Range range = mediatorRanges[timeIndex];
                     int startIndex = range.End + 1;
                     int length = sb.Length - startIndex;
-                    buffer = ArrayPool<char>.Shared.Rent(length);
-                    sb.CopyTo(startIndex, buffer, 0, length);
-
-                    WriteLineThenFlush(level, buffer, 0, length, !_omitLevel);
+                    if ((uint)startIndex < (uint)sb.Length && length > 0)
+                    {
+                        buffer = ArrayPool<char>.Shared.Rent(length);
+                        sb.CopyTo(startIndex, buffer, 0, length);
+                        WriteLineThenFlush(level, buffer, 0, length, !_omitLevel);
+                    }
                 }
             }
             finally
