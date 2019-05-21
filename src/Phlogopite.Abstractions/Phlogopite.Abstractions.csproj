@@ -5,6 +5,9 @@
     <AssemblyVersion>0.1</AssemblyVersion>
     <VersionPrefix>0.1.0</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
+    <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
+    <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Abstractions/CHANGELOG.md</PackageReleaseNotes>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup Condition="'$(DebugType)' == 'portable'">
     <EmbedAllSources>true</EmbedAllSources>
