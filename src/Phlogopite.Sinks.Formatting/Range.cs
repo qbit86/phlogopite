@@ -22,8 +22,6 @@ namespace Phlogopite
 
         public int End { get; }
 
-        public bool IsEmpty => Start == End;
-
         public bool Equals(Range other)
         {
             return Start == other.Start && End == other.End;
