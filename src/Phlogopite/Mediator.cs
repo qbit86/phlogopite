@@ -11,22 +11,17 @@ namespace Phlogopite
         private readonly Func<Level> _minimumLevelProvider;
         private readonly IReadOnlyList<ISink<NamedProperty>> _sinks;
 
+        public Mediator(ISink<NamedProperty> sink) :
+            this(GetArrayOrEmpty(sink), Level.Verbose, default, default) { }
+
+        public Mediator(ISink<NamedProperty> sink, Level minimumLevel) :
+            this(GetArrayOrEmpty(sink), minimumLevel, default, default) { }
+
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks) :
             this(sinks, Level.Verbose, default, default) { }
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel) :
             this(sinks, minimumLevel, default, default) { }
-
-        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider) :
-            this(sinks, Level.Verbose, minimumLevelProvider, default) { }
-
-        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel,
-            Func<Exception, bool> exceptionHandler) :
-            this(sinks, minimumLevel, default, exceptionHandler) { }
-
-        public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Func<Level> minimumLevelProvider,
-            Func<Exception, bool> exceptionHandler) :
-            this(sinks, Level.Verbose, minimumLevelProvider, exceptionHandler) { }
 
         internal Mediator(IReadOnlyList<ISink<NamedProperty>> sinks,
             Level minimumLevel, Func<Level> minimumLevelProvider, Func<Exception, bool> exceptionHandler)
@@ -95,6 +90,14 @@ namespace Phlogopite
                 return;
 
             UncheckedWrite(level, text, userProperties, writerProperties);
+        }
+
+        private static ISink<NamedProperty>[] GetArrayOrEmpty(ISink<NamedProperty> sink)
+        {
+            if (sink is null)
+                return Array.Empty<ISink<NamedProperty>>();
+
+            return new[] { sink };
         }
     }
 }
