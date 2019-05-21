@@ -11,8 +11,9 @@ internal static class Program
 
     private static void Main()
     {
-        var sinks = new[] { new ConsoleSink() };
-        var mediator = new Mediator(sinks);
+        var sink = new ConsoleSink();
+        var mediator = new Mediator(sink);
+
         var log = new Writer(mediator, Tag);
         log.V("Hello, world!");
         log.I("Logged in", ("username", Environment.UserName), ("ipaddress", IPAddress.Loopback));
