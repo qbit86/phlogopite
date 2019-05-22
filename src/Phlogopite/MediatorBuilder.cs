@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Phlogopite
 {
@@ -33,7 +34,8 @@ namespace Phlogopite
 
         public Mediator Build()
         {
-            return new Mediator(Sinks, MinimumLevel, MinimumLevelProvider, ExceptionHandler);
+            IReadOnlyList<ISink<NamedProperty>> sinks = Interlocked.Exchange(ref _sinks, null);
+            return new Mediator(sinks, MinimumLevel, MinimumLevelProvider, ExceptionHandler);
         }
 
         public MediatorBuilder AddSink(ISink<NamedProperty> sink)
