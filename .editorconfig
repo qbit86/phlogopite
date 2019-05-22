@@ -24,6 +24,10 @@ trim_trailing_whitespace = false
 
 #### .NET Coding Conventions ####
 
+# Organize usings
+dotnet_separate_import_directive_groups = false
+dotnet_sort_system_directives_first = true
+
 # this. and Me. preferences
 dotnet_style_qualification_for_event = false:suggestion
 dotnet_style_qualification_for_field = false:suggestion
@@ -92,11 +96,13 @@ csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 csharp_style_conditional_delegate_call = true:suggestion
 
 # Modifier preferences
+csharp_prefer_static_local_function = true:suggestion
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
 
 # Code-block preferences
 # Does not work in Rider 2019.1: https://youtrack.jetbrains.com/issue/RSRP-474621
 # csharp_prefer_braces = false:none
+csharp_prefer_simple_using_statement = true:suggestion
 
 # Expression-level preferences
 csharp_prefer_simple_default_expression = true:suggestion
@@ -105,6 +111,9 @@ csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_range_operator = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:suggestion
+
+# 'using' directive preferences
+csharp_using_directive_placement = outside_namespace:suggestion
 
 #### C# Formatting Rules ####
 
@@ -153,9 +162,6 @@ csharp_space_between_square_brackets = false
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = false
 
-# Organize usings
-dotnet_sort_system_directives_first = true
-dotnet_separate_import_directive_groups = false
 
 # https://github.com/dotnet/corefx/blob/master/.editorconfig
 
