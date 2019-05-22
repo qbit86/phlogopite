@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.1;netstandard2.0;netcoreapp2.1</TargetFrameworks>
@@ -9,10 +9,8 @@
     <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Abstractions/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(DebugType)' == 'portable'">
-    <EmbedAllSources>true</EmbedAllSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.2" />
@@ -20,5 +18,6 @@
     <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="System.Memory" Version="4.5.2" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="all" />
   </ItemGroup>
 </Project>
