@@ -31,7 +31,7 @@ namespace Phlogopite
             return _minimumLevel <= level && _mediator.IsEnabled(level);
         }
 
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> properties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties)
         {
             if (_mediator is null || !_mediator.IsEnabled(level))
                 return;
@@ -42,7 +42,7 @@ namespace Phlogopite
                 writerProperties[0] = new NamedProperty("tag", _tag);
                 writerProperties[1] = new NamedProperty("source", _source);
 
-                _mediator.UncheckedWrite(level, text, properties, writerProperties.AsSpan(0, 2));
+                _mediator.UncheckedWrite(level, text, userProperties, writerProperties.AsSpan(0, 2));
             }
             finally
             {
