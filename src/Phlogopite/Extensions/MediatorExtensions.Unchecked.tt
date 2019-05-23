@@ -36,7 +36,9 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine("{");
     PushIndent("    ");
     WriteLine("Debug.Assert(mediator != null, \"mediator != null\");");
-    WriteLine($"NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent({propertyCount + 2});");
+    WriteLine($"const int userPropertyCount = {propertyCount};");
+    WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(");
+    WriteLine("    userPropertyCount + WriterPropertyCount + MediatorPropertyCount);");
     WriteLine("try");
     WriteLine("{");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
@@ -44,9 +46,11 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
 
     WriteLine($"    properties[{propertyCount}] = new NamedProperty(\"tag\", tag);");
     WriteLine($"    properties[{propertyCount + 1}] = new NamedProperty(\"source\", source);");
-    WriteLine($"    var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, {propertyCount});");
-    WriteLine($"    var writerProperties = new ReadOnlySpan<NamedProperty>(properties, {propertyCount}, 2);");
-    WriteLine($"    mediator.UncheckedWrite(level, text, userProperties, writerProperties);");
+    WriteLine("    ReadOnlySpan<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);");
+    WriteLine("    ReadOnlySpan<NamedProperty> writerProperties = properties.AsSpan(");
+    WriteLine("        userPropertyCount, WriterPropertyCount);");
+    WriteLine("    Span<NamedProperty> attachedProperties = properties.AsSpan(userPropertyCount + WriterPropertyCount);");
+    WriteLine("    mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties);");
     WriteLine("}");
     WriteLine("finally");
     WriteLine("{");

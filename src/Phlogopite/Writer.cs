@@ -44,7 +44,8 @@ namespace Phlogopite
                 attachedProperties[0] = new NamedProperty("tag", _tag);
                 attachedProperties[1] = new NamedProperty("source", _source);
 
-                _mediator.UncheckedWrite(level, text, userProperties, attachedProperties.Slice(0, writerPropertyCount));
+                _mediator.UncheckedWrite(level, text, userProperties, attachedProperties.Slice(0, writerPropertyCount),
+                    attachedProperties.Slice(writerPropertyCount));
                 return;
             }
 
@@ -54,7 +55,8 @@ namespace Phlogopite
                 writerProperties[0] = new NamedProperty("tag", _tag);
                 writerProperties[1] = new NamedProperty("source", _source);
 
-                _mediator.UncheckedWrite(level, text, userProperties, writerProperties.AsSpan(0, writerPropertyCount));
+                _mediator.UncheckedWrite(level, text, userProperties, writerProperties.AsSpan(0, writerPropertyCount),
+                    writerProperties.AsSpan(writerPropertyCount));
             }
             finally
             {
