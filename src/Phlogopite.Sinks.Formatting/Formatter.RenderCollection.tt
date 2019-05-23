@@ -1,0 +1,72 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+// ReSharper disable once CheckNamespace
+
+namespace Phlogopite
+{
+    public sealed partial class Formatter
+    {
+        private static void RenderCollection(ICollection collection, StringBuilderFacade sbf)
+        {
+            Debug.Assert(collection != null, "collection != null");
+            if (collection.Count == 0)
+            {
+                sbf.Append("[]");
+                return;
+            }
+
+<#
+var csharpTypes = new string[]
+{
+    "string", "int", "byte", "double", "long", "float", "DateTime", "bool",
+    "char", "sbyte", "short", "ushort", "uint", "ulong", "object"
+};
+for (int i = 0; i != csharpTypes.Length; ++i)
+{
+    string csharpType = csharpTypes[i];
+    if (string.IsNullOrWhiteSpace(csharpType))
+        continue;
+
+    string variableName = csharpType + "List";
+    if (char.IsUpper(csharpType[0]))
+        variableName = char.ToLower(csharpType[0]) + csharpType.Substring(1) + "List";
+#>
+            <#=i == 0 ? string.Empty : "else "#>if (collection is IReadOnlyList<<#=csharpType#>> <#=variableName#>)
+                RenderReadOnlyList(<#=variableName#>, sbf);
+<#
+}
+#>
+            else
+                sbf.Append(collection);
+        }
+<#
+for (int i = 0; i != csharpTypes.Length; ++i)
+{
+    string csharpType = csharpTypes[i];
+#>
+
+        private static void RenderReadOnlyList(IReadOnlyList<<#=csharpType#>> values, StringBuilderFacade sbf)
+        {
+            Debug.Assert(values != null, "values != null");
+
+            sbf.Append("[");
+            for (int i = 0; i < values.Count; ++i)
+            {
+                if (i != 0)
+                    sbf.Append(", ");
+
+                sbf.Append(values[i]);
+            }
+
+            sbf.Append("]");
+        }
+<#
+}
+#>
+    }
+}

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>df3d20e7-950b-42a3-a9a3-cf1ffec7e118</SharedGUID>
+    <!-- TODO: Replace to latest, when C# 8.0 is available. -->
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Phlogopite</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CultureConstants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormattingHelpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringBuilderCache.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringBuilderFacade.cs" />
+  </ItemGroup>
+</Project>

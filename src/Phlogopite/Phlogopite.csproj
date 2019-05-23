@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
+    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Buffers" Version="4.5.0" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.Buffers" Version="4.5.0" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="System.Buffers" Version="4.5.0" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.2" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.Memory" Version="4.5.2" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="System.Memory" Version="4.5.2" />
+    <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Extensions/MediatorExtensions.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MediatorExtensions.0.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/MediatorExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MediatorExtensions.Level.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/MediatorExtensions.Unchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MediatorExtensions.Unchecked.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterExtensions.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterExtensions.0.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterExtensions.Level.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterExtensions.Unchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WriterExtensions.Unchecked.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterExtensions.Write.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterExtensions.Write.cs</LastGenOutput>
+    </None>
+    <None Update="Log.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Log.0.cs</LastGenOutput>
+    </None>
+    <None Update="Log.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Log.Level.cs</LastGenOutput>
+    </None>
+    <None Update="Log.Write.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Log.Write.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Extensions/MediatorExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MediatorExtensions.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/MediatorExtensions.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MediatorExtensions.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/MediatorExtensions.Unchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MediatorExtensions.Unchecked.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterExtensions.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterExtensions.Unchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.Unchecked.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterExtensions.Write.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterExtensions.Write.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Log.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Log.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Log.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Log.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Log.Write.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Log.Write.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
