@@ -11,7 +11,6 @@ namespace Phlogopite.Extensions
 <#
 const int startPropertyCount = 1;
 const int maxPropertyCount = 4;
-const int writerPropertyCount = 2;
 
 for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
 {
@@ -36,13 +35,15 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine("{");
     PushIndent("    ");
     WriteLine("Debug.Assert(writer != null, \"writer != null\");");
-    WriteLine($"NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent({propertyCount} + {writerPropertyCount});");
+    WriteLine($"const int userPropertyCount = {propertyCount};");
+    WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(userPropertyCount + WriterPropertyCount);");
     WriteLine("try");
     WriteLine("{");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
         WriteLine($"    properties[{propertyIndex}] = p{propertyIndex};");
 
-    WriteLine($"    writer.UncheckedWrite(level, text, properties.AsSpan(0, {propertyCount}), properties.AsSpan({propertyCount}));");
+    WriteLine("    writer.UncheckedWrite(level, text,");
+    WriteLine("        properties.AsSpan(0, userPropertyCount), properties.AsSpan(userPropertyCount));");
     WriteLine("}");
     WriteLine("finally");
     WriteLine("{");
