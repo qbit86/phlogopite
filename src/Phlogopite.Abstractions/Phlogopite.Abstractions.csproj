@@ -5,7 +5,11 @@
     <AssemblyVersion>0.1</AssemblyVersion>
     <VersionPrefix>0.1.0</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
-    <Description>Abstractions for Phlogopite library — structured logging for .NET with low memory footprint.</Description>
+    <Description>Abstractions for Phlogopite library — structured logging for .NET with low memory footprint.
+Commonly used types:
+Phlogopite.IMediator&lt;TProperty&gt;
+Phlogopite.ISink&lt;TProperty&gt;
+Phlogopite.IWriter&lt;TProperty&gt;</Description>
     <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Abstractions/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
