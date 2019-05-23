@@ -44,11 +44,10 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
         WriteLine($"    properties[{propertyIndex}] = p{propertyIndex};");
 
-    WriteLine($"    properties[{propertyCount}] = new NamedProperty(\"tag\", tag);");
-    WriteLine($"    properties[{propertyCount + 1}] = new NamedProperty(\"source\", source);");
+    WriteLine("    Span<NamedProperty> writerProperties = properties.AsSpan(userPropertyCount, WriterPropertyCount);");
+    WriteLine("    writerProperties[0] = new NamedProperty(\"tag\", tag);");
+    WriteLine("    writerProperties[1] = new NamedProperty(\"source\", source);");
     WriteLine("    ReadOnlySpan<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);");
-    WriteLine("    ReadOnlySpan<NamedProperty> writerProperties = properties.AsSpan(");
-    WriteLine("        userPropertyCount, WriterPropertyCount);");
     WriteLine("    Span<NamedProperty> attachedProperties = properties.AsSpan(userPropertyCount + WriterPropertyCount);");
     WriteLine("    mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties);");
     WriteLine("}");
