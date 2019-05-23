@@ -4,6 +4,7 @@ namespace Phlogopite.Extensions
 {
     public static partial class WriterExtensions
     {
+        private const int MediatorPropertyCount = 1;
         private const int WriterPropertyCount = 2;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
