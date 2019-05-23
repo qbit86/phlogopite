@@ -6,6 +6,7 @@ namespace Phlogopite
     {
         bool IsEnabled(Level level);
 
-        void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties);
+        void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
+            Span<TProperty> attachedProperties);
     }
 }

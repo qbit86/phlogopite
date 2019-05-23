@@ -11,7 +11,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Error))
                 return;
 
-            writer.UncheckedWrite(level, text, default);
+            writer.UncheckedWrite(level, text, default, default);
         }
     }
 }

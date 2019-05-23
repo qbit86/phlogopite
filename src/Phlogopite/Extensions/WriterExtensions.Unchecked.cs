@@ -11,11 +11,11 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(1);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(1 + 2);
             try
             {
                 properties[0] = p0;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 1));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 1), properties.AsSpan(1));
             }
             finally
             {
@@ -28,12 +28,12 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2 + 2);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 2));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 2), properties.AsSpan(2));
             }
             finally
             {
@@ -46,13 +46,13 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(3);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(3 + 2);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 3));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 3), properties.AsSpan(3));
             }
             finally
             {
@@ -65,14 +65,14 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(4);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(4 + 2);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
                 properties[3] = p3;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 4));
+                writer.UncheckedWrite(level, text, properties.AsSpan(0, 4), properties.AsSpan(4));
             }
             finally
             {
