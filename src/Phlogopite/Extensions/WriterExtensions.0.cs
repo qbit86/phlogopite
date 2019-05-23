@@ -11,7 +11,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Verbose))
                 return;
 
-            writer.UncheckedWrite(Level.Verbose, text, default);
+            writer.UncheckedWrite(Level.Verbose, text, default, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -21,7 +21,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Debug))
                 return;
 
-            writer.UncheckedWrite(Level.Debug, text, default);
+            writer.UncheckedWrite(Level.Debug, text, default, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -31,7 +31,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Info))
                 return;
 
-            writer.UncheckedWrite(Level.Info, text, default);
+            writer.UncheckedWrite(Level.Info, text, default, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,7 +41,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Warning))
                 return;
 
-            writer.UncheckedWrite(Level.Warning, text, default);
+            writer.UncheckedWrite(Level.Warning, text, default, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -51,7 +51,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Error))
                 return;
 
-            writer.UncheckedWrite(Level.Error, text, default);
+            writer.UncheckedWrite(Level.Error, text, default, default);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -61,7 +61,7 @@ namespace Phlogopite.Extensions
             if (writer is null || !writer.IsEnabled(Level.Assert))
                 return;
 
-            writer.UncheckedWrite(Level.Assert, text, default);
+            writer.UncheckedWrite(Level.Assert, text, default, default);
         }
     }
 }

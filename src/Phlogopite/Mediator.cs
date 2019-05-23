@@ -44,10 +44,18 @@ namespace Phlogopite
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties)
+            ReadOnlySpan<NamedProperty> writerProperties, Span<NamedProperty> attachedProperties)
         {
-            NamedProperty[] mediatorProperties = ArrayPool<NamedProperty>.Shared.Rent(1);
-            mediatorProperties[0] = new NamedProperty("time", DateTime.Now);
+            const int mediatorPropertyCount = 1;
+
+            NamedProperty[] mediatorProperties = null;
+            if (attachedProperties.Length < mediatorPropertyCount)
+                mediatorProperties = ArrayPool<NamedProperty>.Shared.Rent(mediatorPropertyCount);
+
+            Span<NamedProperty> span = mediatorProperties is null
+                ? attachedProperties.Slice(0, mediatorPropertyCount)
+                : mediatorProperties.AsSpan(0, mediatorPropertyCount);
+            span[0] = new NamedProperty("time", DateTime.Now);
 
             List<Exception> exceptions = null;
             for (int i = 0; i < _sinks.Count; ++i)
@@ -58,7 +66,7 @@ namespace Phlogopite
                     if (sink is null || !sink.IsEnabled(level))
                         continue;
 
-                    sink.UncheckedWrite(level, text, userProperties, writerProperties, mediatorProperties.AsSpan(0, 1));
+                    sink.UncheckedWrite(level, text, userProperties, writerProperties, span);
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
@@ -71,7 +79,8 @@ namespace Phlogopite
 #pragma warning restore CA1031 // Do not catch general exception types
             }
 
-            ArrayPool<NamedProperty>.Shared.Return(mediatorProperties, true);
+            if (mediatorProperties != null)
+                ArrayPool<NamedProperty>.Shared.Return(mediatorProperties, true);
 
             if (exceptions is null)
                 return;
@@ -89,7 +98,7 @@ namespace Phlogopite
             if (!IsEnabled(level))
                 return;
 
-            UncheckedWrite(level, text, userProperties, writerProperties);
+            UncheckedWrite(level, text, userProperties, writerProperties, default);
         }
 
         private static ISink<NamedProperty>[] GetArrayOrEmpty(ISink<NamedProperty> sink)

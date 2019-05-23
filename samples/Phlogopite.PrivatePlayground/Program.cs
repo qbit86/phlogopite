@@ -36,7 +36,7 @@ namespace Phlogopite
             log.W((nameof(GC.GetAllocatedBytesForCurrentThread), GC.GetAllocatedBytesForCurrentThread()),
                 (nameof(GC.GetTotalMemory), GC.GetTotalMemory(false)));
             Log.Mediator.UncheckedWrite(Level.Silent, null,
-                ReadOnlySpan<NamedProperty>.Empty, ReadOnlySpan<NamedProperty>.Empty);
+                ReadOnlySpan<NamedProperty>.Empty, ReadOnlySpan<NamedProperty>.Empty, Span<NamedProperty>.Empty);
         }
     }
 }

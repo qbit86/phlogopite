@@ -31,18 +31,32 @@ namespace Phlogopite
             return _minimumLevel <= level && _mediator.IsEnabled(level);
         }
 
-        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            Span<NamedProperty> attachedProperties)
         {
             if (_mediator is null || !_mediator.IsEnabled(level))
                 return;
 
-            NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(2);
+            const int writerPropertyCount = 2;
+
+            if (attachedProperties.Length >= writerPropertyCount)
+            {
+                attachedProperties[0] = new NamedProperty("tag", _tag);
+                attachedProperties[1] = new NamedProperty("source", _source);
+
+                _mediator.UncheckedWrite(level, text, userProperties, attachedProperties.Slice(0, writerPropertyCount),
+                    attachedProperties.Slice(writerPropertyCount));
+                return;
+            }
+
+            NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(writerPropertyCount);
             try
             {
                 writerProperties[0] = new NamedProperty("tag", _tag);
                 writerProperties[1] = new NamedProperty("source", _source);
 
-                _mediator.UncheckedWrite(level, text, userProperties, writerProperties.AsSpan(0, 2));
+                _mediator.UncheckedWrite(level, text, userProperties, writerProperties.AsSpan(0, writerPropertyCount),
+                    writerProperties.AsSpan(writerPropertyCount));
             }
             finally
             {
@@ -55,7 +69,7 @@ namespace Phlogopite
             if (!IsEnabled(level))
                 return;
 
-            UncheckedWrite(level, text, properties);
+            UncheckedWrite(level, text, properties, default);
         }
 
         public bool Equals(Writer other)

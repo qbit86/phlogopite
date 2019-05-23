@@ -11,11 +11,13 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(1);
+            const int userPropertyCount = 1;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(userPropertyCount + WriterPropertyCount);
             try
             {
                 properties[0] = p0;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 1));
+                writer.UncheckedWrite(level, text,
+                    properties.AsSpan(0, userPropertyCount), properties.AsSpan(userPropertyCount));
             }
             finally
             {
@@ -28,12 +30,14 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(2);
+            const int userPropertyCount = 2;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(userPropertyCount + WriterPropertyCount);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 2));
+                writer.UncheckedWrite(level, text,
+                    properties.AsSpan(0, userPropertyCount), properties.AsSpan(userPropertyCount));
             }
             finally
             {
@@ -46,13 +50,15 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(3);
+            const int userPropertyCount = 3;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(userPropertyCount + WriterPropertyCount);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 3));
+                writer.UncheckedWrite(level, text,
+                    properties.AsSpan(0, userPropertyCount), properties.AsSpan(userPropertyCount));
             }
             finally
             {
@@ -65,14 +71,16 @@ namespace Phlogopite.Extensions
             where TWriter : IWriter<NamedProperty>
         {
             Debug.Assert(writer != null, "writer != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(4);
+            const int userPropertyCount = 4;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(userPropertyCount + WriterPropertyCount);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
                 properties[3] = p3;
-                writer.UncheckedWrite(level, text, properties.AsSpan(0, 4));
+                writer.UncheckedWrite(level, text,
+                    properties.AsSpan(0, userPropertyCount), properties.AsSpan(userPropertyCount));
             }
             finally
             {

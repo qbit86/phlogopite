@@ -23,7 +23,7 @@ for (int i = 0; i != levels.Length; ++i)
             if (writer is null || !writer.IsEnabled(Level.<#=level#>))
                 return;
 
-            writer.UncheckedWrite(Level.<#=level#>, text, default);
+            writer.UncheckedWrite(Level.<#=level#>, text, default, default);
         }
 <#
 }
