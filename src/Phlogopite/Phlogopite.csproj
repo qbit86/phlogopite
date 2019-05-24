@@ -2,6 +2,19 @@
   <PropertyGroup>
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <AssemblyVersion>0.1</AssemblyVersion>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    <Description>Default implementation of abstractions for Phlogopite library — structured logging for .NET with low memory footprint.
+Commonly used types:
+Phlogopite.Mediator
+Phlogopite.NamedProperty
+Phlogopite.Writer</Description>
+    <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
+    <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite/CHANGELOG.md</PackageReleaseNotes>
+    <SignAssembly>true</SignAssembly>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
@@ -15,6 +28,7 @@
     <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-18618-05" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
