@@ -8,7 +8,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/qbit86/phlogopite</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <PackageIconUrl>https://github.com/qbit86/phlogopite/raw/develop/assets/kopimi.png</PackageIconUrl>
+    <PackageIconUrl>https://github.com/qbit86/phlogopite/raw/master/assets/kopimi.png</PackageIconUrl>
     <AssemblyOriginatorKeyFile>$(RepoRoot)assets/phlogopite.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Phlogopite</RootNamespace>
   </PropertyGroup>

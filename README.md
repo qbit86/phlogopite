@@ -42,14 +42,15 @@ using Phlogopite.Extensions;
 public interface IWriter<TProperty>
 {
     bool IsEnabled(Level level);
-    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> properties);
+    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
+        Span<TProperty> attachedProperties);
 }
 
 public interface IMediator<TProperty>
 {
     bool IsEnabled(Level level);
     void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-        ReadOnlySpan<TProperty> writerProperties);
+        ReadOnlySpan<TProperty> writerProperties, Span<TProperty> attachedProperties);
 }
 
 public interface ISink<TProperty>

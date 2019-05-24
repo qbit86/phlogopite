@@ -12,15 +12,18 @@ namespace Phlogopite.Extensions
             [CallerMemberName] string source = null)
         {
             Debug.Assert(mediator != null, "mediator != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(3);
+            const int userPropertyCount = 1;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
             try
             {
                 properties[0] = p0;
-                properties[1] = new NamedProperty("tag", tag);
-                properties[2] = new NamedProperty("source", source);
-                var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 1);
-                var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 1, 2);
-                mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                Span<NamedProperty> writerProperties = properties.AsSpan(userPropertyCount, WriterPropertyCount);
+                writerProperties[0] = new NamedProperty("tag", tag);
+                writerProperties[1] = new NamedProperty("source", source);
+                ReadOnlySpan<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                Span<NamedProperty> attachedProperties = properties.AsSpan(userPropertyCount + WriterPropertyCount);
+                mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties);
             }
             finally
             {
@@ -33,16 +36,19 @@ namespace Phlogopite.Extensions
             [CallerMemberName] string source = null)
         {
             Debug.Assert(mediator != null, "mediator != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(4);
+            const int userPropertyCount = 2;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
-                properties[2] = new NamedProperty("tag", tag);
-                properties[3] = new NamedProperty("source", source);
-                var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 2);
-                var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 2, 2);
-                mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                Span<NamedProperty> writerProperties = properties.AsSpan(userPropertyCount, WriterPropertyCount);
+                writerProperties[0] = new NamedProperty("tag", tag);
+                writerProperties[1] = new NamedProperty("source", source);
+                ReadOnlySpan<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                Span<NamedProperty> attachedProperties = properties.AsSpan(userPropertyCount + WriterPropertyCount);
+                mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties);
             }
             finally
             {
@@ -55,17 +61,20 @@ namespace Phlogopite.Extensions
             [CallerMemberName] string source = null)
         {
             Debug.Assert(mediator != null, "mediator != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(5);
+            const int userPropertyCount = 3;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
-                properties[3] = new NamedProperty("tag", tag);
-                properties[4] = new NamedProperty("source", source);
-                var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 3);
-                var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 3, 2);
-                mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                Span<NamedProperty> writerProperties = properties.AsSpan(userPropertyCount, WriterPropertyCount);
+                writerProperties[0] = new NamedProperty("tag", tag);
+                writerProperties[1] = new NamedProperty("source", source);
+                ReadOnlySpan<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                Span<NamedProperty> attachedProperties = properties.AsSpan(userPropertyCount + WriterPropertyCount);
+                mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties);
             }
             finally
             {
@@ -78,18 +87,21 @@ namespace Phlogopite.Extensions
             [CallerMemberName] string source = null)
         {
             Debug.Assert(mediator != null, "mediator != null");
-            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(6);
+            const int userPropertyCount = 4;
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
             try
             {
                 properties[0] = p0;
                 properties[1] = p1;
                 properties[2] = p2;
                 properties[3] = p3;
-                properties[4] = new NamedProperty("tag", tag);
-                properties[5] = new NamedProperty("source", source);
-                var userProperties = new ReadOnlySpan<NamedProperty>(properties, 0, 4);
-                var writerProperties = new ReadOnlySpan<NamedProperty>(properties, 4, 2);
-                mediator.UncheckedWrite(level, text, userProperties, writerProperties);
+                Span<NamedProperty> writerProperties = properties.AsSpan(userPropertyCount, WriterPropertyCount);
+                writerProperties[0] = new NamedProperty("tag", tag);
+                writerProperties[1] = new NamedProperty("source", source);
+                ReadOnlySpan<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                Span<NamedProperty> attachedProperties = properties.AsSpan(userPropertyCount + WriterPropertyCount);
+                mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties);
             }
             finally
             {
