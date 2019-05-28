@@ -13,7 +13,7 @@ namespace Phlogopite.Sinks
 
         public IFormatProvider FormatProvider
         {
-            get => _formatProvider ?? CultureConstants.FixedCulture;
+            get => _formatProvider ?? ConsoleSink.DefaultFormatProvider;
             set => _formatProvider = value;
         }
 
@@ -31,7 +31,7 @@ namespace Phlogopite.Sinks
 
         public Level MinimumLevel
         {
-            get => _minimumLevel ?? Level.Verbose;
+            get => _minimumLevel.GetValueOrDefault(ConsoleSink.DefaultMinimumLevel);
             set => _minimumLevel = value;
         }
 

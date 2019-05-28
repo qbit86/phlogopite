@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -11,6 +12,9 @@ namespace Phlogopite.Sinks
     {
         internal const bool DefaultEmitLevel = false;
         internal const bool DefaultEmitTime = false;
+        internal const Level DefaultMinimumLevel = Level.Verbose;
+
+        internal static readonly CultureInfo DefaultFormatProvider = CultureConstants.FixedCulture;
 
         private static readonly ConsoleColor[] s_levelColorMap =
         {
@@ -29,11 +33,11 @@ namespace Phlogopite.Sinks
         private readonly Level _minimumLevel;
         private readonly Level? _standardErrorMinimumLevel;
 
-        public ConsoleSink() : this(Level.Verbose, null, false, DefaultEmitLevel, DefaultEmitTime,
-            Formatter.Default, CultureConstants.FixedCulture) { }
+        public ConsoleSink() : this(DefaultMinimumLevel, null, false, DefaultEmitLevel, DefaultEmitTime,
+            Formatter.Default, DefaultFormatProvider) { }
 
         public ConsoleSink(Level minimumLevel) : this(minimumLevel, null, false, DefaultEmitLevel, DefaultEmitTime,
-            Formatter.Default, CultureConstants.FixedCulture) { }
+            Formatter.Default, DefaultFormatProvider) { }
 
         public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider) :
             this(minimumLevel, null, false, DefaultEmitLevel, DefaultEmitTime, Formatter.Default, formatProvider) { }
@@ -48,7 +52,7 @@ namespace Phlogopite.Sinks
             _emitLevel = emitLevel;
             _emitTime = emitTime;
             _formatter = formatter ?? Formatter.Default;
-            _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
+            _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
