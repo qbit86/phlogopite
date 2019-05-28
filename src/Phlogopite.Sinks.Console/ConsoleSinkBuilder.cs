@@ -19,13 +19,13 @@ namespace Phlogopite.Sinks
 
         public IFormatter<NamedProperty> Formatter
         {
-            get => _formatter ?? Phlogopite.Formatter.Default;
+            get => _formatter ?? ConsoleSink.DefaultFormatter;
             set => _formatter = value;
         }
 
         public bool IsSynchronized
         {
-            get => _isSynchronized.GetValueOrDefault();
+            get => _isSynchronized.GetValueOrDefault(ConsoleSink.DefaultIsSynchronized);
             set => _isSynchronized = value;
         }
 

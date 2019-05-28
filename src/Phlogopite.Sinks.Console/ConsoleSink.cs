@@ -12,9 +12,11 @@ namespace Phlogopite.Sinks
     {
         internal const bool DefaultEmitLevel = false;
         internal const bool DefaultEmitTime = false;
+        internal const bool DefaultIsSynchronized = false;
         internal const Level DefaultMinimumLevel = Level.Verbose;
 
         internal static readonly CultureInfo DefaultFormatProvider = CultureConstants.FixedCulture;
+        internal static readonly Formatter DefaultFormatter = Formatter.Default;
 
         private static readonly ConsoleColor[] s_levelColorMap =
         {
@@ -33,14 +35,14 @@ namespace Phlogopite.Sinks
         private readonly Level _minimumLevel;
         private readonly Level? _standardErrorMinimumLevel;
 
-        public ConsoleSink() : this(DefaultMinimumLevel, null, false, DefaultEmitLevel, DefaultEmitTime,
-            Formatter.Default, DefaultFormatProvider) { }
+        public ConsoleSink() : this(DefaultMinimumLevel, null,
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, DefaultFormatProvider) { }
 
-        public ConsoleSink(Level minimumLevel) : this(minimumLevel, null, false, DefaultEmitLevel, DefaultEmitTime,
-            Formatter.Default, DefaultFormatProvider) { }
+        public ConsoleSink(Level minimumLevel) : this(minimumLevel, null,
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, DefaultFormatProvider) { }
 
-        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider) :
-            this(minimumLevel, null, false, DefaultEmitLevel, DefaultEmitTime, Formatter.Default, formatProvider) { }
+        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider) : this(minimumLevel, null,
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, formatProvider) { }
 
         internal ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
             bool emitLevel, bool emitTime,
@@ -51,7 +53,7 @@ namespace Phlogopite.Sinks
             _isSynchronized = isSynchronized;
             _emitLevel = emitLevel;
             _emitTime = emitTime;
-            _formatter = formatter ?? Formatter.Default;
+            _formatter = formatter ?? DefaultFormatter;
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
