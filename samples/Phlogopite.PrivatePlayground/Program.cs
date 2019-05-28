@@ -15,7 +15,7 @@ namespace Phlogopite
             // Messing with culture.
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
 
-            ConsoleSink consoleSink = new ConsoleSinkBuilder { OmitLevel = true, OmitTime = true }.Build();
+            ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
             var otherConsoleSink = new ConsoleSink();
             IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, otherConsoleSink };
             Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
