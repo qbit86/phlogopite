@@ -13,7 +13,7 @@ namespace Phlogopite.Extensions
             Debug.Assert(writer != null, "writer != null");
             const int userPropertyCount = 1;
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
+                userPropertyCount + writer.GetAttachedPropertyCount(level));
             try
             {
                 properties[0] = p0;
@@ -33,7 +33,7 @@ namespace Phlogopite.Extensions
             Debug.Assert(writer != null, "writer != null");
             const int userPropertyCount = 2;
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
+                userPropertyCount + writer.GetAttachedPropertyCount(level));
             try
             {
                 properties[0] = p0;
@@ -54,7 +54,7 @@ namespace Phlogopite.Extensions
             Debug.Assert(writer != null, "writer != null");
             const int userPropertyCount = 3;
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
+                userPropertyCount + writer.GetAttachedPropertyCount(level));
             try
             {
                 properties[0] = p0;
@@ -76,7 +76,7 @@ namespace Phlogopite.Extensions
             Debug.Assert(writer != null, "writer != null");
             const int userPropertyCount = 4;
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + WriterPropertyCount + MediatorPropertyCount);
+                userPropertyCount + writer.GetAttachedPropertyCount(level));
             try
             {
                 properties[0] = p0;
