@@ -1,11 +1,12 @@
 using System;
-using System.Buffers;
 using System.Runtime.CompilerServices;
 
 namespace Phlogopite
 {
     public readonly struct Writer : IWriter<NamedProperty>, IEquatable<Writer>
     {
+        private const int WriterPropertyCount = 2;
+
         private readonly IMediator<NamedProperty> _mediator;
         private readonly Level _minimumLevel;
         private readonly string _tag;
@@ -23,6 +24,14 @@ namespace Phlogopite
             _source = source;
         }
 
+        public int GetAttachedPropertyCount(Level level)
+        {
+            if (_mediator is null)
+                return WriterPropertyCount;
+
+            return WriterPropertyCount + _mediator.GetAttachedPropertyCount(level);
+        }
+
         public bool IsEnabled(Level level)
         {
             if (_mediator is null)
@@ -37,31 +46,16 @@ namespace Phlogopite
             if (_mediator is null || !_mediator.IsEnabled(level))
                 return;
 
-            const int writerPropertyCount = 2;
-
-            if (attachedProperties.Length >= writerPropertyCount)
-            {
-                attachedProperties[0] = new NamedProperty("tag", _tag);
-                attachedProperties[1] = new NamedProperty("source", _source);
-
-                _mediator.UncheckedWrite(level, text, userProperties, attachedProperties.Slice(0, writerPropertyCount),
-                    attachedProperties.Slice(writerPropertyCount));
-                return;
-            }
-
-            NamedProperty[] writerProperties = ArrayPool<NamedProperty>.Shared.Rent(writerPropertyCount);
-            try
+            int length = Math.Min(attachedProperties.Length, WriterPropertyCount);
+            Span<NamedProperty> writerProperties = attachedProperties.Slice(0, length);
+            if (writerProperties.Length > 0)
             {
                 writerProperties[0] = new NamedProperty("tag", _tag);
-                writerProperties[1] = new NamedProperty("source", _source);
+                if (writerProperties.Length > 1)
+                    writerProperties[1] = new NamedProperty("source", _source);
+            }
 
-                _mediator.UncheckedWrite(level, text, userProperties, writerProperties.AsSpan(0, writerPropertyCount),
-                    writerProperties.AsSpan(writerPropertyCount));
-            }
-            finally
-            {
-                ArrayPool<NamedProperty>.Shared.Return(writerProperties, true);
-            }
+            _mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties.Slice(length));
         }
 
         public void Write(Level level, string text, ReadOnlySpan<NamedProperty> properties)
