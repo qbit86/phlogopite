@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions
@@ -12,6 +14,13 @@ namespace Phlogopite.Extensions
                 return;
 
             writer.UncheckedWrite(level, text, default, default);
+        }
+
+        private static int GetAttachedPropertyCountOrDefault<TWriter>(TWriter writer, Level level)
+            where TWriter : IWriter<NamedProperty>
+        {
+            Debug.Assert(writer != null, "writer != null");
+            return Math.Max(0, writer.GetAttachedPropertyCount(level));
         }
     }
 }

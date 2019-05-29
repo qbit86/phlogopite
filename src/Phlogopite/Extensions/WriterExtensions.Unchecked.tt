@@ -37,7 +37,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine("Debug.Assert(writer != null, \"writer != null\");");
     WriteLine($"const int userPropertyCount = {propertyCount};");
     WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(");
-    WriteLine("    userPropertyCount + Math.Min(0, writer.GetAttachedPropertyCount(level)));");
+    WriteLine("    userPropertyCount + GetAttachedPropertyCountOrDefault(writer, level));");
     WriteLine("try");
     WriteLine("{");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
