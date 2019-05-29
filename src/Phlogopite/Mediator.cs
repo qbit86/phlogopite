@@ -6,19 +6,21 @@ namespace Phlogopite
 {
     public sealed class Mediator : IMediator<NamedProperty>
     {
+        internal const Level DefaultMinimumLevel = Level.Verbose;
+
         private readonly Func<Exception, bool> _exceptionHandler;
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
         private readonly IReadOnlyList<ISink<NamedProperty>> _sinks;
 
         public Mediator(ISink<NamedProperty> sink) :
-            this(GetArrayOrEmpty(sink), Level.Verbose, default, default) { }
+            this(GetArrayOrEmpty(sink), DefaultMinimumLevel, default, default) { }
 
         public Mediator(ISink<NamedProperty> sink, Level minimumLevel) :
             this(GetArrayOrEmpty(sink), minimumLevel, default, default) { }
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks) :
-            this(sinks, Level.Verbose, default, default) { }
+            this(sinks, DefaultMinimumLevel, default, default) { }
 
         public Mediator(IReadOnlyList<ISink<NamedProperty>> sinks, Level minimumLevel) :
             this(sinks, minimumLevel, default, default) { }
