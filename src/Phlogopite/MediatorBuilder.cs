@@ -20,7 +20,7 @@ namespace Phlogopite
 
         public Level MinimumLevel
         {
-            get => _minimumLevel ?? Level.Verbose;
+            get => _minimumLevel ?? Mediator.DefaultMinimumLevel;
             set => _minimumLevel = value;
         }
 

@@ -4,54 +4,54 @@ namespace Phlogopite.Sinks
 {
     public sealed class ConsoleSinkBuilder
     {
+        private bool? _emitLevel;
+        private bool? _emitTime;
         private IFormatProvider _formatProvider;
         private IFormatter<NamedProperty> _formatter;
         private bool? _isSynchronized;
         private Level? _minimumLevel;
-        private bool? _omitLevel;
-        private bool? _omitTime;
 
         public IFormatProvider FormatProvider
         {
-            get => _formatProvider ?? CultureConstants.FixedCulture;
+            get => _formatProvider ?? ConsoleSink.DefaultFormatProvider;
             set => _formatProvider = value;
         }
 
         public IFormatter<NamedProperty> Formatter
         {
-            get => _formatter ?? Phlogopite.Formatter.Default;
+            get => _formatter ?? ConsoleSink.DefaultFormatter;
             set => _formatter = value;
         }
 
         public bool IsSynchronized
         {
-            get => _isSynchronized.GetValueOrDefault();
+            get => _isSynchronized.GetValueOrDefault(ConsoleSink.DefaultIsSynchronized);
             set => _isSynchronized = value;
         }
 
         public Level MinimumLevel
         {
-            get => _minimumLevel ?? Level.Verbose;
+            get => _minimumLevel.GetValueOrDefault(ConsoleSink.DefaultMinimumLevel);
             set => _minimumLevel = value;
         }
 
-        public bool OmitLevel
+        public bool EmitLevel
         {
-            get => _omitLevel.GetValueOrDefault();
-            set => _omitLevel = value;
+            get => _emitLevel.GetValueOrDefault(ConsoleSink.DefaultEmitLevel);
+            set => _emitLevel = value;
         }
 
-        public bool OmitTime
+        public bool EmitTime
         {
-            get => _omitTime.GetValueOrDefault();
-            set => _omitTime = value;
+            get => _emitTime.GetValueOrDefault(ConsoleSink.DefaultEmitTime);
+            set => _emitTime = value;
         }
 
         public Level? StandardErrorMinimumLevel { get; set; }
 
         public ConsoleSink Build()
         {
-            return new ConsoleSink(MinimumLevel, StandardErrorMinimumLevel, IsSynchronized, OmitLevel, OmitTime,
+            return new ConsoleSink(MinimumLevel, StandardErrorMinimumLevel, IsSynchronized, EmitLevel, EmitTime,
                 Formatter, FormatProvider);
         }
     }

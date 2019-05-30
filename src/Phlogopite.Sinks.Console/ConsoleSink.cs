@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -9,6 +10,14 @@ namespace Phlogopite.Sinks
     public sealed class ConsoleSink : ISink<NamedProperty>,
         IFormattedSink<NamedProperty>
     {
+        internal const bool DefaultEmitLevel = false;
+        internal const bool DefaultEmitTime = false;
+        internal const bool DefaultIsSynchronized = false;
+        internal const Level DefaultMinimumLevel = Level.Verbose;
+
+        internal static readonly CultureInfo DefaultFormatProvider = CultureConstants.FixedCulture;
+        internal static readonly Formatter DefaultFormatter = Formatter.Default;
+
         private static readonly ConsoleColor[] s_levelColorMap =
         {
             ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.DarkYellow, ConsoleColor.Red,
@@ -16,37 +25,36 @@ namespace Phlogopite.Sinks
         };
 
         private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "- " };
-
         private static readonly object s_syncRoot = new object();
 
+        private readonly bool _emitLevel;
+        private readonly bool _emitTime;
         private readonly IFormatProvider _formatProvider;
         private readonly IFormatter<NamedProperty> _formatter;
         private readonly bool _isSynchronized;
         private readonly Level _minimumLevel;
-        private readonly bool _omitLevel;
-        private readonly bool _omitTime;
         private readonly Level? _standardErrorMinimumLevel;
 
-        public ConsoleSink() : this(Level.Verbose, null, false, false, false,
-            Formatter.Default, CultureConstants.FixedCulture) { }
+        public ConsoleSink() : this(DefaultMinimumLevel, null,
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, DefaultFormatProvider) { }
 
-        public ConsoleSink(Level minimumLevel) :
-            this(minimumLevel, null, false, false, false, Formatter.Default, CultureConstants.FixedCulture) { }
+        public ConsoleSink(Level minimumLevel) : this(minimumLevel, null,
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, DefaultFormatProvider) { }
 
-        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider) :
-            this(minimumLevel, null, false, false, false, Formatter.Default, formatProvider) { }
+        public ConsoleSink(Level minimumLevel, IFormatProvider formatProvider) : this(minimumLevel, null,
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, formatProvider) { }
 
         internal ConsoleSink(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
-            bool omitLevel, bool omitTime,
+            bool emitLevel, bool emitTime,
             IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
             _minimumLevel = minimumLevel;
             _standardErrorMinimumLevel = standardErrorMinimumLevel;
             _isSynchronized = isSynchronized;
-            _omitLevel = omitLevel;
-            _omitTime = omitTime;
-            _formatter = formatter ?? Formatter.Default;
-            _formatProvider = formatProvider ?? CultureConstants.FixedCulture;
+            _emitLevel = emitLevel;
+            _emitTime = emitTime;
+            _formatter = formatter ?? DefaultFormatter;
+            _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
@@ -60,15 +68,15 @@ namespace Phlogopite.Sinks
             if (formattedMessage.Array is null)
                 return;
 
-            if (!_omitLevel && !_omitTime)
+            if (_emitLevel && _emitTime)
             {
                 WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
                 return;
             }
 
-            if (!_omitTime)
+            if (_emitTime)
             {
-                Debug.Assert(_omitLevel, nameof(_omitLevel));
+                Debug.Assert(!_emitLevel, "!_emitLevel");
                 if (formattedMessage.Count > 2)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array,
@@ -78,17 +86,17 @@ namespace Phlogopite.Sinks
                 return;
             }
 
-            Debug.Assert(_omitTime, nameof(_omitTime));
+            Debug.Assert(!_emitTime, "!_emitTime");
             int timeIndex = FindByName(mediatorProperties, "time");
             if ((uint)timeIndex >= (uint)mediatorRanges.Length)
             {
-                if (!_omitLevel)
+                if (_emitLevel)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array, formattedMessage.Offset, formattedMessage.Count);
                     return;
                 }
 
-                Debug.Assert(_omitLevel, nameof(_omitLevel));
+                Debug.Assert(!_emitLevel, "!_emitLevel");
                 if (formattedMessage.Count > 2)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array,
@@ -106,7 +114,7 @@ namespace Phlogopite.Sinks
                 var buffer = new ArraySegment<char>(formattedMessage.Array,
                     formattedMessage.Offset + startIndex, formattedMessage.Count - startIndex);
 
-                WriteLineThenFlush(level, buffer.Array, buffer.Offset, buffer.Count, !_omitLevel);
+                WriteLineThenFlush(level, buffer.Array, buffer.Offset, buffer.Count, _emitLevel);
             }
         }
 
@@ -127,7 +135,7 @@ namespace Phlogopite.Sinks
                 _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
                     sb, default, default, mediatorRanges);
 
-                if (!_omitLevel && !_omitTime)
+                if (_emitLevel && _emitTime)
                 {
                     int length = sb.Length;
                     buffer = ArrayPool<char>.Shared.Rent(length);
@@ -136,9 +144,9 @@ namespace Phlogopite.Sinks
                     return;
                 }
 
-                if (!_omitTime)
+                if (_emitTime)
                 {
-                    Debug.Assert(_omitLevel, nameof(_omitLevel));
+                    Debug.Assert(!_emitLevel, "!_emitLevel");
                     const int startIndex = 2;
                     if (startIndex < (uint)sb.Length)
                     {
@@ -151,11 +159,11 @@ namespace Phlogopite.Sinks
                     return;
                 }
 
-                Debug.Assert(_omitTime, nameof(_omitTime));
+                Debug.Assert(!_emitTime, "!_emitTime");
                 int timeIndex = FindByName(mediatorProperties, "time");
                 if ((uint)timeIndex >= (uint)mediatorRanges.Length)
                 {
-                    if (!_omitLevel)
+                    if (_emitLevel)
                     {
                         int length = sb.Length;
                         buffer = ArrayPool<char>.Shared.Rent(length);
@@ -164,7 +172,7 @@ namespace Phlogopite.Sinks
                         return;
                     }
 
-                    Debug.Assert(_omitLevel, nameof(_omitLevel));
+                    Debug.Assert(!_emitLevel, "!_emitLevel");
                     {
                         const int startIndex = 2;
                         if (startIndex < (uint)sb.Length)
@@ -188,7 +196,7 @@ namespace Phlogopite.Sinks
                         int length = sb.Length - startIndex;
                         buffer = ArrayPool<char>.Shared.Rent(length);
                         sb.CopyTo(startIndex, buffer, 0, length);
-                        WriteLineThenFlush(level, buffer, 0, length, !_omitLevel);
+                        WriteLineThenFlush(level, buffer, 0, length, _emitLevel);
                     }
                 }
             }
