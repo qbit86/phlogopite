@@ -7,7 +7,6 @@ namespace Phlogopite.Extensions
 {
     public static partial class MediatorExtensions
     {
-        private const int MediatorPropertyCount = 1;
         private const int WriterPropertyCount = 2;
 
         internal static void WriteUnchecked(IMediator<NamedProperty> mediator, Level level, string tag, string text,
@@ -15,7 +14,7 @@ namespace Phlogopite.Extensions
         {
             Debug.Assert(mediator != null, "mediator != null");
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                WriterPropertyCount + MediatorPropertyCount);
+                WriterPropertyCount + GetAttachedPropertyCountOrDefault(mediator, level));
             try
             {
                 properties[0] = new NamedProperty("tag", tag);
@@ -28,6 +27,12 @@ namespace Phlogopite.Extensions
             {
                 ArrayPool<NamedProperty>.Shared.Return(properties, true);
             }
+        }
+
+        private static int GetAttachedPropertyCountOrDefault(IMediator<NamedProperty> mediator, Level level)
+        {
+            Debug.Assert(mediator != null, "mediator != null");
+            return Math.Max(0, mediator.GetAttachedPropertyCount(level));
         }
     }
 }

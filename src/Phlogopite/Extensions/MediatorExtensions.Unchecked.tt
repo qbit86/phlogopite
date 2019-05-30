@@ -38,7 +38,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine("Debug.Assert(mediator != null, \"mediator != null\");");
     WriteLine($"const int userPropertyCount = {propertyCount};");
     WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(");
-    WriteLine("    userPropertyCount + WriterPropertyCount + MediatorPropertyCount);");
+    WriteLine("    userPropertyCount + WriterPropertyCount + GetAttachedPropertyCountOrDefault(mediator, level));");
     WriteLine("try");
     WriteLine("{");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
