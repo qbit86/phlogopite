@@ -1,5 +1,7 @@
 # Phlogopite
 
+[![Phlogopite version](https://img.shields.io/nuget/v/Phlogopite.svg)](https://www.nuget.org/packages/Phlogopite/)
+
 Logging with lower memory footprint.
 
 ## Usage
