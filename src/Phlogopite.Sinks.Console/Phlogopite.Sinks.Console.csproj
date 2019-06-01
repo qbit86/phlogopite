@@ -9,7 +9,7 @@
       Commonly used types:
       Phlogopite.Sinks.ConsoleSink
       Phlogopite.Sinks.ConsoleSinkBuilder</Description>
-    <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
+    <PackageTags>phlogopite;logging;console;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Sinks.Console/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <IncludeSymbols>true</IncludeSymbols>

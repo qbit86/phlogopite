@@ -11,7 +11,7 @@
       Phlogopite.Sinks.FormattingSink
       Phlogopite.IFormatter&lt;TProperty&gt;
       Phlogopite.Formatter</Description>
-    <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
+    <PackageTags>phlogopite;logging;formatting;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Sinks.Formatting/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
     <IncludeSymbols>true</IncludeSymbols>
