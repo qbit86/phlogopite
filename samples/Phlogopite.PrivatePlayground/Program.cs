@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using Phlogopite.Extensions;
@@ -15,16 +16,25 @@ namespace Phlogopite
             // Messing with culture.
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
 
-            ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
-            var otherConsoleSink = new ConsoleSink();
-            IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, otherConsoleSink };
-            Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
-                .AddSinks(consoleSink, otherConsoleSink)
-                .AddSink(new FormattingSink(formattedSinks))
-                .Build();
-            Log.TrySetMediator(mediator);
+            // ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
+            // var otherConsoleSink = new ConsoleSink();
+            // IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, otherConsoleSink };
+            using (var textWriterTraceListener = new TextWriterTraceListener(Console.Out, nameof(Phlogopite)))
+            {
+                Trace.Listeners.Add(textWriterTraceListener);
 
-            Foo();
+                Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
+                    // .AddSinks(consoleSink, otherConsoleSink)
+                    // .AddSink(new FormattingSink(formattedSinks))
+                    .AddSink(new TraceSink())
+                    .Build();
+                Log.TrySetMediator(mediator);
+
+                Foo();
+
+                Trace.Flush();
+                Trace.Listeners.Remove(textWriterTraceListener);
+            }
         }
 
         private static void Foo()
