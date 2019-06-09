@@ -17,16 +17,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.PrivatePlaygroun
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Phlogopite.Shared", "src\Phlogopite.Shared\Phlogopite.Shared.shproj", "{DF3D20E7-950B-42A3-A9A3-CF1FFEC7E118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Sinks.Formatting", "src\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj", "{FA3A366A-DD56-4070-996C-C778D2A8E58D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Formatting", "src\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj", "{FA3A366A-DD56-4070-996C-C778D2A8E58D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Demo.Basic", "samples\Phlogopite.Demo.Basic\Phlogopite.Demo.Basic.csproj", "{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo.Basic", "samples\Phlogopite.Demo.Basic\Phlogopite.Demo.Basic.csproj", "{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{2670F2A5-28B2-4B51-84DB-5160486C0589}"
-ProjectSection(SolutionItems) = preProject
-	.editorconfig = .editorconfig
-	Directory.Build.props = Directory.Build.props
-	README.md = README.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Sinks.Trace", "src\Phlogopite.Sinks.Trace\Phlogopite.Sinks.Trace.csproj", "{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -61,6 +63,10 @@ Global
 		{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{DF3D20E7-950B-42A3-A9A3-CF1FFEC7E118} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 		{FA3A366A-DD56-4070-996C-C778D2A8E58D} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 		{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8} = {20684C57-524B-49AD-A950-562ECAEE2922}
+		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {310D1603-9B93-448D-89D9-2E3D8F1F9FBA}

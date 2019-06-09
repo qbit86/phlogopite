@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
+    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <AssemblyVersion>0.1</AssemblyVersion>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    <PackageTags>phlogopite;logging;trace;semantic;structured</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RootNamespace>Phlogopite.Sinks</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
+    <ProjectReference Include="..\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj" />
+    <ProjectReference Include="..\Phlogopite\Phlogopite.csproj" />
+  </ItemGroup>
+</Project>
