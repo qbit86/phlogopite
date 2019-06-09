@@ -7,7 +7,7 @@ namespace Phlogopite.Sinks
 {
     public sealed class TraceSink : ISink<NamedProperty>, IFormattedSink<NamedProperty>
     {
-        internal const Level DefaultMinimumLevel = Level.Verbose;
+        private const Level DefaultMinimumLevel = Level.Verbose;
 
         internal static readonly CultureInfo DefaultFormatProvider = CultureConstants.FixedCulture;
         internal static readonly Formatter DefaultFormatter = Formatter.Default;
@@ -19,6 +19,9 @@ namespace Phlogopite.Sinks
         public TraceSink() : this(DefaultMinimumLevel, DefaultFormatter, DefaultFormatProvider) { }
 
         public TraceSink(Level minimumLevel) : this(minimumLevel, DefaultFormatter, DefaultFormatProvider) { }
+
+        public TraceSink(Level minimumLevel, IFormatProvider formatProvider) :
+            this(minimumLevel, DefaultFormatter, formatProvider) { }
 
         public TraceSink(Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
