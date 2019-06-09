@@ -73,13 +73,14 @@ namespace Phlogopite.Sinks
                 return;
             }
 
+            const int levelLength = 2;
             if (_emitTime)
             {
                 Debug.Assert(!_emitLevel, "!_emitLevel");
-                if (formattedMessage.Count > 2)
+                if (formattedMessage.Count > levelLength)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array,
-                        formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                        formattedMessage.Offset + levelLength, formattedMessage.Count - levelLength);
                 }
 
                 return;
@@ -96,10 +97,10 @@ namespace Phlogopite.Sinks
                 }
 
                 Debug.Assert(!_emitLevel, "!_emitLevel");
-                if (formattedMessage.Count > 2)
+                if (formattedMessage.Count > levelLength)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array,
-                        formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                        formattedMessage.Offset + levelLength, formattedMessage.Count - levelLength);
                 }
 
                 return;
