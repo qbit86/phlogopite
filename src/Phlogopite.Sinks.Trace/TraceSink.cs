@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 
 namespace Phlogopite.Sinks
 {
@@ -15,6 +17,8 @@ namespace Phlogopite.Sinks
         private readonly Level _minimumLevel;
 
         public TraceSink() : this(DefaultMinimumLevel, DefaultFormatter, DefaultFormatProvider) { }
+
+        public TraceSink(Level minimumLevel) : this(minimumLevel, DefaultFormatter, DefaultFormatProvider) { }
 
         public TraceSink(Level minimumLevel, IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
         {
@@ -39,7 +43,43 @@ namespace Phlogopite.Sinks
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties)
         {
-            throw new NotImplementedException();
+            int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, writerProperties);
+            StringBuilder sb = StringBuilderCache.Acquire(capacity);
+            try
+            {
+                _formatter.Format(level, text, userProperties, writerProperties, mediatorProperties, _formatProvider,
+                    sb, default, default, default);
+
+                const int levelLength = 2;
+                if (sb.Length <= levelLength)
+                    return;
+
+                WriteLine(level, sb.ToString(levelLength, sb.Length - levelLength));
+            }
+            finally
+            {
+                StringBuilderCache.Release(sb);
+            }
+        }
+
+        private static void WriteLine(Level level, string text)
+        {
+            switch (level)
+            {
+                case Level.Error:
+                case Level.Assert:
+                    Trace.TraceError(text);
+                    return;
+                case Level.Warning:
+                    Trace.TraceWarning(text);
+                    return;
+                case Level.Info:
+                    Trace.TraceInformation(text);
+                    return;
+                default:
+                    Trace.WriteLine(text);
+                    return;
+            }
         }
     }
 }

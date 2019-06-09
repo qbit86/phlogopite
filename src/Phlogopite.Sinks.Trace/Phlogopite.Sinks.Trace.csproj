@@ -20,5 +20,8 @@
     <ProjectReference Include="..\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj" />
     <ProjectReference Include="..\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+  </ItemGroup>
   <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
 </Project>
