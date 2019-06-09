@@ -20,4 +20,5 @@
     <ProjectReference Include="..\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj" />
     <ProjectReference Include="..\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
+  <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
 </Project>
