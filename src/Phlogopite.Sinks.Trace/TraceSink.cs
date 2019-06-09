@@ -35,7 +35,13 @@ namespace Phlogopite.Sinks
             ArraySegment<char> formattedMessage,
             ReadOnlySpan<Range> userRanges, ReadOnlySpan<Range> writerRanges, ReadOnlySpan<Range> mediatorRanges)
         {
-            throw new NotImplementedException();
+            const int levelLength = 2;
+            if (formattedMessage.Count <= levelLength)
+                return;
+
+            string trimmedText = new string(formattedMessage.Array,
+                formattedMessage.Offset + levelLength, formattedMessage.Count - levelLength);
+            WriteLine(level, trimmedText);
         }
 
         public bool IsEnabled(Level level)
