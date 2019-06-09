@@ -30,6 +30,8 @@ namespace Phlogopite.Sinks
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
+        public static TraceSink Default { get; } = new TraceSink();
+
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
             ArraySegment<char> formattedMessage,

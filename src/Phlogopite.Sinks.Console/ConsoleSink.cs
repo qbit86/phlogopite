@@ -56,6 +56,8 @@ namespace Phlogopite.Sinks
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
+        public static ConsoleSink Default { get; } = new ConsoleSink();
+
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
             ArraySegment<char> formattedMessage, ReadOnlySpan<Range> userRanges,

@@ -16,17 +16,14 @@ namespace Phlogopite
             // Messing with culture.
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
 
-            // ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
-            // var otherConsoleSink = new ConsoleSink();
-            // IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, otherConsoleSink };
+            ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
+            // IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, new TraceSink() };
             using (var textWriterTraceListener = new TextWriterTraceListener(Console.Out, nameof(Phlogopite)))
             {
                 Trace.Listeners.Add(textWriterTraceListener);
 
                 Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
-                    // .AddSinks(consoleSink, otherConsoleSink)
-                    // .AddSink(new FormattingSink(formattedSinks))
-                    .AddSink(new TraceSink())
+                    .AddSinks(consoleSink, TraceSink.Default)
                     .Build();
                 Log.TrySetMediator(mediator);
 
