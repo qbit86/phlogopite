@@ -7,8 +7,7 @@ using System.Text;
 
 namespace Phlogopite.Sinks
 {
-    public sealed class ConsoleSink : ISink<NamedProperty>,
-        IFormattedSink<NamedProperty>
+    public sealed class ConsoleSink : ISink<NamedProperty>, IFormattedSink<NamedProperty>
     {
         internal const bool DefaultEmitLevel = false;
         internal const bool DefaultEmitTime = false;
