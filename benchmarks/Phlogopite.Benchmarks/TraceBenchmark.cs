@@ -2,16 +2,21 @@ using System;
 using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 using Microsoft.Extensions.Logging;
+using Phlogopite.Extensions;
+using Phlogopite.Sinks;
 using Serilog;
+using Serilog.Core;
 using Serilog.Events;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Phlogopite
 {
     public abstract class TraceBenchmark
     {
-        private Microsoft.Extensions.Logging.ILogger _extensionsLogger;
-        private Serilog.Core.Logger _serilogLogger;
+        private ILogger _extensionsLogger;
         private DateTime _now;
+        private Mediator _phlogopiteMediator;
+        private Logger _serilogLogger;
         private string _username;
 
         [GlobalSetup]
@@ -37,6 +42,14 @@ namespace Phlogopite
             }
         }
 
+        [GlobalSetup(Target = nameof(TraceToPhlogopite))]
+        public void GlobalSetupPhlogopite()
+        {
+            _phlogopiteMediator = new MediatorBuilder { MinimumLevel = Level.Debug }
+                .AddSink(TraceSink.Default)
+                .Build();
+        }
+
         [GlobalSetup(Target = nameof(TraceToSerilog))]
         public void GlobalSetupSerilog()
         {
@@ -57,7 +70,9 @@ namespace Phlogopite
         [Benchmark(Baseline = true)]
         public string TraceToPhlogopite()
         {
-            throw new NotImplementedException();
+            var writer = new Writer(_phlogopiteMediator, Level.Verbose, nameof(TraceBenchmark), null);
+            writer.I("Hello, world!", ("now", _now), ("e", Math.E), ("username", _username));
+            return _username;
         }
 
         [Benchmark]
