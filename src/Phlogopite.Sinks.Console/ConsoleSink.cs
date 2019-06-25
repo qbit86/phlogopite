@@ -7,8 +7,7 @@ using System.Text;
 
 namespace Phlogopite.Sinks
 {
-    public sealed class ConsoleSink : ISink<NamedProperty>,
-        IFormattedSink<NamedProperty>
+    public sealed class ConsoleSink : ISink<NamedProperty>, IFormattedSink<NamedProperty>
     {
         internal const bool DefaultEmitLevel = false;
         internal const bool DefaultEmitTime = false;
@@ -57,6 +56,8 @@ namespace Phlogopite.Sinks
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
+        public static ConsoleSink Default { get; } = new ConsoleSink();
+
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
             ArraySegment<char> formattedMessage, ReadOnlySpan<Range> userRanges,
@@ -74,13 +75,14 @@ namespace Phlogopite.Sinks
                 return;
             }
 
+            const int levelLength = 2;
             if (_emitTime)
             {
                 Debug.Assert(!_emitLevel, "!_emitLevel");
-                if (formattedMessage.Count > 2)
+                if (formattedMessage.Count > levelLength)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array,
-                        formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                        formattedMessage.Offset + levelLength, formattedMessage.Count - levelLength);
                 }
 
                 return;
@@ -97,10 +99,10 @@ namespace Phlogopite.Sinks
                 }
 
                 Debug.Assert(!_emitLevel, "!_emitLevel");
-                if (formattedMessage.Count > 2)
+                if (formattedMessage.Count > levelLength)
                 {
                     WriteLineThenFlush(level, formattedMessage.Array,
-                        formattedMessage.Offset + 2, formattedMessage.Count - 2);
+                        formattedMessage.Offset + levelLength, formattedMessage.Count - levelLength);
                 }
 
                 return;
@@ -250,6 +252,21 @@ namespace Phlogopite.Sinks
 
         private void WriteLineThenFlush(Level level, char[] buffer, int index, int count, bool prependLevel = false)
         {
+            if (!_isSynchronized)
+            {
+                WriteLineThenFlushUnsynchronized(level, buffer, index, count, prependLevel);
+                return;
+            }
+
+            lock (s_syncRoot)
+            {
+                WriteLineThenFlushUnsynchronized(level, buffer, index, count, prependLevel);
+            }
+        }
+
+        private void WriteLineThenFlushUnsynchronized(
+            Level level, char[] buffer, int index, int count, bool prependLevel)
+        {
             Debug.Assert(buffer != null);
 
             ConsoleColor oldColor = SetForegroundColor(level);
@@ -257,24 +274,11 @@ namespace Phlogopite.Sinks
             {
                 TextWriter output = SelectOutputStream(level);
 
-                if (!_isSynchronized)
-                {
-                    if (prependLevel)
-                        output.Write(GetLevelPrefix(level));
+                if (prependLevel)
+                    output.Write(GetLevelPrefix(level));
 
-                    output.WriteLine(buffer, index, count);
-                    output.Flush();
-                    return;
-                }
-
-                lock (s_syncRoot)
-                {
-                    if (prependLevel)
-                        output.Write(GetLevelPrefix(level));
-
-                    output.WriteLine(buffer, index, count);
-                    output.Flush();
-                }
+                output.WriteLine(buffer, index, count);
+                output.Flush();
             }
             finally
             {

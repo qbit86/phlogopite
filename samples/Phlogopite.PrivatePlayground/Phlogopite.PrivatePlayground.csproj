@@ -7,6 +7,7 @@
     <ProjectReference Include="..\..\src\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Phlogopite.Sinks.Console\Phlogopite.Sinks.Console.csproj" />
     <ProjectReference Include="..\..\src\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj" />
+    <ProjectReference Include="..\..\src\Phlogopite.Sinks.Trace\Phlogopite.Sinks.Trace.csproj" />
     <ProjectReference Include="..\..\src\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
 </Project>
