@@ -180,8 +180,9 @@ dotnet_naming_rule.camel_case_for_private_internal_fields.symbols = private_inte
 
 dotnet_naming_symbols.constant_fields.applicable_kinds = field
 dotnet_naming_symbols.constant_fields.required_modifiers = const
-dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private, internal
+dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private
 dotnet_naming_symbols.private_internal_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = private
 dotnet_naming_symbols.static_fields.applicable_kinds = field
 dotnet_naming_symbols.static_fields.required_modifiers = static
 
