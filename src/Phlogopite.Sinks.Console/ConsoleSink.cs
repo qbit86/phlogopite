@@ -252,6 +252,21 @@ namespace Phlogopite.Sinks
 
         private void WriteLineThenFlush(Level level, char[] buffer, int index, int count, bool prependLevel = false)
         {
+            if (!_isSynchronized)
+            {
+                WriteLineThenFlushUnsynchronized(level, buffer, index, count, prependLevel);
+                return;
+            }
+
+            lock (s_syncRoot)
+            {
+                WriteLineThenFlushUnsynchronized(level, buffer, index, count, prependLevel);
+            }
+        }
+
+        private void WriteLineThenFlushUnsynchronized(
+            Level level, char[] buffer, int index, int count, bool prependLevel)
+        {
             Debug.Assert(buffer != null);
 
             ConsoleColor oldColor = SetForegroundColor(level);
@@ -259,24 +274,11 @@ namespace Phlogopite.Sinks
             {
                 TextWriter output = SelectOutputStream(level);
 
-                if (!_isSynchronized)
-                {
-                    if (prependLevel)
-                        output.Write(GetLevelPrefix(level));
+                if (prependLevel)
+                    output.Write(GetLevelPrefix(level));
 
-                    output.WriteLine(buffer, index, count);
-                    output.Flush();
-                    return;
-                }
-
-                lock (s_syncRoot)
-                {
-                    if (prependLevel)
-                        output.Write(GetLevelPrefix(level));
-
-                    output.WriteLine(buffer, index, count);
-                    output.Flush();
-                }
+                output.WriteLine(buffer, index, count);
+                output.Flush();
             }
             finally
             {
