@@ -1,0 +1,99 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+using System.Runtime.CompilerServices;
+
+namespace Phlogopite.Extensions
+{
+    public static partial class WriterBuilderExtensions
+    {
+<#
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+    WriteLine("public static void Write(this WriterBuilder writer, Level level,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("[CallerMemberName] string source = null)");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("if (!writer.IsEnabled(level))");
+    WriteLine("    return;");
+    ClearIndent();
+    WriteLine(string.Empty);
+    PushIndent("        ");
+    Write("    WriteUnchecked(writer, level, null, ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("p" + propertyIndex);
+    }
+
+    WriteLine(", source);");
+    WriteLine("}");
+    ClearIndent();
+}
+
+WriteLine(string.Empty);
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+    WriteLine("public static void Write(this WriterBuilder writer, Level level, string text,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("[CallerMemberName] string source = null)");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("if (!writer.IsEnabled(level))");
+    WriteLine("    return;");
+    ClearIndent();
+    WriteLine(string.Empty);
+    PushIndent("        ");
+    Write("    WriteUnchecked(writer, level, text, ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("p" + propertyIndex);
+    }
+
+    WriteLine(", source);");
+    WriteLine("}");
+    ClearIndent();
+}
+#>
+    }
+}
