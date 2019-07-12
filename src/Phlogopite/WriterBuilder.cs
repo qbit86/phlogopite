@@ -48,7 +48,7 @@ namespace Phlogopite
         }
 
         internal void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            Span<NamedProperty> attachedProperties, [CallerMemberName] string source = null)
+            Span<NamedProperty> attachedProperties, string source)
         {
             if (_mediator is null || !_mediator.IsEnabled(level))
                 return;
