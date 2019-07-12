@@ -6,7 +6,7 @@ namespace Phlogopite
     public readonly struct Writer : IWriter<NamedProperty>, IEquatable<Writer>
     {
         internal const Level DefaultMinimumLevel = Level.Verbose;
-        private const int WriterPropertyCount = 2;
+        internal const int WriterPropertyCount = 2;
 
         private readonly IMediator<NamedProperty> _mediator;
         private readonly Level _minimumLevel;
@@ -91,7 +91,7 @@ namespace Phlogopite
 
         public override int GetHashCode()
         {
-            return unchecked((int)_minimumLevel * 397) ^ (_mediator?.GetHashCode() ?? 0);
+            return unchecked((int)_minimumLevel * 397) ^ (_mediator?.GetHashCode()).GetValueOrDefault();
         }
 
         public static bool operator ==(Writer left, Writer right)

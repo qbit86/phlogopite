@@ -1,0 +1,58 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Buffers;
+
+namespace Phlogopite.Extensions
+{
+    public static partial class WriterBuilderExtensions
+    {
+<#
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine("private static void WriteUnchecked(WriterBuilder writer, Level level, string text,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("string source)");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine($"const int userPropertyCount = {propertyCount};");
+    WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(");
+    WriteLine("    userPropertyCount + GetAttachedPropertyCountOrDefault(writer, level));");
+    WriteLine("try");
+    WriteLine("{");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        WriteLine($"    properties[{propertyIndex}] = p{propertyIndex};");
+
+    WriteLine("    writer.UncheckedWrite(level, text,");
+    WriteLine("        properties.AsSpan(0, userPropertyCount), properties.AsSpan(userPropertyCount), source);");
+    WriteLine("}");
+    WriteLine("finally");
+    WriteLine("{");
+    WriteLine("    ArrayPool<NamedProperty>.Shared.Return(properties, true);");
+    WriteLine("}");
+    PopIndent();
+    WriteLine("}");
+}
+
+ClearIndent();
+#>
+    }
+}

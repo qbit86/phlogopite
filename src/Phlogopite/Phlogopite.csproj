@@ -3,7 +3,7 @@
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
     <AssemblyVersion>0.2</AssemblyVersion>
-    <VersionPrefix>0.2.0</VersionPrefix>
+    <VersionPrefix>0.2.1</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <Description>Default implementation of abstractions for Phlogopite library — structured logging for .NET with low memory footprint.
 Commonly used types:
@@ -32,9 +32,8 @@ Phlogopite.Writer</Description>
     <PackageReference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19270-01" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19351-01" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
@@ -51,6 +50,22 @@ Phlogopite.Writer</Description>
     <None Update="Extensions/MediatorExtensions.Unchecked.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MediatorExtensions.Unchecked.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterBuilderExtensions.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterBuilderExtensions.0.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterBuilderExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterBuilderExtensions.Level.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterBuilderExtensions.Unchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WriterBuilderExtensions.Unchecked.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions/WriterBuilderExtensions.Write.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterBuilderExtensions.Write.cs</LastGenOutput>
     </None>
     <None Update="Extensions/WriterExtensions.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -99,6 +114,26 @@ Phlogopite.Writer</Description>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MediatorExtensions.Unchecked.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterBuilderExtensions.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterBuilderExtensions.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterBuilderExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterBuilderExtensions.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterBuilderExtensions.Unchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterBuilderExtensions.Unchecked.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterBuilderExtensions.Write.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterBuilderExtensions.Write.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions/WriterExtensions.0.cs">
       <DesignTime>True</DesignTime>
