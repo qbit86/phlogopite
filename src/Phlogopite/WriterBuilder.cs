@@ -31,6 +31,40 @@ namespace Phlogopite
             return new Writer(mediator, _minimumLevel, _tag, source);
         }
 
+        internal int GetAttachedPropertyCount(Level level)
+        {
+            if (_mediator is null)
+                return Writer.WriterPropertyCount;
+
+            return Writer.WriterPropertyCount + _mediator.GetAttachedPropertyCount(level);
+        }
+
+        public bool IsEnabled(Level level)
+        {
+            if (_mediator is null)
+                return false;
+
+            return _minimumLevel <= level && _mediator.IsEnabled(level);
+        }
+
+        internal void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            Span<NamedProperty> attachedProperties, [CallerMemberName] string source = null)
+        {
+            if (_mediator is null || !_mediator.IsEnabled(level))
+                return;
+
+            int length = Math.Min(attachedProperties.Length, Writer.WriterPropertyCount);
+            Span<NamedProperty> writerProperties = attachedProperties.Slice(0, length);
+            if (writerProperties.Length > 0)
+            {
+                writerProperties[0] = new NamedProperty("tag", _tag);
+                if (writerProperties.Length > 1)
+                    writerProperties[1] = new NamedProperty("source", source);
+            }
+
+            _mediator.UncheckedWrite(level, text, userProperties, writerProperties, attachedProperties.Slice(length));
+        }
+
         public bool Equals(WriterBuilder other)
         {
             if (_minimumLevel != other._minimumLevel)

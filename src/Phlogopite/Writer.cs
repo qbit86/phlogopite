@@ -6,7 +6,7 @@ namespace Phlogopite
     public readonly struct Writer : IWriter<NamedProperty>, IEquatable<Writer>
     {
         internal const Level DefaultMinimumLevel = Level.Verbose;
-        private const int WriterPropertyCount = 2;
+        internal const int WriterPropertyCount = 2;
 
         private readonly IMediator<NamedProperty> _mediator;
         private readonly Level _minimumLevel;
