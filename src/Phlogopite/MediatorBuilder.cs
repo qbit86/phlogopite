@@ -4,6 +4,7 @@ using System.Threading;
 
 namespace Phlogopite
 {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
     public sealed class MediatorBuilder
     {
         private Level? _minimumLevel;
@@ -82,4 +83,5 @@ namespace Phlogopite
             throw new NotSupportedException("Collection is read-only.");
         }
     }
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
 }
