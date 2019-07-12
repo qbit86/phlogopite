@@ -86,7 +86,7 @@ namespace Phlogopite
 
         public override int GetHashCode()
         {
-            return unchecked((int)_minimumLevel * 397) ^ (_mediator?.GetHashCode() ?? 0);
+            return unchecked((int)_minimumLevel * 397) ^ (_mediator?.GetHashCode()).GetValueOrDefault();
         }
 
         public static bool operator ==(WriterBuilder left, WriterBuilder right)
