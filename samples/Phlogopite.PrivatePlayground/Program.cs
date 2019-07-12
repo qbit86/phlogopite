@@ -36,11 +36,9 @@ namespace Phlogopite
 
         internal void Bar()
         {
-            Writer log = _log.Build(nameof(Bar));
-
-            log.V("This should be disabled by mediator");
-            log.D("This should be disabled by writer");
-            log.I("Testing things", ("username", Environment.UserName), (nameof(Math.E), Math.E));
+            _log.V("This should be disabled by mediator");
+            _log.D("This should be disabled by writer");
+            _log.I("Testing things", ("username", Environment.UserName), (nameof(Math.E), Math.E));
         }
     }
 }
