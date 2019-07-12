@@ -56,6 +56,10 @@ Phlogopite.Writer</Description>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Extensions/WriterBuilderExtensions.0.cs</LastGenOutput>
     </None>
+    <None Update="Extensions/WriterBuilderExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Extensions/WriterBuilderExtensions.Level.cs</LastGenOutput>
+    </None>
     <None Update="Extensions/WriterBuilderExtensions.Unchecked.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>WriterBuilderExtensions.Unchecked.cs</LastGenOutput>
@@ -116,6 +120,11 @@ Phlogopite.Writer</Description>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WriterBuilderExtensions.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions/WriterBuilderExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WriterBuilderExtensions.Level.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions/WriterBuilderExtensions.Unchecked.cs">
       <DesignTime>True</DesignTime>
