@@ -18,7 +18,7 @@ namespace Phlogopite
             Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
                 .AddSink(consoleSink)
                 .Build();
-            Log.TrySetMediator(mediator);
+            _ = Log.TrySetMediator(mediator);
 
             var foo = new Foo();
             foo.Bar();
