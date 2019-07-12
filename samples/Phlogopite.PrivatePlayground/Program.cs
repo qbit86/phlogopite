@@ -9,41 +9,39 @@ namespace Phlogopite
 {
     internal static class Program
     {
-        private const string Tag = nameof(Program);
-
         private static void Main()
         {
             // Messing with culture.
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
 
             ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
-            // IFormattedSink<NamedProperty>[] formattedSinks = { consoleSink, new TraceSink() };
-            using (var textWriterTraceListener = new TextWriterTraceListener(Console.Out, nameof(Phlogopite)))
-            {
-                Trace.Listeners.Add(textWriterTraceListener);
 
-                Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
-                    .AddSinks(consoleSink, TraceSink.Default)
-                    .Build();
-                Log.TrySetMediator(mediator);
+            Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
+                .AddSink(consoleSink)
+                .Build();
+            Log.TrySetMediator(mediator);
 
-                Foo();
+            var foo = new Foo();
+            foo.Bar();
+        }
+    }
 
-                Trace.Flush();
-                Trace.Listeners.Remove(textWriterTraceListener);
-            }
+    internal sealed class Foo
+    {
+        private readonly WriterBuilder _log;
+
+        internal Foo(IMediator<NamedProperty> mediator = null)
+        {
+            _log = new WriterBuilder(mediator ?? Log.Mediator, Level.Info, nameof(Foo));
         }
 
-        private static void Foo()
+        internal void Bar()
         {
-            var log = new Writer(Log.Mediator, Tag);
-            log.V("Hello, World!", ("username", Environment.UserName));
-            Log.D(Tag, "Anonymous property", (null, Thread.CurrentThread.CurrentCulture.Name));
-            Log.Mediator.I(Tag, ("doubles", new[] { Math.E, Math.PI }));
-            log.W((nameof(GC.GetAllocatedBytesForCurrentThread), GC.GetAllocatedBytesForCurrentThread()),
-                (nameof(GC.GetTotalMemory), GC.GetTotalMemory(false)));
-            Log.Mediator.UncheckedWrite(Level.Silent, null,
-                ReadOnlySpan<NamedProperty>.Empty, ReadOnlySpan<NamedProperty>.Empty, Span<NamedProperty>.Empty);
+            Writer log = _log.Build(nameof(Bar));
+
+            log.V("This should be disabled by mediator");
+            log.D("This should be disabled by writer");
+            log.I("Testing things", ("username", Environment.UserName), (nameof(Math.E), Math.E));
         }
     }
 }
