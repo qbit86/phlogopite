@@ -4,35 +4,22 @@ using System.Diagnostics;
 
 namespace Phlogopite
 {
-    public sealed class AggregateLogger<TProperty, TProperties> : ILogger<TProperty, TProperties>
+    public sealed class AggregateLogger<TProperty, TProperties> : AggregateLoggerBase
     {
-        private readonly Func<Exception, bool> _exceptionHandler;
         private readonly IReadOnlyList<ILogger<TProperty, TProperties>> _loggers;
-        private readonly Level _minimumLevel;
-        private readonly Func<Level> _minimumLevelProvider;
 
         internal AggregateLogger(IReadOnlyList<ILogger<TProperty, TProperties>> loggers, int maxAttachedPropertyCount,
-            Level minimumLevel, Func<Level> minimumLevelProvider, Func<Exception, bool> exceptionHandler)
+            Level minimumLevel, Func<Level> minimumLevelProvider, Func<Exception, bool> exceptionHandler) :
+            base(maxAttachedPropertyCount, minimumLevel, minimumLevelProvider, exceptionHandler)
         {
             Debug.Assert(loggers != null, "loggers != null");
-            Debug.Assert(maxAttachedPropertyCount > 0, "maxAttachedPropertyCount > 0");
 
-            _exceptionHandler = exceptionHandler;
             _loggers = loggers;
-            _minimumLevel = minimumLevel;
-            _minimumLevelProvider = minimumLevelProvider;
-            MaxAttachedPropertyCount = maxAttachedPropertyCount;
         }
 
-        public int MaxAttachedPropertyCount { get; }
-
-        public bool IsEnabled(Level level)
+        public override bool IsEnabled(Level level)
         {
-            Level minimumLevel = _minimumLevelProvider?.Invoke() ?? _minimumLevel;
-            if (minimumLevel > level)
-                return false;
-
-            return _loggers.Count != 0;
+            return base.IsEnabled(level) && _loggers.Count != 0;
         }
 
         public void UncheckedWrite(Level level, string text, TProperties attachedProperties,
