@@ -19,7 +19,8 @@ namespace Phlogopite
 
         public override bool IsEnabled(Level level)
         {
-            return base.IsEnabled(level) && _loggers.Count != 0;
+            Level minimumLevel = MinimumLevelProvider?.Invoke() ?? MinimumLevel;
+            return minimumLevel <= level && _loggers.Count != 0;
         }
 
         public void UncheckedWrite(Level level, string text, TProperties attachedProperties,
@@ -52,10 +53,10 @@ namespace Phlogopite
                 return;
 
             var aggregateException = new AggregateException(exceptions);
-            if (_exceptionHandler is null)
+            if (ExceptionHandler is null)
                 throw aggregateException;
 
-            aggregateException.Handle(_exceptionHandler);
+            aggregateException.Handle(ExceptionHandler);
         }
     }
 }
