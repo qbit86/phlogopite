@@ -24,9 +24,6 @@ namespace Phlogopite
             MaxAttachedPropertyCount = maxAttachedPropertyCount;
         }
 
-        private AggregateLogger() :
-            this(Array.Empty<ILogger<TProperty, TProperties>>(), 0, DefaultMinimumLevel, null, null) { }
-
         public int MaxAttachedPropertyCount { get; }
 
         public bool IsEnabled(Level level)
