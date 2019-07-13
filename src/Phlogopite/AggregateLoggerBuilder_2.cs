@@ -6,10 +6,10 @@ namespace Phlogopite
 {
     public sealed class AggregateLoggerBuilder<TProperty, TProperties>
     {
-        internal const Level DefaultMinimumLevel = Level.Verbose;
+        private const Level DefaultMinimumLevel = Level.Verbose;
 
-        private Level? _minimumLevel;
         private List<ILogger<TProperty, TProperties>> _loggers;
+        private Level? _minimumLevel;
 
         public Func<Exception, bool> ExceptionHandler { get; set; }
 
@@ -66,7 +66,7 @@ namespace Phlogopite
             }
 
             int maxAttachedPropertyCount = 0;
-            foreach (ILogger<TProperty,TProperties> logger in _loggers)
+            foreach (ILogger<TProperty, TProperties> logger in _loggers)
             {
                 if (logger.MaxAttachedPropertyCount > maxAttachedPropertyCount)
                     maxAttachedPropertyCount = logger.MaxAttachedPropertyCount;

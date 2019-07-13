@@ -16,13 +16,13 @@ namespace Phlogopite
             MaxAttachedPropertyCount = maxAttachedPropertyCount;
         }
 
-        public int MaxAttachedPropertyCount { get; }
-
         protected Func<Exception, bool> ExceptionHandler { get; }
 
         protected Level MinimumLevel { get; }
 
         protected Func<Level> MinimumLevelProvider { get; }
+
+        public int MaxAttachedPropertyCount { get; }
 
         public abstract bool IsEnabled(Level level);
     }
