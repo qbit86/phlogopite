@@ -6,8 +6,6 @@ namespace Phlogopite
 {
     public sealed class AggregateLogger<TProperty, TProperties> : ILogger<TProperty, TProperties>
     {
-        internal const Level DefaultMinimumLevel = Level.Verbose;
-
         private readonly Func<Exception, bool> _exceptionHandler;
         private readonly IReadOnlyList<ILogger<TProperty, TProperties>> _loggers;
         private readonly Level _minimumLevel;
@@ -17,6 +15,8 @@ namespace Phlogopite
             Level minimumLevel, Func<Level> minimumLevelProvider, Func<Exception, bool> exceptionHandler)
         {
             Debug.Assert(loggers != null, "loggers != null");
+            Debug.Assert(maxAttachedPropertyCount > 0, "maxAttachedPropertyCount > 0");
+
             _exceptionHandler = exceptionHandler;
             _loggers = loggers;
             _minimumLevel = minimumLevel;
