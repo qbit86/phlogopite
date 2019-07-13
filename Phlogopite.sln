@@ -32,8 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Sinks.Trace", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{D60FD382-B335-4CC1-8D19-7C69C1278EE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Benchmarks", "benchmarks\Phlogopite.Benchmarks\Phlogopite.Benchmarks.csproj", "{6E6A259E-244B-409E-83C8-2386BD50662D}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Phlogopite.Shared\Phlogopite.Shared.projitems*{df3d20e7-950b-42a3-a9a3-cf1ffec7e118}*SharedItemsImports = 13
@@ -71,10 +69,6 @@ Global
 		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E6A259E-244B-409E-83C8-2386BD50662D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E6A259E-244B-409E-83C8-2386BD50662D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E6A259E-244B-409E-83C8-2386BD50662D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E6A259E-244B-409E-83C8-2386BD50662D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,7 +82,6 @@ Global
 		{FA3A366A-DD56-4070-996C-C778D2A8E58D} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
 		{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8} = {20684C57-524B-49AD-A950-562ECAEE2922}
 		{888106B5-4233-4E6B-9FA7-6D6D7FBDA0B0} = {106E55BE-5F39-450F-A1F6-B494A1F680C6}
-		{6E6A259E-244B-409E-83C8-2386BD50662D} = {D60FD382-B335-4CC1-8D19-7C69C1278EE0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {310D1603-9B93-448D-89D9-2E3D8F1F9FBA}
