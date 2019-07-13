@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- `ILogger<TProperty, in TProperties>`
+
 ### Removed
 - `IMediator<TProperty>`
 - `IWriter<TProperty>`
