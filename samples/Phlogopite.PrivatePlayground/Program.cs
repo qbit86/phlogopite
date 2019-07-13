@@ -17,8 +17,6 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        internal void Bar()
-        {
-        }
+        internal void Bar() { }
     }
 }
