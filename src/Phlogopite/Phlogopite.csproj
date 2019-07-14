@@ -171,4 +171,5 @@ Phlogopite.Writer</Description>
       <DependentUpon>Log.Write.tt</DependentUpon>
     </Compile>
   </ItemGroup>
+  <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
 </Project>
