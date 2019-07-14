@@ -13,9 +13,9 @@ namespace Phlogopite
         public static Formatter Default { get; } = new Formatter();
 
         public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
+            ReadOnlySpan<NamedProperty> attachedProperties,
             IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
-            Span<Range> writerRanges, Span<Range> mediatorRanges)
+            Span<Range> attachedRanges)
         {
             if (formatProvider == null)
                 throw new ArgumentNullException(nameof(formatProvider));
@@ -27,17 +27,17 @@ namespace Phlogopite
 
             var sbf = new StringBuilderFacade(output, formatProvider);
 
-            int timeIndex = FindDateTime(mediatorProperties, "time", out DateTime time);
+            int timeIndex = FindDateTime(attachedProperties, "time", out DateTime time);
             if (timeIndex >= 0)
             {
                 int timeOffset = output.Length;
                 output.Append(" ");
                 RenderTime(time, sbf);
-                SetRange(timeIndex, timeOffset, output, mediatorRanges);
+                SetRange(timeIndex, timeOffset, output, attachedRanges);
             }
 
-            int tagIndex = FindString(writerProperties, "tag", out string tag);
-            int sourceIndex = FindString(writerProperties, "source", out string source);
+            int tagIndex = FindString(attachedProperties, "tag", out string tag);
+            int sourceIndex = FindString(attachedProperties, "source", out string source);
             if (tag != null || source != null)
             {
                 output.Append(" [");
@@ -45,7 +45,7 @@ namespace Phlogopite
                 {
                     int tagOffset = output.Length;
                     output.Append(tag);
-                    SetRange(tagIndex, tagOffset, output, writerRanges);
+                    SetRange(tagIndex, tagOffset, output, attachedRanges);
                 }
 
                 if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
@@ -55,7 +55,7 @@ namespace Phlogopite
                 {
                     int sourceOffset = output.Length;
                     output.Append(source);
-                    SetRange(sourceIndex, sourceOffset, output, writerRanges);
+                    SetRange(sourceIndex, sourceOffset, output, attachedRanges);
                 }
 
                 output.Append("]");
