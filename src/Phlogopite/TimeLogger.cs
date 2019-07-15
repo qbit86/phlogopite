@@ -2,13 +2,18 @@ using System;
 
 namespace Phlogopite
 {
-    public sealed class TimeLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+    // TODO: Make readonly struct.
+    public sealed class TimeLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
     {
-        private readonly ILogger<NamedProperty, ArraySegment<NamedProperty>> _logger;
+        private readonly TLogger _logger;
 
-        public TimeLogger(ILogger<NamedProperty, ArraySegment<NamedProperty>> logger)
+        public TimeLogger(TLogger logger)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            if (logger is null)
+                throw new ArgumentNullException(nameof(logger));
+
+            _logger = logger;
         }
 
         public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
