@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 
 namespace Phlogopite
 {
-    // TODO: Make readonly struct.
-    public sealed class TimeLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+    public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>,
+        IEquatable<TimeLogger<TLogger>>
         where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
     {
         private readonly TLogger _logger;
@@ -39,6 +40,31 @@ namespace Phlogopite
         public bool IsEnabled(Level level)
         {
             return _logger.IsEnabled(level);
+        }
+
+        public bool Equals(TimeLogger<TLogger> other)
+        {
+            return EqualityComparer<TLogger>.Default.Equals(_logger, other._logger);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is TimeLogger<TLogger> other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return EqualityComparer<TLogger>.Default.GetHashCode(_logger);
+        }
+
+        public static bool operator ==(TimeLogger<TLogger> left, TimeLogger<TLogger> right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(TimeLogger<TLogger> left, TimeLogger<TLogger> right)
+        {
+            return !left.Equals(right);
         }
     }
 }
