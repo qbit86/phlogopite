@@ -31,7 +31,19 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
-            _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+            NamedProperty[] array = attachedProperties.Array;
+            int offset = attachedProperties.Offset;
+            int oldCount = attachedProperties.Count;
+
+            if (array is null || offset + oldCount >= array.Length)
+            {
+                _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+                return;
+            }
+
+            var newAttachedProperties = new ArraySegment<NamedProperty>(array, offset, oldCount + 1);
+            array[offset + oldCount] = new NamedProperty(KnownProperties.Category, _category);
+            _logger.UncheckedWrite(level, text, newAttachedProperties, userProperties);
         }
 
         public bool IsEnabled(Level level)
