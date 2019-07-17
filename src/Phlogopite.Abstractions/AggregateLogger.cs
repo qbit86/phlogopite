@@ -34,7 +34,7 @@ namespace Phlogopite
             Func<Exception, bool> exceptionHandler)
         {
             Debug.Assert(loggers != null, "loggers != null");
-            Debug.Assert(maxAttachedPropertyCount > 0, "maxAttachedPropertyCount > 0");
+            Debug.Assert(maxAttachedPropertyCount >= 0, "maxAttachedPropertyCount >= 0");
 
             _loggers = loggers;
             _exceptionHandler = exceptionHandler;
