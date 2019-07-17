@@ -55,7 +55,9 @@ namespace Phlogopite
         {
             unchecked
             {
+#pragma warning disable CA1307 // Specify StringComparison
                 int hashCode = _category != null ? _category.GetHashCode() : 0;
+#pragma warning restore CA1307 // Specify StringComparison
                 hashCode = (hashCode * 397) ^ EqualityComparer<TLogger>.Default.GetHashCode(_logger);
                 hashCode = (hashCode * 397) ^ (int)_minimumLevel;
                 return hashCode;
