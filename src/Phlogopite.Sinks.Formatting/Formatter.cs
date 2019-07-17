@@ -17,10 +17,10 @@ namespace Phlogopite
             IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
             Span<Range> attachedRanges)
         {
-            if (formatProvider == null)
+            if (formatProvider is null)
                 throw new ArgumentNullException(nameof(formatProvider));
 
-            if (output == null)
+            if (output is null)
                 throw new ArgumentNullException(nameof(output));
 
             RenderLevel(level, output);

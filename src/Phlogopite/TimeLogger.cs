@@ -17,6 +17,8 @@ namespace Phlogopite
             _logger = logger;
         }
 
+        public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
+
         public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
@@ -24,7 +26,7 @@ namespace Phlogopite
             int offset = attachedProperties.Offset;
             int oldCount = attachedProperties.Count;
 
-            if (array == null || offset + oldCount >= array.Length)
+            if (array is null || offset + oldCount >= array.Length)
             {
                 _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
                 return;
@@ -34,8 +36,6 @@ namespace Phlogopite
             array[offset + oldCount] = new NamedProperty(KnownProperties.Time, DateTime.Now);
             _logger.UncheckedWrite(level, text, newAttachedProperties, userProperties);
         }
-
-        public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
 
         public bool IsEnabled(Level level)
         {
