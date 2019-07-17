@@ -15,7 +15,7 @@ namespace Phlogopite
             int maxAttachedPropertyCount = 0;
             for (int i = 0; i != array.Length; ++i)
             {
-                var logger = array[i];
+                ILogger<TProperty, TProperties> logger = array[i];
                 if (logger.MaxAttachedPropertyCount > maxAttachedPropertyCount)
                     maxAttachedPropertyCount = logger.MaxAttachedPropertyCount;
             }
