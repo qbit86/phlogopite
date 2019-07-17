@@ -7,7 +7,7 @@ namespace Phlogopite
         IEquatable<CategoryLogger<TLogger>>
         where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
     {
-        internal const Level DefaultMinimumLevel = Level.Verbose;
+        private const Level DefaultMinimumLevel = Level.Verbose;
 
         private readonly string _category;
         private readonly TLogger _logger;
@@ -31,7 +31,7 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
-            throw new NotImplementedException();
+            _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
         }
 
         public bool IsEnabled(Level level)
@@ -56,7 +56,7 @@ namespace Phlogopite
             unchecked
             {
 #pragma warning disable CA1307 // Specify StringComparison
-                int hashCode = _category != null ? _category.GetHashCode() : 0;
+                int hashCode = _category is null ? 0 : _category.GetHashCode();
 #pragma warning restore CA1307 // Specify StringComparison
                 hashCode = (hashCode * 397) ^ EqualityComparer<TLogger>.Default.GetHashCode(_logger);
                 hashCode = (hashCode * 397) ^ (int)_minimumLevel;
