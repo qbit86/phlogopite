@@ -26,13 +26,13 @@ namespace Phlogopite
             _category = category;
         }
 
+        public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
+
         public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
             throw new NotImplementedException();
         }
-
-        public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
 
         public bool IsEnabled(Level level)
         {
