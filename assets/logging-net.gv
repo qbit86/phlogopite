@@ -1,0 +1,16 @@
+digraph "Logging net" {
+  rankdir=LR
+  node [shape=square]
+  node [label=""]
+  0 1 2 3 4 [style=filled] 5 [style=filled] 6 7 8 9
+  0 -> 3
+  1 -> 3
+  2 -> 4
+  3 -> 5
+  4 -> 5
+  4 -> 6
+  5 -> 7
+  5 -> 8
+  5 -> 9
+  6 -> 9
+}
