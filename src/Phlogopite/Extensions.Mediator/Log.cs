@@ -2,7 +2,7 @@ using System;
 
 namespace Phlogopite.Extensions.Mediator
 {
-    public static class Mediator
+    public static class Log
     {
         private static MediatorLogger s_logger;
 
