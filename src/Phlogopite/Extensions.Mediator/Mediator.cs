@@ -1,6 +1,6 @@
 using System;
 
-namespace Phlogopite
+namespace Phlogopite.Extensions.Mediator
 {
     public static class Mediator
     {
