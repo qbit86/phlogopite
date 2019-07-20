@@ -27,7 +27,7 @@ namespace Phlogopite
 
             var sbf = new StringBuilderFacade(output, formatProvider);
 
-            int timeIndex = FindDateTime(attachedProperties, "time", out DateTime time);
+            int timeIndex = FindDateTime(attachedProperties, KnownProperties.Time, out DateTime time);
             if (timeIndex >= 0)
             {
                 int timeOffset = output.Length;
@@ -36,19 +36,19 @@ namespace Phlogopite
                 SetRange(timeIndex, timeOffset, output, attachedRanges);
             }
 
-            int tagIndex = FindString(attachedProperties, "tag", out string tag);
-            int sourceIndex = FindString(attachedProperties, "source", out string source);
-            if (tag != null || source != null)
+            int categoryIndex = FindString(attachedProperties, KnownProperties.Category, out string category);
+            int sourceIndex = FindString(attachedProperties, KnownProperties.Source, out string source);
+            if (category != null || source != null)
             {
                 output.Append(" [");
-                if (!string.IsNullOrEmpty(tag))
+                if (!string.IsNullOrEmpty(category))
                 {
                     int tagOffset = output.Length;
-                    output.Append(tag);
-                    SetRange(tagIndex, tagOffset, output, attachedRanges);
+                    output.Append(category);
+                    SetRange(categoryIndex, tagOffset, output, attachedRanges);
                 }
 
-                if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
+                if (!string.IsNullOrEmpty(category) && !string.IsNullOrEmpty(source))
                     output.Append(".");
 
                 if (!string.IsNullOrEmpty(source))
