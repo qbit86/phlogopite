@@ -13,7 +13,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite1(logger, level, category, null, p0, source);
@@ -25,7 +25,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite2(logger, level, category, null, p0, p1, source);
@@ -37,7 +37,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite3(logger, level, category, null, p0, p1, p2, source);
@@ -49,7 +49,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite4(logger, level, category, null, p0, p1, p2, p3, source);
@@ -65,7 +65,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite1(logger, level, category, text, p0, source);
@@ -77,7 +77,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite2(logger, level, category, text, p0, p1, source);
@@ -89,7 +89,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite3(logger, level, category, text, p0, p1, p2, source);
@@ -101,7 +101,7 @@ namespace Phlogopite.Extensions.Category
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             UncheckedWrite4(logger, level, category, text, p0, p1, p2, p3, source);
