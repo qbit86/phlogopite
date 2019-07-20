@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 namespace Phlogopite
 {
+    public static class TimeLogger
+    {
+        public static TimeLogger<TLogger> Create<TLogger>(TLogger logger)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            return new TimeLogger<TLogger>(logger);
+        }
+    }
+
     public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>,
         IEquatable<TimeLogger<TLogger>>
         where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>

@@ -3,6 +3,21 @@ using System.Collections.Generic;
 
 namespace Phlogopite
 {
+    public static class CategoryLogger
+    {
+        public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, string category)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            return new CategoryLogger<TLogger>(logger, category);
+        }
+
+        public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, Level minimumLevel, string category)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            return new CategoryLogger<TLogger>(logger, minimumLevel, category);
+        }
+    }
+
     public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>,
         IEquatable<CategoryLogger<TLogger>>
         where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
