@@ -42,7 +42,7 @@ namespace Phlogopite.Extensions.Category
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, 0);
-                UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
+                AppendThenWrite(logger, level, category, text, attachedProperties, userProperties, source);
             }
             finally
             {
@@ -50,7 +50,7 @@ namespace Phlogopite.Extensions.Category
             }
         }
 
-        private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string category, string text,
+        private static void AppendThenWrite<TLogger>(TLogger logger, Level level, string category, string text,
             ArraySegment<NamedProperty> attachedProperties, ReadOnlySpan<NamedProperty> userProperties, string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {

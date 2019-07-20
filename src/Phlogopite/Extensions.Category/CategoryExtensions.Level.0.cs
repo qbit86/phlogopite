@@ -13,7 +13,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
 
-            UncheckedWrite(logger, Level.Verbose, category, text, default, default, source);
+            AppendThenWrite(logger, Level.Verbose, category, text, default, default, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -24,7 +24,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
 
-            UncheckedWrite(logger, Level.Debug, category, text, default, default, source);
+            AppendThenWrite(logger, Level.Debug, category, text, default, default, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -35,7 +35,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
 
-            UncheckedWrite(logger, Level.Info, category, text, default, default, source);
+            AppendThenWrite(logger, Level.Info, category, text, default, default, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -46,7 +46,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
 
-            UncheckedWrite(logger, Level.Warning, category, text, default, default, source);
+            AppendThenWrite(logger, Level.Warning, category, text, default, default, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -57,7 +57,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
 
-            UncheckedWrite(logger, Level.Error, category, text, default, default, source);
+            AppendThenWrite(logger, Level.Error, category, text, default, default, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -68,7 +68,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;
 
-            UncheckedWrite(logger, Level.Assert, category, text, default, default, source);
+            AppendThenWrite(logger, Level.Assert, category, text, default, default, source);
         }
     }
 }
