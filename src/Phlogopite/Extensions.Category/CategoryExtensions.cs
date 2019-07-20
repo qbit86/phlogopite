@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -14,7 +15,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
 
-            UncheckedWrite(logger, level, category, text, default, default, source);
+            UncheckedWrite0(logger, level, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -24,6 +25,29 @@ namespace Phlogopite.Extensions.Category
             Debug.Assert(logger != null, "logger != null");
 
             return Math.Max(0, logger.MaxAttachedPropertyCount);
+        }
+
+        private static void UncheckedWrite0<TLogger>(TLogger logger, Level level, string category, string text,
+            string source)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            Debug.Assert(logger != null, "logger != null");
+            Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+
+            const int userPropertyCount = 0;
+            int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + attachedPropertyCount + 2);
+            try
+            {
+                Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, 0);
+                UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
+            }
+            finally
+            {
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
+            }
         }
 
         private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string category, string text,
