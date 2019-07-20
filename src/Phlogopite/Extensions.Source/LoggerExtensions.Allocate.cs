@@ -17,7 +17,7 @@ namespace Phlogopite.Extensions.Source
             const int userPropertyCount = 1;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount + 2);
+                userPropertyCount + attachedPropertyCount + 1);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
@@ -42,7 +42,7 @@ namespace Phlogopite.Extensions.Source
             const int userPropertyCount = 2;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount + 2);
+                userPropertyCount + attachedPropertyCount + 1);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
@@ -68,7 +68,7 @@ namespace Phlogopite.Extensions.Source
             const int userPropertyCount = 3;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount + 2);
+                userPropertyCount + attachedPropertyCount + 1);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
@@ -95,7 +95,7 @@ namespace Phlogopite.Extensions.Source
             const int userPropertyCount = 4;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount + 2);
+                userPropertyCount + attachedPropertyCount + 1);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);

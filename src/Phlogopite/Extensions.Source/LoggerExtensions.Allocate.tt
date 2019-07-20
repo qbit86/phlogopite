@@ -41,7 +41,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     WriteLine($"const int userPropertyCount = {propertyCount};");
     WriteLine("int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);");
     WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(");
-    WriteLine("    userPropertyCount + attachedPropertyCount + 2);");
+    WriteLine("    userPropertyCount + attachedPropertyCount + 1);");
     WriteLine("try");
     WriteLine("{");
     WriteLine("    Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);");
