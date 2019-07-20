@@ -31,7 +31,8 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         Write("in NamedProperty p" + propertyIndex);
     }
 
-    WriteLine(")");
+    WriteLine(",");
+    WriteLine("[CallerMemberName] string source = null)");
     WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
     PopIndent();
     WriteLine("{");
