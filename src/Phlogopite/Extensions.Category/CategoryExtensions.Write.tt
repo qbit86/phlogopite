@@ -42,9 +42,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     ClearIndent();
     WriteLine(string.Empty);
     PushIndent("        ");
-    WriteLine("    throw new NotImplementedException();");
-    /*
-    Write("    WriteUnchecked(writer, level, null, ");
+    Write($"    UncheckedWrite{propertyCount}(logger, level, category, null, ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
         if (propertyIndex != 0)
@@ -53,8 +51,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         Write("p" + propertyIndex);
     }
 
-    WriteLine(");");
-    */
+    WriteLine(", source);");
     WriteLine("}");
     ClearIndent();
 }
