@@ -13,7 +13,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
 
-            AppendThenWrite(logger, Level.Verbose, category, text, default, default, source);
+            AllocateThenWrite0(logger, Level.Verbose, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -24,7 +24,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
 
-            AppendThenWrite(logger, Level.Debug, category, text, default, default, source);
+            AllocateThenWrite0(logger, Level.Debug, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -35,7 +35,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
 
-            AppendThenWrite(logger, Level.Info, category, text, default, default, source);
+            AllocateThenWrite0(logger, Level.Info, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -46,7 +46,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
 
-            AppendThenWrite(logger, Level.Warning, category, text, default, default, source);
+            AllocateThenWrite0(logger, Level.Warning, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -57,7 +57,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
 
-            AppendThenWrite(logger, Level.Error, category, text, default, default, source);
+            AllocateThenWrite0(logger, Level.Error, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -68,7 +68,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;
 
-            AppendThenWrite(logger, Level.Assert, category, text, default, default, source);
+            AllocateThenWrite0(logger, Level.Assert, category, text, source);
         }
     }
 }
