@@ -42,6 +42,10 @@ Phlogopite.Writer</Description>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Extensions.Category\CategoryExtensions.Level.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CategoryExtensions.Level.0.cs</LastGenOutput>
+    </None>
     <None Update="Extensions.Category\CategoryExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CategoryExtensions.Level.cs</LastGenOutput>
@@ -56,6 +60,11 @@ Phlogopite.Writer</Description>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Extensions.Category\CategoryExtensions.Level.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CategoryExtensions.Level.0.tt</DependentUpon>
+    </Compile>
     <Compile Update="Extensions.Category\CategoryExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
