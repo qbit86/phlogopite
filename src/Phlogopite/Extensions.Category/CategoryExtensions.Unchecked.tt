@@ -19,7 +19,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine(string.Empty);
 
     PushIndent("        ");
-    WriteLine("private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string text,");
+    WriteLine($"private static void UncheckedWrite{propertyCount}<TLogger>(TLogger logger, Level level, string category, string text,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
