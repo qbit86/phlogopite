@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Threading;
 using Phlogopite.Extensions.Category;
-using Phlogopite.Extensions.Mediator;
+using Phlogopite.Extensions.Logger;
 
 #pragma warning disable CA1303
 
