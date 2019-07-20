@@ -6,36 +6,106 @@ namespace Phlogopite.Extensions.Category
 {
     public static partial class CategoryExtensions
     {
-        private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string text,
+        private static void UncheckedWrite1<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            throw new NotImplementedException();
+            Debug.Assert(logger != null, "logger != null");
+            Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+            const int userPropertyCount = 1;
+            int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + attachedPropertyCount);
+            try
+            {
+                Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                userProperties[0] = p0;
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
+            }
+            finally
+            {
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
+            }
         }
 
-        private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string text,
+        private static void UncheckedWrite2<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            throw new NotImplementedException();
+            Debug.Assert(logger != null, "logger != null");
+            Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+            const int userPropertyCount = 2;
+            int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + attachedPropertyCount);
+            try
+            {
+                Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                userProperties[0] = p0;
+                userProperties[1] = p1;
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
+            }
+            finally
+            {
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
+            }
         }
 
-        private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string text,
+        private static void UncheckedWrite3<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            throw new NotImplementedException();
+            Debug.Assert(logger != null, "logger != null");
+            Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+            const int userPropertyCount = 3;
+            int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + attachedPropertyCount);
+            try
+            {
+                Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                userProperties[0] = p0;
+                userProperties[1] = p1;
+                userProperties[2] = p2;
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
+            }
+            finally
+            {
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
+            }
         }
 
-        private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string text,
+        private static void UncheckedWrite4<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
-            throw new NotImplementedException();
+            Debug.Assert(logger != null, "logger != null");
+            Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+            const int userPropertyCount = 4;
+            int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
+            NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
+                userPropertyCount + attachedPropertyCount);
+            try
+            {
+                Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
+                userProperties[0] = p0;
+                userProperties[1] = p1;
+                userProperties[2] = p2;
+                userProperties[3] = p3;
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
+            }
+            finally
+            {
+                ArrayPool<NamedProperty>.Shared.Return(properties, true);
+            }
         }
     }
 }
