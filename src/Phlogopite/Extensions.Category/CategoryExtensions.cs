@@ -15,7 +15,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
 
-            UncheckedWrite0(logger, level, category, text, source);
+            AllocateThenWrite0(logger, level, category, text, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -27,7 +27,7 @@ namespace Phlogopite.Extensions.Category
             return Math.Max(0, logger.MaxAttachedPropertyCount);
         }
 
-        private static void UncheckedWrite0<TLogger>(TLogger logger, Level level, string category, string text,
+        private static void AllocateThenWrite0<TLogger>(TLogger logger, Level level, string category, string text,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {

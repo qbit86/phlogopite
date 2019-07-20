@@ -16,7 +16,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite1(logger, level, category, null, p0, source);
+            AllocateThenWrite1(logger, level, category, null, p0, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -28,7 +28,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite2(logger, level, category, null, p0, p1, source);
+            AllocateThenWrite2(logger, level, category, null, p0, p1, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -40,7 +40,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite3(logger, level, category, null, p0, p1, p2, source);
+            AllocateThenWrite3(logger, level, category, null, p0, p1, p2, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,7 +52,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite4(logger, level, category, null, p0, p1, p2, p3, source);
+            AllocateThenWrite4(logger, level, category, null, p0, p1, p2, p3, source);
         }
 
         #endregion Omitting text
@@ -68,7 +68,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite1(logger, level, category, text, p0, source);
+            AllocateThenWrite1(logger, level, category, text, p0, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -80,7 +80,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite2(logger, level, category, text, p0, p1, source);
+            AllocateThenWrite2(logger, level, category, text, p0, p1, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -92,7 +92,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite3(logger, level, category, text, p0, p1, p2, source);
+            AllocateThenWrite3(logger, level, category, text, p0, p1, p2, source);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -104,7 +104,7 @@ namespace Phlogopite.Extensions.Category
             if (logger is null || !logger.IsEnabled(level))
                 return;
 
-            UncheckedWrite4(logger, level, category, text, p0, p1, p2, p3, source);
+            AllocateThenWrite4(logger, level, category, text, p0, p1, p2, p3, source);
         }
 
         #endregion Including text

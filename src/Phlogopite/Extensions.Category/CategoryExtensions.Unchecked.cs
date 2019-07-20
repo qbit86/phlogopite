@@ -6,7 +6,7 @@ namespace Phlogopite.Extensions.Category
 {
     public static partial class CategoryExtensions
     {
-        private static void UncheckedWrite1<TLogger>(TLogger logger, Level level, string category, string text,
+        private static void AllocateThenWrite1<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
@@ -31,7 +31,7 @@ namespace Phlogopite.Extensions.Category
             }
         }
 
-        private static void UncheckedWrite2<TLogger>(TLogger logger, Level level, string category, string text,
+        private static void AllocateThenWrite2<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
@@ -57,7 +57,7 @@ namespace Phlogopite.Extensions.Category
             }
         }
 
-        private static void UncheckedWrite3<TLogger>(TLogger logger, Level level, string category, string text,
+        private static void AllocateThenWrite3<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
@@ -84,7 +84,7 @@ namespace Phlogopite.Extensions.Category
             }
         }
 
-        private static void UncheckedWrite4<TLogger>(TLogger logger, Level level, string category, string text,
+        private static void AllocateThenWrite4<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>

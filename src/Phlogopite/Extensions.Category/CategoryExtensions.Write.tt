@@ -42,7 +42,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     ClearIndent();
     WriteLine(string.Empty);
     PushIndent("        ");
-    Write($"    UncheckedWrite{propertyCount}(logger, level, category, null, ");
+    Write($"    AllocateThenWrite{propertyCount}(logger, level, category, null, ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
         if (propertyIndex != 0)
@@ -91,7 +91,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     ClearIndent();
     WriteLine(string.Empty);
     PushIndent("        ");
-    Write($"    UncheckedWrite{propertyCount}(logger, level, category, text, ");
+    Write($"    AllocateThenWrite{propertyCount}(logger, level, category, text, ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {
         if (propertyIndex != 0)

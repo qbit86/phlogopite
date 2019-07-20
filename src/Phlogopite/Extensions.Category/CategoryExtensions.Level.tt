@@ -50,7 +50,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");
         WriteLine("        return;");
         WriteLine(string.Empty);
-        Write($"    UncheckedWrite{propertyCount}(logger, Level.{level}, category, null");
+        Write($"    AllocateThenWrite{propertyCount}(logger, Level.{level}, category, null");
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
             Write(", p" + propertyIndex);
 
@@ -87,7 +87,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");
         WriteLine("        return;");
         WriteLine(string.Empty);
-        Write($"    UncheckedWrite{propertyCount}(logger, Level.{level}, category, text");
+        Write($"    AllocateThenWrite{propertyCount}(logger, Level.{level}, category, text");
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
             Write(", p" + propertyIndex);
 
