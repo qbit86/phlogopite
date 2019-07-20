@@ -6,4 +6,40 @@ using System.Diagnostics;
 
 namespace Phlogopite.Extensions.Category
 {
+    public static partial class CategoryExtensions
+    {
+<#
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine("private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string text,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("string source)");
+    WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("throw new NotImplementedException();");
+    PopIndent();
+    WriteLine("}");
+    ClearIndent();
+}
+#>
+    }
 }
