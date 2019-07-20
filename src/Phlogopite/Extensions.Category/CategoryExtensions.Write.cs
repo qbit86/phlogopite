@@ -8,7 +8,7 @@ namespace Phlogopite.Extensions.Category
         #region Omitting text
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Write<TLogger>(this TLogger logger, Level level,
+        public static void Write<TLogger>(this TLogger logger, Level level, string category,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
@@ -20,7 +20,7 @@ namespace Phlogopite.Extensions.Category
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Write<TLogger>(this TLogger logger, Level level,
+        public static void Write<TLogger>(this TLogger logger, Level level, string category,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
@@ -32,7 +32,7 @@ namespace Phlogopite.Extensions.Category
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Write<TLogger>(this TLogger logger, Level level,
+        public static void Write<TLogger>(this TLogger logger, Level level, string category,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
@@ -44,7 +44,7 @@ namespace Phlogopite.Extensions.Category
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Write<TLogger>(this TLogger logger, Level level,
+        public static void Write<TLogger>(this TLogger logger, Level level, string category,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>

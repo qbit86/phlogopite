@@ -21,7 +21,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
 
     PushIndent("        ");
     WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-    WriteLine("public static void Write<TLogger>(this TLogger logger, Level level,");
+    WriteLine("public static void Write<TLogger>(this TLogger logger, Level level, string category,");
     PushIndent("    ");
     for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
     {

@@ -26,7 +26,7 @@ namespace Phlogopite.Extensions.Category
             return Math.Max(0, logger.MaxAttachedPropertyCount);
         }
 
-        private static void UncheckedWrite<TLogger>(this TLogger logger, Level level, string category, string text,
+        private static void UncheckedWrite<TLogger>(TLogger logger, Level level, string category, string text,
             ArraySegment<NamedProperty> attachedProperties, ReadOnlySpan<NamedProperty> userProperties, string source)
             where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
         {
