@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
-
 namespace Phlogopite
 {
     public sealed class MediatorLoggerBuilder
@@ -40,10 +38,7 @@ namespace Phlogopite
             AggregateLogger<NamedProperty, ArraySegment<NamedProperty>> aggregateLogger =
                 AggregateLogger.Create(_loggers, ExceptionHandler);
 
-            var timeLogger =
-                new TimeLogger<AggregateLogger<NamedProperty, ArraySegment<NamedProperty>>>(aggregateLogger);
-
-            return new MediatorLogger(timeLogger, MinimumLevel, MinimumLevelProvider);
+            return new MediatorLogger(aggregateLogger, MinimumLevel, MinimumLevelProvider);
         }
 
         public MediatorLoggerBuilder AddLogger(ILogger<NamedProperty, ArraySegment<NamedProperty>> logger)
