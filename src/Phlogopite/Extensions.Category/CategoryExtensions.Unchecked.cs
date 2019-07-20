@@ -13,15 +13,16 @@ namespace Phlogopite.Extensions.Category
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+
             const int userPropertyCount = 1;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount);
+                userPropertyCount + attachedPropertyCount + 2);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 userProperties[0] = p0;
-                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, 0);
                 UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
             }
             finally
@@ -37,16 +38,17 @@ namespace Phlogopite.Extensions.Category
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+
             const int userPropertyCount = 2;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount);
+                userPropertyCount + attachedPropertyCount + 2);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 userProperties[0] = p0;
                 userProperties[1] = p1;
-                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, 0);
                 UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
             }
             finally
@@ -62,17 +64,18 @@ namespace Phlogopite.Extensions.Category
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+
             const int userPropertyCount = 3;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount);
+                userPropertyCount + attachedPropertyCount + 2);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 userProperties[0] = p0;
                 userProperties[1] = p1;
                 userProperties[2] = p2;
-                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, 0);
                 UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
             }
             finally
@@ -88,10 +91,11 @@ namespace Phlogopite.Extensions.Category
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+
             const int userPropertyCount = 4;
             int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);
             NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(
-                userPropertyCount + attachedPropertyCount);
+                userPropertyCount + attachedPropertyCount + 2);
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
@@ -99,7 +103,7 @@ namespace Phlogopite.Extensions.Category
                 userProperties[1] = p1;
                 userProperties[2] = p2;
                 userProperties[3] = p3;
-                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, attachedPropertyCount);
+                var attachedProperties = new ArraySegment<NamedProperty>(properties, userPropertyCount, 0);
                 UncheckedWrite(logger, level, category, text, attachedProperties, userProperties, source);
             }
             finally
