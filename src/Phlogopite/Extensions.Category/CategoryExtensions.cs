@@ -1,0 +1,49 @@
+using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
+namespace Phlogopite.Extensions.Category
+{
+    public static class CategoryExtensions
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write<TLogger>(this TLogger logger, Level level, string category, string text,
+            [CallerMemberName] string source = null)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            if (logger is null || !logger.IsEnabled(Level.Error))
+                return;
+
+            UncheckedWrite(logger, level, category, text, default, default, source);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int GetAttachedPropertyCountOrDefault<TLogger>(TLogger logger)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            Debug.Assert(logger != null, "logger != null");
+
+            return Math.Max(0, logger.MaxAttachedPropertyCount);
+        }
+
+        private static void UncheckedWrite<TLogger>(this TLogger logger, Level level, string category, string text,
+            ArraySegment<NamedProperty> attachedProperties, ReadOnlySpan<NamedProperty> userProperties, string source)
+            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        {
+            Debug.Assert(logger != null, "logger != null");
+            Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
+
+            if (category != null && !PropertyHelpers.TryAdd(ref attachedProperties,
+                new NamedProperty(KnownProperties.Category, category)))
+            {
+                logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+                return;
+            }
+
+            if (source != null)
+                PropertyHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
+
+            logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+        }
+    }
+}
