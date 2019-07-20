@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Phlogopite.Extensions.Source
 {
-    public static partial class LoggerExtensions
+    public static partial class SourceLoggerExtensions
     {
         private static void AllocateThenWrite1<TLogger>(TLogger logger, Level level, string text,
             in NamedProperty p0,

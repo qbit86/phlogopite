@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Source
 {
-    public static partial class LoggerExtensions
+    public static partial class SourceLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string text,

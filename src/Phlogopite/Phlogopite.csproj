@@ -58,9 +58,9 @@ Phlogopite.Writer</Description>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CategoryExtensions.Write.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Source\LoggerExtensions.Allocate.tt">
+    <None Update="Extensions.Source\SourceLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LoggerExtensions.Allocate.cs</LastGenOutput>
+      <LastGenOutput>SourceLoggerExtensions.Allocate.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -84,10 +84,10 @@ Phlogopite.Writer</Description>
       <AutoGen>True</AutoGen>
       <DependentUpon>CategoryExtensions.Write.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Source\LoggerExtensions.Allocate.cs">
+    <Compile Update="Extensions.Source\SourceLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>LoggerExtensions.Allocate.tt</DependentUpon>
+      <DependentUpon>SourceLoggerExtensions.Allocate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
