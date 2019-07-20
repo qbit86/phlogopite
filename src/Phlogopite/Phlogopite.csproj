@@ -42,12 +42,21 @@ Phlogopite.Writer</Description>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Extensions.Category\CategoryExtensions.Unchecked.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CategoryExtensions.Unchecked.cs</LastGenOutput>
+    </None>
     <None Update="Extensions.Category\CategoryExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CategoryExtensions.Write.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Extensions.Category\CategoryExtensions.Unchecked.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CategoryExtensions.Unchecked.tt</DependentUpon>
+    </Compile>
     <Compile Update="Extensions.Category\CategoryExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
