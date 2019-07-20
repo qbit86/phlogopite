@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Category
 {
-    public static class CategoryExtensions
+    public static partial class CategoryExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string category, string text,

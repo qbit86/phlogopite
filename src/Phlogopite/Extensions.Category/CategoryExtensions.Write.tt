@@ -1,0 +1,68 @@
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Runtime.CompilerServices;
+
+namespace Phlogopite.Extensions.Category
+{
+    public static partial class CategoryExtensions
+    {
+        #region Omitting text
+
+<#
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+    WriteLine("public static void Write<TLogger>(this TLogger logger, Level level,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(")");
+    WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("if (logger is null || !logger.IsEnabled(Level.Error))");
+    WriteLine("    return;");
+    ClearIndent();
+    WriteLine(string.Empty);
+    PushIndent("        ");
+    WriteLine("    throw new NotImplementedException();");
+    /*
+    Write("    WriteUnchecked(writer, level, null, ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("p" + propertyIndex);
+    }
+
+    WriteLine(");");
+    */
+    WriteLine("}");
+    ClearIndent();
+}
+#>
+
+        #endregion Omitting text
+
+        #region Including text
+
+        #endregion Including text
+    }
+}
