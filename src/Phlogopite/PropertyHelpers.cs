@@ -13,8 +13,8 @@ namespace Phlogopite
             if (array is null || offset + oldCount >= array.Length)
                 return false;
 
-            properties = new ArraySegment<NamedProperty>(array, offset, oldCount + 1);
             array[offset + oldCount] = property;
+            properties = new ArraySegment<NamedProperty>(array, offset, oldCount + 1);
             return true;
         }
     }
