@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Tag
 {
-    public static partial class CategoryExtensions
+    public static partial class TagLoggerExtensions
     {
         #region Verbose
 

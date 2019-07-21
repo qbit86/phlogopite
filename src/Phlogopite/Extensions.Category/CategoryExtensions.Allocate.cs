@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Phlogopite.Extensions.Tag
 {
-    public static partial class CategoryExtensions
+    public static partial class TagLoggerExtensions
     {
         private static void AllocateThenWrite1<TLogger>(TLogger logger, Level level, string category, string text,
             in NamedProperty p0,

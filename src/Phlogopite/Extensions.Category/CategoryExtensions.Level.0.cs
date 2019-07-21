@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Tag
 {
-    public static partial class CategoryExtensions
+    public static partial class TagLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TLogger>(this TLogger logger, string category, string text,
