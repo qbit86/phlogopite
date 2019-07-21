@@ -58,7 +58,7 @@ namespace Phlogopite.Extensions.Source
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
 
             if (source != null)
-                PropertyHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
+                ArraySegmentHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
 
             logger.UncheckedWrite(level, text, attachedProperties, userProperties);
         }

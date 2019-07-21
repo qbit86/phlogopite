@@ -35,7 +35,7 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
-            PropertyHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Time, DateTime.Now));
+            ArraySegmentHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Time, DateTime.Now));
             _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
         }
     }

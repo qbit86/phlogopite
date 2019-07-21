@@ -47,7 +47,8 @@ namespace Phlogopite
             ReadOnlySpan<NamedProperty> userProperties)
         {
             if (_category != null)
-                PropertyHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Category, _category));
+                ArraySegmentHelpers.TryAdd(ref attachedProperties,
+                    new NamedProperty(KnownProperties.Category, _category));
 
             _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
         }

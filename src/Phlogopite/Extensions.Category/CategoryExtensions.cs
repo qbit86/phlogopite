@@ -57,7 +57,7 @@ namespace Phlogopite.Extensions.Category
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
 
-            if (category != null && !PropertyHelpers.TryAdd(ref attachedProperties,
+            if (category != null && !ArraySegmentHelpers.TryAdd(ref attachedProperties,
                 new NamedProperty(KnownProperties.Category, category)))
             {
                 logger.UncheckedWrite(level, text, attachedProperties, userProperties);
@@ -65,7 +65,7 @@ namespace Phlogopite.Extensions.Category
             }
 
             if (source != null)
-                PropertyHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
+                ArraySegmentHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
 
             logger.UncheckedWrite(level, text, attachedProperties, userProperties);
         }
