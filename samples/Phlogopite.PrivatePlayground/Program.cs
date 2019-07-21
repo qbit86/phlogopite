@@ -1,10 +1,9 @@
 using System;
-using System.Globalization;
-using System.Threading;
 using Phlogopite.Extensions.Category;
 using Phlogopite.Extensions.Logger;
+using Phlogopite.Extensions.Source;
 
-#pragma warning disable CA1303
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
 
 namespace Phlogopite
 {
@@ -12,9 +11,6 @@ namespace Phlogopite
     {
         private static void Main()
         {
-            // Messing with culture.
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
-
             MediatorLogger m = new MediatorLoggerBuilder(Level.Debug).AddLogger(new ConsoleLogger()).Build();
             Log.TrySetLogger(m);
 
@@ -25,9 +21,18 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
+        private static CategoryLogger<ILogger<NamedProperty, ArraySegment<NamedProperty>>> s_log;
+
+        public Foo()
+        {
+            s_log = CategoryLogger.Create(Log.Logger, nameof(Foo));
+        }
+
         internal void Bar()
         {
-            Log.Logger.Write(Level.Info, nameof(Program), "Hello", ("user", Environment.UserName));
+            Log.Logger.Write(Level.Info, nameof(Foo), "Hello", ("user", Environment.UserName));
+
+            s_log.D("Text", ("pi", Math.PI));
         }
     }
 }
