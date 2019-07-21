@@ -7,61 +7,10 @@ namespace Phlogopite.Extensions.Tag
 {
     public static partial class TagLoggerExtensions
     {
-        #region Omitting text
-
 <#
 const int startPropertyCount = 1;
 const int maxPropertyCount = 4;
 
-for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
-{
-    ClearIndent();
-    if (propertyCount != startPropertyCount)
-        WriteLine(string.Empty);
-
-    PushIndent("        ");
-    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-    WriteLine("public static void Write<TLogger>(this TLogger logger, Level level, string category,");
-    PushIndent("    ");
-    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-    {
-        if (propertyIndex != 0)
-            Write(", ");
-
-        Write("in NamedProperty p" + propertyIndex);
-    }
-
-    WriteLine(",");
-    WriteLine("[CallerMemberName] string source = null)");
-    WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
-    PopIndent();
-    WriteLine("{");
-    PushIndent("    ");
-    WriteLine("if (logger is null || !logger.IsEnabled(level))");
-    WriteLine("    return;");
-    ClearIndent();
-    WriteLine(string.Empty);
-    PushIndent("        ");
-    Write($"    AllocateThenWrite{propertyCount}(logger, level, category, null, ");
-    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-    {
-        if (propertyIndex != 0)
-            Write(", ");
-
-        Write("p" + propertyIndex);
-    }
-
-    WriteLine(", source);");
-    WriteLine("}");
-    ClearIndent();
-}
-#>
-
-        #endregion Omitting text
-
-        #region Including text
-
-<#
 for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
 {
     ClearIndent();
@@ -105,7 +54,5 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
     ClearIndent();
 }
 #>
-
-        #endregion Including text
     }
 }
