@@ -42,19 +42,19 @@ Phlogopite.Writer</Description>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Extensions.Category\TagLoggerExtensions.Allocate.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TagLoggerExtensions.Allocate.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Category\TagLoggerExtensions.Level.0.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Level.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TagLoggerExtensions.Level.0.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Category\TagLoggerExtensions.Level.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TagLoggerExtensions.Level.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Category\TagLoggerExtensions.Write.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TagLoggerExtensions.Write.cs</LastGenOutput>
     </None>
@@ -76,22 +76,22 @@ Phlogopite.Writer</Description>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Extensions.Category\TagLoggerExtensions.Allocate.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TagLoggerExtensions.Allocate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Category\TagLoggerExtensions.Level.0.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TagLoggerExtensions.Level.0.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Category\TagLoggerExtensions.Level.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TagLoggerExtensions.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Category\TagLoggerExtensions.Write.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TagLoggerExtensions.Write.tt</DependentUpon>
