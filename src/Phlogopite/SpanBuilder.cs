@@ -50,6 +50,11 @@ namespace Phlogopite
 
         public int Count => _count;
 
+#pragma warning disable CA2225 // Operator overloads have named alternates
+        public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> segment)
+            => new Span<T>(segment._array, segment._offset, segment._count);
+#pragma warning restore CA2225 // Operator overloads have named alternates
+
         // ReSharper disable InconsistentNaming
 
         public ReadOnlySpan<T> AsSpan()
