@@ -66,6 +66,10 @@ Phlogopite.Writer</Description>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SourceLoggerExtensions.Level.0.cs</LastGenOutput>
     </None>
+    <None Update="Extensions.Source\SourceLoggerExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SourceLoggerExtensions.Level.cs</LastGenOutput>
+    </None>
     <None Update="Extensions.Source\SourceLoggerExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SourceLoggerExtensions.Write.cs</LastGenOutput>
@@ -101,6 +105,11 @@ Phlogopite.Writer</Description>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SourceLoggerExtensions.Level.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions.Source\SourceLoggerExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SourceLoggerExtensions.Level.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions.Source\SourceLoggerExtensions.Write.cs">
       <DesignTime>True</DesignTime>
