@@ -1,7 +1,7 @@
 using System;
-using Phlogopite.Singletons.Logger;
 using Phlogopite.Extensions.Source;
 using Phlogopite.Extensions.Tag;
+using Phlogopite.Singletons.Logger;
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
 
@@ -21,11 +21,11 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private static CategoryLogger<ILogger<NamedProperty, ArraySegment<NamedProperty>>> s_log;
+        private static Specialized.CategoryLogger s_log;
 
         public Foo()
         {
-            s_log = CategoryLogger.Create(Log.Logger, nameof(Foo));
+            s_log = new Specialized.CategoryLogger(Log.Logger, nameof(Foo));
         }
 
         internal void Bar()
