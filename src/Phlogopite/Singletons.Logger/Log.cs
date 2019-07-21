@@ -1,6 +1,6 @@
 using System;
 
-namespace Phlogopite.Extensions.Logger
+namespace Phlogopite.Singletons.Logger
 {
     public static class Log
     {
