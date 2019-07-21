@@ -3,7 +3,7 @@ using System.Buffers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Phlogopite.Extensions.Category
+namespace Phlogopite.Extensions.Tag
 {
     public static partial class CategoryExtensions
     {

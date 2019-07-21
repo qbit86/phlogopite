@@ -1,5 +1,5 @@
 using System;
-using Phlogopite.Extensions.Category;
+using Phlogopite.Extensions.Tag;
 using Phlogopite.Extensions.Logger;
 using Phlogopite.Extensions.Source;
 

@@ -2,7 +2,7 @@ using System;
 using System.Buffers;
 using System.Diagnostics;
 
-namespace Phlogopite.Extensions.Category
+namespace Phlogopite.Extensions.Tag
 {
     public static partial class CategoryExtensions
     {
