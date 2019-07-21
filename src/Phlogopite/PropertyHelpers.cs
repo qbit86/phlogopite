@@ -4,17 +4,17 @@ namespace Phlogopite
 {
     internal static class PropertyHelpers
     {
-        internal static bool TryAdd(ref ArraySegment<NamedProperty> properties, NamedProperty property)
+        internal static bool TryAdd<T>(ref ArraySegment<T> arraySegment, T item)
         {
-            NamedProperty[] array = properties.Array;
-            int offset = properties.Offset;
-            int oldCount = properties.Count;
+            T[] array = arraySegment.Array;
+            int offset = arraySegment.Offset;
+            int oldCount = arraySegment.Count;
 
             if (array is null || offset + oldCount >= array.Length)
                 return false;
 
-            array[offset + oldCount] = property;
-            properties = new ArraySegment<NamedProperty>(array, offset, oldCount + 1);
+            array[offset + oldCount] = item;
+            arraySegment = new ArraySegment<T>(array, offset, oldCount + 1);
             return true;
         }
     }
