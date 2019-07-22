@@ -1,26 +1,27 @@
 using System;
 using System.Collections.Generic;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
     public static class CategoryLogger
     {
         public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, string category)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             return new CategoryLogger<TLogger>(logger, category);
         }
 
         public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, Level minimumLevel, string category)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             return new CategoryLogger<TLogger>(logger, minimumLevel, category);
         }
     }
 
-    public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>,
+    public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty, PropertyCollection>,
         IEquatable<CategoryLogger<TLogger>>
-        where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        where TLogger : ILogger<NamedProperty, PropertyCollection>
     {
         private const Level DefaultMinimumLevel = Level.Verbose;
 
@@ -43,7 +44,7 @@ namespace Phlogopite
 
         public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
 
-        public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
+        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
             if (_category != null)

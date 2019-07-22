@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
-    public sealed class ConsoleLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+    public sealed class ConsoleLogger : ILogger<NamedProperty, PropertyCollection>
     {
         internal const bool DefaultEmitLevel = false;
         internal const bool DefaultEmitTime = false;
@@ -60,7 +61,7 @@ namespace Phlogopite
 
         public int MaxAttachedPropertyCount => 0;
 
-        public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
+        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
             int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);

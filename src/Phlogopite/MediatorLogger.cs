@@ -1,15 +1,16 @@
 using System;
 using System.Diagnostics;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
-    public sealed class MediatorLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+    public sealed class MediatorLogger : ILogger<NamedProperty, PropertyCollection>
     {
-        private readonly AggregateLogger<NamedProperty, ArraySegment<NamedProperty>> _logger;
+        private readonly AggregateLogger<NamedProperty, PropertyCollection> _logger;
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
 
-        internal MediatorLogger(AggregateLogger<NamedProperty, ArraySegment<NamedProperty>> logger,
+        internal MediatorLogger(AggregateLogger<NamedProperty, PropertyCollection> logger,
             Level minimumLevel, Func<Level> minimumLevelProvider)
         {
             Debug.Assert(logger != null, "logger != null");
@@ -32,7 +33,7 @@ namespace Phlogopite
             return _logger.IsEnabled(level);
         }
 
-        public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
+        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
             ArraySegmentHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Time, DateTime.Now));
