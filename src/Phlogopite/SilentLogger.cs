@@ -1,21 +1,22 @@
 using System;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
-    public sealed class SilentLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+    public sealed class SilentLogger : ILogger<NamedProperty, PropertyCollection>
     {
         private SilentLogger() { }
 
         public static SilentLogger Default { get; } = new SilentLogger();
 
-        int ILogger<NamedProperty, ArraySegment<NamedProperty>>.MaxAttachedPropertyCount => 0;
+        int ILogger<NamedProperty, PropertyCollection>.MaxAttachedPropertyCount => 0;
 
-        bool ILogger<NamedProperty, ArraySegment<NamedProperty>>.IsEnabled(Level level)
+        bool ILogger<NamedProperty, PropertyCollection>.IsEnabled(Level level)
         {
             return false;
         }
 
-        void ILogger<NamedProperty, ArraySegment<NamedProperty>>.UncheckedWrite(Level level, string text,
-            ArraySegment<NamedProperty> attachedProperties, ReadOnlySpan<NamedProperty> userProperties) { }
+        void ILogger<NamedProperty, PropertyCollection>.UncheckedWrite(Level level, string text,
+            PropertyCollection attachedProperties, ReadOnlySpan<NamedProperty> userProperties) { }
     }
 }

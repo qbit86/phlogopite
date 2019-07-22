@@ -1,20 +1,21 @@
 using System;
 using System.Collections.Generic;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
     public static class TimeLogger
     {
         public static TimeLogger<TLogger> Create<TLogger>(TLogger logger)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             return new TimeLogger<TLogger>(logger);
         }
     }
 
-    public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty, ArraySegment<NamedProperty>>,
+    public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty, PropertyCollection>,
         IEquatable<TimeLogger<TLogger>>
-        where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+        where TLogger : ILogger<NamedProperty, PropertyCollection>
     {
         private readonly TLogger _logger;
 
@@ -28,7 +29,7 @@ namespace Phlogopite
 
         public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
 
-        public void UncheckedWrite(Level level, string text, ArraySegment<NamedProperty> attachedProperties,
+        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
             ReadOnlySpan<NamedProperty> userProperties)
         {
             ArraySegmentHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Time, DateTime.Now));

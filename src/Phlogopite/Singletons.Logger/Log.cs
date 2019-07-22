@@ -1,14 +1,15 @@
 using System;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Singletons.Logger
 {
     public static class Log
     {
-        private static ILogger<NamedProperty, ArraySegment<NamedProperty>> s_logger;
+        private static ILogger<NamedProperty, PropertyCollection> s_logger;
 
-        public static ILogger<NamedProperty, ArraySegment<NamedProperty>> Logger => s_logger ?? SilentLogger.Default;
+        public static ILogger<NamedProperty, PropertyCollection> Logger => s_logger ?? SilentLogger.Default;
 
-        public static bool TrySetLogger(ILogger<NamedProperty, ArraySegment<NamedProperty>> logger)
+        public static bool TrySetLogger(ILogger<NamedProperty, PropertyCollection> logger)
         {
             if (s_logger != null)
                 return false;

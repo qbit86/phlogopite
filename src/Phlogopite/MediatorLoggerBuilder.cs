@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
@@ -7,10 +8,10 @@ namespace Phlogopite
     {
         private const Level DefaultMinimumLevel = Level.Verbose;
 
-        private ICollection<ILogger<NamedProperty, ArraySegment<NamedProperty>>> _loggers;
+        private ICollection<ILogger<NamedProperty, PropertyCollection>> _loggers;
         private Level? _minimumLevel;
 
-        public MediatorLoggerBuilder(ICollection<ILogger<NamedProperty, ArraySegment<NamedProperty>>> loggers)
+        public MediatorLoggerBuilder(ICollection<ILogger<NamedProperty, PropertyCollection>> loggers)
         {
             _loggers = loggers;
         }
@@ -30,31 +31,31 @@ namespace Phlogopite
 
         public Func<Level> MinimumLevelProvider { get; set; }
 
-        public ICollection<ILogger<NamedProperty, ArraySegment<NamedProperty>>> Loggers =>
-            _loggers ?? Array.Empty<ILogger<NamedProperty, ArraySegment<NamedProperty>>>();
+        public ICollection<ILogger<NamedProperty, PropertyCollection>> Loggers =>
+            _loggers ?? Array.Empty<ILogger<NamedProperty, PropertyCollection>>();
 
         public MediatorLogger Build()
         {
-            AggregateLogger<NamedProperty, ArraySegment<NamedProperty>> aggregateLogger =
+            AggregateLogger<NamedProperty, PropertyCollection> aggregateLogger =
                 AggregateLogger.Create(_loggers, ExceptionHandler);
 
             return new MediatorLogger(aggregateLogger, MinimumLevel, MinimumLevelProvider);
         }
 
-        public MediatorLoggerBuilder AddLogger(ILogger<NamedProperty, ArraySegment<NamedProperty>> logger)
+        public MediatorLoggerBuilder AddLogger(ILogger<NamedProperty, PropertyCollection> logger)
         {
             if (logger is null)
                 return this;
 
             if (_loggers is null)
             {
-                _loggers = new List<ILogger<NamedProperty, ArraySegment<NamedProperty>>>(1) { logger };
+                _loggers = new List<ILogger<NamedProperty, PropertyCollection>>(1) { logger };
                 return this;
             }
 
-            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty, ArraySegment<NamedProperty>>[])
+            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty, PropertyCollection>[])
             {
-                _loggers = new List<ILogger<NamedProperty, ArraySegment<NamedProperty>>>(_loggers) { logger };
+                _loggers = new List<ILogger<NamedProperty, PropertyCollection>>(_loggers) { logger };
                 return this;
             }
 
@@ -62,8 +63,8 @@ namespace Phlogopite
             return this;
         }
 
-        public MediatorLoggerBuilder AddLoggers(ILogger<NamedProperty, ArraySegment<NamedProperty>> logger0,
-            ILogger<NamedProperty, ArraySegment<NamedProperty>> logger1)
+        public MediatorLoggerBuilder AddLoggers(ILogger<NamedProperty, PropertyCollection> logger0,
+            ILogger<NamedProperty, PropertyCollection> logger1)
         {
             if (logger0 is null)
                 return AddLogger(logger1);
@@ -73,13 +74,13 @@ namespace Phlogopite
 
             if (_loggers is null)
             {
-                _loggers = new List<ILogger<NamedProperty, ArraySegment<NamedProperty>>>(2) { logger0, logger1 };
+                _loggers = new List<ILogger<NamedProperty, PropertyCollection>>(2) { logger0, logger1 };
                 return this;
             }
 
-            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty, ArraySegment<NamedProperty>>[])
+            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty, PropertyCollection>[])
             {
-                _loggers = new List<ILogger<NamedProperty, ArraySegment<NamedProperty>>>(_loggers) { logger0, logger1 };
+                _loggers = new List<ILogger<NamedProperty, PropertyCollection>>(_loggers) { logger0, logger1 };
                 return this;
             }
 
