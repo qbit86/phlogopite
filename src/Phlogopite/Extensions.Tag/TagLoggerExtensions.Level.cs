@@ -1,5 +1,5 @@
-using System;
 using System.Runtime.CompilerServices;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Tag
 {
@@ -11,7 +11,7 @@ namespace Phlogopite.Extensions.Tag
         public static void V<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
@@ -23,7 +23,7 @@ namespace Phlogopite.Extensions.Tag
         public static void V<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
@@ -35,7 +35,7 @@ namespace Phlogopite.Extensions.Tag
         public static void V<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
@@ -47,7 +47,7 @@ namespace Phlogopite.Extensions.Tag
         public static void V<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
@@ -63,7 +63,7 @@ namespace Phlogopite.Extensions.Tag
         public static void D<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
@@ -75,7 +75,7 @@ namespace Phlogopite.Extensions.Tag
         public static void D<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
@@ -87,7 +87,7 @@ namespace Phlogopite.Extensions.Tag
         public static void D<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
@@ -99,7 +99,7 @@ namespace Phlogopite.Extensions.Tag
         public static void D<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
@@ -115,7 +115,7 @@ namespace Phlogopite.Extensions.Tag
         public static void I<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
@@ -127,7 +127,7 @@ namespace Phlogopite.Extensions.Tag
         public static void I<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
@@ -139,7 +139,7 @@ namespace Phlogopite.Extensions.Tag
         public static void I<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
@@ -151,7 +151,7 @@ namespace Phlogopite.Extensions.Tag
         public static void I<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
@@ -167,7 +167,7 @@ namespace Phlogopite.Extensions.Tag
         public static void W<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
@@ -179,7 +179,7 @@ namespace Phlogopite.Extensions.Tag
         public static void W<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
@@ -191,7 +191,7 @@ namespace Phlogopite.Extensions.Tag
         public static void W<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
@@ -203,7 +203,7 @@ namespace Phlogopite.Extensions.Tag
         public static void W<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
@@ -219,7 +219,7 @@ namespace Phlogopite.Extensions.Tag
         public static void E<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
@@ -231,7 +231,7 @@ namespace Phlogopite.Extensions.Tag
         public static void E<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
@@ -243,7 +243,7 @@ namespace Phlogopite.Extensions.Tag
         public static void E<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
@@ -255,7 +255,7 @@ namespace Phlogopite.Extensions.Tag
         public static void E<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
@@ -271,7 +271,7 @@ namespace Phlogopite.Extensions.Tag
         public static void A<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;
@@ -283,7 +283,7 @@ namespace Phlogopite.Extensions.Tag
         public static void A<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;
@@ -295,7 +295,7 @@ namespace Phlogopite.Extensions.Tag
         public static void A<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;
@@ -307,7 +307,7 @@ namespace Phlogopite.Extensions.Tag
         public static void A<TLogger>(this TLogger logger, string category, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>
+            where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;

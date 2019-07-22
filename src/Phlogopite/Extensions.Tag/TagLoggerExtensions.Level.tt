@@ -1,7 +1,7 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
-using System;
 using System.Runtime.CompilerServices;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Tag
 {
@@ -42,7 +42,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 
         WriteLine(",");
         WriteLine("[CallerMemberName] string source = null)");
-        WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
+        WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
         PopIndent();
         WriteLine("{");
         WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");
