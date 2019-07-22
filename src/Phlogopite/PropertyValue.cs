@@ -64,9 +64,10 @@ namespace Phlogopite
 
         public override string ToString()
         {
-            StringBuilder sb = StringBuilderCache.Acquire(32);
+            StringBuilder sb = StringBuilderCache.Acquire(64);
+            sb.Append("Type: ");
             sb.Append(_typeCode);
-            sb.Append(": ");
+            sb.Append(", Value: ");
 
             switch (_typeCode)
             {
