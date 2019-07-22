@@ -1,7 +1,7 @@
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ output extension=".cs" #>
-using System;
 using System.Runtime.CompilerServices;
+using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Source
 {
@@ -33,7 +33,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
 
     WriteLine(",");
     WriteLine("[CallerMemberName] string source = null)");
-    WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
+    WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
     PopIndent();
     WriteLine("{");
     PushIndent("    ");
@@ -82,7 +82,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
 
     WriteLine(",");
     WriteLine("[CallerMemberName] string source = null)");
-    WriteLine("where TLogger : ILogger<NamedProperty, ArraySegment<NamedProperty>>");
+    WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
     PopIndent();
     WriteLine("{");
     PushIndent("    ");
