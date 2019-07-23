@@ -30,7 +30,7 @@ namespace Phlogopite.Specialized
         {
             if (_category != null)
             {
-                PropertyCollectionHelpers.TryAdd(ref attachedProperties,
+                CollectionHelpers.TryAppend(ref attachedProperties,
                     new NamedProperty(KnownProperties.Category, _category));
             }
 
