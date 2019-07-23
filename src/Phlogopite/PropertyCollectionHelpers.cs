@@ -2,7 +2,7 @@ using System;
 
 namespace Phlogopite
 {
-    internal static class ArraySegmentHelpers
+    internal static class PropertyCollectionHelpers
     {
         internal static bool TryAdd<T>(ref ArraySegment<T> arraySegment, T item)
         {

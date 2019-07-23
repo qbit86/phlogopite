@@ -49,7 +49,7 @@ namespace Phlogopite
         {
             if (_category != null)
             {
-                ArraySegmentHelpers.TryAdd(ref attachedProperties,
+                PropertyCollectionHelpers.TryAdd(ref attachedProperties,
                     new NamedProperty(KnownProperties.Category, _category));
             }
 
