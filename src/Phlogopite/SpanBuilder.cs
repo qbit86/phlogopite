@@ -97,7 +97,7 @@ namespace Phlogopite
         {
             if (_offset + _count >= _array.Length)
             {
-                result = default;
+                result = this;
                 return false;
             }
 
