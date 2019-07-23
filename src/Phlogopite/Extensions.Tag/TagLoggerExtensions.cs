@@ -66,7 +66,8 @@ namespace Phlogopite.Extensions.Tag
             }
 
             if (source != null)
-                PropertyCollectionHelpers.TryAdd(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
+                PropertyCollectionHelpers.TryAdd(ref attachedProperties,
+                    new NamedProperty(KnownProperties.Source, source));
 
             logger.UncheckedWrite(level, text, attachedProperties, userProperties);
         }
