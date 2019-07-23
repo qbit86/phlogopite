@@ -61,8 +61,8 @@ namespace Phlogopite
 
         public int MaxAttachedPropertyCount => 0;
 
-        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
-            ReadOnlySpan<NamedProperty> userProperties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            PropertyCollection attachedProperties)
         {
             int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
             StringBuilder sb = StringBuilderCache.Acquire(capacity);

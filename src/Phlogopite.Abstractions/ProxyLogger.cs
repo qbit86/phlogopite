@@ -38,10 +38,10 @@ namespace Phlogopite
             return _logger.IsEnabled(level);
         }
 
-        public void UncheckedWrite(Level level, string text, TProperties attachedProperties,
-            ReadOnlySpan<TProperty> userProperties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
+            TProperties attachedProperties)
         {
-            _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+            _logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
 
         public bool Equals(ProxyLogger<TLogger, TProperty, TProperties> other)

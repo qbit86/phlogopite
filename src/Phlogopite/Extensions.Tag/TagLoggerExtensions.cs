@@ -61,14 +61,14 @@ namespace Phlogopite.Extensions.Tag
             if (category != null && !CollectionHelpers.TryAppend(ref attachedProperties,
                 new NamedProperty(KnownProperties.Category, category)))
             {
-                logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+                logger.UncheckedWrite(level, text, userProperties, attachedProperties);
                 return;
             }
 
             if (source != null)
                 CollectionHelpers.TryAppend(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
 
-            logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+            logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
     }
 }

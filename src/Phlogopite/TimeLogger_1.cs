@@ -29,11 +29,11 @@ namespace Phlogopite
 
         public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
 
-        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
-            ReadOnlySpan<NamedProperty> userProperties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            PropertyCollection attachedProperties)
         {
             CollectionHelpers.TryAppend(ref attachedProperties, new NamedProperty(KnownProperties.Time, DateTime.Now));
-            _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+            _logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
 
         public bool IsEnabled(Level level)

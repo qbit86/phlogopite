@@ -61,7 +61,7 @@ namespace Phlogopite.Extensions.Source
             if (source != null)
                 CollectionHelpers.TryAppend(ref attachedProperties, new NamedProperty(KnownProperties.Source, source));
 
-            logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+            logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
     }
 }

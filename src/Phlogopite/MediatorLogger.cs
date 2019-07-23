@@ -33,11 +33,11 @@ namespace Phlogopite
             return _logger.IsEnabled(level);
         }
 
-        public void UncheckedWrite(Level level, string text, PropertyCollection attachedProperties,
-            ReadOnlySpan<NamedProperty> userProperties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            PropertyCollection attachedProperties)
         {
             CollectionHelpers.TryAppend(ref attachedProperties, new NamedProperty(KnownProperties.Time, DateTime.Now));
-            _logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+            _logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
     }
 }

@@ -17,6 +17,6 @@ namespace Phlogopite
         }
 
         void ILogger<NamedProperty, PropertyCollection>.UncheckedWrite(Level level, string text,
-            PropertyCollection attachedProperties, ReadOnlySpan<NamedProperty> userProperties) { }
+            ReadOnlySpan<NamedProperty> userProperties, PropertyCollection attachedProperties) { }
     }
 }

@@ -51,8 +51,8 @@ namespace Phlogopite
             return _loggers.Length != 0;
         }
 
-        public void UncheckedWrite(Level level, string text, TProperties attachedProperties,
-            ReadOnlySpan<TProperty> userProperties)
+        public void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
+            TProperties attachedProperties)
         {
             List<Exception> exceptions = null;
             for (int i = 0; i != _loggers.Length; ++i)
@@ -63,7 +63,7 @@ namespace Phlogopite
                     if (logger is null || !logger.IsEnabled(level))
                         continue;
 
-                    logger.UncheckedWrite(level, text, attachedProperties, userProperties);
+                    logger.UncheckedWrite(level, text, userProperties, attachedProperties);
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
