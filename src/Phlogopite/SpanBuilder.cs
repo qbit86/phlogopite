@@ -16,9 +16,7 @@ namespace Phlogopite
         }
     }
 
-#pragma warning disable CA1066 // Type {0} should implement IEquatable<T> because it overrides Equals
-
-    public readonly ref struct SpanBuilder<T>
+    public readonly struct SpanBuilder<T> : IEquatable<SpanBuilder<T>>
     {
         private readonly T[] _array;
         private readonly int _offset;
@@ -113,7 +111,7 @@ namespace Phlogopite
 
         public override bool Equals(object obj)
         {
-            return false;
+            return obj is SpanBuilder<T> other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -137,6 +135,4 @@ namespace Phlogopite
             return !left.Equals(right);
         }
     }
-
-#pragma warning restore CA1066 // Type {0} should implement IEquatable<T> because it overrides Equals
 }
