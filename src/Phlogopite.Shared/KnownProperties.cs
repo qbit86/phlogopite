@@ -1,4 +1,4 @@
-namespace Phlogopite
+namespace Phlogopite.Internal
 {
     internal static class KnownProperties
     {

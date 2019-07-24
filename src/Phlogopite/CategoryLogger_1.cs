@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Phlogopite.Internal;
 using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
