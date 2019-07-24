@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using PropertyCollection = System.ArraySegment<Phlogopite.NamedProperty>;
+using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {

@@ -1,10 +1,8 @@
-using System;
-
 namespace Phlogopite
 {
     internal static class CollectionHelpers
     {
-        internal static bool TryAppend<T>(ref ArraySegment<T> collection, T item)
+        internal static bool TryAppend<T>(ref SpanBuilder<T> collection, T item)
         {
             T[] array = collection.Array;
             int offset = collection.Offset;
@@ -14,7 +12,7 @@ namespace Phlogopite
                 return false;
 
             array[offset + oldCount] = item;
-            collection = new ArraySegment<T>(array, offset, oldCount + 1);
+            collection = new SpanBuilder<T>(array, offset, oldCount + 1);
             return true;
         }
     }
