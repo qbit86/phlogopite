@@ -9,5 +9,57 @@ namespace Phlogopite.Extensions.Common
 {
     public static partial class CommonLoggerExtensions
     {
+<#
+const int startPropertyCount = 1;
+const int maxPropertyCount = 4;
+
+for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+{
+    ClearIndent();
+    if (propertyCount != startPropertyCount)
+        WriteLine(string.Empty);
+
+    PushIndent("        ");
+    WriteLine($"private static void AllocateThenWrite{propertyCount}<TLogger>(TLogger logger, Level level, string text,");
+    PushIndent("    ");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    {
+        if (propertyIndex != 0)
+            Write(", ");
+
+        Write("in NamedProperty p" + propertyIndex);
+    }
+
+    WriteLine(",");
+    WriteLine("string source)");
+    WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
+    PopIndent();
+    WriteLine("{");
+    PushIndent("    ");
+    WriteLine("Debug.Assert(logger != null, \"logger != null\");");
+    WriteLine("Debug.Assert(logger.IsEnabled(level), \"logger.IsEnabled(level)\");");
+    WriteLine(string.Empty);
+    WriteLine($"const int userPropertyCount = {propertyCount};");
+    WriteLine("int attachedPropertyCount = GetAttachedPropertyCountOrDefault(logger);");
+    WriteLine("NamedProperty[] properties = ArrayPool<NamedProperty>.Shared.Rent(");
+    WriteLine("    userPropertyCount + attachedPropertyCount);");
+    WriteLine("try");
+    WriteLine("{");
+    WriteLine("    Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);");
+    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        WriteLine($"    userProperties[{propertyIndex}] = p{propertyIndex};");
+
+    WriteLine("    var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);");
+    WriteLine("    logger.UncheckedWrite(level, text, userProperties, attachedProperties);");
+    WriteLine("}");
+    WriteLine("finally");
+    WriteLine("{");
+    WriteLine("    ArrayPool<NamedProperty>.Shared.Return(properties, true);");
+    WriteLine("}");
+    PopIndent();
+    WriteLine("}");
+    ClearIndent();
+}
+#>
     }
 }
