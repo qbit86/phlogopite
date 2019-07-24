@@ -30,8 +30,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         Write("in NamedProperty p" + propertyIndex);
     }
 
-    WriteLine(",");
-    WriteLine("string source)");
+    WriteLine(")");
     WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
     PopIndent();
     WriteLine("{");

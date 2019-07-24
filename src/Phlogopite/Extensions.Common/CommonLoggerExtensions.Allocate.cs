@@ -8,8 +8,7 @@ namespace Phlogopite.Extensions.Common
     public static partial class CommonLoggerExtensions
     {
         private static void AllocateThenWrite1<TLogger>(TLogger logger, Level level, string text,
-            in NamedProperty p0,
-            string source)
+            in NamedProperty p0)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             Debug.Assert(logger != null, "logger != null");
@@ -33,8 +32,7 @@ namespace Phlogopite.Extensions.Common
         }
 
         private static void AllocateThenWrite2<TLogger>(TLogger logger, Level level, string text,
-            in NamedProperty p0, in NamedProperty p1,
-            string source)
+            in NamedProperty p0, in NamedProperty p1)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             Debug.Assert(logger != null, "logger != null");
@@ -59,8 +57,7 @@ namespace Phlogopite.Extensions.Common
         }
 
         private static void AllocateThenWrite3<TLogger>(TLogger logger, Level level, string text,
-            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
-            string source)
+            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             Debug.Assert(logger != null, "logger != null");
@@ -86,8 +83,7 @@ namespace Phlogopite.Extensions.Common
         }
 
         private static void AllocateThenWrite4<TLogger>(TLogger logger, Level level, string text,
-            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
-            string source)
+            in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             Debug.Assert(logger != null, "logger != null");
