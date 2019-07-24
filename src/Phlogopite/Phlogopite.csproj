@@ -42,21 +42,21 @@ Phlogopite.Writer</Description>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Extensions.Tag\TagLoggerExtensions.Allocate.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TagLoggerExtensions.Allocate.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Allocate.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Tag\TagLoggerExtensions.Level.0.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Level.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TagLoggerExtensions.Level.0.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Level.0.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Tag\TagLoggerExtensions.Level.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TagLoggerExtensions.Level.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Level.cs</LastGenOutput>
     </None>
-    <None Update="Extensions.Tag\TagLoggerExtensions.Write.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TagLoggerExtensions.Write.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Write.cs</LastGenOutput>
     </None>
     <None Update="Extensions.Source\SourceLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -74,27 +74,43 @@ Phlogopite.Writer</Description>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SourceLoggerExtensions.Write.cs</LastGenOutput>
     </None>
+    <None Update="Extensions.Tag\TagLoggerExtensions.Allocate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagLoggerExtensions.Allocate.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions.Tag\TagLoggerExtensions.Level.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagLoggerExtensions.Level.0.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions.Tag\TagLoggerExtensions.Level.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagLoggerExtensions.Level.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions.Tag\TagLoggerExtensions.Write.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TagLoggerExtensions.Write.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Extensions.Tag\TagLoggerExtensions.Allocate.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TagLoggerExtensions.Allocate.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Allocate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.0.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Level.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TagLoggerExtensions.Level.0.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Level.0.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TagLoggerExtensions.Level.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions.Tag\TagLoggerExtensions.Write.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>TagLoggerExtensions.Write.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Write.tt</DependentUpon>
     </Compile>
     <Compile Update="Extensions.Source\SourceLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
@@ -115,6 +131,26 @@ Phlogopite.Writer</Description>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>SourceLoggerExtensions.Write.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Allocate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TagLoggerExtensions.Allocate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TagLoggerExtensions.Level.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TagLoggerExtensions.Level.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Write.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TagLoggerExtensions.Write.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
