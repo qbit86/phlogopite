@@ -129,7 +129,7 @@ namespace Phlogopite
             {
                 NamedProperty p = properties[i];
 
-                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
+                if (!ReferenceEquals(p.Name, name))
                     continue;
 
                 if (p.TryGetDateTime(out value))
@@ -146,7 +146,7 @@ namespace Phlogopite
             {
                 NamedProperty p = properties[i];
 
-                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
+                if (!ReferenceEquals(p.Name, name))
                     continue;
 
                 if (p.TryGetString(out value))
