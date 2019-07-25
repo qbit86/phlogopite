@@ -14,7 +14,7 @@ namespace Phlogopite.Extensions.Tag
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             AllocateThenWrite0(logger, level, category, text, source);

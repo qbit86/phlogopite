@@ -12,7 +12,7 @@ namespace Phlogopite.Extensions.Common
         public static void Write<TLogger>(this TLogger logger, Level level, string text)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
-            if (logger is null || !logger.IsEnabled(Level.Error))
+            if (logger is null || !logger.IsEnabled(level))
                 return;
 
             AllocateThenWrite0(logger, level, text);
