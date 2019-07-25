@@ -50,7 +50,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
         WriteLine($"    userProperties[{propertyIndex}] = p{propertyIndex};");
 
     WriteLine("    var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);");
-    WriteLine("    AppendThenWrite(logger, level, category, text, attachedProperties, userProperties, source);");
+    WriteLine("    AppendThenWrite(logger, level, category, text, userProperties, attachedProperties, source);");
     WriteLine("}");
     WriteLine("finally");
     WriteLine("{");

@@ -24,7 +24,7 @@ namespace Phlogopite.Extensions.Source
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 userProperties[0] = p0;
                 var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
-                AppendThenWrite(logger, level, text, attachedProperties, userProperties, source);
+                AppendThenWrite(logger, level, text, userProperties, attachedProperties, source);
             }
             finally
             {
@@ -50,7 +50,7 @@ namespace Phlogopite.Extensions.Source
                 userProperties[0] = p0;
                 userProperties[1] = p1;
                 var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
-                AppendThenWrite(logger, level, text, attachedProperties, userProperties, source);
+                AppendThenWrite(logger, level, text, userProperties, attachedProperties, source);
             }
             finally
             {
@@ -77,7 +77,7 @@ namespace Phlogopite.Extensions.Source
                 userProperties[1] = p1;
                 userProperties[2] = p2;
                 var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
-                AppendThenWrite(logger, level, text, attachedProperties, userProperties, source);
+                AppendThenWrite(logger, level, text, userProperties, attachedProperties, source);
             }
             finally
             {
@@ -105,7 +105,7 @@ namespace Phlogopite.Extensions.Source
                 userProperties[2] = p2;
                 userProperties[3] = p3;
                 var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
-                AppendThenWrite(logger, level, text, attachedProperties, userProperties, source);
+                AppendThenWrite(logger, level, text, userProperties, attachedProperties, source);
             }
             finally
             {

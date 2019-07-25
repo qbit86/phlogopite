@@ -44,7 +44,7 @@ namespace Phlogopite.Extensions.Source
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
-                AppendThenWrite(logger, level, text, attachedProperties, userProperties, source);
+                AppendThenWrite(logger, level, text, userProperties, attachedProperties, source);
             }
             finally
             {
@@ -53,7 +53,7 @@ namespace Phlogopite.Extensions.Source
         }
 
         private static void AppendThenWrite<TLogger>(TLogger logger, Level level, string text,
-            PropertyCollection attachedProperties, ReadOnlySpan<NamedProperty> userProperties, string source)
+            ReadOnlySpan<NamedProperty> userProperties, PropertyCollection attachedProperties, string source)
             where TLogger : ILogger<NamedProperty, PropertyCollection>
         {
             Debug.Assert(logger != null, "logger != null");
