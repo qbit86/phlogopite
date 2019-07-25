@@ -31,8 +31,8 @@ namespace Phlogopite
         internal void Bar()
         {
             Log.Logger.Write(Level.Info, nameof(Foo), "Hello", ("user", Environment.UserName));
-
-            s_log.D("Text", ("pi", Math.PI));
+            s_log.D("(In)famous constant", ("pi", Math.PI));
+            Log.Write(Level.Warning, nameof(Foo), "Text is required!", (nameof(DateTime.Now), DateTime.Now));
         }
     }
 }

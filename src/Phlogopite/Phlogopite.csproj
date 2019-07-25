@@ -90,6 +90,10 @@ Phlogopite.Writer</Description>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TagLoggerExtensions.Write.cs</LastGenOutput>
     </None>
+    <None Update="Singletons.Mediator\Log.Write.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Log.Write.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Extensions.Common\CommonLoggerExtensions.Allocate.cs">
@@ -151,6 +155,11 @@ Phlogopite.Writer</Description>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>TagLoggerExtensions.Write.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Singletons.Mediator\Log.Write.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Log.Write.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />

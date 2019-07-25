@@ -1,8 +1,11 @@
 using System;
+using System.Runtime.CompilerServices;
+using Phlogopite.Extensions.Tag;
+using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Singletons.Mediator
 {
-    public static class Log
+    public static partial class Log
     {
         private static MediatorLogger s_logger;
 
@@ -15,6 +18,13 @@ namespace Phlogopite.Singletons.Mediator
 
             s_logger = logger ?? throw new ArgumentNullException(nameof(logger));
             return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write(Level level, string category, string text,
+            [CallerMemberName] string source = null)
+        {
+            Logger.Write(level, category, text, source);
         }
     }
 }
