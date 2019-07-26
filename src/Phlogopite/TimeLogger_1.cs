@@ -14,7 +14,7 @@ namespace Phlogopite
         }
     }
 
-    public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty, PropertyCollection>,
+    public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty>,
         IEquatable<TimeLogger<TLogger>>
         where TLogger : ILogger<NamedProperty, PropertyCollection>
     {

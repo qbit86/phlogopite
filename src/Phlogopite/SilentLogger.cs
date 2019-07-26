@@ -3,7 +3,7 @@ using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
-    public sealed class SilentLogger : ILogger<NamedProperty, PropertyCollection>
+    public sealed class SilentLogger : ILogger<NamedProperty>
     {
         private SilentLogger() { }
 
