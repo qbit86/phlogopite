@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Phlogopite.Console\Phlogopite.Console.csproj" />
     <ProjectReference Include="..\..\src\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
 </Project>
