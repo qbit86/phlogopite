@@ -21,17 +21,16 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private static CategoryLogger<MediatorLogger> s_log;
+        private static CategoryLogger<MediatorLogger> s_logger;
 
-        public Foo()
-        {
-            s_log = CategoryLogger.Create(Log.Logger, nameof(Foo));
-        }
+        private static CategoryLogger<MediatorLogger> L => s_logger.IsDefault
+            ? s_logger = CategoryLogger.Create(Log.Logger, nameof(Foo))
+            : s_logger;
 
         internal void Bar()
         {
             Log.Logger.Write(Level.Info, nameof(Foo), "Hello", ("user", Environment.UserName));
-            s_log.D("(In)famous constant", ("pi", Math.PI));
+            L.D("(In)famous constant", ("pi", Math.PI));
             Log.W(nameof(Foo), "Text is required!", (nameof(DateTime.Now), DateTime.Now));
         }
     }

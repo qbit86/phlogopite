@@ -40,19 +40,18 @@ namespace Phlogopite
 
             _logger = logger;
             _minimumLevel = minimumLevel;
-            _category = category;
+            _category = category ?? throw new ArgumentNullException(nameof(category));
         }
+
+        public bool IsDefault => _category is null;
 
         public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)
         {
-            if (_category != null)
-            {
-                CollectionHelpers.TryAppend(ref attachedProperties,
-                    new NamedProperty(KnownProperties.Category, _category));
-            }
+            CollectionHelpers.TryAppend(ref attachedProperties,
+                new NamedProperty(KnownProperties.Category, _category));
 
             _logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
@@ -79,7 +78,7 @@ namespace Phlogopite
             unchecked
             {
 #pragma warning disable CA1307 // Specify StringComparison
-                int hashCode = _category is null ? 0 : _category.GetHashCode();
+                int hashCode = _category.GetHashCode();
 #pragma warning restore CA1307 // Specify StringComparison
                 hashCode = (hashCode * 397) ^ EqualityComparer<TLogger>.Default.GetHashCode(_logger);
                 hashCode = (hashCode * 397) ^ (int)_minimumLevel;
