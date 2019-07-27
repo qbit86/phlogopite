@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Phlogopite.Internal;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static class CategoryLogger
     {
         public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, string category)

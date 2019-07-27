@@ -1,10 +1,11 @@
 using System;
 using System.Diagnostics;
 using Phlogopite.Internal;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public sealed class MediatorLogger : ILogger<NamedProperty>
     {
         private readonly AggregateLogger<NamedProperty, PropertyCollection> _logger;

@@ -1,8 +1,9 @@
 using System;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public sealed class SilentLogger : ILogger<NamedProperty>
     {
         private SilentLogger() { }

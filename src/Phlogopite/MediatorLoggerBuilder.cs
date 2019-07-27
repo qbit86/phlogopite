@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public sealed class MediatorLoggerBuilder
     {
         private const Level DefaultMinimumLevel = Level.Verbose;
