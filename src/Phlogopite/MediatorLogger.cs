@@ -5,7 +5,7 @@ using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
-    public sealed class MediatorLogger : ILogger<NamedProperty, PropertyCollection>
+    public sealed class MediatorLogger : ILogger<NamedProperty>
     {
         private readonly AggregateLogger<NamedProperty, PropertyCollection> _logger;
         private readonly Level _minimumLevel;

@@ -20,7 +20,7 @@ namespace Phlogopite
         }
     }
 
-    public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty, PropertyCollection>,
+    public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty>,
         IEquatable<CategoryLogger<TLogger>>
         where TLogger : ILogger<NamedProperty, PropertyCollection>
     {
