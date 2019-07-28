@@ -9,13 +9,13 @@ namespace Phlogopite
     public static class CategoryLogger
     {
         public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, string category)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             return new CategoryLogger<TLogger>(logger, category);
         }
 
         public static CategoryLogger<TLogger> Create<TLogger>(TLogger logger, Level minimumLevel, string category)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             return new CategoryLogger<TLogger>(logger, minimumLevel, category);
         }
@@ -23,7 +23,7 @@ namespace Phlogopite
 
     public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty>,
         IEquatable<CategoryLogger<TLogger>>
-        where TLogger : ILogger<NamedProperty, PropertyCollection>
+        where TLogger : ILogger<NamedProperty>
     {
         private const Level DefaultMinimumLevel = Level.Verbose;
 

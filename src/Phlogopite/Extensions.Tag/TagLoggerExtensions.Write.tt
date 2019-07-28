@@ -32,7 +32,7 @@ for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; 
 
     WriteLine(",");
     WriteLine("[CallerMemberName] string source = null)");
-    WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
+    WriteLine("where TLogger : ILogger<NamedProperty>");
     PopIndent();
     WriteLine("{");
     PushIndent("    ");

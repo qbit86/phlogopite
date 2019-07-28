@@ -7,15 +7,15 @@ namespace Phlogopite
 {
     public static class AggregateLogger
     {
-        public static AggregateLogger<TProperty, TProperties> Create<TProperty, TProperties>(
-            IEnumerable<ILogger<TProperty, TProperties>> loggers = null, Func<Exception, bool> exceptionHandler = null)
+        public static AggregateLogger<TProperty> Create<TProperty>(
+            IEnumerable<ILogger<TProperty>> loggers = null, Func<Exception, bool> exceptionHandler = null)
         {
-            ILogger<TProperty, TProperties>[] array =
-                loggers?.ToArray() ?? Array.Empty<ILogger<TProperty, TProperties>>();
+            ILogger<TProperty>[] array =
+                loggers?.ToArray() ?? Array.Empty<ILogger<TProperty>>();
             int maxAttachedPropertyCount = 0;
             for (int i = 0; i != array.Length; ++i)
             {
-                ILogger<TProperty, TProperties> logger = array[i];
+                ILogger<TProperty> logger = array[i];
                 if (logger is null)
                     continue;
 
@@ -23,17 +23,17 @@ namespace Phlogopite
                     maxAttachedPropertyCount = logger.MaxAttachedPropertyCount;
             }
 
-            return new AggregateLogger<TProperty, TProperties>(array, maxAttachedPropertyCount, exceptionHandler);
+            return new AggregateLogger<TProperty>(array, maxAttachedPropertyCount, exceptionHandler);
         }
     }
 
-    public readonly struct AggregateLogger<TProperty, TProperties> : ILogger<TProperty, TProperties>,
-        IEquatable<AggregateLogger<TProperty, TProperties>>
+    public readonly struct AggregateLogger<TProperty> : ILogger<TProperty>,
+        IEquatable<AggregateLogger<TProperty>>
     {
-        private readonly ILogger<TProperty, TProperties>[] _loggers;
+        private readonly ILogger<TProperty>[] _loggers;
         private readonly Func<Exception, bool> _exceptionHandler;
 
-        internal AggregateLogger(ILogger<TProperty, TProperties>[] loggers, int maxAttachedPropertyCount,
+        internal AggregateLogger(ILogger<TProperty>[] loggers, int maxAttachedPropertyCount,
             Func<Exception, bool> exceptionHandler)
         {
             Debug.Assert(loggers != null, "loggers != null");
@@ -52,14 +52,14 @@ namespace Phlogopite
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-            TProperties attachedProperties)
+            SpanBuilder<TProperty> attachedProperties)
         {
             List<Exception> exceptions = null;
             for (int i = 0; i != _loggers.Length; ++i)
             {
                 try
                 {
-                    ILogger<TProperty, TProperties> logger = _loggers[i];
+                    ILogger<TProperty> logger = _loggers[i];
                     if (logger is null || !logger.IsEnabled(level))
                         continue;
 
@@ -86,7 +86,7 @@ namespace Phlogopite
             aggregateException.Handle(_exceptionHandler);
         }
 
-        public bool Equals(AggregateLogger<TProperty, TProperties> other)
+        public bool Equals(AggregateLogger<TProperty> other)
         {
             return Equals(_loggers, other._loggers) && Equals(_exceptionHandler, other._exceptionHandler) &&
                 MaxAttachedPropertyCount == other.MaxAttachedPropertyCount;
@@ -94,7 +94,7 @@ namespace Phlogopite
 
         public override bool Equals(object obj)
         {
-            return obj is AggregateLogger<TProperty, TProperties> other && Equals(other);
+            return obj is AggregateLogger<TProperty> other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -108,14 +108,14 @@ namespace Phlogopite
             }
         }
 
-        public static bool operator ==(AggregateLogger<TProperty, TProperties> left,
-            AggregateLogger<TProperty, TProperties> right)
+        public static bool operator ==(AggregateLogger<TProperty> left,
+            AggregateLogger<TProperty> right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(AggregateLogger<TProperty, TProperties> left,
-            AggregateLogger<TProperty, TProperties> right)
+        public static bool operator !=(AggregateLogger<TProperty> left,
+            AggregateLogger<TProperty> right)
         {
             return !left.Equals(right);
         }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Phlogopite
 {
-    public readonly struct ProxyLogger<TLogger, TProperty, TProperties> : ILogger<TProperty, TProperties>,
-        IEquatable<ProxyLogger<TLogger, TProperty, TProperties>>
-        where TLogger : ILogger<TProperty, TProperties>
+    public readonly struct ProxyLogger<TLogger, TProperty> : ILogger<TProperty>,
+        IEquatable<ProxyLogger<TLogger, TProperty>>
+        where TLogger : ILogger<TProperty>
     {
         private readonly TLogger _logger;
         private readonly Level _minimumLevel;
@@ -39,12 +39,12 @@ namespace Phlogopite
         }
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-            TProperties attachedProperties)
+            SpanBuilder<TProperty> attachedProperties)
         {
             _logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
 
-        public bool Equals(ProxyLogger<TLogger, TProperty, TProperties> other)
+        public bool Equals(ProxyLogger<TLogger, TProperty> other)
         {
             return EqualityComparer<TLogger>.Default.Equals(_logger, other._logger) &&
                 _minimumLevel == other._minimumLevel &&
@@ -53,7 +53,7 @@ namespace Phlogopite
 
         public override bool Equals(object obj)
         {
-            return obj is ProxyLogger<TLogger, TProperty, TProperties> other && Equals(other);
+            return obj is ProxyLogger<TLogger, TProperty> other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -67,14 +67,14 @@ namespace Phlogopite
             }
         }
 
-        public static bool operator ==(ProxyLogger<TLogger, TProperty, TProperties> left,
-            ProxyLogger<TLogger, TProperty, TProperties> right)
+        public static bool operator ==(ProxyLogger<TLogger, TProperty> left,
+            ProxyLogger<TLogger, TProperty> right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(ProxyLogger<TLogger, TProperty, TProperties> left,
-            ProxyLogger<TLogger, TProperty, TProperties> right)
+        public static bool operator !=(ProxyLogger<TLogger, TProperty> left,
+            ProxyLogger<TLogger, TProperty> right)
         {
             return !left.Equals(right);
         }

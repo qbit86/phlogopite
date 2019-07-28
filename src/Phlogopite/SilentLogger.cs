@@ -10,14 +10,14 @@ namespace Phlogopite
 
         public static SilentLogger Default { get; } = new SilentLogger();
 
-        int ILogger<NamedProperty, PropertyCollection>.MaxAttachedPropertyCount => 0;
+        int ILogger<NamedProperty>.MaxAttachedPropertyCount => 0;
 
-        bool ILogger<NamedProperty, PropertyCollection>.IsEnabled(Level level)
+        bool ILogger<NamedProperty>.IsEnabled(Level level)
         {
             return false;
         }
 
-        void ILogger<NamedProperty, PropertyCollection>.UncheckedWrite(Level level, string text,
+        void ILogger<NamedProperty>.UncheckedWrite(Level level, string text,
             ReadOnlySpan<NamedProperty> userProperties, PropertyCollection attachedProperties) { }
     }
 }

@@ -8,11 +8,11 @@ namespace Phlogopite
 
     public sealed class MediatorLogger : ILogger<NamedProperty>
     {
-        private readonly AggregateLogger<NamedProperty, PropertyCollection> _logger;
+        private readonly AggregateLogger<NamedProperty> _logger;
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
 
-        internal MediatorLogger(AggregateLogger<NamedProperty, PropertyCollection> logger,
+        internal MediatorLogger(AggregateLogger<NamedProperty> logger,
             Level minimumLevel, Func<Level> minimumLevelProvider)
         {
             Debug.Assert(logger != null, "logger != null");

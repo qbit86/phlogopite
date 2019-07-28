@@ -9,7 +9,7 @@ namespace Phlogopite.Extensions.Source
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void V<TLogger>(this TLogger logger, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(Level.Verbose))
                 return;
@@ -20,7 +20,7 @@ namespace Phlogopite.Extensions.Source
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void D<TLogger>(this TLogger logger, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(Level.Debug))
                 return;
@@ -31,7 +31,7 @@ namespace Phlogopite.Extensions.Source
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void I<TLogger>(this TLogger logger, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(Level.Info))
                 return;
@@ -42,7 +42,7 @@ namespace Phlogopite.Extensions.Source
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void W<TLogger>(this TLogger logger, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(Level.Warning))
                 return;
@@ -53,7 +53,7 @@ namespace Phlogopite.Extensions.Source
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void E<TLogger>(this TLogger logger, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(Level.Error))
                 return;
@@ -64,7 +64,7 @@ namespace Phlogopite.Extensions.Source
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void A<TLogger>(this TLogger logger, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(Level.Assert))
                 return;

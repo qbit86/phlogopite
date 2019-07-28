@@ -11,7 +11,7 @@ namespace Phlogopite.Extensions.Source
         private static void AllocateThenWrite1<TLogger>(TLogger logger, Level level, string text,
             in NamedProperty p0,
             string source)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
@@ -36,7 +36,7 @@ namespace Phlogopite.Extensions.Source
         private static void AllocateThenWrite2<TLogger>(TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1,
             string source)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
@@ -62,7 +62,7 @@ namespace Phlogopite.Extensions.Source
         private static void AllocateThenWrite3<TLogger>(TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             string source)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
@@ -89,7 +89,7 @@ namespace Phlogopite.Extensions.Source
         private static void AllocateThenWrite4<TLogger>(TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             string source)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");

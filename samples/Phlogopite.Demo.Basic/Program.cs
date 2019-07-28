@@ -1,9 +1,7 @@
 using System;
 using Phlogopite.Extensions.Source;
 using Phlogopite.Singletons.Logger;
-using Cat =
-    Phlogopite.CategoryLogger<
-        Phlogopite.ILogger<Phlogopite.NamedProperty, Phlogopite.SpanBuilder<Phlogopite.NamedProperty>>>;
+using Cat = Phlogopite.CategoryLogger<Phlogopite.ILogger<Phlogopite.NamedProperty>>;
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
 

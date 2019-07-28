@@ -43,7 +43,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 
         WriteLine(",");
         WriteLine("[CallerMemberName] string source = null)");
-        WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
+        WriteLine("where TLogger : ILogger<NamedProperty>");
         PopIndent();
         WriteLine("{");
         WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");

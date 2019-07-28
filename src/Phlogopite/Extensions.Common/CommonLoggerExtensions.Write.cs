@@ -11,7 +11,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -22,7 +22,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0, in NamedProperty p1)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -33,7 +33,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -44,7 +44,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -59,7 +59,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -70,7 +70,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -81,7 +81,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -92,7 +92,7 @@ namespace Phlogopite.Extensions.Common
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;

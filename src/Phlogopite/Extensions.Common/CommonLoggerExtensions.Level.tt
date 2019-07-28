@@ -44,7 +44,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         }
 
         WriteLine(")");
-        WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
+        WriteLine("where TLogger : ILogger<NamedProperty>");
         PopIndent();
         WriteLine("{");
         WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");
@@ -80,7 +80,7 @@ for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
         }
 
         WriteLine(")");
-        WriteLine("where TLogger : ILogger<NamedProperty, PropertyCollection>");
+        WriteLine("where TLogger : ILogger<NamedProperty>");
         PopIndent();
         WriteLine("{");
         WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");

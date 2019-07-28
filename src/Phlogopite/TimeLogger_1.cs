@@ -9,7 +9,7 @@ namespace Phlogopite
     public static class TimeLogger
     {
         public static TimeLogger<TLogger> Create<TLogger>(TLogger logger)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             return new TimeLogger<TLogger>(logger);
         }
@@ -17,7 +17,7 @@ namespace Phlogopite
 
     public readonly struct TimeLogger<TLogger> : ILogger<NamedProperty>,
         IEquatable<TimeLogger<TLogger>>
-        where TLogger : ILogger<NamedProperty, PropertyCollection>
+        where TLogger : ILogger<NamedProperty>
     {
         private readonly TLogger _logger;
 

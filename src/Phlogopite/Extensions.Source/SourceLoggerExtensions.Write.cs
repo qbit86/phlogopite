@@ -12,7 +12,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -24,7 +24,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -36,7 +36,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -48,7 +48,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -64,7 +64,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -76,7 +76,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -88,7 +88,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -100,7 +100,7 @@ namespace Phlogopite.Extensions.Source
         public static void Write<TLogger>(this TLogger logger, Level level, string text,
             in NamedProperty p0, in NamedProperty p1, in NamedProperty p2, in NamedProperty p3,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;

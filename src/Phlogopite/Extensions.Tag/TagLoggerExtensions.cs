@@ -13,7 +13,7 @@ namespace Phlogopite.Extensions.Tag
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string category, string text,
             [CallerMemberName] string source = null)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             if (logger is null || !logger.IsEnabled(level))
                 return;
@@ -23,7 +23,7 @@ namespace Phlogopite.Extensions.Tag
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int GetAttachedPropertyCountOrDefault<TLogger>(TLogger logger)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
 
@@ -32,7 +32,7 @@ namespace Phlogopite.Extensions.Tag
 
         private static void AllocateThenWrite0<TLogger>(TLogger logger, Level level, string category, string text,
             string source)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");
@@ -55,7 +55,7 @@ namespace Phlogopite.Extensions.Tag
 
         private static void AppendThenWrite<TLogger>(TLogger logger, Level level, string category, string text,
             ReadOnlySpan<NamedProperty> userProperties, PropertyCollection attachedProperties, string source)
-            where TLogger : ILogger<NamedProperty, PropertyCollection>
+            where TLogger : ILogger<NamedProperty>
         {
             Debug.Assert(logger != null, "logger != null");
             Debug.Assert(logger.IsEnabled(level), "logger.IsEnabled(level)");

@@ -6,11 +6,11 @@ namespace Phlogopite.Singletons.Logger
 
     public static class Log
     {
-        private static ILogger<NamedProperty, PropertyCollection> s_logger;
+        private static ILogger<NamedProperty> s_logger;
 
-        public static ILogger<NamedProperty, PropertyCollection> Logger => s_logger ?? SilentLogger.Default;
+        public static ILogger<NamedProperty> Logger => s_logger ?? SilentLogger.Default;
 
-        public static bool TrySetLogger(ILogger<NamedProperty, PropertyCollection> logger)
+        public static bool TrySetLogger(ILogger<NamedProperty> logger)
         {
             if (s_logger != null)
                 return false;
