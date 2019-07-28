@@ -1,8 +1,9 @@
 using System;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Singletons.Logger
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static class Log
     {
         private static ILogger<NamedProperty, PropertyCollection> s_logger;

@@ -1,10 +1,11 @@
 using System;
 using System.Runtime.CompilerServices;
 using Phlogopite.Extensions.Tag;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Singletons.Mediator
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class Log
     {
         private static MediatorLogger s_logger;
