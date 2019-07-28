@@ -2,10 +2,11 @@ using System;
 using System.Buffers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Common
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class CommonLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
