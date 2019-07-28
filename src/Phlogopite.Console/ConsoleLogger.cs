@@ -4,11 +4,12 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite
 {
-    public sealed class ConsoleLogger : ILogger<NamedProperty, PropertyCollection>
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
+    public sealed class ConsoleLogger : ILogger<NamedProperty>
     {
         internal const bool DefaultEmitLevel = false;
         internal const bool DefaultEmitTime = false;
