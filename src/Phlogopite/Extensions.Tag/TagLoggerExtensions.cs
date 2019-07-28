@@ -3,10 +3,11 @@ using System.Buffers;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Phlogopite.Internal;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Tag
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class TagLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

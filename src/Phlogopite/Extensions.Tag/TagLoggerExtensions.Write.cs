@@ -1,8 +1,9 @@
 using System.Runtime.CompilerServices;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Tag
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class TagLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
