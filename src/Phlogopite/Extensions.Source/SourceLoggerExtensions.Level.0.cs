@@ -1,8 +1,9 @@
 using System.Runtime.CompilerServices;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Source
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class SourceLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

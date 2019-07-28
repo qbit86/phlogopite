@@ -1,10 +1,11 @@
 using System;
 using System.Buffers;
 using System.Diagnostics;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Source
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class SourceLoggerExtensions
     {
         private static void AllocateThenWrite1<TLogger>(TLogger logger, Level level, string text,

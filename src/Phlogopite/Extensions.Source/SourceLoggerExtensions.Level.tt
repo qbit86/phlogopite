@@ -2,10 +2,11 @@
 <#@ output extension=".cs" #>
 using System;
 using System.Runtime.CompilerServices;
-using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 namespace Phlogopite.Extensions.Source
 {
+    using PropertyCollection = SpanBuilder<NamedProperty>;
+
     public static partial class SourceLoggerExtensions
     {
 <#
