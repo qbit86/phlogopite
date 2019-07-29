@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.4.0]
 ### Added
 - `ILogger<TProperty>`
 
@@ -24,7 +24,7 @@
 ### Added
 - Basic building blocks for logging pipeline: `IMediator<TProperty>`, `ISink<TProperty>`, `IWriter<TProperty>`.
 
-[Unreleased]: https://github.com/qbit86/phlogopite/compare/abstractions-0.3.0...feature/redesign
+[0.4.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.3.0...abstractions-0.4.0
 [0.3.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.2.0...abstractions-0.3.0
 [0.2.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.1.0...abstractions-0.2.0
 [0.1.0]: https://github.com/qbit86/phlogopite/releases/tag/abstractions-0.1.0
