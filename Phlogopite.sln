@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.PrivatePlaygroun
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Phlogopite.Shared", "src\Phlogopite.Shared\Phlogopite.Shared.shproj", "{DF3D20E7-950B-42A3-A9A3-CF1FFEC7E118}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Formatting", "src\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj", "{FA3A366A-DD56-4070-996C-C778D2A8E58D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Formatting", "src\Phlogopite.Formatting\Phlogopite.Formatting.csproj", "{FA3A366A-DD56-4070-996C-C778D2A8E58D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo.01-Singleton", "samples\Phlogopite.Demo.01-Singleton\Phlogopite.Demo.01-Singleton.csproj", "{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}"
 EndProject
