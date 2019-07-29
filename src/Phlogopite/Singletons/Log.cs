@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using Phlogopite.Extensions.Tag;
 
-namespace Phlogopite.Singletons.Mediator
+namespace Phlogopite.Singletons
 {
     public static partial class Log
     {

@@ -1,7 +1,7 @@
 using System;
 using Phlogopite.Extensions.Source;
 using Phlogopite.Extensions.Tag;
-using Phlogopite.Singletons.Mediator;
+using Phlogopite.Singletons;
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
 
