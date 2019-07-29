@@ -25,7 +25,7 @@ namespace Phlogopite
             ConsoleColor.DarkRed, ConsoleColor.Cyan
         };
 
-        private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "- " };
+        private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "-" };
         private static readonly object s_syncRoot = new object();
 
         private readonly bool _emitLevel;
