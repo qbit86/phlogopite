@@ -21,10 +21,7 @@ namespace Phlogopite
 
         public CategoryLogger(TLogger logger, Level minimumLevel, string category)
         {
-            if (logger is null)
-                throw new ArgumentNullException(nameof(logger));
-
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _minimumLevel = minimumLevel;
             _category = category ?? throw new ArgumentNullException(nameof(category));
         }
