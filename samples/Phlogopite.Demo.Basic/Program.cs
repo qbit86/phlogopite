@@ -28,7 +28,7 @@ namespace Samples
 
         internal void Bar()
         {
-            L.I("Hello!", (nameof(Environment.UserName), Environment.UserName));
+            L.I("Hello!", ("user", Environment.UserName));
         }
     }
 }

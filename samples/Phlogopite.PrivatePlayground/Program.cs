@@ -12,7 +12,8 @@ namespace Samples
     {
         private static void Main()
         {
-            MediatorLogger m = new MediatorLoggerBuilder(Level.Debug).AddLogger(new ConsoleLogger()).Build();
+            ConsoleLogger consoleLogger = new ConsoleLoggerBuilder { EmitTime = true }.Build();
+            MediatorLogger m = new MediatorLoggerBuilder(Level.Debug).AddLogger(consoleLogger).Build();
             Log.TrySetLogger(m);
 
             var foo = new Foo();
