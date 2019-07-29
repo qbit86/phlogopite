@@ -2,15 +2,14 @@
   <PropertyGroup>
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
-    <AssemblyVersion>0.1</AssemblyVersion>
-    <VersionPrefix>0.1.0</VersionPrefix>
+    <AssemblyVersion>0.2</AssemblyVersion>
+    <VersionPrefix>0.2.0</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <Description>Text-based sinks for Phlogopite library — structured logging for .NET with low memory footprint.
 Commonly used types:
-Phlogopite.Sinks.IFormattedSink&lt;TProperty&gt;
-Phlogopite.Sinks.FormattingSink
+Phlogopite.Formatter
 Phlogopite.IFormatter&lt;TProperty&gt;
-Phlogopite.Formatter</Description>
+Phlogopite.Range</Description>
     <PackageTags>phlogopite;logging;formatting;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Sinks.Formatting/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
