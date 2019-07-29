@@ -2,14 +2,14 @@
   <PropertyGroup>
     <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
     <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
-    <AssemblyVersion>0.3</AssemblyVersion>
-    <VersionPrefix>0.3.0</VersionPrefix>
+    <AssemblyVersion>0.4</AssemblyVersion>
+    <VersionPrefix>0.4.0</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <Description>Abstractions for Phlogopite library — structured logging for .NET with low memory footprint.
 Commonly used types:
-Phlogopite.IMediator&lt;TProperty&gt;
-Phlogopite.ISink&lt;TProperty&gt;
-Phlogopite.IWriter&lt;TProperty&gt;</Description>
+Phlogopite.AggregateLogger&lt;TProperty&gt;
+Phlogopite.ILogger&lt;TProperty&gt;
+Phlogopite.SpanBuilder&lt;TProperty&gt;</Description>
     <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Abstractions/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
