@@ -4,7 +4,7 @@
 
 Logging with lower memory footprint.
 
-## Usage
+## Basic usage
 
 ```cs
 internal static class Program

@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 ### Added
-- `ILogger<TProperty, in TProperties>`
+- `ILogger<TProperty>`
 
 ### Removed
 - `IMediator<TProperty>`

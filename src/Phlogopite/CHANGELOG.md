@@ -1,11 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- API and logging implementation.
+
 ### Removed
 - `Mediator`, `MediatorBuilder`, `MediatorExtensions`
 - `Writer`, `WriterBuilder`, `WriterExtensions`
 - `SilentSink`
-
 
 ## [0.2.1] - 2019-07-12
 ### Added
