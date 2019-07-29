@@ -52,7 +52,19 @@ namespace Phlogopite
 
         public int Count => _count;
 
+        public bool IsEmpty => _count == 0;
+
 #pragma warning disable CA2225 // Operator overloads have named alternates
+
+        public static implicit operator SpanBuilder<T>(T[] array)
+        {
+            return new SpanBuilder<T>(array);
+        }
+
+        public static implicit operator SpanBuilder<T>(ArraySegment<T> segment)
+        {
+            return new SpanBuilder<T>(segment.Array, segment.Offset, segment.Count);
+        }
 
         public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> spanBuilder)
         {
@@ -60,6 +72,8 @@ namespace Phlogopite
         }
 
 #pragma warning restore CA2225 // Operator overloads have named alternates
+
+        public ref readonly T this[int index] => ref _array[_offset + index];
 
         // ReSharper disable InconsistentNaming
 
@@ -100,6 +114,11 @@ namespace Phlogopite
             _array[_offset + _count] = item;
             result = new SpanBuilder<T>(_array, _offset, _count + 1);
             return true;
+        }
+
+        public override string ToString()
+        {
+            return AsSpan().ToString();
         }
 
         public bool Equals(SpanBuilder<T> other)
