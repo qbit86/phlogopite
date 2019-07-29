@@ -6,11 +6,11 @@ namespace Phlogopite.Singletons.Mediator
 {
     public static partial class Log
     {
-        private static MediatorLogger s_logger;
+        private static ILogger<NamedProperty> s_logger;
 
-        public static MediatorLogger Logger => s_logger ?? MediatorLogger.Silent;
+        public static ILogger<NamedProperty> Logger => s_logger ?? SilentLogger.Default;
 
-        public static bool TrySetLogger(MediatorLogger logger)
+        public static bool TrySetLogger(ILogger<NamedProperty> logger)
         {
             if (s_logger != null)
                 return false;

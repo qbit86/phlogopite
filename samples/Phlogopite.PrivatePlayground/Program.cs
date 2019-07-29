@@ -21,9 +21,9 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private static CategoryLogger<MediatorLogger> s_logger;
+        private static CategoryLogger<ILogger<NamedProperty>> s_logger;
 
-        private static CategoryLogger<MediatorLogger> L => s_logger.IsDefault
+        private static CategoryLogger<ILogger<NamedProperty>> L => s_logger.IsDefault
             ? s_logger = CategoryLogger.Create(Log.Logger, nameof(Foo))
             : s_logger;
 
