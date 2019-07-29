@@ -6,11 +6,11 @@
     <VersionPrefix>0.1.0</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <Description>Text-based sinks for Phlogopite library — structured logging for .NET with low memory footprint.
-      Commonly used types:
-      Phlogopite.Sinks.IFormattedSink&lt;TProperty&gt;
-      Phlogopite.Sinks.FormattingSink
-      Phlogopite.IFormatter&lt;TProperty&gt;
-      Phlogopite.Formatter</Description>
+Commonly used types:
+Phlogopite.Sinks.IFormattedSink&lt;TProperty&gt;
+Phlogopite.Sinks.FormattingSink
+Phlogopite.IFormatter&lt;TProperty&gt;
+Phlogopite.Formatter</Description>
     <PackageTags>phlogopite;logging;formatting;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Sinks.Formatting/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>

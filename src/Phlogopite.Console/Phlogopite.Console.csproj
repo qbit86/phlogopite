@@ -6,9 +6,9 @@
     <VersionPrefix>0.1.1</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <Description>Console logger for Phlogopite library — structured logging for .NET with low memory footprint.
-      Commonly used types:
-      Phlogopite.ConsoleLogger
-      Phlogopite.ConsoleLoggerBuilder</Description>
+Commonly used types:
+Phlogopite.ConsoleLogger
+Phlogopite.ConsoleLoggerBuilder</Description>
     <PackageTags>phlogopite;logging;console;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.ConsoleLogger/CHANGELOG.md</PackageReleaseNotes>
     <SignAssembly>true</SignAssembly>
