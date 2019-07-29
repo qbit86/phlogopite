@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using System.Text;
 
 namespace Phlogopite
 {
@@ -60,15 +62,70 @@ namespace Phlogopite
             return hash;
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = StringBuilderCache.Acquire(64);
+            sb.Append("Type: ");
+            sb.Append(_typeCode);
+            sb.Append(", Value: ");
+
+            switch (_typeCode)
+            {
+                case TypeCode.Object:
+                    return _reference is IFormattable f
+                        ? StringBuilderCache.GetStringAndRelease(
+                            sb.Append(f.ToString(null, CultureInfo.InvariantCulture)))
+                        : StringBuilderCache.GetStringAndRelease(sb.Append(_reference));
+                case TypeCode.Boolean:
+                    return StringBuilderCache.GetStringAndRelease(sb.Append(_scalar.AsBoolean));
+                case TypeCode.Char:
+                    return StringBuilderCache.GetStringAndRelease(sb.Append(_scalar.AsChar));
+                case TypeCode.SByte:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsSByte.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.Byte:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsByte.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.Int16:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsInt16.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.UInt16:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsUInt16.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.Int32:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsInt32.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.UInt32:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsUInt32.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.Int64:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsInt64.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.UInt64:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsUInt64.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.Single:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsSingle.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.Double:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsDouble.ToString(CultureInfo.InvariantCulture)));
+                case TypeCode.DateTime:
+                    return StringBuilderCache.GetStringAndRelease(
+                        sb.Append(_scalar.AsDateTime.ToString("s", CultureInfo.InvariantCulture)));
+                case TypeCode.String:
+                    return StringBuilderCache.GetStringAndRelease(sb.Append(_reference));
+                default:
+                    return StringBuilderCache.GetStringAndRelease(sb.Append(typeof(PropertyValue)));
+            }
+        }
+
         internal bool Equals(PropertyValue other)
         {
             if (_typeCode != other._typeCode || _scalar.AsInt64 != other._scalar.AsInt64)
                 return false;
 
-            if (_reference is null)
-                return other._reference is null;
-
-            return _reference.Equals(other._reference);
+            return Equals(_reference, other._reference);
         }
     }
 }

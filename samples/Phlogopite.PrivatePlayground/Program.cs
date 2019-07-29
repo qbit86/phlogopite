@@ -1,24 +1,20 @@
 using System;
-using System.Globalization;
-using System.Threading;
-using Phlogopite.Extensions;
-using Phlogopite.Sinks;
+using Phlogopite;
+using Phlogopite.Extensions.Source;
+using Phlogopite.Extensions.Tag;
+using Phlogopite.Singletons;
 
-namespace Phlogopite
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+
+namespace Samples
 {
     internal static class Program
     {
         private static void Main()
         {
-            // Messing with culture.
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ru-RU");
-
-            ConsoleSink consoleSink = new ConsoleSinkBuilder { EmitLevel = true, EmitTime = true }.Build();
-
-            Mediator mediator = new MediatorBuilder { MinimumLevel = Level.Debug }
-                .AddSink(consoleSink)
-                .Build();
-            _ = Log.TrySetMediator(mediator);
+            ConsoleLogger consoleLogger = new ConsoleLoggerBuilder { EmitTime = true }.Build();
+            MediatorLogger m = new MediatorLoggerBuilder(Level.Debug).AddLogger(consoleLogger).Build();
+            Log.TrySetLogger(m);
 
             var foo = new Foo();
             foo.Bar();
@@ -27,18 +23,17 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private readonly WriterBuilder _log;
+        private static CategoryLogger s_logger;
 
-        internal Foo(IMediator<NamedProperty> mediator = null)
-        {
-            _log = new WriterBuilder(mediator ?? Log.Mediator, Level.Info, nameof(Foo));
-        }
+        private static CategoryLogger L => s_logger.IsDefault
+            ? s_logger = new CategoryLogger(Log.Logger, nameof(Foo))
+            : s_logger;
 
         internal void Bar()
         {
-            _log.V("This should be disabled by mediator");
-            _log.D("This should be disabled by writer");
-            _log.I("Testing things", ("username", Environment.UserName), (nameof(Math.E), Math.E));
+            Log.Logger.Write(Level.Info, nameof(Foo), "Hello", ("user", Environment.UserName));
+            L.D("(In)famous constant", ("pi", Math.PI));
+            Log.W(nameof(Foo), "Text is required!", (nameof(DateTime.Now), DateTime.Now));
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Phlogopite
     public interface IFormatter<TProperty>
     {
         void Format(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-            ReadOnlySpan<TProperty> writerProperties, ReadOnlySpan<TProperty> mediatorProperties,
+            ReadOnlySpan<TProperty> attachedProperties,
             IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
-            Span<Range> writerRanges, Span<Range> mediatorRanges);
+            Span<Range> attachedRanges);
     }
 }

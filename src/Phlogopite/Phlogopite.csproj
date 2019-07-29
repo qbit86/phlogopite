@@ -17,6 +17,9 @@ Phlogopite.Writer</Description>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="System.Buffers" Version="4.5.0" />
     <PackageReference Include="System.Memory" Version="4.5.3" />
@@ -39,136 +42,143 @@ Phlogopite.Writer</Description>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Extensions/MediatorExtensions.0.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MediatorExtensions.0.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Allocate.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/MediatorExtensions.Level.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Level.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MediatorExtensions.Level.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Level.0.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/MediatorExtensions.Unchecked.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MediatorExtensions.Unchecked.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Level.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterBuilderExtensions.0.tt">
+    <None Update="Extensions.Common\CommonLoggerExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions/WriterBuilderExtensions.0.cs</LastGenOutput>
+      <LastGenOutput>CommonLoggerExtensions.Write.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterBuilderExtensions.Level.tt">
+    <None Update="Extensions.Source\SourceLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions/WriterBuilderExtensions.Level.cs</LastGenOutput>
+      <LastGenOutput>SourceLoggerExtensions.Allocate.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterBuilderExtensions.Unchecked.tt">
+    <None Update="Extensions.Source\SourceLoggerExtensions.Level.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WriterBuilderExtensions.Unchecked.cs</LastGenOutput>
+      <LastGenOutput>SourceLoggerExtensions.Level.0.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterBuilderExtensions.Write.tt">
+    <None Update="Extensions.Source\SourceLoggerExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions/WriterBuilderExtensions.Write.cs</LastGenOutput>
+      <LastGenOutput>SourceLoggerExtensions.Level.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterExtensions.0.tt">
+    <None Update="Extensions.Source\SourceLoggerExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions/WriterExtensions.0.cs</LastGenOutput>
+      <LastGenOutput>SourceLoggerExtensions.Write.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterExtensions.Level.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Allocate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions/WriterExtensions.Level.cs</LastGenOutput>
+      <LastGenOutput>TagLoggerExtensions.Allocate.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterExtensions.Unchecked.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Level.0.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WriterExtensions.Unchecked.cs</LastGenOutput>
+      <LastGenOutput>TagLoggerExtensions.Level.0.cs</LastGenOutput>
     </None>
-    <None Update="Extensions/WriterExtensions.Write.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Extensions/WriterExtensions.Write.cs</LastGenOutput>
+      <LastGenOutput>TagLoggerExtensions.Level.cs</LastGenOutput>
     </None>
-    <None Update="Log.0.tt">
+    <None Update="Extensions.Tag\TagLoggerExtensions.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Log.0.cs</LastGenOutput>
+      <LastGenOutput>TagLoggerExtensions.Write.cs</LastGenOutput>
     </None>
-    <None Update="Log.Level.tt">
+    <None Update="Singletons\Log.Level.0.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Log.Level.0.cs</LastGenOutput>
+    </None>
+    <None Update="Singletons\Log.Level.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Log.Level.cs</LastGenOutput>
     </None>
-    <None Update="Log.Write.tt">
+    <None Update="Singletons\Log.Write.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Log.Write.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Extensions/MediatorExtensions.Level.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MediatorExtensions.Level.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Allocate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/MediatorExtensions.0.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Level.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MediatorExtensions.0.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Level.0.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/MediatorExtensions.Unchecked.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>MediatorExtensions.Unchecked.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterBuilderExtensions.0.cs">
+    <Compile Update="Extensions.Common\CommonLoggerExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterBuilderExtensions.0.tt</DependentUpon>
+      <DependentUpon>CommonLoggerExtensions.Write.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterBuilderExtensions.Level.cs">
+    <Compile Update="Extensions.Source\SourceLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterBuilderExtensions.Level.tt</DependentUpon>
+      <DependentUpon>SourceLoggerExtensions.Allocate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterBuilderExtensions.Unchecked.cs">
+    <Compile Update="Extensions.Source\SourceLoggerExtensions.Level.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterBuilderExtensions.Unchecked.tt</DependentUpon>
+      <DependentUpon>SourceLoggerExtensions.Level.0.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterBuilderExtensions.Write.cs">
+    <Compile Update="Extensions.Source\SourceLoggerExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterBuilderExtensions.Write.tt</DependentUpon>
+      <DependentUpon>SourceLoggerExtensions.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterExtensions.0.cs">
+    <Compile Update="Extensions.Source\SourceLoggerExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.0.tt</DependentUpon>
+      <DependentUpon>SourceLoggerExtensions.Write.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterExtensions.Level.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Allocate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.Level.tt</DependentUpon>
+      <DependentUpon>TagLoggerExtensions.Allocate.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterExtensions.Unchecked.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.0.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.Unchecked.tt</DependentUpon>
+      <DependentUpon>TagLoggerExtensions.Level.0.tt</DependentUpon>
     </Compile>
-    <Compile Update="Extensions/WriterExtensions.Write.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WriterExtensions.Write.tt</DependentUpon>
+      <DependentUpon>TagLoggerExtensions.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="Log.0.cs">
+    <Compile Update="Extensions.Tag\TagLoggerExtensions.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Log.0.tt</DependentUpon>
+      <DependentUpon>TagLoggerExtensions.Write.tt</DependentUpon>
     </Compile>
-    <Compile Update="Log.Level.cs">
+    <Compile Update="Singletons\Log.Level.0.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Log.Level.0.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Singletons\Log.Level.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Log.Level.tt</DependentUpon>
     </Compile>
-    <Compile Update="Log.Write.cs">
+    <Compile Update="Singletons\Log.Write.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Log.Write.tt</DependentUpon>
     </Compile>
   </ItemGroup>
+  <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
 </Project>
