@@ -12,6 +12,18 @@ namespace Phlogopite.Extensions.Tag
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string category, string text,
+            ReadOnlySpan<NamedProperty> userProperties, SpanBuilder<NamedProperty> attachedProperties,
+            [CallerMemberName] string source = null)
+            where TLogger : ILogger<NamedProperty>
+        {
+            if (logger is null || !logger.IsEnabled(level))
+                return;
+
+            AppendThenWrite(logger, level, category, text, userProperties, attachedProperties, source);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write<TLogger>(this TLogger logger, Level level, string category, string text,
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty>
         {

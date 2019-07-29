@@ -10,6 +10,17 @@ namespace Phlogopite.Extensions.Common
     public static partial class CommonLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void Write<TLogger>(this TLogger logger, Level level, string text,
+            ReadOnlySpan<NamedProperty> userProperties, SpanBuilder<NamedProperty> attachedProperties)
+            where TLogger : ILogger<NamedProperty>
+        {
+            if (logger is null || !logger.IsEnabled(level))
+                return;
+
+            logger.UncheckedWrite(level, text, userProperties, attachedProperties);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Write<TLogger>(this TLogger logger, Level level, string text)
             where TLogger : ILogger<NamedProperty>
         {
