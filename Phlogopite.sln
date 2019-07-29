@@ -3,6 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{2670F2A5-28B2-4B51-84DB-5160486C0589}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{106E55BE-5F39-450F-A1F6-B494A1F680C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Abstractions", "src\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj", "{678C7CEF-72EB-41AE-9177-5F61A061C12F}"
@@ -17,14 +24,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Phlogopite.Shared", "src\Ph
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Sinks.Formatting", "src\Phlogopite.Sinks.Formatting\Phlogopite.Sinks.Formatting.csproj", "{FA3A366A-DD56-4070-996C-C778D2A8E58D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo.Basic", "samples\Phlogopite.Demo.Basic\Phlogopite.Demo.Basic.csproj", "{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{2670F2A5-28B2-4B51-84DB-5160486C0589}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Directory.Build.props = Directory.Build.props
-		README.md = README.md
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo.01-Singleton", "samples\Phlogopite.Demo.01-Singleton\Phlogopite.Demo.01-Singleton.csproj", "{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{D60FD382-B335-4CC1-8D19-7C69C1278EE0}"
 EndProject
