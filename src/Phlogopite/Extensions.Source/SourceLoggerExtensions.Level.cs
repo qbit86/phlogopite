@@ -2,8 +2,6 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Source
 {
-    using PropertyCollection = SpanBuilder<NamedProperty>;
-
     public static partial class SourceLoggerExtensions
     {
         #region Verbose, omitting text

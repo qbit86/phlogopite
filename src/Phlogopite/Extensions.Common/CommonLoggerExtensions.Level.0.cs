@@ -2,8 +2,6 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Common
 {
-    using PropertyCollection = SpanBuilder<NamedProperty>;
-
     public static partial class CommonLoggerExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

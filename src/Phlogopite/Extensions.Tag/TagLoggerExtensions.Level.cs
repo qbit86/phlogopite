@@ -2,8 +2,6 @@ using System.Runtime.CompilerServices;
 
 namespace Phlogopite.Extensions.Tag
 {
-    using PropertyCollection = SpanBuilder<NamedProperty>;
-
     public static partial class TagLoggerExtensions
     {
         #region Verbose
