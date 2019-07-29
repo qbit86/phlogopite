@@ -4,61 +4,43 @@
 
 Logging with lower memory footprint.
 
-## Usage
+## Basic usage
 
 ```cs
 internal static class Program
 {
-    private const string Tag = nameof(Program);
-
     private static void Main()
     {
-        var sink = new ConsoleSink();
-        var mediator = new Mediator(sink);
+        var backLogger = new ConsoleLogger();
+        var frontLogger = new CategoryLogger(backLogger, nameof(Program));
 
-        var log = new Writer(mediator, Tag);
-        log.V("Hello, world!");
-        log.I("Logged in", ("username", Environment.UserName), ("ipaddress", IPAddress.Loopback));
+        frontLogger.I("Hello!", ("user", Environment.UserName));
     }
 }
 ```
 
 ```
-[Program.Main] Hello, world!
-[Program.Main] Logged in. username: Viktor, ipaddress: 127.0.0.1
+[Program.Main] Hello! user: Viktor
 ```
 
-`Writer` is basically a facade for `IMediator<NamedProperty>`.  All it does is binding tag and mediator together to simplify subsequent writes to mediator.  It is value type and doesn't allocate on creating, so feel free to instantiate it in every method that needs logging.
+`CategoryLogger` is basically a facade for another `ILogger<NamedProperty>`.  All it does is binding log category and backing sink together, and attaches string tag at subsequent writes to the underlying logger.  `CategoryLogger` is value type and doesn't allocate on creating, so feel free to instantiate it as member of your types.
 
-`Writer` implements `IWriter<NamedProperty>`, but you should avoid casting (with consequent boxing) to this interface.  `IWriter<NamedProperty>` is supposed to be generic constraint, not for OOP-style polymorphism.
+`CategoryLogger` implements `ILogger<NamedProperty>`, but you should avoid casting (hence boxing) to this interface.  `ILogger<NamedProperty>` is supposed to be generic constraint, not to be supertype in OOP-style polymorphism.
 
-`Writer` itself doesn't have a lot of public methods, it is `WriterExtensions` class who provides API for actual writing to mediator.  To use extension methods just import `Phlogopite.Extensions` namespace:
+`ILogger<TProperty>` itself doesn't have a lot of public methods, it is `*LoggerExtensions` classes who provide API for actual writing to the logger.  To use extension methods just import appropriate `Phlogopite.Extensions.*` namespace:
 
 ```cs
-using Phlogopite.Extensions;
+using Phlogopite.Extensions.Source;
 ```
 
 ## API
 
 ```cs
-public interface IWriter<TProperty>
+public interface ILogger<TProperty>
 {
+    int MaxAttachedPropertyCount { get; }
     bool IsEnabled(Level level);
     void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-        Span<TProperty> attachedProperties);
-}
-
-public interface IMediator<TProperty>
-{
-    bool IsEnabled(Level level);
-    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-        ReadOnlySpan<TProperty> writerProperties, Span<TProperty> attachedProperties);
-}
-
-public interface ISink<TProperty>
-{
-    bool IsEnabled(Level level);
-    void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-        ReadOnlySpan<TProperty> writerProperties, ReadOnlySpan<TProperty> mediatorProperties);
+        SpanBuilder<TProperty> attachedProperties);
 }
 ```

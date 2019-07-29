@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using Phlogopite.Internal;
 
 // ReSharper disable once CheckNamespace
 
@@ -13,49 +14,49 @@ namespace Phlogopite
         public static Formatter Default { get; } = new Formatter();
 
         public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> writerProperties, ReadOnlySpan<NamedProperty> mediatorProperties,
+            ReadOnlySpan<NamedProperty> attachedProperties,
             IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
-            Span<Range> writerRanges, Span<Range> mediatorRanges)
+            Span<Range> attachedRanges)
         {
-            if (formatProvider == null)
+            if (formatProvider is null)
                 throw new ArgumentNullException(nameof(formatProvider));
 
-            if (output == null)
+            if (output is null)
                 throw new ArgumentNullException(nameof(output));
 
             RenderLevel(level, output);
 
             var sbf = new StringBuilderFacade(output, formatProvider);
 
-            int timeIndex = FindDateTime(mediatorProperties, "time", out DateTime time);
+            int timeIndex = FindDateTime(attachedProperties, KnownProperties.Time, out DateTime time);
             if (timeIndex >= 0)
             {
                 int timeOffset = output.Length;
                 output.Append(" ");
                 RenderTime(time, sbf);
-                SetRange(timeIndex, timeOffset, output, mediatorRanges);
+                SetRange(timeIndex, timeOffset, output, attachedRanges);
             }
 
-            int tagIndex = FindString(writerProperties, "tag", out string tag);
-            int sourceIndex = FindString(writerProperties, "source", out string source);
-            if (tag != null || source != null)
+            int categoryIndex = FindString(attachedProperties, KnownProperties.Category, out string category);
+            int sourceIndex = FindString(attachedProperties, KnownProperties.Source, out string source);
+            if (category != null || source != null)
             {
                 output.Append(" [");
-                if (!string.IsNullOrEmpty(tag))
+                if (!string.IsNullOrEmpty(category))
                 {
                     int tagOffset = output.Length;
-                    output.Append(tag);
-                    SetRange(tagIndex, tagOffset, output, writerRanges);
+                    output.Append(category);
+                    SetRange(categoryIndex, tagOffset, output, attachedRanges);
                 }
 
-                if (!string.IsNullOrEmpty(tag) && !string.IsNullOrEmpty(source))
+                if (!string.IsNullOrEmpty(category) && !string.IsNullOrEmpty(source))
                     output.Append(".");
 
                 if (!string.IsNullOrEmpty(source))
                 {
                     int sourceOffset = output.Length;
                     output.Append(source);
-                    SetRange(sourceIndex, sourceOffset, output, writerRanges);
+                    SetRange(sourceIndex, sourceOffset, output, attachedRanges);
                 }
 
                 output.Append("]");
@@ -128,7 +129,7 @@ namespace Phlogopite
             {
                 NamedProperty p = properties[i];
 
-                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
+                if (!ReferenceEquals(p.Name, name))
                     continue;
 
                 if (p.TryGetDateTime(out value))
@@ -145,7 +146,7 @@ namespace Phlogopite
             {
                 NamedProperty p = properties[i];
 
-                if (!string.Equals(p.Name, name, StringComparison.Ordinal))
+                if (!ReferenceEquals(p.Name, name))
                     continue;
 
                 if (p.TryGetString(out value))

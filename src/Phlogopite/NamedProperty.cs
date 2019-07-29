@@ -59,6 +59,11 @@ namespace Phlogopite
         public double AsDouble => _value.ScalarValue.AsDouble;
         public DateTime AsDateTime => _value.ScalarValue.AsDateTime;
 
+        public override string ToString()
+        {
+            return $"Name: {_name}, {_value}";
+        }
+
         // ReSharper restore InconsistentNaming
 
         public bool TryGetObject(out object value)
