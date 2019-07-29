@@ -21,10 +21,10 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private static CategoryLogger<ILogger<NamedProperty>> s_logger;
+        private static CategoryLogger s_logger;
 
-        private static CategoryLogger<ILogger<NamedProperty>> L => s_logger.IsDefault
-            ? s_logger = CategoryLogger.Create(Log.Logger, nameof(Foo))
+        private static CategoryLogger L => s_logger.IsDefault
+            ? s_logger = new CategoryLogger(Log.Logger, nameof(Foo))
             : s_logger;
 
         internal void Bar()

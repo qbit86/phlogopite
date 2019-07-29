@@ -5,10 +5,10 @@ using Phlogopite.Internal;
 namespace Phlogopite
 {
     using PropertyCollection = SpanBuilder<NamedProperty>;
+    using TLogger = ILogger<NamedProperty>;
 
-    public readonly struct CategoryLogger<TLogger> : ILogger<NamedProperty>,
-        IEquatable<CategoryLogger<TLogger>>
-        where TLogger : ILogger<NamedProperty>
+    public readonly struct CategoryLogger : ILogger<NamedProperty>,
+        IEquatable<CategoryLogger>
     {
         private const Level DefaultMinimumLevel = Level.Verbose;
 
@@ -47,7 +47,7 @@ namespace Phlogopite
             return _minimumLevel <= level && _logger.IsEnabled(level);
         }
 
-        public bool Equals(CategoryLogger<TLogger> other)
+        public bool Equals(CategoryLogger other)
         {
             return string.Equals(_category, other._category, StringComparison.Ordinal) &&
                 EqualityComparer<TLogger>.Default.Equals(_logger, other._logger) &&
@@ -56,7 +56,7 @@ namespace Phlogopite
 
         public override bool Equals(object obj)
         {
-            return obj is CategoryLogger<TLogger> other && Equals(other);
+            return obj is CategoryLogger other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -72,12 +72,12 @@ namespace Phlogopite
             }
         }
 
-        public static bool operator ==(CategoryLogger<TLogger> left, CategoryLogger<TLogger> right)
+        public static bool operator ==(CategoryLogger left, CategoryLogger right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(CategoryLogger<TLogger> left, CategoryLogger<TLogger> right)
+        public static bool operator !=(CategoryLogger left, CategoryLogger right)
         {
             return !left.Equals(right);
         }
