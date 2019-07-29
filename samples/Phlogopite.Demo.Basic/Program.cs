@@ -21,8 +21,7 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private static readonly Lazy<Cat> s_logger =
-            new Lazy<Cat>(() => CategoryLogger.Create(Log.Logger, nameof(Foo)));
+        private static readonly Lazy<Cat> s_logger = new Lazy<Cat>(() => new Cat(Log.Logger, nameof(Foo)));
 
         private static Cat L => s_logger.Value;
 
