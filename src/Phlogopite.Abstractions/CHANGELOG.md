@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.4.0]
+## [0.4.0] - 2019-07-29
 ### Added
 - `ILogger<TProperty>`
 
