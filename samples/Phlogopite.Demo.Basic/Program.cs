@@ -1,11 +1,11 @@
 using System;
+using Phlogopite;
 using Phlogopite.Extensions.Source;
 using Phlogopite.Singletons;
-using Cat = Phlogopite.CategoryLogger;
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
 
-namespace Phlogopite
+namespace Samples
 {
     internal static class Program
     {
@@ -21,9 +21,10 @@ namespace Phlogopite
 
     internal sealed class Foo
     {
-        private static readonly Lazy<Cat> s_logger = new Lazy<Cat>(() => new Cat(Log.Logger, nameof(Foo)));
+        private static readonly Lazy<CategoryLogger> s_logger =
+            new Lazy<CategoryLogger>(() => new CategoryLogger(Log.Logger, nameof(Foo)));
 
-        private static Cat L => s_logger.Value;
+        private static CategoryLogger L => s_logger.Value;
 
         internal void Bar()
         {
