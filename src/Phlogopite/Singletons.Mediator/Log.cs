@@ -4,8 +4,6 @@ using Phlogopite.Extensions.Tag;
 
 namespace Phlogopite.Singletons.Mediator
 {
-    using PropertyCollection = SpanBuilder<NamedProperty>;
-
     public static partial class Log
     {
         private static MediatorLogger s_logger;

@@ -4,8 +4,6 @@ using Phlogopite.Extensions.Tag;
 
 namespace Phlogopite.Singletons.Logger
 {
-    using PropertyCollection = SpanBuilder<NamedProperty>;
-
     public static class Log
     {
         private static ILogger<NamedProperty> s_logger;
