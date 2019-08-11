@@ -15,7 +15,7 @@ Phlogopite.Range</Description>
     <SignAssembly>true</SignAssembly>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <RootNamespace>Phlogopite.Sinks</RootNamespace>
+    <RootNamespace>Phlogopite</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.3" />
