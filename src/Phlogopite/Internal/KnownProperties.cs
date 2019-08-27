@@ -4,6 +4,7 @@ namespace Phlogopite.Internal
     {
         public const string Time = "time";
         public const string Category = "category";
+        public const string FormattedMessage = "formattedMessage";
         public const string Source = "source";
     }
 }
