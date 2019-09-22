@@ -32,9 +32,9 @@ namespace Samples
 
         internal void Bar()
         {
-            Log.Logger.Write(Level.Info, nameof(Foo), "Hello", ("user", Environment.UserName));
-            L.D("(In)famous constant", ("pi", Math.PI));
-            Log.W(nameof(Foo), "Text is required!", (nameof(DateTime.Now), DateTime.Now));
+            Log.Logger.Write(Level.Info, nameof(Foo), "Writing to global Log.Logger", ("user", Environment.UserName));
+            Log.W(nameof(Foo), "Warning via static Log.W()!", (nameof(DateTime.Now), DateTime.Now));
+            L.D("Writing to instance with captured category", ("pi", Math.PI));
         }
     }
 }
