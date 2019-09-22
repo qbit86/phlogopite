@@ -11,13 +11,10 @@ namespace Phlogopite
         private readonly Level _minimumLevel;
         private readonly Func<Level> _minimumLevelProvider;
 
-        public ProxyLogger(TLogger logger, Level minimumLevel) :
-            this(logger, minimumLevel, null) { }
-
         public ProxyLogger(TLogger logger, Func<Level> minimumLevelProvider) :
             this(logger, default, minimumLevelProvider) { }
 
-        public ProxyLogger(TLogger logger, Level minimumLevel, Func<Level> minimumLevelProvider)
+        public ProxyLogger(TLogger logger, Level minimumLevel, Func<Level> minimumLevelProvider = null)
         {
             if (logger is null)
                 throw new ArgumentNullException(nameof(logger));
