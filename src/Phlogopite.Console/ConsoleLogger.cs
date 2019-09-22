@@ -62,7 +62,19 @@ namespace Phlogopite
 
         public int MaxAttachedPropertyCount => 0;
 
+        public bool IsEnabled(Level level)
+        {
+            return _minimumLevel <= level;
+        }
+
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            PropertyCollection attachedProperties)
+        {
+            // TODO: Add check if need to handle non-default formatter.
+            WriteWithDefaultFormatter(level, text, userProperties, attachedProperties);
+        }
+
+        private void WriteWithDefaultFormatter(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)
         {
             int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
@@ -146,11 +158,6 @@ namespace Phlogopite
 
                 StringBuilderCache.Release(sb);
             }
-        }
-
-        public bool IsEnabled(Level level)
-        {
-            return _minimumLevel <= level;
         }
 
         private static ConsoleColor SetForegroundColor(ConsoleColor color)
