@@ -12,16 +12,20 @@ namespace Samples
     {
         private static void Main()
         {
-            ConsoleLogger consoleLoggerWithDefaultFormatter = new ConsoleLoggerBuilder { EmitTime = true }.Build();
-            ConsoleLogger consoleLoggerWithFancyFormatter = new ConsoleLoggerBuilder
-                { EmitTime = true, Formatter = SampleFormatter.Default }.Build();
-            var loggers = new ILogger<NamedProperty>[]
-                { consoleLoggerWithDefaultFormatter, consoleLoggerWithFancyFormatter };
-            FormattingLogger formattingLoggerWithDefaultFormatter = new FormattingLoggerBuilder(loggers).Build();
-            FormattingLogger formattingLoggerWithFancyFormatter = new FormattingLoggerBuilder(loggers)
-                { Formatter = SampleFormatter.Default }.Build();
-            MediatorLogger m = new MediatorLoggerBuilder(loggers, Level.Debug)
-                .AddLoggers(formattingLoggerWithDefaultFormatter, formattingLoggerWithFancyFormatter).Build();
+            ConsoleLogger c0 = new ConsoleLoggerBuilder { EmitTime = true }.Build();
+            ConsoleLogger c1 = new ConsoleLoggerBuilder
+                { EmitTime = true, Formatter = new SampleFormatter("!1@") }.Build();
+            ConsoleLogger c2 = new ConsoleLoggerBuilder
+                { EmitTime = true, Formatter = new SampleFormatter("@2#") }.Build();
+            ConsoleLogger c3 = new ConsoleLoggerBuilder
+                { EmitTime = true, Formatter = new SampleFormatter("#3$") }.Build();
+
+            FormattingLogger f0 = new FormattingLoggerBuilder().AddLoggers(c0, c2).Build();
+            FormattingLogger f4 = new FormattingLoggerBuilder { Formatter = new SampleFormatter("$4%") }
+                .AddLoggers(c0, c3).Build();
+
+            var loggers = new ILogger<NamedProperty>[] { c0, c1 };
+            MediatorLogger m = new MediatorLoggerBuilder(loggers, Level.Debug).AddLoggers(f0, f4).Build();
             Log.TrySetLogger(m);
 
             var foo = new Foo();

@@ -6,9 +6,12 @@ namespace Samples
 {
     internal sealed class SampleFormatter : IFormatter<NamedProperty>
     {
-        private SampleFormatter() { }
+        public SampleFormatter(string label)
+        {
+            Label = label ?? string.Empty;
+        }
 
-        public static SampleFormatter Default { get; } = new SampleFormatter();
+        private string Label { get; }
 
         public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> attachedProperties,
@@ -20,10 +23,12 @@ namespace Samples
             if (output is null)
                 throw new ArgumentNullException(nameof(output));
 
-            output.Append("*SAMPLE* ");
+            output.Append(Label);
+            output.Append(" ");
             Formatter.Default.Format(level, text, userProperties, attachedProperties, formatProvider, output,
                 userRanges, attachedRanges);
-            output.Append(" *SAMPLE*");
+            output.Append(" ");
+            output.Append(Label);
         }
     }
 }
