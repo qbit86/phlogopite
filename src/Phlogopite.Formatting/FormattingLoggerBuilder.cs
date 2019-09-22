@@ -9,7 +9,7 @@ namespace Phlogopite
         private IFormatter<NamedProperty> _formatter;
         private ICollection<ILogger<NamedProperty>> _loggers;
 
-        public FormattingLoggerBuilder(ICollection<ILogger<NamedProperty>> loggers)
+        public FormattingLoggerBuilder(ICollection<ILogger<NamedProperty>> loggers = null)
         {
             _loggers = loggers;
         }

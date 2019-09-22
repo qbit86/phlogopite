@@ -10,15 +10,13 @@ namespace Phlogopite
         private ICollection<ILogger<NamedProperty>> _loggers;
         private Level? _minimumLevel;
 
-        public MediatorLoggerBuilder(ICollection<ILogger<NamedProperty>> loggers)
+        public MediatorLoggerBuilder(ICollection<ILogger<NamedProperty>> loggers = null, Level minimumLevel = default)
         {
             _loggers = loggers;
-        }
-
-        public MediatorLoggerBuilder(Level minimumLevel)
-        {
             _minimumLevel = minimumLevel;
         }
+
+        public MediatorLoggerBuilder(Level minimumLevel) : this(null, minimumLevel) { }
 
         public Func<Exception, bool> ExceptionHandler { get; set; }
 
