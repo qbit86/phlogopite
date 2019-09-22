@@ -42,7 +42,7 @@ namespace Phlogopite
             PropertyCollection attachedProperties)
         {
             // TODO: To be implemented.
-            return new FormattedMessage();
+            return new FormattedMessage(_formatter);
         }
     }
 }
