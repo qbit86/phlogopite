@@ -38,5 +38,52 @@ namespace Phlogopite
 
             return new FormattingLogger(aggregateLogger, Formatter, FormatProvider);
         }
+
+        public FormattingLoggerBuilder AddLogger(ILogger<NamedProperty> logger)
+        {
+            if (logger is null)
+                return this;
+
+            if (_loggers is null)
+            {
+                _loggers = new List<ILogger<NamedProperty>>(1) { logger };
+                return this;
+            }
+
+            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty>[])
+            {
+                _loggers = new List<ILogger<NamedProperty>>(_loggers) { logger };
+                return this;
+            }
+
+            _loggers.Add(logger);
+            return this;
+        }
+
+        public FormattingLoggerBuilder AddLoggers(ILogger<NamedProperty> logger0,
+            ILogger<NamedProperty> logger1)
+        {
+            if (logger0 is null)
+                return AddLogger(logger1);
+
+            if (logger1 is null)
+                return AddLogger(logger0);
+
+            if (_loggers is null)
+            {
+                _loggers = new List<ILogger<NamedProperty>>(2) { logger0, logger1 };
+                return this;
+            }
+
+            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty>[])
+            {
+                _loggers = new List<ILogger<NamedProperty>>(_loggers) { logger0, logger1 };
+                return this;
+            }
+
+            _loggers.Add(logger0);
+            _loggers.Add(logger1);
+            return this;
+        }
     }
 }
