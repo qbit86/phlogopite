@@ -12,9 +12,16 @@ namespace Samples
     {
         private static void Main()
         {
-            ConsoleLogger consoleLogger = new ConsoleLoggerBuilder { EmitTime = true }.Build();
-            // MediatorLogger m = new MediatorLoggerBuilder(Level.Debug).AddLogger(consoleLogger).Build();
-            TimeLogger<ConsoleLogger> m = TimeLogger.Create(consoleLogger);
+            ConsoleLogger consoleLoggerWithDefaultFormatter = new ConsoleLoggerBuilder { EmitTime = true }.Build();
+            ConsoleLogger consoleLoggerWithFancyFormatter = new ConsoleLoggerBuilder
+                { EmitTime = true, Formatter = SampleFormatter.Default }.Build();
+            var loggers = new ILogger<NamedProperty>[]
+                { consoleLoggerWithDefaultFormatter, consoleLoggerWithFancyFormatter };
+            FormattingLogger formattingLoggerWithDefaultFormatter = new FormattingLoggerBuilder(loggers).Build();
+            FormattingLogger formattingLoggerWithFancyFormatter = new FormattingLoggerBuilder(loggers)
+                { Formatter = SampleFormatter.Default }.Build();
+            MediatorLogger m = new MediatorLoggerBuilder(loggers, Level.Debug)
+                .AddLoggers(formattingLoggerWithDefaultFormatter, formattingLoggerWithFancyFormatter).Build();
             Log.TrySetLogger(m);
 
             var foo = new Foo();
