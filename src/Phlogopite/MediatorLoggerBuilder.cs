@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Phlogopite
 {
@@ -7,12 +8,13 @@ namespace Phlogopite
     {
         private const Level DefaultMinimumLevel = Level.Verbose;
 
-        private ICollection<ILogger<NamedProperty>> _loggers;
+        private List<ILogger<NamedProperty>> _addedLoggers;
+        private IEnumerable<ILogger<NamedProperty>> _initialLoggers;
         private Level? _minimumLevel;
 
-        public MediatorLoggerBuilder(ICollection<ILogger<NamedProperty>> loggers = null, Level minimumLevel = default)
+        public MediatorLoggerBuilder(IEnumerable<ILogger<NamedProperty>> loggers = null, Level minimumLevel = default)
         {
-            _loggers = loggers;
+            _initialLoggers = loggers;
             _minimumLevel = minimumLevel;
         }
 
@@ -28,14 +30,11 @@ namespace Phlogopite
 
         public Func<Level> MinimumLevelProvider { get; set; }
 
-        public ICollection<ILogger<NamedProperty>> Loggers =>
-            _loggers ?? Array.Empty<ILogger<NamedProperty>>();
-
         public MediatorLogger Build()
         {
-            AggregateLogger<NamedProperty> aggregateLogger =
-                AggregateLogger.Create(_loggers, ExceptionHandler);
-
+            IEnumerable<ILogger<NamedProperty>> initialLoggers = Interlocked.Exchange(ref _initialLoggers, null);
+            List<ILogger<NamedProperty>> addedLoggers = Interlocked.Exchange(ref _addedLoggers, null);
+            AggregateLogger<NamedProperty> aggregateLogger = CreateAggregateLogger(initialLoggers, addedLoggers);
             return new MediatorLogger(aggregateLogger, MinimumLevel, MinimumLevelProvider);
         }
 
@@ -44,19 +43,13 @@ namespace Phlogopite
             if (logger is null)
                 return this;
 
-            if (_loggers is null)
+            if (_addedLoggers is null)
             {
-                _loggers = new List<ILogger<NamedProperty>>(1) { logger };
+                _addedLoggers = new List<ILogger<NamedProperty>>(1) { logger };
                 return this;
             }
 
-            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty>[])
-            {
-                _loggers = new List<ILogger<NamedProperty>>(_loggers) { logger };
-                return this;
-            }
-
-            _loggers.Add(logger);
+            _addedLoggers.Add(logger);
             return this;
         }
 
@@ -69,21 +62,27 @@ namespace Phlogopite
             if (logger1 is null)
                 return AddLogger(logger0);
 
-            if (_loggers is null)
+            if (_addedLoggers is null)
             {
-                _loggers = new List<ILogger<NamedProperty>>(2) { logger0, logger1 };
+                _addedLoggers = new List<ILogger<NamedProperty>>(2) { logger0, logger1 };
                 return this;
             }
 
-            if (_loggers.IsReadOnly || _loggers is ILogger<NamedProperty>[])
-            {
-                _loggers = new List<ILogger<NamedProperty>>(_loggers) { logger0, logger1 };
-                return this;
-            }
-
-            _loggers.Add(logger0);
-            _loggers.Add(logger1);
+            _addedLoggers.Add(logger0);
+            _addedLoggers.Add(logger1);
             return this;
+        }
+
+        private AggregateLogger<NamedProperty> CreateAggregateLogger(IEnumerable<ILogger<NamedProperty>> initialLoggers,
+            List<ILogger<NamedProperty>> addedLoggers)
+        {
+            if (addedLoggers is null)
+                return AggregateLogger.Create(initialLoggers, ExceptionHandler);
+
+            if (initialLoggers != null)
+                addedLoggers.AddRange(initialLoggers);
+
+            return AggregateLogger.Create(addedLoggers, ExceptionHandler);
         }
     }
 }
