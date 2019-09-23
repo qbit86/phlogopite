@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Phlogopite;
+using Range = Phlogopite.Range;
 
 namespace Samples
 {
