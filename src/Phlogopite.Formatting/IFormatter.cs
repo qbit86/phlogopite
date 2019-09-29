@@ -7,9 +7,8 @@ namespace Phlogopite
 {
     public interface IFormatter<TProperty>
     {
-        void Format(Level level, string text, ReadOnlySpan<TProperty> userProperties,
-            ReadOnlySpan<TProperty> attachedProperties,
-            IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
-            Span<Range> attachedRanges);
+        void Format(Level level, string text,
+            ReadOnlySpan<TProperty> userProperties, ReadOnlySpan<TProperty> attachedProperties,
+            StringBuilder output, Span<Range> userRanges, Span<Range> attachedRanges, IFormatProvider formatProvider);
     }
 }

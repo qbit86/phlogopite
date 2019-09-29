@@ -83,8 +83,8 @@ namespace Phlogopite
             try
             {
                 Span<Range> mediatorRanges = stackalloc Range[attachedProperties.Count];
-                _formatter.Format(level, text, userProperties, attachedProperties, _formatProvider,
-                    sb, default, mediatorRanges);
+                _formatter.Format(level, text, userProperties, attachedProperties,
+                    sb, default, mediatorRanges, _formatProvider);
 
                 if (_emitLevel && _emitTime)
                 {

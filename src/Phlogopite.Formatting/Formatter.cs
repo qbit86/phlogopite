@@ -13,16 +13,15 @@ namespace Phlogopite
 
         public static Formatter Default { get; } = new Formatter();
 
-        public void Format(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            ReadOnlySpan<NamedProperty> attachedProperties,
-            IFormatProvider formatProvider, StringBuilder output, Span<Range> userRanges,
-            Span<Range> attachedRanges)
+        public void Format(Level level, string text,
+            ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties,
+            StringBuilder output, Span<Range> userRanges, Span<Range> attachedRanges, IFormatProvider formatProvider)
         {
-            if (formatProvider is null)
-                throw new ArgumentNullException(nameof(formatProvider));
-
             if (output is null)
                 throw new ArgumentNullException(nameof(output));
+
+            if (formatProvider is null)
+                throw new ArgumentNullException(nameof(formatProvider));
 
             RenderLevel(level, output);
 
