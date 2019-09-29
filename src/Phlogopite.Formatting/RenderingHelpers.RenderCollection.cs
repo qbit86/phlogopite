@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Phlogopite
 {
-    internal static class RenderingHelpers
+    internal static partial class RenderingHelpers
     {
         internal static void RenderCollection(ICollection collection, StringBuilderFacade sbf)
         {
