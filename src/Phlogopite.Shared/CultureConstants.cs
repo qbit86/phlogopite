@@ -6,7 +6,7 @@ namespace Phlogopite
     {
         private static CultureInfo s_fixedCulture;
 
-        internal static CultureInfo FixedCulture => s_fixedCulture ?? (s_fixedCulture = CreateFixedCulture());
+        internal static CultureInfo FixedCulture => s_fixedCulture ??= CreateFixedCulture();
 
         private static CultureInfo CreateFixedCulture()
         {
