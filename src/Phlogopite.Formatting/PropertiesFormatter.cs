@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Phlogopite.Internal;
 
 namespace Phlogopite
 {
@@ -46,8 +47,23 @@ namespace Phlogopite
         private void FormatAttachedProperties(ReadOnlySpan<NamedProperty> attachedProperties,
             StringBuilder output, Span<Range> attachedRanges, IFormatProvider formatProvider)
         {
-            // TODO: Format only time.
-            throw new NotImplementedException();
+            // Searching for time only.
+            for (int i = 0; i != attachedProperties.Length; ++i)
+            {
+                NamedProperty p = attachedProperties[i];
+
+                if (!ReferenceEquals(p.Name, KnownProperties.Time))
+                    continue;
+
+                if (!p.TryGetDateTime(out DateTime value))
+                    continue;
+
+                var sbf = new StringBuilderFacade(output, formatProvider);
+                int propertyOffset = output.Length;
+                sbf.Append(value);
+                SetRange(i, propertyOffset, output, attachedRanges);
+                return;
+            }
         }
 
         private static void SetRange(int rangeIndex, int propertyOffset, StringBuilder sb, Span<Range> ranges)
