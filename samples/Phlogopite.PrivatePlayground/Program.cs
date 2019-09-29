@@ -15,18 +15,23 @@ namespace Samples
             ConsoleLogger c0 = new ConsoleLoggerBuilder { EmitTime = true }.Build();
             ConsoleLogger c1 = new ConsoleLoggerBuilder
                 { EmitTime = true, Formatter = new SampleFormatter("!1@") }.Build();
+
+            var loggers = new ILogger<NamedProperty>[] { c0, c1 };
+            var mb = new MediatorLoggerBuilder(loggers, Level.Debug);
+
+#if PHLOGOPITE_FORMATTING_LOGGER
             ConsoleLogger c2 = new ConsoleLoggerBuilder
                 { EmitTime = true, Formatter = new SampleFormatter("@2#") }.Build();
             ConsoleLogger c3 = new ConsoleLoggerBuilder
                 { EmitTime = true, Formatter = new SampleFormatter("#3$") }.Build();
-
             FormattingLogger f0 = new FormattingLoggerBuilder().AddLoggers(c0, c2).Build();
             FormattingLogger f4 = new FormattingLoggerBuilder { Formatter = new SampleFormatter("$4%") }
                 .AddLoggers(c0, c3).Build();
 
-            var loggers = new ILogger<NamedProperty>[] { c0, c1 };
-            MediatorLogger m = new MediatorLoggerBuilder(loggers, Level.Debug).AddLoggers(f0, f4).Build();
-            Log.TrySetLogger(m);
+            mb.AddLoggers(f0, f4);
+#endif
+
+            Log.TrySetLogger(mb.Build());
 
             var foo = new Foo();
             foo.Bar();

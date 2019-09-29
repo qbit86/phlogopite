@@ -1,3 +1,4 @@
+#if PHLOGOPITE_FORMATTING_LOGGER
 using System;
 
 namespace Phlogopite
@@ -15,3 +16,4 @@ namespace Phlogopite
         public IFormatter<NamedProperty> Formatter { get; }
     }
 }
+#endif

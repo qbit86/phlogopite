@@ -1,3 +1,4 @@
+#if PHLOGOPITE_FORMATTING_LOGGER
 using System;
 using System.Diagnostics;
 using Phlogopite.Internal;
@@ -46,3 +47,4 @@ namespace Phlogopite
         }
     }
 }
+#endif
