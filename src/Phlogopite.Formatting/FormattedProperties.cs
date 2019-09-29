@@ -2,9 +2,9 @@ using System;
 
 namespace Phlogopite
 {
-    public sealed class FormattedMessage
+    public sealed class FormattedProperties
     {
-        public FormattedMessage(IFormatter<NamedProperty> formatter)
+        public FormattedProperties(IFormatter<NamedProperty> formatter)
         {
             Formatter = formatter ?? throw new ArgumentNullException(nameof(formatter));
         }

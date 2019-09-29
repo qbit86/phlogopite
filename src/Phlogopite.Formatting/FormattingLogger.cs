@@ -32,17 +32,17 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)
         {
-            var item = new NamedProperty(KnownProperties.FormattedMessage,
-                FormatMessage(level, text, userProperties, attachedProperties));
+            var item = new NamedProperty(KnownProperties.FormattedProperties,
+                FormatProperties(level, text, userProperties, attachedProperties));
             attachedProperties.TryAppend(item, out attachedProperties);
             _logger.UncheckedWrite(level, text, userProperties, attachedProperties);
         }
 
-        private FormattedMessage FormatMessage(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            PropertyCollection attachedProperties)
+        private FormattedProperties FormatProperties(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
+            ReadOnlySpan<NamedProperty> attachedProperties)
         {
             // TODO: To be implemented.
-            return new FormattedMessage(_formatter);
+            return new FormattedProperties(_formatter);
         }
     }
 }
