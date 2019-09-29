@@ -7,7 +7,7 @@ using Phlogopite.Internal;
 
 namespace Phlogopite
 {
-    public sealed partial class Formatter : IFormatter<NamedProperty>
+    public sealed class Formatter : IFormatter<NamedProperty>
     {
         private Formatter() { }
 
@@ -250,7 +250,7 @@ namespace Phlogopite
         private static void RenderObject(object o, StringBuilderFacade sbf)
         {
             if (o is ICollection collection)
-                RenderCollection(collection, sbf);
+                RenderingHelpers.RenderCollection(collection, sbf);
             else
                 sbf.Append(o);
         }
