@@ -25,7 +25,22 @@ namespace Phlogopite
         private void FormatUserProperties(ReadOnlySpan<NamedProperty> userProperties,
             StringBuilder output, Span<Range> userRanges, IFormatProvider formatProvider)
         {
-            throw new NotImplementedException();
+            var sbf = new StringBuilderFacade(output, formatProvider);
+            for (int i = 0; i != userProperties.Length; ++i)
+            {
+                if (i != 0)
+                    output.Append(", ");
+
+                if (!string.IsNullOrEmpty(userProperties[i].Name))
+                {
+                    output.Append(userProperties[i].Name);
+                    output.Append(": ");
+                }
+
+                int propertyOffset = output.Length;
+                RenderingHelpers.RenderValue(userProperties[i], sbf);
+                SetRange(i, propertyOffset, output, userRanges);
+            }
         }
 
         private void FormatAttachedProperties(ReadOnlySpan<NamedProperty> attachedProperties,
