@@ -46,6 +46,7 @@ namespace Phlogopite
         private void FormatAttachedProperties(ReadOnlySpan<NamedProperty> attachedProperties,
             StringBuilder output, Span<Range> attachedRanges, IFormatProvider formatProvider)
         {
+            // TODO: Format only time.
             throw new NotImplementedException();
         }
 
