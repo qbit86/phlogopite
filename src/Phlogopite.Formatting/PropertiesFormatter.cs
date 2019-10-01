@@ -34,10 +34,7 @@ namespace Phlogopite
 
                 NamedProperty p = userProperties[i];
                 if (!string.IsNullOrEmpty(p.Name))
-                {
-                    output.Append(p.Name);
-                    output.Append(": ");
-                }
+                    output.Append(p.Name).Append(": ");
 
                 int propertyOffset = output.Length;
                 RenderingHelpers.RenderValue(p, sbf);
