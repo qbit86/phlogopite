@@ -32,14 +32,15 @@ namespace Phlogopite
                 if (i != 0)
                     output.Append(", ");
 
-                if (!string.IsNullOrEmpty(userProperties[i].Name))
+                NamedProperty p = userProperties[i];
+                if (!string.IsNullOrEmpty(p.Name))
                 {
-                    output.Append(userProperties[i].Name);
+                    output.Append(p.Name);
                     output.Append(": ");
                 }
 
                 int propertyOffset = output.Length;
-                RenderingHelpers.RenderValue(userProperties[i], sbf);
+                RenderingHelpers.RenderValue(p, sbf);
                 SetRange(i, propertyOffset, output, userRanges);
             }
         }
