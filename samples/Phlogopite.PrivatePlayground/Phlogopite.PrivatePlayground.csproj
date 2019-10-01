@@ -12,4 +12,5 @@
     <ProjectReference Include="..\..\src\Phlogopite.Console\Phlogopite.Console.csproj" />
     <ProjectReference Include="..\..\src\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
+  <Import Project="..\..\src\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />
 </Project>
