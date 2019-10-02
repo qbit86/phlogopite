@@ -107,7 +107,7 @@ namespace Phlogopite
                 if (_emitTime)
                 {
                     int timeIndex = FindByName(attachedProperties, KnownProperties.Time);
-                    if (timeIndex > 0)
+                    if (timeIndex >= 0 && timeIndex < attachedRanges.Length)
                     {
                         if (vsb.Length > 0)
                             vsb.Append(' ');
@@ -180,8 +180,14 @@ namespace Phlogopite
                         vsb.Append(": ");
                     }
 
-                    // TODO: Replace with actual value.
-                    vsb.Append('_');
+                    if (i < userRanges.Length)
+                    {
+                        Range propertyRange = userRanges[i];
+                        int propertyLength = propertyRange.Length;
+                        int destinationIndex = vsb.Length;
+                        Span<char> _ = vsb.AppendSpan(propertyLength);
+                        sb.CopyTo(propertyRange.Start, vsb.UnsafeArray, destinationIndex, propertyLength);
+                    }
                 }
 
                 WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
@@ -306,7 +312,7 @@ namespace Phlogopite
             return -1;
         }
 
-        private static int FindString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
+        private static void FindString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
         {
             for (int i = 0; i != properties.Length; ++i)
             {
@@ -316,11 +322,10 @@ namespace Phlogopite
                     continue;
 
                 if (p.TryGetString(out value))
-                    return i;
+                    return;
             }
 
             value = default;
-            return -1;
         }
 
         private static string GetLevelPrefix(Level level)
