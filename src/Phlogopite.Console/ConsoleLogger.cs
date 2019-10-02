@@ -98,7 +98,7 @@ namespace Phlogopite
                     int index = FindByName(attachedProperties, KnownProperties.Time);
                 }
 
-                char[] buffer = vsb.RawArray;
+                char[] buffer = vsb.UnsafeArray;
                 Debug.Assert(buffer != null,
                     $"[{nameof(ConsoleLogger)}.{nameof(WriteWithCustomPropertiesFormatter)}] {nameof(buffer)} != null");
 
