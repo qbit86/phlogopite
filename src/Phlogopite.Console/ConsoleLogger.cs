@@ -128,6 +128,15 @@ namespace Phlogopite
                         vsb.Append(' ');
 
                     vsb.Append('[');
+                    if (!string.IsNullOrEmpty(category))
+                        vsb.Append(category);
+
+                    if (!string.IsNullOrEmpty(category) && !string.IsNullOrEmpty(source))
+                        vsb.Append('.');
+
+                    if (!string.IsNullOrEmpty(source))
+                        vsb.Append(source);
+
                     vsb.Append(']');
                 }
 
