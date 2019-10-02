@@ -120,8 +120,8 @@ namespace Phlogopite
                     }
                 }
 
-                int categoryIndex = FindString(attachedProperties, KnownProperties.Category, out string category);
-                int sourceIndex = FindString(attachedProperties, KnownProperties.Source, out string source);
+                FindString(attachedProperties, KnownProperties.Category, out string category);
+                FindString(attachedProperties, KnownProperties.Source, out string source);
                 if (category != null || source != null)
                 {
                     if (vsb.Length > 0)
