@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using Phlogopite.Internal;
 
 namespace Phlogopite
 {
@@ -34,6 +35,7 @@ namespace Phlogopite
         private readonly IFormatter<NamedProperty> _formatter;
         private readonly bool _isSynchronized;
         private readonly Level _minimumLevel;
+        private readonly IPropertiesFormatter<NamedProperty> _propertiesFormatter;
         private readonly Level? _standardErrorMinimumLevel;
 
         public ConsoleLogger() : this(DefaultMinimumLevel, null,
@@ -55,6 +57,7 @@ namespace Phlogopite
             _emitLevel = emitLevel;
             _emitTime = emitTime;
             _formatter = formatter ?? DefaultFormatter;
+            _propertiesFormatter = PropertiesFormatter.Default;
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
@@ -72,6 +75,39 @@ namespace Phlogopite
         {
             // TODO: Add check if need to handle non-default formatter.
             WriteWithDefaultFormatter(level, text, userProperties, attachedProperties);
+        }
+
+        private void WriteWithCustomPropertiesFormatter(Level level, string text,
+            ReadOnlySpan<NamedProperty> userProperties, PropertyCollection attachedProperties)
+        {
+            // TODO: Estimate initialCapacity.
+            var vsb = new ValueStringBuilder(140);
+            try
+            {
+                if (_emitLevel)
+                {
+                    string levelPrefix = (uint)level < (uint)s_levelPrefixMap.Length
+                        ? s_levelPrefixMap[(int)level]
+                        : "- ";
+                    vsb.Append(levelPrefix);
+                    vsb.Append(' ');
+                }
+
+                if (_emitTime)
+                {
+                    int index = FindByName(attachedProperties, KnownProperties.Time);
+                }
+
+                char[] buffer = vsb.RawArray;
+                Debug.Assert(buffer != null,
+                    $"[{nameof(ConsoleLogger)}.{nameof(WriteWithCustomPropertiesFormatter)}] {nameof(buffer)} != null");
+
+                WriteLineThenFlush(level, buffer, 0, vsb.Length);
+            }
+            finally
+            {
+                vsb.Dispose();
+            }
         }
 
         private void WriteWithDefaultFormatter(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
@@ -213,6 +249,7 @@ namespace Phlogopite
             }
         }
 
+        // TODO: Refactor.
         private void WriteLineThenFlushUnsynchronized(
             Level level, char[] buffer, int index, int count, bool prependLevel)
         {
