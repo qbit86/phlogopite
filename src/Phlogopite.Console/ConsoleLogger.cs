@@ -6,6 +6,8 @@ using System.IO;
 using System.Text;
 using Phlogopite.Internal;
 
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+
 namespace Phlogopite
 {
     using PropertyCollection = SpanBuilder<NamedProperty>;
@@ -92,10 +94,9 @@ namespace Phlogopite
             {
                 if (_emitLevel)
                 {
-                    string levelPrefix = (uint)level < (uint)s_levelPrefixMap.Length
-                        ? s_levelPrefixMap[(int)level]
-                        : "- ";
-                    vsb.Append(levelPrefix);
+                    ReadOnlySpan<char> levelChars = "VDIWEA-".AsSpan();
+                    char levelChar = (uint)level < (uint)levelChars.Length ? levelChars[(int)level] : '-';
+                    vsb.Append(levelChar);
                 }
 
                 var userRanges = new Span<Range>(ranges, 0, userProperties.Length);
@@ -108,16 +109,27 @@ namespace Phlogopite
                     int timeIndex = FindByName(attachedProperties, KnownProperties.Time);
                     if (timeIndex > 0)
                     {
+                        if (vsb.Length > 0)
+                            vsb.Append(' ');
+
                         Range timeRange = attachedRanges[timeIndex];
                         int timeLength = timeRange.Length;
                         int destinationIndex = vsb.Length;
                         Span<char> _ = vsb.AppendSpan(timeLength);
                         sb.CopyTo(timeRange.Start, vsb.UnsafeArray, destinationIndex, timeLength);
-                        vsb.Append(' ');
                     }
                 }
 
-                vsb.Append(text);
+                // int categoryIndex = FindString(attachedProperties, KnownProperties.Category, out string category);
+                // int sourceIndex = FindString(attachedProperties, KnownProperties.Source, out string source);
+
+                if (!string.IsNullOrEmpty(text))
+                {
+                    if (vsb.Length > 0)
+                        vsb.Append(' ');
+
+                    vsb.Append(text);
+                }
 
                 WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
             }
@@ -238,6 +250,23 @@ namespace Phlogopite
                     return i;
             }
 
+            return -1;
+        }
+
+        private static int FindString(ReadOnlySpan<NamedProperty> properties, string name, out string value)
+        {
+            for (int i = 0; i != properties.Length; ++i)
+            {
+                NamedProperty p = properties[i];
+
+                if (!ReferenceEquals(p.Name, name))
+                    continue;
+
+                if (p.TryGetString(out value))
+                    return i;
+            }
+
+            value = default;
             return -1;
         }
 
