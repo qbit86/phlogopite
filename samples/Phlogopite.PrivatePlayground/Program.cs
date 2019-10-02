@@ -12,9 +12,9 @@ namespace Samples
     {
         private static void Main()
         {
-            ConsoleLogger c0 = new ConsoleLoggerBuilder { EmitTime = true }.Build();
+            ConsoleLogger c0 = new ConsoleLoggerBuilder { EmitLevel = true, EmitTime = true }.Build();
             ConsoleLogger c1 = new ConsoleLoggerBuilder
-                { EmitTime = true, Formatter = new SampleFormatter("!1@") }.Build();
+                { EmitLevel = true, EmitTime = true, Formatter = new SampleFormatter("!1@") }.Build();
 
             var loggers = new ILogger<NamedProperty>[] { c0, c1 };
             var mb = new MediatorLoggerBuilder(loggers, Level.Debug);
