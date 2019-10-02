@@ -113,8 +113,11 @@ namespace Phlogopite
                         int destinationIndex = vsb.Length;
                         Span<char> _ = vsb.AppendSpan(timeLength);
                         sb.CopyTo(timeRange.Start, vsb.UnsafeArray, destinationIndex, timeLength);
+                        vsb.Append(' ');
                     }
                 }
+
+                vsb.Append(text);
 
                 WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
             }
