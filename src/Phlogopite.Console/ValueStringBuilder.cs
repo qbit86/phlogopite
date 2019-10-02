@@ -95,7 +95,7 @@ namespace System.Text
         /// <summary>Returns the underlying storage of the builder.</summary>
         public Span<char> RawChars => _chars;
 
-        internal char[] UnsafeArray => _arrayToReturnToPool;
+        internal char[]? UnsafeArray => _arrayToReturnToPool;
 
         /// <summary>
         /// Returns a span around the contents of the builder.
