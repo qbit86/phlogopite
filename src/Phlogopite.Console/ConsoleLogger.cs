@@ -26,7 +26,7 @@ namespace Phlogopite
             ConsoleColor.DarkRed, ConsoleColor.Cyan
         };
 
-        private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "-" };
+        private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "- " };
         private static readonly object s_syncRoot = new object();
 
         private readonly bool _emitLevel;
@@ -74,14 +74,20 @@ namespace Phlogopite
             PropertyCollection attachedProperties)
         {
             // TODO: Add check if need to handle non-default formatter.
-            WriteWithDefaultFormatter(level, text, userProperties, attachedProperties);
+            // DO NOT COMMIT!!!
+            if (ReferenceEquals(_formatter, DefaultFormatter))
+                WriteWithDefaultFormatter(level, text, userProperties, attachedProperties);
+            else
+                WriteWithCustomPropertiesFormatter(level, text, userProperties, attachedProperties);
         }
 
         private void WriteWithCustomPropertiesFormatter(Level level, string text,
-            ReadOnlySpan<NamedProperty> userProperties, PropertyCollection attachedProperties)
+            ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties)
         {
             // TODO: Estimate initialCapacity.
             var vsb = new ValueStringBuilder(140);
+            StringBuilder sb = StringBuilderCache.Acquire(140);
+            Range[] ranges = ArrayPool<Range>.Shared.Rent(userProperties.Length + attachedProperties.Length);
             try
             {
                 if (_emitLevel)
@@ -90,22 +96,32 @@ namespace Phlogopite
                         ? s_levelPrefixMap[(int)level]
                         : "- ";
                     vsb.Append(levelPrefix);
-                    vsb.Append(' ');
                 }
+
+                var userRanges = new Span<Range>(ranges, 0, userProperties.Length);
+                var attachedRanges = new Span<Range>(ranges, userProperties.Length, attachedProperties.Length);
+                _propertiesFormatter.Format(userProperties, attachedProperties,
+                    sb, userRanges, attachedRanges, _formatProvider);
 
                 if (_emitTime)
                 {
-                    int index = FindByName(attachedProperties, KnownProperties.Time);
+                    int timeIndex = FindByName(attachedProperties, KnownProperties.Time);
+                    if (timeIndex > 0)
+                    {
+                        Range timeRange = attachedRanges[timeIndex];
+                        int timeLength = timeRange.Length;
+                        int destinationIndex = vsb.Length;
+                        Span<char> _ = vsb.AppendSpan(timeLength);
+                        sb.CopyTo(timeRange.Start, vsb.UnsafeArray, destinationIndex, timeLength);
+                    }
                 }
 
-                char[] buffer = vsb.UnsafeArray;
-                Debug.Assert(buffer != null,
-                    $"[{nameof(ConsoleLogger)}.{nameof(WriteWithCustomPropertiesFormatter)}] {nameof(buffer)} != null");
-
-                WriteLineThenFlush(level, buffer, 0, vsb.Length);
+                WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
             }
             finally
             {
+                ArrayPool<Range>.Shared.Return(ranges);
+                StringBuilderCache.Release(sb);
                 vsb.Dispose();
             }
         }
