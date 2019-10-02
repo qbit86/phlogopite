@@ -51,7 +51,7 @@ namespace Samples
             Log.E(null, "No category, no properties");
             Log.Logger.Write(Level.Info, nameof(Foo), "Writing to global Log.Logger", ("user", Environment.UserName));
             Log.W(nameof(Foo), "Warning via static Log.W()!", (nameof(DateTime.Now), DateTime.Now));
-            L.D("Writing to instance with captured category", ("pi", Math.PI));
+            L.D("Writing to instance with captured category", ("pi", Math.PI), ("e", Math.E));
             L.A("No source, no name", (null, new[] { "uno", "dos", "tres" }), null);
         }
     }
