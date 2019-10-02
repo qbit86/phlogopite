@@ -148,6 +148,42 @@ namespace Phlogopite
                     vsb.Append(text);
                 }
 
+                // TODO: Check, if default property formatter.
+                for (int i = 0; i != userProperties.Length; ++i)
+                {
+                    // Chose separator.
+                    if (i == 0)
+                    {
+                        if (string.IsNullOrEmpty(text))
+                        {
+                            if (vsb.Length > 0)
+                                vsb.Append(' ');
+                        }
+                        else
+                        {
+                            if (char.IsPunctuation(text[text.Length - 1]))
+                                vsb.Append(' ');
+                            else if (string.IsNullOrEmpty(userProperties[0].Name))
+                                vsb.Append(": ");
+                            else
+                                vsb.Append(". ");
+                        }
+                    }
+                    else
+                    {
+                        vsb.Append(", ");
+                    }
+
+                    if (!string.IsNullOrEmpty(userProperties[i].Name))
+                    {
+                        vsb.Append(userProperties[i].Name);
+                        vsb.Append(": ");
+                    }
+
+                    // TODO: Replace with actual value.
+                    vsb.Append('_');
+                }
+
                 WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
             }
             finally
