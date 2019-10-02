@@ -58,7 +58,7 @@ namespace Phlogopite
 
                 var sbf = new StringBuilderFacade(output, formatProvider);
                 int propertyOffset = output.Length;
-                sbf.Append(value);
+                sbf.Append(value, "HH:mm:ss.fff");
                 SetRange(i, propertyOffset, output, attachedRanges);
                 return;
             }
