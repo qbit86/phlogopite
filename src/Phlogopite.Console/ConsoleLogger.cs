@@ -120,8 +120,16 @@ namespace Phlogopite
                     }
                 }
 
-                // int categoryIndex = FindString(attachedProperties, KnownProperties.Category, out string category);
-                // int sourceIndex = FindString(attachedProperties, KnownProperties.Source, out string source);
+                int categoryIndex = FindString(attachedProperties, KnownProperties.Category, out string category);
+                int sourceIndex = FindString(attachedProperties, KnownProperties.Source, out string source);
+                if (category != null || source != null)
+                {
+                    if (vsb.Length > 0)
+                        vsb.Append(' ');
+
+                    vsb.Append('[');
+                    vsb.Append(']');
+                }
 
                 if (!string.IsNullOrEmpty(text))
                 {
