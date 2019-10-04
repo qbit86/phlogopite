@@ -66,14 +66,29 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)
         {
-            WriteWithCustomPropertyFormatter(level, text, userProperties, attachedProperties);
+            WriteWithNoFormattedProperties(level, text, userProperties, attachedProperties);
         }
 
-        private void WriteWithCustomPropertyFormatter(Level level, string text,
+        private void WriteWithNoFormattedProperties(Level level, string text,
             ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties)
         {
             int totalCapacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
             var vsb = new ValueStringBuilder(totalCapacity);
+            try
+            {
+                AppendWithNoFormattedProperties(level, text, userProperties, attachedProperties, ref vsb);
+                WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
+            }
+            finally
+            {
+                vsb.Dispose();
+            }
+        }
+
+        private void AppendWithNoFormattedProperties(Level level, string text,
+            ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties,
+            ref ValueStringBuilder vsb)
+        {
             // TODO: Estimate capacity.
             StringBuilder sb = StringBuilderCache.Acquire(140);
             Range[] ranges = ArrayPool<Range>.Shared.Rent(userProperties.Length + attachedProperties.Length);
@@ -176,14 +191,11 @@ namespace Phlogopite
                         sb.CopyTo(propertyRange.Start, vsb.UnsafeArray, destinationIndex, propertyLength);
                     }
                 }
-
-                WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
             }
             finally
             {
                 ArrayPool<Range>.Shared.Return(ranges);
                 StringBuilderCache.Release(sb);
-                vsb.Dispose();
             }
         }
 
