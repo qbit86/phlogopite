@@ -79,8 +79,9 @@ namespace Phlogopite
         private void WriteWithCustomPropertyFormatter(Level level, string text,
             ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties)
         {
+            int totalCapacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
+            var vsb = new ValueStringBuilder(totalCapacity);
             // TODO: Estimate initialCapacity.
-            var vsb = new ValueStringBuilder(140);
             StringBuilder sb = StringBuilderCache.Acquire(140);
             Range[] ranges = ArrayPool<Range>.Shared.Rent(userProperties.Length + attachedProperties.Length);
             try
