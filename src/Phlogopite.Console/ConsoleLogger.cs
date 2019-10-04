@@ -28,7 +28,6 @@ namespace Phlogopite
             ConsoleColor.DarkRed, ConsoleColor.Cyan
         };
 
-        private static readonly string[] s_levelPrefixMap = { "V ", "D ", "I ", "W ", "E ", "A ", "- " };
         private static readonly object s_syncRoot = new object();
 
         private readonly bool _emitLevel;
@@ -236,11 +235,6 @@ namespace Phlogopite
             value = default;
         }
 
-        private static string GetLevelPrefix(Level level)
-        {
-            return (uint)level < (uint)s_levelPrefixMap.Length ? s_levelPrefixMap[(int)level] : "- ";
-        }
-
         private TextWriter SelectOutputStream(Level level)
         {
             if (!_standardErrorMinimumLevel.HasValue)
@@ -249,23 +243,21 @@ namespace Phlogopite
             return level < _standardErrorMinimumLevel.GetValueOrDefault() ? Console.Out : Console.Error;
         }
 
-        private void WriteLineThenFlush(Level level, char[] buffer, int index, int count, bool prependLevel = false)
+        private void WriteLineThenFlush(Level level, char[] buffer, int index, int count)
         {
             if (!_isSynchronized)
             {
-                WriteLineThenFlushUnsynchronized(level, buffer, index, count, prependLevel);
+                WriteLineThenFlushUnsynchronized(level, buffer, index, count);
                 return;
             }
 
             lock (s_syncRoot)
             {
-                WriteLineThenFlushUnsynchronized(level, buffer, index, count, prependLevel);
+                WriteLineThenFlushUnsynchronized(level, buffer, index, count);
             }
         }
 
-        // TODO: Refactor.
-        private void WriteLineThenFlushUnsynchronized(
-            Level level, char[] buffer, int index, int count, bool prependLevel)
+        private void WriteLineThenFlushUnsynchronized(Level level, char[] buffer, int index, int count)
         {
             Debug.Assert(buffer != null);
 
@@ -273,9 +265,6 @@ namespace Phlogopite
             try
             {
                 TextWriter output = SelectOutputStream(level);
-
-                if (prependLevel)
-                    output.Write(GetLevelPrefix(level));
 
                 output.WriteLine(buffer, index, count);
                 output.Flush();
