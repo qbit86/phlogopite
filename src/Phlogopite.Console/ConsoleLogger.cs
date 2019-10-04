@@ -34,7 +34,6 @@ namespace Phlogopite
         private readonly bool _emitLevel;
         private readonly bool _emitTime;
         private readonly IFormatProvider _formatProvider;
-        private readonly IFormatter<NamedProperty> _formatter;
         private readonly bool _isSynchronized;
         private readonly Level _minimumLevel;
         private readonly IPropertyFormatter<NamedProperty> _propertyFormatter;
@@ -58,7 +57,6 @@ namespace Phlogopite
             _isSynchronized = isSynchronized;
             _emitLevel = emitLevel;
             _emitTime = emitTime;
-            _formatter = Formatter.Default;
             _propertyFormatter = propertyFormatter ?? DefaultPropertyFormatter;
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
@@ -193,92 +191,6 @@ namespace Phlogopite
                 ArrayPool<Range>.Shared.Return(ranges);
                 StringBuilderCache.Release(sb);
                 vsb.Dispose();
-            }
-        }
-
-        private void WriteWithDefaultFormatter(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
-            PropertyCollection attachedProperties)
-        {
-            int capacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
-            StringBuilder sb = StringBuilderCache.Acquire(capacity);
-            char[] buffer = null;
-            try
-            {
-                Span<Range> mediatorRanges = stackalloc Range[attachedProperties.Count];
-                _formatter.Format(level, text, userProperties, attachedProperties,
-                    sb, default, mediatorRanges, _formatProvider);
-
-                if (_emitLevel && _emitTime)
-                {
-                    int length = sb.Length;
-                    buffer = ArrayPool<char>.Shared.Rent(length);
-                    sb.CopyTo(0, buffer, 0, length);
-                    WriteLineThenFlush(level, buffer, 0, length);
-                    return;
-                }
-
-                if (_emitTime)
-                {
-                    Debug.Assert(!_emitLevel, "!_emitLevel");
-                    const int startIndex = 2;
-                    if (startIndex < (uint)sb.Length)
-                    {
-                        int length = sb.Length - startIndex;
-                        buffer = ArrayPool<char>.Shared.Rent(length);
-                        sb.CopyTo(startIndex, buffer, 0, length);
-                        WriteLineThenFlush(level, buffer, 0, length);
-                    }
-
-                    return;
-                }
-
-                Debug.Assert(!_emitTime, "!_emitTime");
-                int timeIndex = FindByName(attachedProperties, "time");
-                if ((uint)timeIndex >= (uint)mediatorRanges.Length)
-                {
-                    if (_emitLevel)
-                    {
-                        int length = sb.Length;
-                        buffer = ArrayPool<char>.Shared.Rent(length);
-                        sb.CopyTo(0, buffer, 0, length);
-                        WriteLineThenFlush(level, buffer, 0, length);
-                        return;
-                    }
-
-                    Debug.Assert(!_emitLevel, "!_emitLevel");
-                    {
-                        const int startIndex = 2;
-                        if (startIndex < (uint)sb.Length)
-                        {
-                            int length = sb.Length - startIndex;
-                            buffer = ArrayPool<char>.Shared.Rent(length);
-                            sb.CopyTo(startIndex, buffer, 0, length);
-                            WriteLineThenFlush(level, buffer, 0, length);
-                        }
-
-                        return;
-                    }
-                }
-
-                Debug.Assert((uint)timeIndex < (uint)mediatorRanges.Length);
-                {
-                    Range range = mediatorRanges[timeIndex];
-                    int startIndex = range.End + 1;
-                    if ((uint)startIndex < (uint)sb.Length)
-                    {
-                        int length = sb.Length - startIndex;
-                        buffer = ArrayPool<char>.Shared.Rent(length);
-                        sb.CopyTo(startIndex, buffer, 0, length);
-                        WriteLineThenFlush(level, buffer, 0, length, _emitLevel);
-                    }
-                }
-            }
-            finally
-            {
-                if (buffer != null)
-                    ArrayPool<char>.Shared.Return(buffer);
-
-                StringBuilderCache.Release(sb);
             }
         }
 
