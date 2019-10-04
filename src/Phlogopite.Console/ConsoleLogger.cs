@@ -20,7 +20,7 @@ namespace Phlogopite
         internal const Level DefaultMinimumLevel = Level.Verbose;
 
         internal static readonly CultureInfo DefaultFormatProvider = CultureConstants.FixedCulture;
-        internal static readonly Formatter DefaultFormatter = Formatter.Default;
+        internal static readonly PropertyFormatter DefaultPropertyFormatter = PropertyFormatter.Default;
 
         private static readonly ConsoleColor[] s_levelColorMap =
         {
@@ -40,26 +40,26 @@ namespace Phlogopite
         private readonly IPropertyFormatter<NamedProperty> _propertyFormatter;
         private readonly Level? _standardErrorMinimumLevel;
 
-        public ConsoleLogger() : this(DefaultMinimumLevel, null,
-            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, DefaultFormatProvider) { }
+        public ConsoleLogger() : this(DefaultMinimumLevel, null, DefaultIsSynchronized, DefaultEmitLevel,
+            DefaultEmitTime, DefaultPropertyFormatter, DefaultFormatProvider) { }
 
-        public ConsoleLogger(Level minimumLevel) : this(minimumLevel, null,
-            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, DefaultFormatProvider) { }
+        public ConsoleLogger(Level minimumLevel) : this(minimumLevel, null, DefaultIsSynchronized, DefaultEmitLevel,
+            DefaultEmitTime, DefaultPropertyFormatter, DefaultFormatProvider) { }
 
         public ConsoleLogger(Level minimumLevel, IFormatProvider formatProvider) : this(minimumLevel, null,
-            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultFormatter, formatProvider) { }
+            DefaultIsSynchronized, DefaultEmitLevel, DefaultEmitTime, DefaultPropertyFormatter, formatProvider) { }
 
         internal ConsoleLogger(Level minimumLevel, Level? standardErrorMinimumLevel, bool isSynchronized,
             bool emitLevel, bool emitTime,
-            IFormatter<NamedProperty> formatter, IFormatProvider formatProvider)
+            IPropertyFormatter<NamedProperty> propertyFormatter, IFormatProvider formatProvider)
         {
             _minimumLevel = minimumLevel;
             _standardErrorMinimumLevel = standardErrorMinimumLevel;
             _isSynchronized = isSynchronized;
             _emitLevel = emitLevel;
             _emitTime = emitTime;
-            _formatter = formatter ?? DefaultFormatter;
-            _propertyFormatter = PropertyFormatter.Default;
+            _formatter = Formatter.Default;
+            _propertyFormatter = propertyFormatter ?? DefaultPropertyFormatter;
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
@@ -76,11 +76,7 @@ namespace Phlogopite
             PropertyCollection attachedProperties)
         {
             // TODO: Add check if need to handle non-default formatter.
-            // DO NOT COMMIT!!!
-            if (ReferenceEquals(_formatter, DefaultFormatter))
-                WriteWithDefaultFormatter(level, text, userProperties, attachedProperties);
-            else
-                WriteWithCustomPropertyFormatter(level, text, userProperties, attachedProperties);
+            WriteWithCustomPropertyFormatter(level, text, userProperties, attachedProperties);
         }
 
         private void WriteWithCustomPropertyFormatter(Level level, string text,
