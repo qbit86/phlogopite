@@ -89,18 +89,18 @@ namespace Phlogopite
             ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties,
             ref ValueStringBuilder vsb)
         {
+            if (_emitLevel)
+            {
+                ReadOnlySpan<char> levelChars = "VDIWEA-".AsSpan();
+                char levelChar = (uint)level < (uint)levelChars.Length ? levelChars[(int)level] : '-';
+                vsb.Append(levelChar);
+            }
+
             // TODO: Estimate capacity.
             StringBuilder sb = StringBuilderCache.Acquire(140);
             Range[] ranges = ArrayPool<Range>.Shared.Rent(userProperties.Length + attachedProperties.Length);
             try
             {
-                if (_emitLevel)
-                {
-                    ReadOnlySpan<char> levelChars = "VDIWEA-".AsSpan();
-                    char levelChar = (uint)level < (uint)levelChars.Length ? levelChars[(int)level] : '-';
-                    vsb.Append(levelChar);
-                }
-
                 var userRanges = new Span<Range>(ranges, 0, userProperties.Length);
                 var attachedRanges = new Span<Range>(ranges, userProperties.Length, attachedProperties.Length);
                 _propertyFormatter.Format(userProperties, attachedProperties,
