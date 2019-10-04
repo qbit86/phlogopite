@@ -123,8 +123,7 @@ csharp_prefer_static_local_function = true:suggestion
 csharp_preferred_modifier_order = public, private, protected, internal, new, abstract, virtual, sealed, override, static, readonly, extern, unsafe, volatile, async:suggestion
 
 # Code-block preferences
-# Does not work in Rider 2019.1: https://youtrack.jetbrains.com/issue/RSRP-474621
-# csharp_prefer_braces = false:none
+csharp_prefer_braces = false:none
 csharp_prefer_simple_using_statement = true:suggestion
 
 # Expression-level preferences
