@@ -22,12 +22,6 @@ namespace Phlogopite
         internal static readonly CultureInfo DefaultFormatProvider = CultureConstants.FixedCulture;
         internal static readonly PropertyFormatter DefaultPropertyFormatter = PropertyFormatter.Default;
 
-        private static readonly ConsoleColor[] s_levelColorMap =
-        {
-            ConsoleColor.DarkGray, ConsoleColor.Gray, ConsoleColor.White, ConsoleColor.DarkYellow, ConsoleColor.Red,
-            ConsoleColor.DarkRed, ConsoleColor.Cyan
-        };
-
         private static readonly object s_syncRoot = new object();
 
         private readonly bool _emitLevel;
@@ -72,7 +66,6 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)
         {
-            // TODO: Add check if need to handle non-default formatter.
             WriteWithCustomPropertyFormatter(level, text, userProperties, attachedProperties);
         }
 
@@ -81,7 +74,7 @@ namespace Phlogopite
         {
             int totalCapacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
             var vsb = new ValueStringBuilder(totalCapacity);
-            // TODO: Estimate initialCapacity.
+            // TODO: Estimate capacity.
             StringBuilder sb = StringBuilderCache.Acquire(140);
             Range[] ranges = ArrayPool<Range>.Shared.Rent(userProperties.Length + attachedProperties.Length);
             try
@@ -194,21 +187,6 @@ namespace Phlogopite
             }
         }
 
-        private static ConsoleColor SetForegroundColor(ConsoleColor color)
-        {
-            ConsoleColor result = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            return result;
-        }
-
-        private static ConsoleColor SetForegroundColor(Level level)
-        {
-            if (level < 0 || (int)level >= s_levelColorMap.Length)
-                return Console.ForegroundColor;
-
-            return SetForegroundColor(s_levelColorMap[(int)level]);
-        }
-
         private static int FindByName(ReadOnlySpan<NamedProperty> properties, string name)
         {
             for (int i = 0; i != properties.Length; ++i)
@@ -262,7 +240,7 @@ namespace Phlogopite
         {
             Debug.Assert(buffer != null);
 
-            ConsoleColor oldColor = SetForegroundColor(level);
+            ConsoleColor oldColor = ConsoleHelpers.SetForegroundColor(level);
             try
             {
                 TextWriter output = SelectOutputStream(level);
