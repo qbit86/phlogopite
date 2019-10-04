@@ -37,7 +37,7 @@ namespace Phlogopite
         private readonly IFormatter<NamedProperty> _formatter;
         private readonly bool _isSynchronized;
         private readonly Level _minimumLevel;
-        private readonly IPropertiesFormatter<NamedProperty> _propertiesFormatter;
+        private readonly IPropertyFormatter<NamedProperty> _propertyFormatter;
         private readonly Level? _standardErrorMinimumLevel;
 
         public ConsoleLogger() : this(DefaultMinimumLevel, null,
@@ -59,7 +59,7 @@ namespace Phlogopite
             _emitLevel = emitLevel;
             _emitTime = emitTime;
             _formatter = formatter ?? DefaultFormatter;
-            _propertiesFormatter = PropertiesFormatter.Default;
+            _propertyFormatter = PropertyFormatter.Default;
             _formatProvider = formatProvider ?? DefaultFormatProvider;
         }
 
@@ -80,10 +80,10 @@ namespace Phlogopite
             if (ReferenceEquals(_formatter, DefaultFormatter))
                 WriteWithDefaultFormatter(level, text, userProperties, attachedProperties);
             else
-                WriteWithCustomPropertiesFormatter(level, text, userProperties, attachedProperties);
+                WriteWithCustomPropertyFormatter(level, text, userProperties, attachedProperties);
         }
 
-        private void WriteWithCustomPropertiesFormatter(Level level, string text,
+        private void WriteWithCustomPropertyFormatter(Level level, string text,
             ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties)
         {
             // TODO: Estimate initialCapacity.
@@ -101,7 +101,7 @@ namespace Phlogopite
 
                 var userRanges = new Span<Range>(ranges, 0, userProperties.Length);
                 var attachedRanges = new Span<Range>(ranges, userProperties.Length, attachedProperties.Length);
-                _propertiesFormatter.Format(userProperties, attachedProperties,
+                _propertyFormatter.Format(userProperties, attachedProperties,
                     sb, userRanges, attachedRanges, _formatProvider);
 
                 if (_emitTime)

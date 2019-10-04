@@ -6,11 +6,11 @@ using Range = Phlogopite.Range;
 
 namespace Samples
 {
-    internal sealed class SamplePropertiesFormatter : IPropertiesFormatter<NamedProperty>
+    internal sealed class SamplePropertyFormatter : IPropertyFormatter<NamedProperty>
     {
-        private SamplePropertiesFormatter() { }
+        private SamplePropertyFormatter() { }
 
-        public static SamplePropertiesFormatter Default { get; } = new SamplePropertiesFormatter();
+        public static SamplePropertyFormatter Default { get; } = new SamplePropertyFormatter();
 
         public void Format(ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties,
             StringBuilder output, Span<Range> userRanges, Span<Range> attachedRanges, IFormatProvider formatProvider)

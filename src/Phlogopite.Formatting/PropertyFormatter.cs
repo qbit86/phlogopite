@@ -4,11 +4,11 @@ using Phlogopite.Internal;
 
 namespace Phlogopite
 {
-    public class PropertiesFormatter : IPropertiesFormatter<NamedProperty>
+    public class PropertyFormatter : IPropertyFormatter<NamedProperty>
     {
-        private PropertiesFormatter() { }
+        private PropertyFormatter() { }
 
-        public static PropertiesFormatter Default { get; } = new PropertiesFormatter();
+        public static PropertyFormatter Default { get; } = new PropertyFormatter();
 
         public void Format(ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties,
             StringBuilder output, Span<Range> userRanges, Span<Range> attachedRanges, IFormatProvider formatProvider)
