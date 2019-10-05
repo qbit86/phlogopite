@@ -96,8 +96,8 @@ namespace Phlogopite
                 vsb.Append(levelChar);
             }
 
-            // TODO: Estimate capacity.
-            StringBuilder sb = StringBuilderCache.Acquire(140);
+            int capacity = FormattingHelpers.EstimateCapacity(userProperties);
+            StringBuilder sb = StringBuilderCache.Acquire(capacity);
             Range[] ranges = ArrayPool<Range>.Shared.Rent(userProperties.Length + attachedProperties.Length);
             try
             {
