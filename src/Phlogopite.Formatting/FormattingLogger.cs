@@ -42,8 +42,7 @@ namespace Phlogopite
         private FormattedProperties FormatProperties(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             ReadOnlySpan<NamedProperty> attachedProperties)
         {
-            // TODO: To be implemented.
-            return new FormattedProperties(_formatter);
+            throw new NotImplementedException();
         }
     }
 }
