@@ -150,7 +150,6 @@ namespace Phlogopite
                     vsb.Append(text);
                 }
 
-                // TODO: Check, if default property formatter.
                 for (int i = 0; i != userProperties.Length; ++i)
                 {
                     // Chose separator.
@@ -170,6 +169,20 @@ namespace Phlogopite
                             else
                                 vsb.Append(". ");
                         }
+
+                        // Check, if default property formatter.
+                        if (ReferenceEquals(_propertyFormatter, PropertyFormatter.Default))
+                        {
+                            int destinationIndex = vsb.Length;
+                            int propertyLength = userRanges[userRanges.Length - 1].End - userRanges[0].Start;
+                            if (propertyLength > 0)
+                            {
+                                Span<char> _ = vsb.AppendSpan(propertyLength);
+                                sb.CopyTo(userRanges[0].Start, vsb.UnsafeArray, destinationIndex, propertyLength);
+                            }
+
+                            break;
+                        }
                     }
                     else
                     {
@@ -186,9 +199,12 @@ namespace Phlogopite
                     {
                         Range propertyRange = userRanges[i];
                         int propertyLength = propertyRange.Length;
-                        int destinationIndex = vsb.Length;
-                        Span<char> _ = vsb.AppendSpan(propertyLength);
-                        sb.CopyTo(propertyRange.Start, vsb.UnsafeArray, destinationIndex, propertyLength);
+                        if (propertyLength > 0)
+                        {
+                            int destinationIndex = vsb.Length;
+                            Span<char> _ = vsb.AppendSpan(propertyLength);
+                            sb.CopyTo(propertyRange.Start, vsb.UnsafeArray, destinationIndex, propertyLength);
+                        }
                     }
                 }
             }
