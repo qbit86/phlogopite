@@ -109,7 +109,7 @@ namespace Phlogopite
                 if (_emitTime)
                 {
                     int timeIndex = FindByName(attachedProperties, KnownProperties.Time);
-                    if (timeIndex >= 0 && timeIndex < attachedRanges.Length)
+                    if ((uint)timeIndex < (uint)attachedRanges.Length)
                     {
                         if (vsb.Length > 0)
                             vsb.Append(' ');
