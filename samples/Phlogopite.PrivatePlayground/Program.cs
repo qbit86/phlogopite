@@ -12,20 +12,20 @@ namespace Samples
     {
         private static void Main()
         {
-            ConsoleLogger c0 = new ConsoleLoggerBuilder { EmitTime = true }.Build();
+            ConsoleLogger c0 = new ConsoleLoggerBuilder { EmitLevel = true, EmitTime = true }.Build();
             ConsoleLogger c1 = new ConsoleLoggerBuilder
-                { EmitTime = true, Formatter = new SampleFormatter("!1@") }.Build();
+                { EmitLevel = true, EmitTime = true, PropertyFormatter = SamplePropertyFormatter.Default }.Build();
 
             var loggers = new ILogger<NamedProperty>[] { c0, c1 };
             var mb = new MediatorLoggerBuilder(loggers, Level.Debug);
 
 #if PHLOGOPITE_FORMATTING_LOGGER
             ConsoleLogger c2 = new ConsoleLoggerBuilder
-                { EmitTime = true, Formatter = new SampleFormatter("@2#") }.Build();
+                { EmitTime = true, PropertyFormatter = SamplePropertyFormatter.Default }.Build();
             ConsoleLogger c3 = new ConsoleLoggerBuilder
-                { EmitTime = true, Formatter = new SampleFormatter("#3$") }.Build();
+                { EmitTime = true, PropertyFormatter = SamplePropertyFormatter.Default }.Build();
             FormattingLogger f0 = new FormattingLoggerBuilder().AddLoggers(c0, c2).Build();
-            FormattingLogger f4 = new FormattingLoggerBuilder { Formatter = new SampleFormatter("$4%") }
+            FormattingLogger f4 = new FormattingLoggerBuilder { PropertyFormatter = SamplePropertyFormatter.Default }
                 .AddLoggers(c0, c3).Build();
 
             mb.AddLoggers(f0, f4);
@@ -48,9 +48,11 @@ namespace Samples
 
         internal void Bar()
         {
+            Log.E(null, "No category, no properties");
             Log.Logger.Write(Level.Info, nameof(Foo), "Writing to global Log.Logger", ("user", Environment.UserName));
             Log.W(nameof(Foo), "Warning via static Log.W()!", (nameof(DateTime.Now), DateTime.Now));
-            L.D("Writing to instance with captured category", ("pi", Math.PI));
+            L.D("Writing to instance with captured category", ("pi", Math.PI), ("e", Math.E));
+            L.A("No source, no name", (null, new[] { "uno", "dos", "tres" }), null);
         }
     }
 }

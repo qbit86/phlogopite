@@ -7,9 +7,9 @@ namespace Phlogopite
         private bool? _emitLevel;
         private bool? _emitTime;
         private IFormatProvider _formatProvider;
-        private IFormatter<NamedProperty> _formatter;
         private bool? _isSynchronized;
         private Level? _minimumLevel;
+        private IPropertyFormatter<NamedProperty> _propertyFormatter;
 
         public IFormatProvider FormatProvider
         {
@@ -17,10 +17,10 @@ namespace Phlogopite
             set => _formatProvider = value;
         }
 
-        public IFormatter<NamedProperty> Formatter
+        public IPropertyFormatter<NamedProperty> PropertyFormatter
         {
-            get => _formatter ?? ConsoleLogger.DefaultFormatter;
-            set => _formatter = value;
+            get => _propertyFormatter ?? ConsoleLogger.DefaultPropertyFormatter;
+            set => _propertyFormatter = value;
         }
 
         public bool IsSynchronized
@@ -52,7 +52,7 @@ namespace Phlogopite
         public ConsoleLogger Build()
         {
             return new ConsoleLogger(MinimumLevel, StandardErrorMinimumLevel, IsSynchronized, EmitLevel, EmitTime,
-                Formatter, FormatProvider);
+                PropertyFormatter, FormatProvider);
         }
     }
 }

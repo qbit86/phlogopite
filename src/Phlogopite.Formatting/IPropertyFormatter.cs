@@ -5,10 +5,9 @@ using System.Text;
 
 namespace Phlogopite
 {
-    public interface IFormatter<TProperty>
+    public interface IPropertyFormatter<TProperty>
     {
-        void Format(Level level, string text,
-            ReadOnlySpan<TProperty> userProperties, ReadOnlySpan<TProperty> attachedProperties,
+        void Format(ReadOnlySpan<TProperty> userProperties, ReadOnlySpan<TProperty> attachedProperties,
             StringBuilder output, Span<Range> userRanges, Span<Range> attachedRanges, IFormatProvider formatProvider);
     }
 }

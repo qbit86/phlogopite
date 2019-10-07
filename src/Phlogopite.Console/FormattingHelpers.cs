@@ -24,5 +24,20 @@ namespace Phlogopite
 
             return capacity;
         }
+
+        internal static int EstimateCapacity(ReadOnlySpan<NamedProperty> userProperties)
+        {
+            const int timeLength = 12; // “21:46:30.992”
+            int userPropertiesDelimitersLength = 4 * userProperties.Length; // “, name: value”
+            int capacity = timeLength + userPropertiesDelimitersLength;
+
+            for (int i = 0; i != userProperties.Length; ++i)
+            {
+                capacity += (userProperties[i].Name?.Length).GetValueOrDefault() +
+                    (userProperties[i].AsString?.Length ?? 16);
+            }
+
+            return capacity;
+        }
     }
 }
