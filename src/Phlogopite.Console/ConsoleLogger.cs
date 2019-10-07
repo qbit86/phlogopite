@@ -66,17 +66,17 @@ namespace Phlogopite
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)
         {
-            WriteWithNoFormattedProperties(level, text, userProperties, attachedProperties);
+            WriteWhenNoFormattedProperties(level, text, userProperties, attachedProperties);
         }
 
-        private void WriteWithNoFormattedProperties(Level level, string text,
+        private void WriteWhenNoFormattedProperties(Level level, string text,
             ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties)
         {
             int totalCapacity = FormattingHelpers.EstimateCapacity(text, userProperties, attachedProperties);
             var vsb = new ValueStringBuilder(totalCapacity);
             try
             {
-                AppendWithNoFormattedProperties(level, text, userProperties, attachedProperties, ref vsb);
+                AppendWhenNoFormattedProperties(level, text, userProperties, attachedProperties, ref vsb);
                 WriteLineThenFlush(level, vsb.UnsafeArray, 0, vsb.Length);
             }
             finally
@@ -85,7 +85,7 @@ namespace Phlogopite
             }
         }
 
-        private void AppendWithNoFormattedProperties(Level level, string text,
+        private void AppendWhenNoFormattedProperties(Level level, string text,
             ReadOnlySpan<NamedProperty> userProperties, ReadOnlySpan<NamedProperty> attachedProperties,
             ref ValueStringBuilder vsb)
         {
