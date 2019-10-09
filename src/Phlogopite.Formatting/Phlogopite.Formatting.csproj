@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!-- TODO: Add netstandard2.1 when available. System.Memory is not required on netstandard2.1. -->
-    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netcoreapp2.1</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netstandard2.1;netcoreapp2.1</TargetFrameworks>
     <AssemblyVersion>0.2</AssemblyVersion>
     <VersionPrefix>0.2.0</VersionPrefix>
     <FileVersion>$(VersionPrefix)</FileVersion>
@@ -15,33 +14,33 @@ Phlogopite.Range</Description>
     <SignAssembly>true</SignAssembly>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <RootNamespace>Phlogopite.Sinks</RootNamespace>
+    <RootNamespace>Phlogopite</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.3" />
     <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.Memory" Version="4.5.3" />
     <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="System.Memory" Version="4.5.3" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19351-01" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
     <ProjectReference Include="..\Phlogopite\Phlogopite.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Formatter.RenderCollection.tt">
+    <None Update="RenderingHelpers.RenderCollection.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Formatter.RenderCollection.cs</LastGenOutput>
+      <LastGenOutput>RenderingHelpers.RenderCollection.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Formatter.RenderCollection.cs">
+    <Compile Update="RenderingHelpers.RenderCollection.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Formatter.RenderCollection.tt</DependentUpon>
+      <DependentUpon>RenderingHelpers.RenderCollection.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="..\Phlogopite.Shared\Phlogopite.Shared.projitems" Label="Shared" />

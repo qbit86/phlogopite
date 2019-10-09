@@ -1,44 +1,45 @@
+#if PHLOGOPITE_FORMATTING_LOGGER
 using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace Phlogopite
 {
-    public sealed class MediatorLoggerBuilder
+    public sealed class FormattingLoggerBuilder
     {
-        private const Level DefaultMinimumLevel = Level.Verbose;
-
         private List<ILogger<NamedProperty>> _addedLoggers;
+        private IFormatProvider _formatProvider;
+        private IFormatter<NamedProperty> _formatter;
         private IEnumerable<ILogger<NamedProperty>> _initialLoggers;
-        private Level? _minimumLevel;
 
-        public MediatorLoggerBuilder(IEnumerable<ILogger<NamedProperty>> loggers = null, Level minimumLevel = default)
+        public FormattingLoggerBuilder(IEnumerable<ILogger<NamedProperty>> loggers = null)
         {
             _initialLoggers = loggers;
-            _minimumLevel = minimumLevel;
         }
-
-        public MediatorLoggerBuilder(Level minimumLevel) : this(null, minimumLevel) { }
 
         public Func<Exception, bool> ExceptionHandler { get; set; }
 
-        public Level MinimumLevel
+        public IFormatProvider FormatProvider
         {
-            get => _minimumLevel ?? DefaultMinimumLevel;
-            set => _minimumLevel = value;
+            get => _formatProvider ?? CultureConstants.FixedCulture;
+            set => _formatProvider = value;
         }
 
-        public Func<Level> MinimumLevelProvider { get; set; }
+        public IFormatter<NamedProperty> Formatter
+        {
+            get => _formatter ?? Phlogopite.Formatter.Default;
+            set => _formatter = value;
+        }
 
-        public MediatorLogger Build()
+        public FormattingLogger Build()
         {
             IEnumerable<ILogger<NamedProperty>> initialLoggers = Interlocked.Exchange(ref _initialLoggers, null);
             List<ILogger<NamedProperty>> addedLoggers = Interlocked.Exchange(ref _addedLoggers, null);
             AggregateLogger<NamedProperty> aggregateLogger = CreateAggregateLogger(initialLoggers, addedLoggers);
-            return new MediatorLogger(aggregateLogger, MinimumLevel, MinimumLevelProvider);
+            return new FormattingLogger(aggregateLogger, Formatter, FormatProvider);
         }
 
-        public MediatorLoggerBuilder AddLogger(ILogger<NamedProperty> logger)
+        public FormattingLoggerBuilder AddLogger(ILogger<NamedProperty> logger)
         {
             if (logger is null)
                 return this;
@@ -53,7 +54,7 @@ namespace Phlogopite
             return this;
         }
 
-        public MediatorLoggerBuilder AddLoggers(ILogger<NamedProperty> logger0,
+        public FormattingLoggerBuilder AddLoggers(ILogger<NamedProperty> logger0,
             ILogger<NamedProperty> logger1)
         {
             if (logger0 is null)
@@ -86,3 +87,4 @@ namespace Phlogopite
         }
     }
 }
+#endif

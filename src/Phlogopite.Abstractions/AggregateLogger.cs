@@ -10,8 +10,10 @@ namespace Phlogopite
         public static AggregateLogger<TProperty> Create<TProperty>(
             IEnumerable<ILogger<TProperty>> loggers = null, Func<Exception, bool> exceptionHandler = null)
         {
-            ILogger<TProperty>[] array =
-                loggers?.ToArray() ?? Array.Empty<ILogger<TProperty>>();
+            if (loggers is null)
+                return new AggregateLogger<TProperty>(Array.Empty<ILogger<TProperty>>(), 0, exceptionHandler);
+
+            ILogger<TProperty>[] array = loggers.ToArray();
             int maxAttachedPropertyCount = 0;
             for (int i = 0; i != array.Length; ++i)
             {

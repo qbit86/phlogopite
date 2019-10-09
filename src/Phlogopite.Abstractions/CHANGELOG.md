@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.0] - 2019-10-08
+### Added
+- New target framework `netstandard2.1` which simplifies dependency graph.
+
 ## [0.4.0] - 2019-07-29
 ### Added
 - `ILogger<TProperty>`
@@ -24,6 +28,7 @@
 ### Added
 - Basic building blocks for logging pipeline: `IMediator<TProperty>`, `ISink<TProperty>`, `IWriter<TProperty>`.
 
+[0.5.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.4.0...abstractions-0.5.0
 [0.4.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.3.0...abstractions-0.4.0
 [0.3.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.2.0...abstractions-0.3.0
 [0.2.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.1.0...abstractions-0.2.0
