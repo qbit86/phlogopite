@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.5.0]
+## [0.5.0] - 2019-10-09
 ### Added
 - New target framework `netstandard2.1` which simplifies dependency graph.
 - `IPropertyFormatter<TProperty>`
