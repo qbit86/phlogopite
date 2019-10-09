@@ -5,13 +5,12 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using Phlogopite.Internal;
+using PropertyCollection = Phlogopite.SpanBuilder<Phlogopite.NamedProperty>;
 
 #pragma warning disable CA1303 // Do not pass literals as localized parameters
 
 namespace Phlogopite
 {
-    using PropertyCollection = SpanBuilder<NamedProperty>;
-
     public sealed class ConsoleLogger : ILogger<NamedProperty>
     {
         internal const bool DefaultEmitLevel = false;
