@@ -173,11 +173,16 @@ namespace Phlogopite
                         if (ReferenceEquals(_propertyFormatter, PropertyFormatter.Default))
                         {
                             int destinationIndex = vsb.Length;
-                            int propertyLength = userRanges[userRanges.Length - 1].End - userRanges[0].Start;
+                            int startPropertyLength = (userProperties[0].Name?.Length).GetValueOrDefault();
+                            int rawStartIndex = startPropertyLength > 0
+                                ? userRanges[0].Start - startPropertyLength - 2
+                                : userRanges[0].Start;
+                            int startIndex = Math.Max(0, rawStartIndex);
+                            int propertyLength = userRanges[userRanges.Length - 1].End - startIndex;
                             if (propertyLength > 0)
                             {
                                 Span<char> _ = vsb.AppendSpan(propertyLength);
-                                sb.CopyTo(userRanges[0].Start, vsb.UnsafeArray, destinationIndex, propertyLength);
+                                sb.CopyTo(startIndex, vsb.UnsafeArray, destinationIndex, propertyLength);
                             }
 
                             break;
