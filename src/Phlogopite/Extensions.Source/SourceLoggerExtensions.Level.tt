@@ -12,7 +12,7 @@ namespace Phlogopite.Extensions.Source
 const int startPropertyCount = 1;
 const int maxPropertyCount = 4;
 
-var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
+string[] levels = { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
 for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
 {
     ClearIndent();
