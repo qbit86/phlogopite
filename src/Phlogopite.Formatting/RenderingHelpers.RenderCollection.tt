@@ -21,7 +21,7 @@ namespace Phlogopite
             }
 
 <#
-var csharpTypes = new string[]
+string[] csharpTypes =
 {
     "string", "int", "byte", "double", "long", "float", "DateTime", "bool",
     "char", "sbyte", "short", "ushort", "uint", "ulong", "object"

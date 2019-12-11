@@ -9,7 +9,7 @@ namespace Phlogopite
 {
     internal static partial class RenderingHelpers
     {
-        private static void RenderCollection(ICollection collection, StringBuilderFacade sbf)
+        internal static void RenderCollection(ICollection collection, StringBuilderFacade sbf)
         {
             Debug.Assert(collection != null, "collection != null");
             if (collection.Count == 0)
