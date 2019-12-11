@@ -8,23 +8,23 @@ namespace Phlogopite.Singletons
     public static partial class Log
     {
 <#
-string[] levels = { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
-for (int i = 0; i != levels.Length; ++i)
-{
-    if (i != 0)
-        WriteLine(string.Empty);
+    string[] levels = { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
+    for (int i = 0; i != levels.Length; ++i)
+    {
+        if (i != 0)
+            WriteLine(string.Empty);
 
-    string level = levels[i];
-    string methodName = level.Substring(0, 1);
+        string level = levels[i];
+        string methodName = level.Substring(0, 1);
 #>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void <#=methodName#>(string category, string text,
+        public static void <#=methodName #>(string category, string text,
             [CallerMemberName] string source = null)
         {
-            Logger.Write(Level.<#=level#>, category, text, source);
+            Logger.Write(Level.<#=level #>, category, text, source);
         }
 <#
-}
+    }
 #>
     }
 }

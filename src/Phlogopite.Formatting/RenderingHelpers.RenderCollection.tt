@@ -21,36 +21,36 @@ namespace Phlogopite
             }
 
 <#
-string[] csharpTypes =
-{
-    "string", "int", "byte", "double", "long", "float", "DateTime", "bool",
-    "char", "sbyte", "short", "ushort", "uint", "ulong", "object"
-};
-for (int i = 0; i != csharpTypes.Length; ++i)
-{
-    string csharpType = csharpTypes[i];
-    if (string.IsNullOrWhiteSpace(csharpType))
-        continue;
+    string[] csharpTypes =
+    {
+        "string", "int", "byte", "double", "long", "float", "DateTime", "bool",
+        "char", "sbyte", "short", "ushort", "uint", "ulong", "object"
+    };
+    for (int i = 0; i != csharpTypes.Length; ++i)
+    {
+        string csharpType = csharpTypes[i];
+        if (string.IsNullOrWhiteSpace(csharpType))
+            continue;
 
-    string variableName = csharpType + "List";
-    if (char.IsUpper(csharpType[0]))
-        variableName = char.ToLower(csharpType[0]) + csharpType.Substring(1) + "List";
+        string variableName = csharpType + "List";
+        if (char.IsUpper(csharpType[0]))
+            variableName = char.ToLower(csharpType[0]) + csharpType.Substring(1) + "List";
 #>
-            <#=i == 0 ? string.Empty : "else "#>if (collection is IReadOnlyList<<#=csharpType#>> <#=variableName#>)
-                RenderReadOnlyList(<#=variableName#>, sbf);
+            <#=i == 0 ? string.Empty : "else " #>if (collection is IReadOnlyList<<#=csharpType #>> <#=variableName #>)
+                RenderReadOnlyList(<#=variableName #>, sbf);
 <#
-}
+    }
 #>
             else
                 sbf.Append(collection);
         }
 <#
-for (int i = 0; i != csharpTypes.Length; ++i)
-{
-    string csharpType = csharpTypes[i];
+    for (int i = 0; i != csharpTypes.Length; ++i)
+    {
+        string csharpType = csharpTypes[i];
 #>
 
-        private static void RenderReadOnlyList(IReadOnlyList<<#=csharpType#>> values, StringBuilderFacade sbf)
+        private static void RenderReadOnlyList(IReadOnlyList<<#=csharpType #>> values, StringBuilderFacade sbf)
         {
             Debug.Assert(values != null, "values != null");
 
@@ -66,7 +66,7 @@ for (int i = 0; i != csharpTypes.Length; ++i)
             sbf.Append("]");
         }
 <#
-}
+    }
 #>
     }
 }
