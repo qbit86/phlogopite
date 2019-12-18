@@ -1,24 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netstandard2.1;netcoreapp2.1</TargetFrameworks>
     <AssemblyVersion>0.5</AssemblyVersion>
-    <VersionPrefix>0.5.0</VersionPrefix>
-    <FileVersion>$(VersionPrefix)</FileVersion>
+    <FileVersion>0.5.0</FileVersion>
+    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netstandard2.1;netcoreapp2.1</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
     <Description>Abstractions for Phlogopite library — structured logging for .NET with low memory footprint.
 Commonly used types:
 Phlogopite.AggregateLogger&lt;TProperty&gt;
 Phlogopite.ILogger&lt;TProperty&gt;
 Phlogopite.SpanBuilder&lt;TProperty&gt;</Description>
-    <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Abstractions/CHANGELOG.md</PackageReleaseNotes>
-    <SignAssembly>true</SignAssembly>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageIcon>kopimi.png</PackageIcon>
+    <PackageTags>phlogopite;logging;semantic;structured</PackageTags>
+    <VersionPrefix>$(FileVersion)</VersionPrefix>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="$(RepoRoot)/assets/kopimi.png" Pack="true" PackagePath=""/>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.3" />
     <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.Memory" Version="4.5.3" />
