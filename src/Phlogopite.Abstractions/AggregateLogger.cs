@@ -21,8 +21,8 @@ namespace Phlogopite
                 if (logger is null)
                     continue;
 
-                if (logger.MaxAttachedPropertyCount > maxAttachedPropertyCount)
-                    maxAttachedPropertyCount = logger.MaxAttachedPropertyCount;
+                if (logger.GetMaxAttachedPropertyCount() > maxAttachedPropertyCount)
+                    maxAttachedPropertyCount = logger.GetMaxAttachedPropertyCount();
             }
 
             return new AggregateLogger<TProperty>(array, maxAttachedPropertyCount, exceptionHandler);
@@ -34,6 +34,7 @@ namespace Phlogopite
     {
         private readonly ILogger<TProperty>[] _loggers;
         private readonly Func<Exception, bool> _exceptionHandler;
+        private readonly int _maxAttachedPropertyCount;
 
         internal AggregateLogger(ILogger<TProperty>[] loggers, int maxAttachedPropertyCount,
             Func<Exception, bool> exceptionHandler)
@@ -43,10 +44,13 @@ namespace Phlogopite
 
             _loggers = loggers;
             _exceptionHandler = exceptionHandler;
-            MaxAttachedPropertyCount = maxAttachedPropertyCount;
+            _maxAttachedPropertyCount = maxAttachedPropertyCount;
         }
 
-        public int MaxAttachedPropertyCount { get; }
+        public int GetMaxAttachedPropertyCount()
+        {
+            return _maxAttachedPropertyCount;
+        }
 
         public bool IsEnabled(Level level)
         {
@@ -91,7 +95,7 @@ namespace Phlogopite
         public bool Equals(AggregateLogger<TProperty> other)
         {
             return Equals(_loggers, other._loggers) && Equals(_exceptionHandler, other._exceptionHandler) &&
-                MaxAttachedPropertyCount == other.MaxAttachedPropertyCount;
+                _maxAttachedPropertyCount == other._maxAttachedPropertyCount;
         }
 
         public override bool Equals(object obj)
@@ -105,7 +109,7 @@ namespace Phlogopite
             {
                 int hashCode = _exceptionHandler is null ? 0 : _exceptionHandler.GetHashCode();
                 hashCode = (hashCode * 397) ^ _loggers.GetHashCode();
-                hashCode = (hashCode * 397) ^ MaxAttachedPropertyCount;
+                hashCode = (hashCode * 397) ^ _maxAttachedPropertyCount;
                 return hashCode;
             }
         }

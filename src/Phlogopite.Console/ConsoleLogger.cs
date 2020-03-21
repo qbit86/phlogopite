@@ -55,7 +55,7 @@ namespace Phlogopite
 
         public static ConsoleLogger Default { get; } = new ConsoleLogger();
 
-        public int MaxAttachedPropertyCount => 0;
+        public int GetMaxAttachedPropertyCount() => 0;
 
         public bool IsEnabled(Level level)
         {

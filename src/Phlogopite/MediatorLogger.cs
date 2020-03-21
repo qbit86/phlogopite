@@ -24,7 +24,7 @@ namespace Phlogopite
 
         public static MediatorLogger Silent { get; } = new MediatorLoggerBuilder(Level.Silent).Build();
 
-        public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
+        public int GetMaxAttachedPropertyCount() => 1 + _logger.GetMaxAttachedPropertyCount();
 
         public bool IsEnabled(Level level)
         {

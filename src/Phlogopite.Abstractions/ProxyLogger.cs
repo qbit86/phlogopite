@@ -24,7 +24,7 @@ namespace Phlogopite
             _minimumLevelProvider = minimumLevelProvider;
         }
 
-        public int MaxAttachedPropertyCount => _logger.MaxAttachedPropertyCount;
+        public int GetMaxAttachedPropertyCount() => _logger.GetMaxAttachedPropertyCount();
 
         public bool IsEnabled(Level level)
         {
