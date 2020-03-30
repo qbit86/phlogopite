@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Changed
+- Update Phlogopite.Abstractions to 0.6.0.
+
 ## [0.5.0] - 2019-10-09
 ### Added
 - New target framework `netstandard2.1` which simplifies dependency graph.
@@ -29,6 +33,7 @@
 ### Added
 - Default implementation for logging abstractions: `Mediator`, `Writer`.
 
+[Unreleased]: https://github.com/qbit86/phlogopite/compare/main-0.5.0...HEAD
 [0.5.0]: https://github.com/qbit86/phlogopite/compare/main-0.4.0...main-0.5.0
 [0.4.0]: https://github.com/qbit86/phlogopite/compare/main-0.2.1...main-0.4.0
 [0.2.1]: https://github.com/qbit86/phlogopite/compare/main-0.2.0...main-0.2.1

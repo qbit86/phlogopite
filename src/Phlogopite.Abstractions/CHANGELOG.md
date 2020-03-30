@@ -1,7 +1,7 @@
 # Changelog
 
 ## [0.6.0] - 2020-03-31
-# Changed
+### Changed
 - Replace `MaxAttachedPropertyCount` property with `GetMaxAttachedPropertyCount()` method.
 - `SpanBuilder<T>` now operates on available span instead of array.
 
