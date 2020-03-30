@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.6.0] - 2020-03-31
 # Changed
 - Replace `MaxAttachedPropertyCount` property with `GetMaxAttachedPropertyCount()` method.
 - `SpanBuilder<T>` now operates on available span instead of array.
@@ -33,7 +33,7 @@
 ### Added
 - Basic building blocks for logging pipeline: `IMediator<TProperty>`, `ISink<TProperty>`, `IWriter<TProperty>`.
 
-[Unreleased]: https://github.com/qbit86/phlogopite/compare/abstractions-0.5.0...HEAD
+[0.6.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.5.0...abstractions-0.6.0
 [0.5.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.4.0...abstractions-0.5.0
 [0.4.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.3.0...abstractions-0.4.0
 [0.3.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.2.0...abstractions-0.3.0
