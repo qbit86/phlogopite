@@ -2,6 +2,7 @@
   <Import Project="../Directory.Build.props" />
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>$(RepoRoot)assets/phlogopite.snk</AssemblyOriginatorKeyFile>
+    <Deterministic>true</Deterministic>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
@@ -13,6 +14,9 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/qbit86/phlogopite</RepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(RepoRoot)/assets/kopimi.png" Pack="true" PackagePath="" />
