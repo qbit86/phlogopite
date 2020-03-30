@@ -9,27 +9,27 @@ namespace Phlogopite.Extensions.Tag
     public static partial class TagLoggerExtensions
     {
 <#
-var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
-for (int i = 0; i != levels.Length; ++i)
-{
-    if (i != 0)
-        WriteLine(string.Empty);
+    string[] levels = { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
+    for (int i = 0; i != levels.Length; ++i)
+    {
+        if (i != 0)
+            WriteLine(string.Empty);
 
-    string level = levels[i];
-    string methodName = level.Substring(0, 1);
+        string level = levels[i];
+        string methodName = level.Substring(0, 1);
 #>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void <#=methodName#><TLogger>(this TLogger logger, string category, string text,
+        public static void <#=methodName #><TLogger>(this TLogger logger, string category, string text,
             [CallerMemberName] string source = null)
             where TLogger : ILogger<NamedProperty>
         {
-            if (logger is null || !logger.IsEnabled(Level.<#=level#>))
+            if (logger is null || !logger.IsEnabled(Level.<#=level #>))
                 return;
 
-            AllocateThenWrite0(logger, Level.<#=level#>, category, text, source);
+            AllocateThenWrite0(logger, Level.<#=level #>, category, text, source);
         }
 <#
-}
+    }
 #>
     }
 }

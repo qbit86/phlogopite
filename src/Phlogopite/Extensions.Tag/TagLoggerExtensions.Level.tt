@@ -9,59 +9,59 @@ namespace Phlogopite.Extensions.Tag
     public static partial class TagLoggerExtensions
     {
 <#
-const int startPropertyCount = 1;
-const int maxPropertyCount = 4;
+    const int startPropertyCount = 1;
+    const int maxPropertyCount = 4;
 
-var levels = new string[] { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
-for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
-{
-    ClearIndent();
-    if (levelIndex != 0)
-        WriteLine(string.Empty);
-
-    string level = levels[levelIndex];
-    string methodName = level.Substring(0, 1);
-
-    PushIndent("        ");
-    WriteLine($"#region {level}");
-
-    // Overloads with text parameter.
-    for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
+    string[] levels = { "Verbose", "Debug", "Info", "Warning", "Error", "Assert" };
+    for (int levelIndex = 0; levelIndex != levels.Length; ++levelIndex)
     {
-        WriteLine(string.Empty);
+        ClearIndent();
+        if (levelIndex != 0)
+            WriteLine(string.Empty);
 
-        WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-        WriteLine($"public static void {methodName}<TLogger>(this TLogger logger, string category, string text,");
-        PushIndent("    ");
-        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        string level = levels[levelIndex];
+        string methodName = level.Substring(0, 1);
+
+        PushIndent("        ");
+        WriteLine($"#region {level}");
+
+        // Overloads with text parameter.
+        for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
         {
-            if (propertyIndex != 0)
-                Write(", ");
+            WriteLine(string.Empty);
 
-            Write("in NamedProperty p" + propertyIndex);
+            WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+            WriteLine($"public static void {methodName}<TLogger>(this TLogger logger, string category, string text,");
+            PushIndent("    ");
+            for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+            {
+                if (propertyIndex != 0)
+                    Write(", ");
+
+                Write("in NamedProperty p" + propertyIndex);
+            }
+
+            WriteLine(",");
+            WriteLine("[CallerMemberName] string source = null)");
+            WriteLine("where TLogger : ILogger<NamedProperty>");
+            PopIndent();
+            WriteLine("{");
+            WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");
+            WriteLine("        return;");
+            WriteLine(string.Empty);
+            Write($"    AllocateThenWrite{propertyCount}(logger, Level.{level}, category, text");
+            for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+                Write(", p" + propertyIndex);
+
+            WriteLine(", source);");
+            WriteLine("}");
         }
 
-        WriteLine(",");
-        WriteLine("[CallerMemberName] string source = null)");
-        WriteLine("where TLogger : ILogger<NamedProperty>");
-        PopIndent();
-        WriteLine("{");
-        WriteLine($"    if (logger is null || !logger.IsEnabled(Level.{level}))");
-        WriteLine("        return;");
         WriteLine(string.Empty);
-        Write($"    AllocateThenWrite{propertyCount}(logger, Level.{level}, category, text");
-        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-            Write(", p" + propertyIndex);
-
-        WriteLine(", source);");
-        WriteLine("}");
+        WriteLine($"#endregion {level}");
     }
 
-    WriteLine(string.Empty);
-    WriteLine($"#endregion {level}");
-}
-
-ClearIndent();
+    ClearIndent();
 #>
     }
 }

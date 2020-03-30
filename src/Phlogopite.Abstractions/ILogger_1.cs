@@ -4,7 +4,7 @@ namespace Phlogopite
 {
     public interface ILogger<TProperty>
     {
-        int MaxAttachedPropertyCount { get; }
+        int GetMaxAttachedPropertyCount();
 
         bool IsEnabled(Level level);
 

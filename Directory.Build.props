@@ -1,14 +1,8 @@
 <Project>
   <PropertyGroup>
-    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
-    <NeutralLanguage>en-US</NeutralLanguage>
     <LangVersion>latest</LangVersion>
-    <Authors>Viktor T.</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/qbit86/phlogopite</RepositoryUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <AssemblyOriginatorKeyFile>$(RepoRoot)assets/phlogopite.snk</AssemblyOriginatorKeyFile>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
     <RootNamespace>Phlogopite</RootNamespace>
   </PropertyGroup>
 </Project>

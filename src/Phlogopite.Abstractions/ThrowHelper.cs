@@ -17,9 +17,9 @@ namespace Phlogopite
             throw new ArgumentOutOfRangeException(GetArgumentName(argument));
         }
 
-        internal static void ThrowArraySegmentCtorValidationFailedExceptions(Array array, int offset, int count)
+        internal static void ThrowArraySegmentCtorValidationFailedExceptions(int length, int offset, int count)
         {
-            throw GetArraySegmentCtorValidationFailedException(array, offset, count);
+            throw GetArraySegmentCtorValidationFailedException(length, offset, count);
         }
 
         private static string GetArgumentName(ExceptionArgument argument)
@@ -43,18 +43,15 @@ namespace Phlogopite
             return new ArgumentNullException(GetArgumentName(argument));
         }
 
-        private static Exception GetArraySegmentCtorValidationFailedException(Array array, int offset, int count)
+        private static Exception GetArraySegmentCtorValidationFailedException(int length, int offset, int count)
         {
-            if (array is null)
-                return new ArgumentNullException(nameof(array));
-
             if (offset < 0)
                 return new ArgumentOutOfRangeException(nameof(offset), SR.ArgumentOutOfRange_NeedNonNegNum);
 
             if (count < 0)
                 return new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_NeedNonNegNum);
 
-            Debug.Assert(array.Length - offset < count);
+            Debug.Assert(length - offset < count);
             return new ArgumentException(SR.Argument_InvalidOffLen);
         }
     }

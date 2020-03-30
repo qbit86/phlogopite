@@ -29,7 +29,7 @@ namespace Phlogopite
             _logger = logger;
         }
 
-        public int MaxAttachedPropertyCount => 1 + _logger.MaxAttachedPropertyCount;
+        public int GetMaxAttachedPropertyCount() => 1 + _logger.GetMaxAttachedPropertyCount();
 
         public void UncheckedWrite(Level level, string text, ReadOnlySpan<NamedProperty> userProperties,
             PropertyCollection attachedProperties)

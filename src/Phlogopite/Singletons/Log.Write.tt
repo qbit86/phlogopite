@@ -8,44 +8,44 @@ namespace Phlogopite.Singletons
     public static partial class Log
     {
 <#
-const int startPropertyCount = 1;
-const int maxPropertyCount = 4;
+    const int startPropertyCount = 1;
+    const int maxPropertyCount = 4;
 
-for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
-{
-    ClearIndent();
-    if (propertyCount != startPropertyCount)
-        WriteLine(string.Empty);
-
-    PushIndent("        ");
-    WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
-    WriteLine("public static void Write(Level level, string category, string text,");
-    PushIndent("    ");
-    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+    for (int propertyCount = startPropertyCount; propertyCount <= maxPropertyCount; ++propertyCount)
     {
-        if (propertyIndex != 0)
-            Write(", ");
+        ClearIndent();
+        if (propertyCount != startPropertyCount)
+            WriteLine(string.Empty);
 
-        Write("in NamedProperty p" + propertyIndex);
+        PushIndent("        ");
+        WriteLine("[MethodImpl(MethodImplOptions.AggressiveInlining)]");
+        WriteLine("public static void Write(Level level, string category, string text,");
+        PushIndent("    ");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        {
+            if (propertyIndex != 0)
+                Write(", ");
+
+            Write("in NamedProperty p" + propertyIndex);
+        }
+
+        WriteLine(",");
+        WriteLine("[CallerMemberName] string source = null)");
+        PopIndent();
+        WriteLine("{");
+        Write("    Logger.Write(level, category, text, ");
+        for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
+        {
+            if (propertyIndex != 0)
+                Write(", ");
+
+            Write("p" + propertyIndex);
+        }
+
+        WriteLine(", source);");
+        WriteLine("}");
+        ClearIndent();
     }
-
-    WriteLine(",");
-    WriteLine("[CallerMemberName] string source = null)");
-    PopIndent();
-    WriteLine("{");
-    Write($"    Logger.Write(level, category, text, ");
-    for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
-    {
-        if (propertyIndex != 0)
-            Write(", ");
-
-        Write("p" + propertyIndex);
-    }
-
-    WriteLine(", source);");
-    WriteLine("}");
-    ClearIndent();
-}
 #>
     }
 }

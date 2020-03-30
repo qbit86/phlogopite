@@ -36,7 +36,7 @@ namespace Phlogopite.Extensions.Common
         {
             Debug.Assert(logger != null, "logger != null");
 
-            return Math.Max(0, logger.MaxAttachedPropertyCount);
+            return Math.Max(0, logger.GetMaxAttachedPropertyCount());
         }
 
         private static void AllocateThenWrite0<TLogger>(TLogger logger, Level level, string text)

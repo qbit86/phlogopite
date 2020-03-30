@@ -27,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Formatting", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Phlogopite.Demo.01-Singleton", "samples\Phlogopite.Demo.01-Singleton\Phlogopite.Demo.01-Singleton.csproj", "{E62B73A8-17D5-4BC5-8C14-9927ADD0BDE8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{D60FD382-B335-4CC1-8D19-7C69C1278EE0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Console", "src\Phlogopite.Console\Phlogopite.Console.csproj", "{4D0E29BF-CD37-4DFD-AC6C-CA23E19B9150}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Phlogopite.Demo.00-Trivial", "samples\Phlogopite.Demo.00-Trivial\Phlogopite.Demo.00-Trivial.csproj", "{53E57970-8855-4219-A6FA-D5DE8BFC848D}"

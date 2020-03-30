@@ -1,30 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netstandard2.1;netcoreapp2.1</TargetFrameworks>
     <AssemblyVersion>0.5</AssemblyVersion>
-    <VersionPrefix>0.5.0</VersionPrefix>
-    <FileVersion>$(VersionPrefix)</FileVersion>
+    <FileVersion>0.5.0</FileVersion>
+    <TargetFrameworks>net461;netstandard1.3;netstandard2.0;netstandard2.1;netcoreapp2.1</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup>
     <Description>Text-based sinks for Phlogopite library — structured logging for .NET with low memory footprint.
 Commonly used types:
 Phlogopite.Formatter
 Phlogopite.IFormatter&lt;TProperty&gt;
 Phlogopite.Range</Description>
-    <PackageTags>phlogopite;logging;formatting;semantic;structured</PackageTags>
     <PackageReleaseNotes>https://github.com/qbit86/phlogopite/blob/develop/src/Phlogopite.Sinks.Formatting/CHANGELOG.md</PackageReleaseNotes>
-    <SignAssembly>true</SignAssembly>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageIcon>kopimi.png</PackageIcon>
+    <PackageTags>phlogopite;logging;formatting;semantic;structured</PackageTags>
+    <VersionPrefix>$(FileVersion)</VersionPrefix>
   </PropertyGroup>
-  <ItemGroup>
-    <None Include="$(RepoRoot)/assets/kopimi.png" Pack="true" PackagePath=""/>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461' OR '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="System.Memory" Version="4.5.3" />
-    <PackageReference Condition="'$(TargetFramework)' == 'netstandard1.3'" Include="System.Memory" Version="4.5.3" />
-    <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="System.Memory" Version="4.5.3" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phlogopite.Abstractions\Phlogopite.Abstractions.csproj" />
