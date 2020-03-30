@@ -1,6 +1,5 @@
 <Project>
   <PropertyGroup>
-    <Deterministic>true</Deterministic>
     <LangVersion>latest</LangVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
