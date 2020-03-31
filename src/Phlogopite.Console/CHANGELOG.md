@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Changed
+- Update Phlogopite.Abstractions to 0.6.0.
+
 ## [0.5.1] - 2019-10-27
 ### Fixed
 - Missing name of the first user property.
@@ -16,6 +20,7 @@
 - `ConsoleLogger`
 - `ConsoleLoggerBuilder`
 
+[Unreleased]: https://github.com/qbit86/phlogopite/compare/console-0.5.1...HEAD
 [0.5.1]: https://github.com/qbit86/phlogopite/compare/console-0.5.0...console-0.5.1
 [0.5.0]: https://github.com/qbit86/phlogopite/compare/console-0.2.0...console-0.5.0
 [0.2.0]: https://github.com/qbit86/phlogopite/releases/tag/console-0.2.0
