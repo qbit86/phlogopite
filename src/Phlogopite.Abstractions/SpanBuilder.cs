@@ -28,13 +28,13 @@ namespace Phlogopite
             _count = availableSpan.Length;
         }
 
-        public SpanBuilder(Span<T> availableSpan, int offset, int count)
+        public SpanBuilder(Span<T> availableSpan, int offset, int initialCount)
         {
-            if ((uint)offset > (uint)availableSpan.Length || (uint)count > (uint)(availableSpan.Length - offset))
-                ThrowHelper.ThrowArraySegmentCtorValidationFailedExceptions(availableSpan.Length, offset, count);
+            if ((uint)offset > (uint)availableSpan.Length || (uint)initialCount > (uint)(availableSpan.Length - offset))
+                ThrowHelper.ThrowArraySegmentCtorValidationFailedExceptions(availableSpan.Length, offset, initialCount);
 
             _availableSpan = availableSpan.Slice(offset);
-            _count = count;
+            _count = initialCount;
         }
 
         public int Capacity => _availableSpan.Length;
