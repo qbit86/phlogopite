@@ -9,9 +9,9 @@ namespace Phlogopite
             return new SpanBuilder<T>(availableSpan);
         }
 
-        public static SpanBuilder<T> Create<T>(Span<T> availableSpan, int offset, int count)
+        public static SpanBuilder<T> Create<T>(Span<T> availableSpan, int initialCount)
         {
-            return new SpanBuilder<T>(availableSpan, offset, count);
+            return new SpanBuilder<T>(availableSpan, initialCount);
         }
     }
 
@@ -25,15 +25,15 @@ namespace Phlogopite
         public SpanBuilder(Span<T> availableSpan)
         {
             _availableSpan = availableSpan;
-            _count = availableSpan.Length;
+            _count = 0;
         }
 
-        public SpanBuilder(Span<T> availableSpan, int offset, int initialCount)
+        public SpanBuilder(Span<T> availableSpan, int initialCount)
         {
-            if ((uint)offset > (uint)availableSpan.Length || (uint)initialCount > (uint)(availableSpan.Length - offset))
-                ThrowHelper.ThrowArraySegmentCtorValidationFailedExceptions(availableSpan.Length, offset, initialCount);
+            if ((uint)initialCount > (uint)availableSpan.Length)
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.initialCount);
 
-            _availableSpan = availableSpan.Slice(offset);
+            _availableSpan = availableSpan;
             _count = initialCount;
         }
 
@@ -57,7 +57,7 @@ namespace Phlogopite
 
         public static implicit operator SpanBuilder<T>(ArraySegment<T> segment)
         {
-            return new SpanBuilder<T>(segment.Array, segment.Offset, segment.Count);
+            return new SpanBuilder<T>(segment.AsSpan());
         }
 
         public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> spanBuilder)
@@ -106,7 +106,7 @@ namespace Phlogopite
             }
 
             _availableSpan[_count] = item;
-            result = new SpanBuilder<T>(_availableSpan, 0, _count + 1);
+            result = new SpanBuilder<T>(_availableSpan, _count + 1);
             return true;
         }
 
