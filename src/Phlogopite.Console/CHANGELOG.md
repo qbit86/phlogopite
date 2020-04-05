@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased] - 2020-04-05
+### Changed
+- Update Phlogopite.Abstractions to 0.7.0.
+
 ## [0.6.0] - 2020-03-31
 ### Changed
 - Update Phlogopite.Abstractions to 0.6.0.
@@ -20,6 +24,7 @@
 - `ConsoleLogger`
 - `ConsoleLoggerBuilder`
 
+[Unreleased]: https://github.com/qbit86/phlogopite/compare/console-0.6.0...HEAD
 [0.6.0]: https://github.com/qbit86/phlogopite/compare/console-0.5.1...console-0.6.0
 [0.5.1]: https://github.com/qbit86/phlogopite/compare/console-0.5.0...console-0.5.1
 [0.5.0]: https://github.com/qbit86/phlogopite/compare/console-0.2.0...console-0.5.0
