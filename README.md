@@ -38,7 +38,7 @@ using Phlogopite.Extensions.Source;
 ```cs
 public interface ILogger<TProperty>
 {
-    int MaxAttachedPropertyCount { get; }
+    int GetMaxAttachedPropertyCount();
     bool IsEnabled(Level level);
     void UncheckedWrite(Level level, string text, ReadOnlySpan<TProperty> userProperties,
         SpanBuilder<TProperty> attachedProperties);
