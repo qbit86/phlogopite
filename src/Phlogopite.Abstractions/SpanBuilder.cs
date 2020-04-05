@@ -4,40 +4,35 @@ namespace Phlogopite
 {
     public static class SpanBuilder
     {
-        public static SpanBuilder<T> Create<T>(Span<T> span)
-        {
-            return new SpanBuilder<T>(span);
-        }
+        public static SpanBuilder<T> Create<T>(Span<T> availableSpan) => new SpanBuilder<T>(availableSpan);
 
-        public static SpanBuilder<T> Create<T>(Span<T> span, int offset, int count)
-        {
-            return new SpanBuilder<T>(span, offset, count);
-        }
+        public static SpanBuilder<T> Create<T>(Span<T> availableSpan, int initialCount) =>
+            new SpanBuilder<T>(availableSpan, initialCount);
     }
 
 #pragma warning disable CA1066 // Type {0} should implement IEquatable<T> because it overrides Equals
 
     public readonly ref struct SpanBuilder<T>
     {
-        private readonly Span<T> _span;
+        private readonly Span<T> _availableSpan;
         private readonly int _count;
 
-        public SpanBuilder(Span<T> span)
+        public SpanBuilder(Span<T> availableSpan)
         {
-            _span = span;
-            _count = span.Length;
+            _availableSpan = availableSpan;
+            _count = 0;
         }
 
-        public SpanBuilder(Span<T> span, int offset, int count)
+        public SpanBuilder(Span<T> availableSpan, int initialCount)
         {
-            if ((uint)offset > (uint)span.Length || (uint)count > (uint)(span.Length - offset))
-                ThrowHelper.ThrowArraySegmentCtorValidationFailedExceptions(span.Length, offset, count);
+            if ((uint)initialCount > (uint)availableSpan.Length)
+                ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.initialCount);
 
-            _span = span.Slice(offset);
-            _count = count;
+            _availableSpan = availableSpan;
+            _count = initialCount;
         }
 
-        public int Capacity => _span.Length;
+        public int Capacity => _availableSpan.Length;
 
         public int Count => _count;
 
@@ -45,43 +40,29 @@ namespace Phlogopite
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
-        public static implicit operator SpanBuilder<T>(Span<T> span)
-        {
-            return new SpanBuilder<T>(span);
-        }
+        public static implicit operator SpanBuilder<T>(Span<T> span) => new SpanBuilder<T>(span);
 
-        public static implicit operator SpanBuilder<T>(T[] array)
-        {
-            return new SpanBuilder<T>(array);
-        }
+        public static implicit operator SpanBuilder<T>(T[] array) => new SpanBuilder<T>(array);
 
-        public static implicit operator SpanBuilder<T>(ArraySegment<T> segment)
-        {
-            return new SpanBuilder<T>(segment.Array, segment.Offset, segment.Count);
-        }
+        public static implicit operator SpanBuilder<T>(ArraySegment<T> segment) => new SpanBuilder<T>(segment.AsSpan());
 
-        public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> spanBuilder)
-        {
-            return spanBuilder._span.Slice(0, spanBuilder._count);
-        }
+        public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> spanBuilder) =>
+            spanBuilder._availableSpan.Slice(0, spanBuilder._count);
 
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
-        public ref readonly T this[int index] => ref _span[index];
+        public ref readonly T this[int index] => ref _availableSpan[index];
 
         // ReSharper disable InconsistentNaming
 
-        public ReadOnlySpan<T> AsSpan()
-        {
-            return _span.Slice(0, _count);
-        }
+        public ReadOnlySpan<T> AsSpan() => _availableSpan.Slice(0, _count);
 
         public ReadOnlySpan<T> AsSpan(int start)
         {
             if ((uint)start > (uint)_count)
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.start);
 
-            return _span.Slice(start, _count - start);
+            return _availableSpan.Slice(start, _count - start);
         }
 
         public ReadOnlySpan<T> AsSpan(int start, int length)
@@ -92,53 +73,35 @@ namespace Phlogopite
             if ((uint)length > (uint)(_count - start))
                 ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.length);
 
-            return _span.Slice(start, length);
+            return _availableSpan.Slice(start, length);
         }
 
         // ReSharper restore InconsistentNaming
 
         public bool TryAppend(T item, out SpanBuilder<T> result)
         {
-            if (_count >= _span.Length)
+            if (_count >= _availableSpan.Length)
             {
                 result = this;
                 return false;
             }
 
-            _span[_count] = item;
-            result = new SpanBuilder<T>(_span, 0, _count + 1);
+            _availableSpan[_count] = item;
+            result = new SpanBuilder<T>(_availableSpan, _count + 1);
             return true;
         }
 
-        public override string ToString()
-        {
-            return AsSpan().ToString();
-        }
+        public override string ToString() => AsSpan().ToString();
 
-        public bool Equals(SpanBuilder<T> other)
-        {
-            return _span == other._span && _count == other._count;
-        }
+        public bool Equals(SpanBuilder<T> other) => _availableSpan == other._availableSpan && _count == other._count;
 
-        public override bool Equals(object obj)
-        {
-            return false;
-        }
+        public override bool Equals(object obj) => false;
 
-        public override int GetHashCode()
-        {
-            return _count.GetHashCode();
-        }
+        public override int GetHashCode() => _count.GetHashCode();
 
-        public static bool operator ==(SpanBuilder<T> left, SpanBuilder<T> right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(SpanBuilder<T> left, SpanBuilder<T> right) => left.Equals(right);
 
-        public static bool operator !=(SpanBuilder<T> left, SpanBuilder<T> right)
-        {
-            return !left.Equals(right);
-        }
+        public static bool operator !=(SpanBuilder<T> left, SpanBuilder<T> right) => !left.Equals(right);
     }
 
 #pragma warning restore CA1066 // Type {0} should implement IEquatable<T> because it overrides Equals

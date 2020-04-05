@@ -23,7 +23,7 @@ namespace Phlogopite.Extensions.Common
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 userProperties[0] = p0;
-                var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
+                var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));
                 logger.UncheckedWrite(level, text, userProperties, attachedProperties);
             }
             finally
@@ -48,7 +48,7 @@ namespace Phlogopite.Extensions.Common
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
                 userProperties[0] = p0;
                 userProperties[1] = p1;
-                var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
+                var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));
                 logger.UncheckedWrite(level, text, userProperties, attachedProperties);
             }
             finally
@@ -74,7 +74,7 @@ namespace Phlogopite.Extensions.Common
                 userProperties[0] = p0;
                 userProperties[1] = p1;
                 userProperties[2] = p2;
-                var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
+                var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));
                 logger.UncheckedWrite(level, text, userProperties, attachedProperties);
             }
             finally
@@ -101,7 +101,7 @@ namespace Phlogopite.Extensions.Common
                 userProperties[1] = p1;
                 userProperties[2] = p2;
                 userProperties[3] = p3;
-                var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
+                var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));
                 logger.UncheckedWrite(level, text, userProperties, attachedProperties);
             }
             finally

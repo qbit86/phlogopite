@@ -52,7 +52,7 @@ namespace Phlogopite.Extensions.Common
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
-                var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
+                var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));
                 logger.UncheckedWrite(level, text, userProperties, attachedProperties);
             }
             finally

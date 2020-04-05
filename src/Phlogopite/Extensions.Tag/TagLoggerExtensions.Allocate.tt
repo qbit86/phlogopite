@@ -51,7 +51,7 @@ namespace Phlogopite.Extensions.Tag
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
             WriteLine($"    userProperties[{propertyIndex}] = p{propertyIndex};");
 
-        WriteLine("    var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);");
+        WriteLine("    var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));");
         WriteLine("    AppendThenWrite(logger, level, category, text, userProperties, attachedProperties, source);");
         WriteLine("}");
         WriteLine("finally");

@@ -17,21 +17,18 @@ namespace Phlogopite
             throw new ArgumentOutOfRangeException(GetArgumentName(argument));
         }
 
-        internal static void ThrowArraySegmentCtorValidationFailedExceptions(int length, int offset, int count)
-        {
-            throw GetArraySegmentCtorValidationFailedException(length, offset, count);
-        }
-
         private static string GetArgumentName(ExceptionArgument argument)
         {
             switch (argument)
             {
                 case ExceptionArgument.array:
-                    return "array";
+                    return nameof(ExceptionArgument.array);
+                case ExceptionArgument.initialCount:
+                    return nameof(ExceptionArgument.initialCount);
                 case ExceptionArgument.length:
-                    return "length";
+                    return nameof(ExceptionArgument.length);
                 case ExceptionArgument.start:
-                    return "start";
+                    return nameof(ExceptionArgument.start);
                 default:
                     Debug.Fail("The enum value is not defined, please check the ExceptionArgument Enum.");
                     return string.Empty;
@@ -42,18 +39,6 @@ namespace Phlogopite
         {
             return new ArgumentNullException(GetArgumentName(argument));
         }
-
-        private static Exception GetArraySegmentCtorValidationFailedException(int length, int offset, int count)
-        {
-            if (offset < 0)
-                return new ArgumentOutOfRangeException(nameof(offset), SR.ArgumentOutOfRange_NeedNonNegNum);
-
-            if (count < 0)
-                return new ArgumentOutOfRangeException(nameof(count), SR.ArgumentOutOfRange_NeedNonNegNum);
-
-            Debug.Assert(length - offset < count);
-            return new ArgumentException(SR.Argument_InvalidOffLen);
-        }
     }
 
     // ReSharper disable InconsistentNaming
@@ -61,6 +46,7 @@ namespace Phlogopite
     internal enum ExceptionArgument
     {
         array,
+        initialCount,
         length,
         start
     }

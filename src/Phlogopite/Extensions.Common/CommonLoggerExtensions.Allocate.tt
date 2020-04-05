@@ -50,7 +50,7 @@ namespace Phlogopite.Extensions.Common
         for (int propertyIndex = 0; propertyIndex != propertyCount; ++propertyIndex)
             WriteLine($"    userProperties[{propertyIndex}] = p{propertyIndex};");
 
-        WriteLine("    var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);");
+        WriteLine("    var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));");
         WriteLine("    logger.UncheckedWrite(level, text, userProperties, attachedProperties);");
         WriteLine("}");
         WriteLine("finally");
