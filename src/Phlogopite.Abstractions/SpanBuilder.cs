@@ -4,15 +4,10 @@ namespace Phlogopite
 {
     public static class SpanBuilder
     {
-        public static SpanBuilder<T> Create<T>(Span<T> availableSpan)
-        {
-            return new SpanBuilder<T>(availableSpan);
-        }
+        public static SpanBuilder<T> Create<T>(Span<T> availableSpan) => new SpanBuilder<T>(availableSpan);
 
-        public static SpanBuilder<T> Create<T>(Span<T> availableSpan, int initialCount)
-        {
-            return new SpanBuilder<T>(availableSpan, initialCount);
-        }
+        public static SpanBuilder<T> Create<T>(Span<T> availableSpan, int initialCount) =>
+            new SpanBuilder<T>(availableSpan, initialCount);
     }
 
 #pragma warning disable CA1066 // Type {0} should implement IEquatable<T> because it overrides Equals
@@ -45,25 +40,14 @@ namespace Phlogopite
 
 #pragma warning disable CA2225 // Operator overloads have named alternates
 
-        public static implicit operator SpanBuilder<T>(Span<T> span)
-        {
-            return new SpanBuilder<T>(span);
-        }
+        public static implicit operator SpanBuilder<T>(Span<T> span) => new SpanBuilder<T>(span);
 
-        public static implicit operator SpanBuilder<T>(T[] array)
-        {
-            return new SpanBuilder<T>(array);
-        }
+        public static implicit operator SpanBuilder<T>(T[] array) => new SpanBuilder<T>(array);
 
-        public static implicit operator SpanBuilder<T>(ArraySegment<T> segment)
-        {
-            return new SpanBuilder<T>(segment.AsSpan());
-        }
+        public static implicit operator SpanBuilder<T>(ArraySegment<T> segment) => new SpanBuilder<T>(segment.AsSpan());
 
-        public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> spanBuilder)
-        {
-            return spanBuilder._availableSpan.Slice(0, spanBuilder._count);
-        }
+        public static implicit operator ReadOnlySpan<T>(SpanBuilder<T> spanBuilder) =>
+            spanBuilder._availableSpan.Slice(0, spanBuilder._count);
 
 #pragma warning restore CA2225 // Operator overloads have named alternates
 
@@ -71,10 +55,7 @@ namespace Phlogopite
 
         // ReSharper disable InconsistentNaming
 
-        public ReadOnlySpan<T> AsSpan()
-        {
-            return _availableSpan.Slice(0, _count);
-        }
+        public ReadOnlySpan<T> AsSpan() => _availableSpan.Slice(0, _count);
 
         public ReadOnlySpan<T> AsSpan(int start)
         {
@@ -110,35 +91,17 @@ namespace Phlogopite
             return true;
         }
 
-        public override string ToString()
-        {
-            return AsSpan().ToString();
-        }
+        public override string ToString() => AsSpan().ToString();
 
-        public bool Equals(SpanBuilder<T> other)
-        {
-            return _availableSpan == other._availableSpan && _count == other._count;
-        }
+        public bool Equals(SpanBuilder<T> other) => _availableSpan == other._availableSpan && _count == other._count;
 
-        public override bool Equals(object obj)
-        {
-            return false;
-        }
+        public override bool Equals(object obj) => false;
 
-        public override int GetHashCode()
-        {
-            return _count.GetHashCode();
-        }
+        public override int GetHashCode() => _count.GetHashCode();
 
-        public static bool operator ==(SpanBuilder<T> left, SpanBuilder<T> right)
-        {
-            return left.Equals(right);
-        }
+        public static bool operator ==(SpanBuilder<T> left, SpanBuilder<T> right) => left.Equals(right);
 
-        public static bool operator !=(SpanBuilder<T> left, SpanBuilder<T> right)
-        {
-            return !left.Equals(right);
-        }
+        public static bool operator !=(SpanBuilder<T> left, SpanBuilder<T> right) => !left.Equals(right);
     }
 
 #pragma warning restore CA1066 // Type {0} should implement IEquatable<T> because it overrides Equals
