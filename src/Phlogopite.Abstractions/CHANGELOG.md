@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0] - 2020-04-05
+### Fixed
+- Bug in `SpanBuilder<T>` resulting in properties being not attached.
+
+### Removed
+- `SpanBuilder<T>` constructor overload taking three arguments.
+
 ## [0.6.0] - 2020-03-31
 ### Changed
 - Replace `MaxAttachedPropertyCount` property with `GetMaxAttachedPropertyCount()` method.
@@ -33,6 +40,7 @@
 ### Added
 - Basic building blocks for logging pipeline: `IMediator<TProperty>`, `ISink<TProperty>`, `IWriter<TProperty>`.
 
+[0.7.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.6.0...abstractions-0.7.0
 [0.6.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.5.0...abstractions-0.6.0
 [0.5.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.4.0...abstractions-0.5.0
 [0.4.0]: https://github.com/qbit86/phlogopite/compare/abstractions-0.3.0...abstractions-0.4.0

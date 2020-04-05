@@ -56,7 +56,7 @@ namespace Phlogopite.Extensions.Source
             try
             {
                 Span<NamedProperty> userProperties = properties.AsSpan(0, userPropertyCount);
-                var attachedProperties = new PropertyCollection(properties, userPropertyCount, 0);
+                var attachedProperties = new PropertyCollection(properties.AsSpan(userPropertyCount));
                 AppendThenWrite(logger, level, text, userProperties, attachedProperties, source);
             }
             finally
