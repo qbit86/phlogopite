@@ -106,7 +106,7 @@ namespace Phlogopite
             }
 
             _span[_count] = item;
-            result = _span.Slice(0, _count + 1);
+            result = new SpanBuilder<T>(_span, 0, _count + 1);
             return true;
         }
 
